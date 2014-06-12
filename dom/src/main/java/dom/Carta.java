@@ -4,10 +4,10 @@ import java.util.List;
 
 public class Carta {
 
-	private List<Guarnicion>lguarniciones;
-	private List<Menu> lmenues;
-	private List<Postre> lpostre;
-	private List<Plato> lplatosprincipales;
-	private List<Plato> lplatosentrada;
-	
+	private List<Guarnicion> listaGuarniciones;
+	private List<Menu> listaMenues;
+	private List<Postre> listaPostre;
+	private List<Plato> listaPlatosPrincipales;
+	private List<Plato> listaPlatosEntrada;
+
 }
