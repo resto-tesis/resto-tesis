@@ -18,6 +18,7 @@ hs_err_pid*
 *.log
 .project
 .classpath
+*.directory
 
 #archivos de eclipse
 *.settings
