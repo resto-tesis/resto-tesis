@@ -1,4 +1,4 @@
-package mesa;
+package dom.mesa;
 
 import java.util.ArrayList;
 import java.util.List;

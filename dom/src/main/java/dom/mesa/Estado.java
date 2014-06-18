@@ -1,4 +1,4 @@
-package mesa;
+package dom.mesa;
 
 import org.apache.isis.applib.annotation.MemberOrder;
 
