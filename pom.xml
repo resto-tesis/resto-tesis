@@ -20,7 +20,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.mycompany</groupId>
-    <artifactId>myapp</artifactId>
+    <artifactId>resto</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <name>Quickstart Wicket/Restful/JDO App</name>
@@ -395,7 +395,7 @@
   <modules>
     <module>dom</module>
     <module>fixture</module>
-    <module>integtests</module>
+<!--     <module>integtests</module> -->
     <module>webapp</module>
   </modules>
 </project>

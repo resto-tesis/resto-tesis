@@ -21,11 +21,11 @@
 
     <parent>
     	<groupId>com.mycompany</groupId>
-        <artifactId>myapp</artifactId>
+        <artifactId>resto</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-	<artifactId>myapp-fixture</artifactId>
+	<artifactId>resto-fixture</artifactId>
 	<name>Quickstart Wicket/Restful/JDO Fixtures</name>
 
 	<dependencies>
