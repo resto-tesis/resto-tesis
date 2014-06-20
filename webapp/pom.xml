@@ -133,7 +133,7 @@
         <!-- other modules in this project -->
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>myapp-dom</artifactId>
+            <artifactId>resto-dom</artifactId>
             <exclusions>
                 <exclusion>
                     <!-- so don't pick up transitive dependency to asm 4.0.0 -->
@@ -144,7 +144,7 @@
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>myapp-fixture</artifactId>
+            <artifactId>resto-fixture</artifactId>
             <exclusions>
                 <exclusion>
                     <!-- so don't pick up transitive dependency to asm 4.0.0 -->
