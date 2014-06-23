@@ -1,18 +1,13 @@
 package dom.mesa;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.jdo.annotations.IdentityType;
 
+import org.apache.isis.applib.AbstractDomainObject;
+import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.MemberOrder;
 
-import dom.Comanda;
-
-public class Mesa {
-
-	public Mesa() {
-		// TODO Auto-generated constructor stub
-
-	}
+@javax.jdo.annotations.PersistenceCapable(identityType = IdentityType.DATASTORE)
+public class Mesa extends AbstractDomainObject {
 
 	// {{ numeroMesa (property)
 	private int numeroMesa;
@@ -26,65 +21,81 @@ public class Mesa {
 		this.numeroMesa = numeroMesa;
 	}
 
-	// }}
-	// {{ capacidadMesa (property)
+	// {{ CapacidadMesa (property)
 	private int capacidadMesa;
 
-	@MemberOrder(sequence = "1")
-	public int getcapacidadMesa() {
+	@MemberOrder(sequence = "")
+	public int getCapacidadMesa() {
 		return capacidadMesa;
 	}
 
-	public void setcapacidadMesa(final int capacidadMesa) {
+	public void setCapacidadMesa(final int capacidadMesa) {
 		this.capacidadMesa = capacidadMesa;
-		// }}
 	}
 
-	// {{ listaComandas (Collection)
-	private List<Comanda> listaComandas = new ArrayList<Comanda>();
+	// {{ CondicionMesa (property)
+	private Estado condicionMesa;
 
-	@MemberOrder(sequence = "1")
-	public List<Comanda> getlistaComandas() {
-		return listaComandas;
+	@MemberOrder(sequence = "")
+	public Estado getCondicionMesa() {
+		return condicionMesa;
 	}
 
-	public void setlistaComandas(final List<Comanda> listaComandas) {
-		this.listaComandas = listaComandas;
-	}
-
-	// }}
-
-	// {{ cantidadDeComensales (property)
-	private int cantidadDeComensales;
-
-	@MemberOrder(sequence = "1")
-	public int getcantidadDeComensales() {
-		return cantidadDeComensales;
-	}
-
-	public void setcantidadDeComensales(final int cantidadDeComensales) {
-		this.cantidadDeComensales = cantidadDeComensales;
-	}
-
-	// }}
-
-	// {{ estadoMesa (property)
-	private Estado estadoMesa;
-
-	@MemberOrder(sequence = "1")
-	public Estado getestadoMesa() {
-		return estadoMesa;
-	}
-
-	public void setestadoMesa(final Estado estadoMesa) {
-		this.estadoMesa = estadoMesa;
+	public void setCondicionMesa(final Estado condicionMesa) {
+		this.condicionMesa = condicionMesa;
 	}
 	// }}
 
 
 
+	
+	// }}
 
+	// // {{ listaComandas (Collection)
+	// private List<Comanda> listaComandas = new ArrayList<Comanda>();
+	//
+	// @MemberOrder(sequence = "1")
+	// public List<Comanda> getlistaComandas() {
+	// return listaComandas;
+	// }
+	//
+	// public void setlistaComandas(final List<Comanda> listaComandas) {
+	// this.listaComandas = listaComandas;
+	// }
+	//
+	// // }}
+	//
+	// // {{ cantidadDeComensales (property)
+	// private int cantidadDeComensales;
+	//
+	// @MemberOrder(sequence = "1")
+	// public int getcantidadDeComensales() {
+	// return cantidadDeComensales;
+	// }
+	//
+	// public void setcantidadDeComensales(final int cantidadDeComensales) {
+	// this.cantidadDeComensales = cantidadDeComensales;
+	// }
+	//
 
-
-
+	// private DomainObjectContainer contenedor;
+	//
+	// public void injectDomainObjectContainer(
+	// final DomainObjectContainer container) {
+	// this.setContainer(container);
+	// }
+	//
+	// public DomainObjectContainer getContainer() {
+	// return contenedor;
+	// }
+	//
+	// public void setContainer(final DomainObjectContainer container) {
+	// this.contenedor = container;
+	// }
+	//
+	// private MesaServicio mesaServicio;
+	//
+	// public void injectarMesaServicio(MesaServicio mesaServicio) {
+	// this.mesaServicio = mesaServicio;
+	// }
 }
