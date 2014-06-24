@@ -1,4 +1,4 @@
-package empleado;
+package dom.empleado;
 
 import java.util.Date;
 
