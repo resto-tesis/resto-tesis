@@ -27,7 +27,7 @@ public class MesaServicio extends AbstractFactoryAndRepository {
 		final Mesa mesa = newTransientInstance(Mesa.class);
 		mesa.setCapacidadMesa(capacidadMesa);
 		mesa.setNumeroMesa(numero);
-		mesa.setCondicionMesa(estadoMesa);
+		mesa.setEstadoMesa(estadoMesa);
 		persist(mesa);
 		return mesa;
 	}

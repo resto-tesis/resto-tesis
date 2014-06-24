@@ -12,6 +12,7 @@ public class Mesa extends AbstractDomainObject {
 	// {{ numeroMesa (property)
 	private int numeroMesa;
 
+	@javax.jdo.annotations.Column(allowsNull = "false")
 	@MemberOrder(sequence = "1")
 	public int getNumeroMesa() {
 		return numeroMesa;
@@ -24,6 +25,7 @@ public class Mesa extends AbstractDomainObject {
 	// {{ CapacidadMesa (property)
 	private int capacidadMesa;
 
+	@javax.jdo.annotations.Column(allowsNull = "false")
 	@MemberOrder(sequence = "")
 	public int getCapacidadMesa() {
 		return capacidadMesa;
@@ -33,69 +35,18 @@ public class Mesa extends AbstractDomainObject {
 		this.capacidadMesa = capacidadMesa;
 	}
 
-	// {{ CondicionMesa (property)
-	private Estado condicionMesa;
+	// {{ EstadoMesa (property)
+	private Estado estadoMesa;
 
-	@MemberOrder(sequence = "")
-	public Estado getCondicionMesa() {
-		return condicionMesa;
+	@javax.jdo.annotations.Column(allowsNull = "false")
+	@MemberOrder(sequence = "1")
+	public Estado getEstadoMesa() {
+		return estadoMesa;
 	}
 
-	public void setCondicionMesa(final Estado condicionMesa) {
-		this.condicionMesa = condicionMesa;
+	public void setEstadoMesa(final Estado estadoMesa) {
+		this.estadoMesa = estadoMesa;
 	}
 	// }}
 
-
-
-	
-	// }}
-
-	// // {{ listaComandas (Collection)
-	// private List<Comanda> listaComandas = new ArrayList<Comanda>();
-	//
-	// @MemberOrder(sequence = "1")
-	// public List<Comanda> getlistaComandas() {
-	// return listaComandas;
-	// }
-	//
-	// public void setlistaComandas(final List<Comanda> listaComandas) {
-	// this.listaComandas = listaComandas;
-	// }
-	//
-	// // }}
-	//
-	// // {{ cantidadDeComensales (property)
-	// private int cantidadDeComensales;
-	//
-	// @MemberOrder(sequence = "1")
-	// public int getcantidadDeComensales() {
-	// return cantidadDeComensales;
-	// }
-	//
-	// public void setcantidadDeComensales(final int cantidadDeComensales) {
-	// this.cantidadDeComensales = cantidadDeComensales;
-	// }
-	//
-
-	// private DomainObjectContainer contenedor;
-	//
-	// public void injectDomainObjectContainer(
-	// final DomainObjectContainer container) {
-	// this.setContainer(container);
-	// }
-	//
-	// public DomainObjectContainer getContainer() {
-	// return contenedor;
-	// }
-	//
-	// public void setContainer(final DomainObjectContainer container) {
-	// this.contenedor = container;
-	// }
-	//
-	// private MesaServicio mesaServicio;
-	//
-	// public void injectarMesaServicio(MesaServicio mesaServicio) {
-	// this.mesaServicio = mesaServicio;
-	// }
 }
