@@ -1,13 +1,18 @@
 package dom.mesa;
 
+import java.util.List;
+
 import javax.jdo.annotations.IdentityType;
 
 import org.apache.isis.applib.AbstractDomainObject;
 import org.apache.isis.applib.DomainObjectContainer;
+import org.apache.isis.applib.annotation.Bulk;
 import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.annotation.Named;
 
 @javax.jdo.annotations.PersistenceCapable(identityType = IdentityType.DATASTORE)
-public class Mesa extends AbstractDomainObject {
+
+public class Mesa {
 
 	// {{ numeroMesa (property)
 	private int numeroMesa;
@@ -48,5 +53,40 @@ public class Mesa extends AbstractDomainObject {
 		this.estadoMesa = estadoMesa;
 	}
 	// }}
+	
+	@Named("Borrar")
+    @Bulk
+    @MemberOrder(name="accionMesa", sequence = "1")
+    public List<Mesa> borrar() {
+    	
+    	contenedor.removeIfNotAlready(this);
+    	
+    	return mesaServicio.listarMesas();
+    }
+
+    //{{ injected: DomainObjectContainer
+    private DomainObjectContainer contenedor;
+
+    public void injectDomainObjectContainer(final DomainObjectContainer container) {
+        this.setContainer(container);
+    }
+
+	public DomainObjectContainer getContainer() {
+		return contenedor;
+	}
+
+	public void setContainer(DomainObjectContainer container) {
+		this.contenedor = container;
+	}
+
+	/*
+	 * Inyección del servicio
+	 */
+
+	private MesaServicio mesaServicio;
+
+	public void injectarMesaServicio(final MesaServicio serviciomesa) {
+        this.mesaServicio = serviciomesa;
+	}
 
 }
