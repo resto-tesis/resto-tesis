@@ -304,7 +304,7 @@
     </resource-ref>
      -->
 
-
+<!--
     <servlet>
          <servlet-name>QuartzInitializer</servlet-name>
          <servlet-class>org.quartz.ee.servlet.QuartzInitializerServlet</servlet-class>
@@ -322,6 +322,6 @@
          </init-param>
          <load-on-startup>1</load-on-startup>
      </servlet>
-
+     -->
 
 </web-app>
