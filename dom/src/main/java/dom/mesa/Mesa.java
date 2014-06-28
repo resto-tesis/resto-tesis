@@ -68,20 +68,23 @@ public class Mesa {
     private DomainObjectContainer contenedor;
 
     public void injectDomainObjectContainer(final DomainObjectContainer container) {
-        this.setContainer(container);
+        this.setContenedor(container);
     }
-
-	public DomainObjectContainer getContainer() {
+    
+    public DomainObjectContainer getContenedor() {
 		return contenedor;
 	}
 
-	public void setContainer(DomainObjectContainer container) {
-		this.contenedor = container;
+	public void setContenedor(DomainObjectContainer contenedor) {
+		this.contenedor = contenedor;
 	}
+	
 
 	/*
 	 * Inyección del servicio
 	 */
+
+	
 
 	private MesaServicio mesaServicio;
 
