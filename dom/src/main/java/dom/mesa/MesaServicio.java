@@ -15,8 +15,8 @@ public class MesaServicio extends AbstractFactoryAndRepository {
 	@Named("Crear")
 	@MemberOrder(sequence = "1")
 	public Mesa crearMesa(@Named("Numero") final int numero,
-			@Named("Capacidad de la Mesa") final int capacidadMesa,
-			@Named("Estado de la mesa") final Estado estadoMesa) {
+			@Named("Capacidad") final int capacidadMesa,
+			@Named("Estado") final Estado estadoMesa) {
 		return crearMesaNueva(numero, capacidadMesa, estadoMesa); // TODO: business logic
 														// here
 	}
