@@ -2,8 +2,13 @@ package dom.empleado;
 
 import java.util.Date;
 
+import javax.jdo.annotations.IdentityType;
+import javax.jdo.annotations.PersistenceCapable;
+
 import org.apache.isis.applib.annotation.MemberOrder;
 
+
+@javax.jdo.annotations.PersistenceCapable(identityType = IdentityType.DATASTORE)
 public abstract class Empleado {
 
 	// {{ legajo (property)
@@ -22,7 +27,7 @@ public abstract class Empleado {
 // {{ apellido (property)
 private String apellido;
 
-@MemberOrder(sequence = "1")
+@MemberOrder(sequence = "2")
 public String getapellido() {
 	return apellido;
 }
@@ -35,7 +40,7 @@ public void setapellido(final String apellido) {
 // {{ nombre (property)
 private String nombre;
 
-@MemberOrder(sequence = "1")
+@MemberOrder(sequence = "3")
 public String getnombre() {
 	return nombre;
 }
@@ -48,7 +53,7 @@ public void setnombre(final String nombre) {
 // {{ documento (property)
 private long documento;
 
-@MemberOrder(sequence = "1")
+@MemberOrder(sequence = "4")
 public long getdocumento() {
 	return documento;
 }
@@ -61,7 +66,7 @@ public void setdocumento(final long documento) {
 // {{ fechadeNacimiento (property)
 private Date fechadeNacimiento;
 
-@MemberOrder(sequence = "1")
+@MemberOrder(sequence = "5")
 public Date getfechadeNacimiento() {
 	return fechadeNacimiento;
 }
@@ -74,7 +79,7 @@ public void setfechadeNacimiento(final Date fechadeNacimiento) {
 // {{ fechadeIngreso (property)
 private Date fechadeIngreso;
 
-@MemberOrder(sequence = "1")
+@MemberOrder(sequence = "6")
 public Date getfechadeIngreso() {
 	return fechadeIngreso;
 }
