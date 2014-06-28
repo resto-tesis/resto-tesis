@@ -4,8 +4,9 @@ import java.util.Date;
 
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
-
 import org.apache.isis.applib.annotation.MemberOrder;
+
+
 
 
 @javax.jdo.annotations.PersistenceCapable(identityType = IdentityType.DATASTORE)
@@ -88,6 +89,5 @@ public void setfechadeIngreso(final Date fechadeIngreso) {
 	this.fechadeIngreso = fechadeIngreso;
 }
 // }}
-
 
 }

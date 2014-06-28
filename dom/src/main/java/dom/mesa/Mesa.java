@@ -83,9 +83,6 @@ public class Mesa {
 	/*
 	 * Inyección del servicio
 	 */
-
-	
-
 	private MesaServicio mesaServicio;
 
 	public void injectarMesaServicio(final MesaServicio serviciomesa) {
