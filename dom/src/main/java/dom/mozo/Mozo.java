@@ -19,11 +19,11 @@ public class Mozo extends Empleado {
 private List<Mesa> listamesas = new ArrayList<Mesa>();
 
 @MemberOrder(sequence = "1")
-public List<Mesa> getlistamesas() {
+public List<Mesa> getListamesas() {
 	return listamesas;
 }
 
-public void setlistamesas(final List<Mesa> listamesas) {
+public void setListamesas(final List<Mesa> listamesas) {
 	this.listamesas = listamesas;
 }
 // }}
