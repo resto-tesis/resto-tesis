@@ -19,18 +19,17 @@ public class CocineroServicio extends AbstractFactoryAndRepository {
 
 	@Named("Crear")
 	@MemberOrder(sequence = "1")
-	public Cocinero crearCocinero(@Named("Legajo") final int _legajo,
-			@Named("Apellido") final String _apellido,
+	public Cocinero crearCocinero(@Named("Apellido") final String _apellido,
 			@Named("Nombre") final String _nombre,
-			@Named("DNI") final long _dni,
+			@Named("Documento") final long _dni,
 			@Named("Fecha de Nacimiento") final Date _fechaNacimiento,
 			@Named("Fecha de Ingreso") final Date _fechaIngreso) {
-		return crearNuevoCocinero(_legajo, _nombre, _apellido, _dni,
-				_fechaNacimiento, _fechaIngreso);
+		return crearNuevoCocinero(_nombre, _apellido, _dni, _fechaNacimiento,
+				_fechaIngreso);
 	}
 
 	@Hidden
-	public Cocinero crearNuevoCocinero(final int _legajo, final String _nombre,
+	public Cocinero crearNuevoCocinero(final String _nombre,
 			final String _apellido, final long _dni,
 			final Date _fechaNacimiento, final Date _fechaIngreso) {
 		final Cocinero cocineroNuevo = newTransientInstance(Cocinero.class);
@@ -38,7 +37,6 @@ public class CocineroServicio extends AbstractFactoryAndRepository {
 		cocineroNuevo.setDocumento(_dni);
 		cocineroNuevo.setFechadeIngreso(_fechaIngreso);
 		cocineroNuevo.setFechadeNacimiento(_fechaNacimiento);
-		cocineroNuevo.setLegajo(_legajo);
 		cocineroNuevo.setNombre(_nombre);
 		persist(cocineroNuevo);
 		return cocineroNuevo;
