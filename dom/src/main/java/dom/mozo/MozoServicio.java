@@ -29,12 +29,12 @@ public class MozoServicio extends AbstractFactoryAndRepository{
 	@Hidden
 	public Mozo crearNuevoMozo(final int legajo, final String apellido, final String nombre, final long documento, final Date fechaDeIngreso,final Date fechaDeNacimiento) {
 		final Mozo  mozo = newTransientInstance(Mozo.class);
-		mozo.setlegajo(legajo);
-		mozo.setapellido(apellido);
-		mozo.setnombre(nombre);
-		mozo.setdocumento(documento);
-		mozo.setfechadeIngreso (fechaDeIngreso);
-		mozo.setfechadeNacimiento(fechaDeNacimiento);
+		mozo.setLegajo(legajo);
+		mozo.setApellido(apellido);
+		mozo.setNombre(nombre);
+		mozo.setDocumento(documento);
+		mozo.setFechadeIngreso (fechaDeIngreso);
+		mozo.setFechadeNacimiento(fechaDeNacimiento);
 		persist(mozo);
 		return mozo;
 	}

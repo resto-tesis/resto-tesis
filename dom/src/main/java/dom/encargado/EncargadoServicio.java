@@ -28,12 +28,12 @@ public class EncargadoServicio extends AbstractFactoryAndRepository {
 	@Hidden
 	public Encargado crearEncargadoNuevo(final int legajoEncargado, final String apellidoEncargado, final String nombreEncargado, final long documentoEncargado, final Date fechadeNacimientoEncargado, final Date fechadeIngresoEncargado) {
 		final Encargado encargado = newTransientInstance(Encargado.class);
-		encargado.setlegajo(legajoEncargado);
-		encargado.setapellido(apellidoEncargado);
-		encargado.setnombre(nombreEncargado);
-		encargado.setdocumento(documentoEncargado);
-		encargado.setfechadeNacimiento(fechadeNacimientoEncargado);
-		encargado.setfechadeIngreso(fechadeIngresoEncargado);
+		encargado.setLegajo(legajoEncargado);
+		encargado.setApellido(apellidoEncargado);
+		encargado.setNombre(nombreEncargado);
+		encargado.setDocumento(documentoEncargado);
+		encargado.setFechadeNacimiento(fechadeNacimientoEncargado);
+		encargado.setFechadeIngreso(fechadeIngresoEncargado);
 		persist(encargado);
 		return encargado;
 	}
