@@ -43,11 +43,10 @@ public class MozoServicio extends AbstractFactoryAndRepository {
 		persist(mozo);
 		return mozo;
 	}
-<<<<<<< HEAD
-	
-=======
 
->>>>>>> 6c7b933bcbe42381e02ebfae761b3d85681de17b
+
+
+
 	@Named("Listar")
 	@ActionSemantics(Of.SAFE)
 	@MemberOrder(sequence = "2")
@@ -55,7 +54,7 @@ public class MozoServicio extends AbstractFactoryAndRepository {
 		final List<Mozo> listamozos = allInstances(Mozo.class);
 		return listamozos;
 	}
-<<<<<<< HEAD
+
 	@Hidden
 	public List<Mesa> listaDeMesas(){
 		return allInstances(Mesa.class);
@@ -70,7 +69,5 @@ public class MozoServicio extends AbstractFactoryAndRepository {
         });
 	}
 	
-=======
 
->>>>>>> 6c7b933bcbe42381e02ebfae761b3d85681de17b
 }

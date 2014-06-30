@@ -4,10 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.jdo.annotations.IdentityType;
-<<<<<<< HEAD
-=======
 import javax.jdo.annotations.PersistenceCapable;
->>>>>>> 6c7b933bcbe42381e02ebfae761b3d85681de17b
 
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.ActionSemantics;
@@ -15,28 +12,21 @@ import org.apache.isis.applib.annotation.Bulk;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.MultiLine;
 import org.apache.isis.applib.annotation.Named;
-<<<<<<< HEAD
-import org.apache.isis.applib.annotation.ObjectType;
-import org.apache.isis.applib.annotation.Optional;
-import org.apache.isis.applib.annotation.ActionSemantics.Of;
-=======
->>>>>>> 6c7b933bcbe42381e02ebfae761b3d85681de17b
 
 import dom.empleado.Empleado;
 import dom.mesa.Mesa;
 
+
+
+
+
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 public class Mozo extends Empleado {
 
-<<<<<<< HEAD
+
  // {{ Lista De Mesas (Collection)
 	
-private List<Mesa> listamesas = new ArrayList<Mesa>();
-=======
-	// {{ listamesas (Collection)
 	private List<Mesa> listaMesas = new ArrayList<Mesa>();
->>>>>>> 6c7b933bcbe42381e02ebfae761b3d85681de17b
-
 	@MemberOrder(sequence = "1")
 	public List<Mesa> getListamesas() {
 		return listaMesas;
@@ -88,7 +78,7 @@ private List<Mesa> listamesas = new ArrayList<Mesa>();
 @MemberOrder(name="accionMesaMozo", sequence = "2")
 public  Mozo asignarMesasMozo(@Named("Numero de Mesa")final int numeroDeMesa){
 	
-	this.listamesas.add(mozoServicio.devolverMesa(numeroDeMesa));
+	this.listaMesas.add(mozoServicio.devolverMesa(numeroDeMesa));
 	return  this;
 	
 }
