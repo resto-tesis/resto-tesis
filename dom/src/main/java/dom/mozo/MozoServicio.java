@@ -7,8 +7,14 @@ import org.apache.isis.applib.AbstractFactoryAndRepository;
 import org.apache.isis.applib.annotation.ActionSemantics;
 import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.annotation.MultiLine;
 import org.apache.isis.applib.annotation.Named;
+import org.apache.isis.applib.annotation.Optional;
 import org.apache.isis.applib.annotation.ActionSemantics.Of;
+import org.apache.isis.applib.filter.Filter;
+
+import dom.mesa.Mesa;
+import dom.mesa.MesaServicio;
 
 
 
@@ -39,12 +45,25 @@ public class MozoServicio extends AbstractFactoryAndRepository{
 		return mozo;
 	}
 	
-	@Named("ListarMozos")
+	@Named("Listar")
 	@ActionSemantics(Of.SAFE)
 	@MemberOrder(sequence = "2")
 	public List<Mozo> listarMozos() {
 		final List<Mozo> listamozos = allInstances(Mozo.class);
 		return listamozos;
+	}
+	@Hidden
+	public List<Mesa> listaDeMesas(){
+		return allInstances(Mesa.class);
+	}
+	@Hidden 
+	public Mesa devolverMesa(final int numeroDeMesa){
+		return firstMatch(Mesa.class, new Filter<Mesa>() {
+        	@Override
+            public boolean accept(final Mesa m) {
+                return m.getNumeroMesa() == numeroDeMesa;
+            }
+        });
 	}
 	
 }
