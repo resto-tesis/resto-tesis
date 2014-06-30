@@ -2,19 +2,34 @@ package dom.empleado;
 
 import java.util.Date;
 
+import javax.jdo.annotations.Column;
+import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
+import javax.jdo.annotations.Inheritance;
 import javax.jdo.annotations.InheritanceStrategy;
+import javax.jdo.annotations.Persistent;
+import javax.jdo.annotations.SequenceStrategy;
 import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Sequence;
 
+import org.apache.isis.applib.annotation.Disabled;
 import org.apache.isis.applib.annotation.MemberOrder;
 
-@javax.jdo.annotations.PersistenceCapable(identityType = IdentityType.DATASTORE)
-@javax.jdo.annotations.Inheritance(strategy = InheritanceStrategy.COMPLETE_TABLE)
+@PersistenceCapable(identityType = IdentityType.DATASTORE)
+@Sequence(name = "secuenciaNombre", strategy = SequenceStrategy.CONTIGUOUS)
+@Inheritance(strategy = InheritanceStrategy.COMPLETE_TABLE)
 public abstract class Empleado {
+
+	public String title() {
+		return getApellido() + " " + getNombre();
+	}
 
 	// {{ legajo (property)
 	private int lejago;
-	@javax.jdo.annotations.Column(allowsNull = "false")
+
+	@Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT, sequence = "secuenciaNombre")
+	@Disabled
+	@Column(allowsNull = "false")
 	@MemberOrder(sequence = "1")
 	public int getLegajo() {
 		return lejago;
@@ -23,76 +38,81 @@ public abstract class Empleado {
 	public void setLegajo(final int lejago) {
 		this.lejago = lejago;
 	}
+
 	// }}
 
-// {{ apellido (property)
-private String apellido;
+	// {{ apellido (property)
+	private String apellido;
 
-@javax.jdo.annotations.Column(allowsNull = "false")
-@MemberOrder(sequence = "2")
-public String getApellido() {
-	return apellido;
-}
+	@Column(allowsNull = "false")
+	@MemberOrder(sequence = "2")
+	public String getApellido() {
+		return apellido;
+	}
 
-public void setApellido(final String apellido) {
-	this.apellido = apellido;
-}
-// }}
+	public void setApellido(final String apellido) {
+		this.apellido = apellido;
+	}
 
-// {{ nombre (property)
-private String nombre;
+	// }}
 
-@javax.jdo.annotations.Column(allowsNull = "false")
-@MemberOrder(sequence = "3")
-public String getNombre() {
-	return nombre;
-}
+	// {{ nombre (property)
+	private String nombre;
 
-public void setNombre(final String nombre) {
-	this.nombre = nombre;
-}
-// }}
+	@Column(allowsNull = "false")
+	@MemberOrder(sequence = "3")
+	public String getNombre() {
+		return nombre;
+	}
 
-// {{ documento (property)
-private long documento;
+	public void setNombre(final String nombre) {
+		this.nombre = nombre;
+	}
 
-@javax.jdo.annotations.Column(allowsNull = "false")
-@MemberOrder(sequence = "4")
-public long getDocumento() {
-	return documento;
-}
+	// }}
 
-public void setDocumento(final long documento) {
-	this.documento = documento;
-}
-// }}
+	// {{ documento (property)
+	private long documento;
 
-// {{ fechadeNacimiento (property)
-private Date fechadeNacimiento;
+	@Column(allowsNull = "false")
+	@MemberOrder(sequence = "4")
+	public long getDocumento() {
+		return documento;
+	}
 
-@javax.jdo.annotations.Column(allowsNull = "false")
-@MemberOrder(sequence = "5")
-public Date getFechadeNacimiento() {
-	return fechadeNacimiento;
-}
+	public void setDocumento(final long documento) {
+		this.documento = documento;
+	}
 
-public void setFechadeNacimiento(final Date fechadeNacimiento) {
-	this.fechadeNacimiento = fechadeNacimiento;
-}
-// }}
+	// }}
 
-// {{ fechadeIngreso (property)
-private Date fechadeIngreso;
+	// {{ fechadeNacimiento (property)
+	private Date fechadeNacimiento;
 
-@javax.jdo.annotations.Column(allowsNull = "false")
-@MemberOrder(sequence = "6")
-public Date getFechadeIngreso() {
-	return fechadeIngreso;
-}
+	@Column(allowsNull = "false")
+	@MemberOrder(sequence = "5")
+	public Date getFechadeNacimiento() {
+		return fechadeNacimiento;
+	}
 
-public void setFechadeIngreso(final Date fechadeIngreso) {
-	this.fechadeIngreso = fechadeIngreso;
-}
-// }}
+	public void setFechadeNacimiento(final Date fechadeNacimiento) {
+		this.fechadeNacimiento = fechadeNacimiento;
+	}
+
+	// }}
+
+	// {{ fechadeIngreso (property)
+	private Date fechadeIngreso;
+
+	@Column(allowsNull = "false")
+	@MemberOrder(sequence = "6")
+	public Date getFechadeIngreso() {
+		return fechadeIngreso;
+	}
+
+	public void setFechadeIngreso(final Date fechadeIngreso) {
+		this.fechadeIngreso = fechadeIngreso;
+	}
+	// }}
 
 }
