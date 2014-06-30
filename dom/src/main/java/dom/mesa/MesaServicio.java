@@ -14,20 +14,22 @@ public class MesaServicio extends AbstractFactoryAndRepository {
 
 	@Named("Crear")
 	@MemberOrder(sequence = "1")
-	public Mesa crearMesa(@Named("Numero") final int numero,
+	public Mesa crearMesa(
+			@Named("Numero") final int numero,
 			@Named("Capacidad") final int capacidadMesa,
-			@Named("Estado") final Estado estadoMesa) {
-		return crearMesaNueva(numero, capacidadMesa, estadoMesa); // TODO: business logic
-														// here
+			@Named("Estado de Habilitacion") final EstadoHabilitacionMesaEnum habilitacionMesa,
+			@Named("Estado de Asignacion") final EstadoAsignacionMesaEnum asignacionMesa) {
+		return crearMesaNueva(numero, capacidadMesa, habilitacionMesa, asignacionMesa); 
 	}
 
 	// }}
 	@Hidden
-	public Mesa crearMesaNueva(final int numero, final int capacidadMesa, final Estado estadoMesa) {
+	public Mesa crearMesaNueva(final int numero, final int capacidadMesa, final EstadoHabilitacionMesaEnum habilitacionMesa, final EstadoAsignacionMesaEnum asignacionMesa) {
 		final Mesa mesa = newTransientInstance(Mesa.class);
 		mesa.setCapacidadMesa(capacidadMesa);
 		mesa.setNumeroMesa(numero);
-		mesa.setEstadoMesa(estadoMesa);
+		mesa.setEstadoHabilitacionMesa(habilitacionMesa);
+		mesa.setEstadoAsignacionMesa(asignacionMesa);
 		persist(mesa);
 		return mesa;
 	}

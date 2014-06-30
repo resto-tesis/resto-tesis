@@ -1,6 +1,6 @@
 package dom.mesa;
 
-public enum Estado {
+public enum EstadoHabilitacionMesaEnum {
 	Ocupada, Desocupada;
 
 }

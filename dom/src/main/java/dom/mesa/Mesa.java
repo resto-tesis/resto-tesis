@@ -31,7 +31,7 @@ public class Mesa {
 	private int capacidadMesa;
 
 	@Column(allowsNull = "false")
-	@MemberOrder(sequence = "")
+	@MemberOrder(sequence = "2")
 	public int getCapacidadMesa() {
 		return capacidadMesa;
 	}
@@ -40,21 +40,37 @@ public class Mesa {
 		this.capacidadMesa = capacidadMesa;
 	}
 
-	// {{ EstadoMesa (property)
-	private Estado estadoMesa;
+	// {{ EstadoHabilitacionMesa (property)
+	private EstadoHabilitacionMesaEnum estadoHabilitacionMesa;
 
 	@Column(allowsNull = "false")
-	@MemberOrder(sequence = "1")
-	public Estado getEstadoMesa() {
-		return estadoMesa;
+	@MemberOrder(sequence = "3")
+	public EstadoHabilitacionMesaEnum getEstadoHabilitacionMesa() {
+		return estadoHabilitacionMesa;
 	}
 
-	public void setEstadoMesa(final Estado estadoMesa) {
-		this.estadoMesa = estadoMesa;
+	public void setEstadoHabilitacionMesa(final EstadoHabilitacionMesaEnum habilitacionMesa) {
+		this.estadoHabilitacionMesa = habilitacionMesa;
 	}
 
 	// }}
 
+	// {{ EstadoAsignacionMesa (property)
+	private EstadoAsignacionMesaEnum estadoAsignacionMesa;
+
+	@Column(allowsNull = "false")
+	@MemberOrder(sequence = "4")
+	public EstadoAsignacionMesaEnum getEstadoAsignacionMesa() {
+		return estadoAsignacionMesa;
+	}
+
+	public void setEstadoAsignacionMesa(final EstadoAsignacionMesaEnum asignacionMesa) {
+		this.estadoAsignacionMesa = asignacionMesa;
+	}
+	// }}
+
+
+	
 	@Named("Borrar")
 	@Bulk
 	@MemberOrder(name = "accionMesa", sequence = "1")
