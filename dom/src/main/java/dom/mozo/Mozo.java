@@ -7,26 +7,21 @@ import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
 
 import org.apache.isis.applib.DomainObjectContainer;
-import org.apache.isis.applib.annotation.ActionSemantics;
 import org.apache.isis.applib.annotation.Bulk;
 import org.apache.isis.applib.annotation.MemberOrder;
-import org.apache.isis.applib.annotation.MultiLine;
 import org.apache.isis.applib.annotation.Named;
 
 import dom.empleado.Empleado;
+import dom.mesa.EstadoAsignacionMesaEnum;
 import dom.mesa.Mesa;
-
-
-
-
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 public class Mozo extends Empleado {
 
+	// {{ Lista De Mesas (Collection)
 
- // {{ Lista De Mesas (Collection)
-	
 	private List<Mesa> listaMesas = new ArrayList<Mesa>();
+
 	@MemberOrder(sequence = "1")
 	public List<Mesa> getListamesas() {
 		return listaMesas;
@@ -73,14 +68,15 @@ public class Mozo extends Empleado {
 		return mozoServicio.listarMozos();
 	}
 
-@Named("Asignar Mesas a Mozo")
-@Bulk
-@MemberOrder(name="accionMesaMozo", sequence = "2")
-public  Mozo asignarMesasMozo(@Named("Numero de Mesa")final int numeroDeMesa){
-	
-	this.listaMesas.add(mozoServicio.devolverMesa(numeroDeMesa));
-	return  this;
-	
-}
+	@Named("Asignar Mesa")
+	@Bulk
+	@MemberOrder(name = "accionMesaMozo", sequence = "2")
+	public Mozo asignarMesasMozo(@Named("Numero de Mesa") final int numeroDeMesa) {
+		this.mozoServicio.devolverMesa(numeroDeMesa).setEstadoAsignacionMesa(
+				EstadoAsignacionMesaEnum.Asignada);
+		this.listaMesas.add(mozoServicio.devolverMesa(numeroDeMesa));
+		return this;
+
+	}
 
 }
