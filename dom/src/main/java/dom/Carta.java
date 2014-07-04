@@ -19,6 +19,8 @@ package dom;
 
 import java.util.List;
 
+import dom.postre.Postre;
+
 public class Carta {
 
 	private List<Guarnicion> listaGuarniciones;
