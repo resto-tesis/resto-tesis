@@ -27,19 +27,20 @@ import org.apache.isis.applib.annotation.Named;
 import org.apache.isis.applib.annotation.ActionSemantics.Of;
 
 @Named("Postre")
-public class PostreServicio extends AbstractFactoryAndRepository{
+public class PostreServicio extends AbstractFactoryAndRepository {
 
 	@Named("Crear")
 	@MemberOrder(sequence = "1")
 	public Postre crearPostre(@Named("Numero") final int numeroPostre,
-			@Named("Descripcion") final String descripcionPostre, 
-			@Named("Precio") final double precioPostre){
+			@Named("Descripcion") final String descripcionPostre,
+			@Named("Precio") final double precioPostre) {
 		return crearPostreNuevo(numeroPostre, descripcionPostre, precioPostre);
 	}
 
 	// }}
 	@Hidden
-	public Postre crearPostreNuevo(final int numeroPostre, final String descripcionPostre, final double precioPostre) {
+	public Postre crearPostreNuevo(final int numeroPostre,
+			final String descripcionPostre, final double precioPostre) {
 		final Postre postre = newTransientInstance(Postre.class);
 		postre.setNumeroPostre(numeroPostre);
 		postre.setDescripcionPostre(descripcionPostre);

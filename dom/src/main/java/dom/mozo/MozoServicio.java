@@ -24,14 +24,11 @@ import org.apache.isis.applib.AbstractFactoryAndRepository;
 import org.apache.isis.applib.annotation.ActionSemantics;
 import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.MemberOrder;
-import org.apache.isis.applib.annotation.MultiLine;
 import org.apache.isis.applib.annotation.Named;
-import org.apache.isis.applib.annotation.Optional;
 import org.apache.isis.applib.annotation.ActionSemantics.Of;
 import org.apache.isis.applib.filter.Filter;
 
 import dom.mesa.Mesa;
-import dom.mesa.MesaServicio;
 
 @Named("Mozo")
 public class MozoServicio extends AbstractFactoryAndRepository {
@@ -52,17 +49,16 @@ public class MozoServicio extends AbstractFactoryAndRepository {
 			final long documento, final Date fechaDeIngreso,
 			final Date fechaDeNacimiento) {
 		final Mozo mozo = newTransientInstance(Mozo.class);
-		mozo.setApellido(apellido);
-		mozo.setNombre(nombre);
+		mozo.setApellido(apellido.substring(0, 1).toUpperCase()
+				+ apellido.substring(1));
+		mozo.setNombre(nombre.substring(0, 1).toUpperCase()
+				+ nombre.substring(1));
 		mozo.setDocumento(documento);
 		mozo.setFechadeIngreso(fechaDeIngreso);
 		mozo.setFechadeNacimiento(fechaDeNacimiento);
 		persist(mozo);
 		return mozo;
 	}
-
-
-
 
 	@Named("Listar")
 	@ActionSemantics(Of.SAFE)
@@ -73,18 +69,18 @@ public class MozoServicio extends AbstractFactoryAndRepository {
 	}
 
 	@Hidden
-	public List<Mesa> listaDeMesas(){
+	public List<Mesa> listaDeMesas() {
 		return allInstances(Mesa.class);
 	}
-	@Hidden 
-	public Mesa devolverMesa(final int numeroDeMesa){
+
+	@Hidden
+	public Mesa devolverMesa(final int numeroDeMesa) {
 		return firstMatch(Mesa.class, new Filter<Mesa>() {
-        	@Override
-            public boolean accept(final Mesa m) {
-                return m.getNumeroMesa() == numeroDeMesa;
-            }
-        });
+			@Override
+			public boolean accept(final Mesa m) {
+				return m.getNumeroMesa() == numeroDeMesa;
+			}
+		});
 	}
-	
 
 }

@@ -48,7 +48,7 @@ public class BebidaServicio extends AbstractFactoryAndRepository {
 	public Bebida nuevaInstanciaBebida(final String _nombre,
 			final String _descripcion, final double _precio) {
 		final Bebida nuevaBebida = new Bebida();
-		nuevaBebida.setNombre(_nombre);
+		nuevaBebida.setNombre(_nombre.substring(0,1).toUpperCase()+_nombre.substring(1));
 		nuevaBebida.setDescripcion(_descripcion);
 		nuevaBebida.setPrecio(_precio);
 		persist(nuevaBebida);

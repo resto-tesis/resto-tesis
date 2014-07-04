@@ -50,8 +50,8 @@ public class EncargadoServicio extends AbstractFactoryAndRepository {
 			final Date fechadeNacimientoEncargado,
 			final Date fechadeIngresoEncargado) {
 		final Encargado encargado = newTransientInstance(Encargado.class);
-		encargado.setApellido(apellidoEncargado);
-		encargado.setNombre(nombreEncargado);
+		encargado.setApellido(apellidoEncargado.substring(0,1).toUpperCase()+apellidoEncargado.substring(1));
+		encargado.setNombre(nombreEncargado.substring(0,1).toUpperCase()+nombreEncargado.substring(1));
 		encargado.setDocumento(documentoEncargado);
 		encargado.setFechadeNacimiento(fechadeNacimientoEncargado);
 		encargado.setFechadeIngreso(fechadeIngresoEncargado);

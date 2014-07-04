@@ -25,6 +25,7 @@ import javax.jdo.annotations.PersistenceCapable;
 
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.Bulk;
+import org.apache.isis.applib.annotation.Disabled;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
 import org.apache.isis.applib.annotation.Title;
@@ -35,7 +36,8 @@ public class Mesa {
 	// {{ numeroMesa (property)
 	private int numeroMesa;
 
-	@Title(prepend="Mesa Nº ")
+	@Disabled
+	@Title(prepend = "Mesa Nº ")
 	@Column(allowsNull = "false")
 	@MemberOrder(sequence = "1")
 	public int getNumeroMesa() {
@@ -68,7 +70,8 @@ public class Mesa {
 		return estadoHabilitacionMesa;
 	}
 
-	public void setEstadoHabilitacionMesa(final EstadoHabilitacionMesaEnum habilitacionMesa) {
+	public void setEstadoHabilitacionMesa(
+			final EstadoHabilitacionMesaEnum habilitacionMesa) {
 		this.estadoHabilitacionMesa = habilitacionMesa;
 	}
 
@@ -83,13 +86,13 @@ public class Mesa {
 		return estadoAsignacionMesa;
 	}
 
-	public void setEstadoAsignacionMesa(final EstadoAsignacionMesaEnum asignacionMesa) {
+	public void setEstadoAsignacionMesa(
+			final EstadoAsignacionMesaEnum asignacionMesa) {
 		this.estadoAsignacionMesa = asignacionMesa;
 	}
+
 	// }}
 
-
-	
 	@Named("Borrar")
 	@Bulk
 	@MemberOrder(name = "accionMesa", sequence = "1")

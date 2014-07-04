@@ -29,24 +29,25 @@ import org.apache.isis.applib.annotation.ActionSemantics.Of;
 import org.apache.isis.applib.annotation.Optional;
 
 @Named("Guarnicion")
-public class GuarnicionServicio extends AbstractFactoryAndRepository{
+public class GuarnicionServicio extends AbstractFactoryAndRepository {
 
 	@Named("Crear")
 	@MemberOrder(sequence = "1")
 	public Guarnicion crearGuarnicion(
 			@Named("Nombre") final String nombreGuarnicion,
-			@Optional
-			@MultiLine(numberOfLines = 3)
-			@Named("Descripcion") final String descripcionGuarnicion, 
-			@Named("Precio") final double precioGuarnicion){
-		return crearGuarnicionNueva(nombreGuarnicion, descripcionGuarnicion, precioGuarnicion);
+			@Optional @MultiLine(numberOfLines = 3) @Named("Descripcion") final String descripcionGuarnicion,
+			@Named("Precio") final double precioGuarnicion) {
+		return crearGuarnicionNueva(nombreGuarnicion, descripcionGuarnicion,
+				precioGuarnicion);
 	}
 
 	// }}
 	@Hidden
-	public Guarnicion crearGuarnicionNueva(final String nombreGuarnicion, final String descripcionGuarnicion, final double precioGuarnicion){
+	public Guarnicion crearGuarnicionNueva(final String nombreGuarnicion,
+			final String descripcionGuarnicion, final double precioGuarnicion) {
 		final Guarnicion guarnicion = newTransientInstance(Guarnicion.class);
-		guarnicion.setNombre(nombreGuarnicion);
+		guarnicion.setNombre(nombreGuarnicion.substring(0, 1).toUpperCase()
+				+ nombreGuarnicion.substring(1));
 		guarnicion.setDescripcion(descripcionGuarnicion);
 		guarnicion.setPrecio(precioGuarnicion);
 		persist(guarnicion);

@@ -18,5 +18,19 @@ package dom.mesa;
  */
 
 public enum EstadoAsignacionMesaEnum {
-	Asignada, No_Asignada;
+	Asignada("Asignada"), No_Asignada("No Asignada");
+	private final String nombre;
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	private EstadoAsignacionMesaEnum(String _nombre) {
+		nombre = _nombre;
+	}
+
+	@Override
+	public String toString() {
+		return this.nombre;
+	}
 }

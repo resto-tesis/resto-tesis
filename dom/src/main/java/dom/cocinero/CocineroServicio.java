@@ -50,11 +50,11 @@ public class CocineroServicio extends AbstractFactoryAndRepository {
 			final String _apellido, final long _dni,
 			final Date _fechaNacimiento, final Date _fechaIngreso) {
 		final Cocinero cocineroNuevo = newTransientInstance(Cocinero.class);
-		cocineroNuevo.setApellido(_apellido);
+		cocineroNuevo.setApellido(_apellido.substring(0,1).toUpperCase()+_apellido.substring(1));
 		cocineroNuevo.setDocumento(_dni);
 		cocineroNuevo.setFechadeIngreso(_fechaIngreso);
 		cocineroNuevo.setFechadeNacimiento(_fechaNacimiento);
-		cocineroNuevo.setNombre(_nombre);
+		cocineroNuevo.setNombre(_nombre.substring(0,1).toUpperCase()+_nombre.substring(1));
 		persist(cocineroNuevo);
 		return cocineroNuevo;
 	}
