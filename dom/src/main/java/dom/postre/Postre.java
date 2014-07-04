@@ -27,6 +27,7 @@ import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.Bulk;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
+import org.apache.isis.applib.annotation.Title;
 
 import dom.postre.Postre;
 import dom.postre.PostreServicio;
@@ -47,10 +48,11 @@ public class Postre {
 		this.numeroPostre = numeroPostre;
 	}
 	// }}
-
+	
     // {{ DescripcionPostre (property)
 	private String descripcionPostre;
-
+	
+	@Title
 	@Column(allowsNull = "false")
 	@MemberOrder(sequence = "2")
 	public String getDescripcionPostre() {

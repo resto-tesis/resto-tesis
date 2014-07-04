@@ -27,6 +27,7 @@ import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.Bulk;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
+import org.apache.isis.applib.annotation.Title;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 public class Mesa {
@@ -34,6 +35,7 @@ public class Mesa {
 	// {{ numeroMesa (property)
 	private int numeroMesa;
 
+	@Title(prepend="Mesa Nº ")
 	@Column(allowsNull = "false")
 	@MemberOrder(sequence = "1")
 	public int getNumeroMesa() {

@@ -31,15 +31,12 @@ import javax.jdo.annotations.Sequence;
 
 import org.apache.isis.applib.annotation.Disabled;
 import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.annotation.Title;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Sequence(name = "secuenciaNombre", strategy = SequenceStrategy.CONTIGUOUS)
 @Inheritance(strategy = InheritanceStrategy.COMPLETE_TABLE)
 public abstract class Empleado {
-
-	public String title() {
-		return getApellido() + " " + getNombre();
-	}
 
 	// {{ legajo (property)
 	private int lejago;
@@ -61,6 +58,7 @@ public abstract class Empleado {
 	// {{ apellido (property)
 	private String apellido;
 
+	@Title(sequence="1.0")
 	@Column(allowsNull = "false")
 	@MemberOrder(sequence = "2")
 	public String getApellido() {
@@ -76,6 +74,7 @@ public abstract class Empleado {
 	// {{ nombre (property)
 	private String nombre;
 
+	@Title(sequence="1.5", prepend=", ")
 	@Column(allowsNull = "false")
 	@MemberOrder(sequence = "3")
 	public String getNombre() {
