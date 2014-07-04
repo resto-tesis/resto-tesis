@@ -19,6 +19,7 @@ package dom;
 
 import java.util.List;
 
+import dom.guarnicion.Guarnicion;
 import dom.postre.Postre;
 
 public class Carta {

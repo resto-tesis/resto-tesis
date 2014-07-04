@@ -35,7 +35,7 @@ public class BebidaServicio extends AbstractFactoryAndRepository {
 		// TODO Auto-generated constructor stub
 	}
 
-	@Named("Agregar")
+	@Named("Crear")
 	@MemberOrder(sequence = "1")
 	public Bebida crearBebida(
 			@Named("Nombre") final String _nombre,

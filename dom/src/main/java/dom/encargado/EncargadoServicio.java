@@ -37,7 +37,7 @@ public class EncargadoServicio extends AbstractFactoryAndRepository {
 			@Named("Nombre:") final String nombreEncargado,
 			@Named("Documento:") final long documentoEncargado,
 			@Named("Fecha de Nacimiento:") final Date fechadeNacimientoEncargado,
-			@Named("Fecha de Encargado:") final Date fechadeIngresoEncargado) {
+			@Named("Fecha de Ingreso:") final Date fechadeIngresoEncargado) {
 		return crearEncargadoNuevo(apellidoEncargado, nombreEncargado,
 				documentoEncargado, fechadeNacimientoEncargado,
 				fechadeIngresoEncargado);
