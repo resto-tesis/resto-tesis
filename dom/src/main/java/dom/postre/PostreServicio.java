@@ -23,7 +23,9 @@ import org.apache.isis.applib.AbstractFactoryAndRepository;
 import org.apache.isis.applib.annotation.ActionSemantics;
 import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.annotation.MultiLine;
 import org.apache.isis.applib.annotation.Named;
+import org.apache.isis.applib.annotation.Optional;
 import org.apache.isis.applib.annotation.ActionSemantics.Of;
 
 @Named("Postre")
@@ -31,20 +33,21 @@ public class PostreServicio extends AbstractFactoryAndRepository {
 
 	@Named("Crear")
 	@MemberOrder(sequence = "1")
-	public Postre crearPostre(@Named("Numero") final int numeroPostre,
-			@Named("Descripcion") final String descripcionPostre,
+	public Postre crearPostre(
+			@Named("Nombre") final String nombrePostre,
+			@Optional @MultiLine(numberOfLines = 3) @Named("Descripcion") final String descripcionPostre,
 			@Named("Precio") final double precioPostre) {
-		return crearPostreNuevo(numeroPostre, descripcionPostre, precioPostre);
+		return crearPostreNuevo(nombrePostre, descripcionPostre, precioPostre);
 	}
 
 	// }}
 	@Hidden
-	public Postre crearPostreNuevo(final int numeroPostre,
+	public Postre crearPostreNuevo(final String nombrePostre,
 			final String descripcionPostre, final double precioPostre) {
 		final Postre postre = newTransientInstance(Postre.class);
-		postre.setNumeroPostre(numeroPostre);
-		postre.setDescripcionPostre(descripcionPostre);
-		postre.setPrecioPostre(precioPostre);
+		postre.setNombre(nombrePostre);
+		postre.setDescripcion(descripcionPostre);
+		postre.setPrecio(precioPostre);
 		persist(postre);
 		return postre;
 	}

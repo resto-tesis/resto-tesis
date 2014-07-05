@@ -20,60 +20,85 @@ package dom.postre;
 import java.util.List;
 
 import javax.jdo.annotations.Column;
+import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Persistent;
+import javax.jdo.annotations.Sequence;
+import javax.jdo.annotations.SequenceStrategy;
 
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.Bulk;
+import org.apache.isis.applib.annotation.Disabled;
 import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.annotation.MultiLine;
 import org.apache.isis.applib.annotation.Named;
+import org.apache.isis.applib.annotation.Optional;
 import org.apache.isis.applib.annotation.Title;
+import org.apache.isis.applib.annotation.TypicalLength;
 
 import dom.postre.Postre;
 import dom.postre.PostreServicio;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
+@Sequence(name = "secuenciaNumeroPostre", strategy = SequenceStrategy.CONTIGUOUS)
 public class Postre {
 
-	// {{ NumeroPostre (property)
+	// {{ Numero (property)
 	private int numeroPostre;
 
+	@TypicalLength(3)
+	@Disabled
+	@Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT, sequence = "secuenciaNumeroPostre")
 	@Column(allowsNull = "false")
 	@MemberOrder(sequence = "1")
-	public int getNumeroPostre() {
+	public int getNumero() {
 		return numeroPostre;
 	}
 
-	public void setNumeroPostre(final int numeroPostre) {
+	public void setNumero(final int numeroPostre) {
 		this.numeroPostre = numeroPostre;
 	}
 	// }}
-	
-    // {{ DescripcionPostre (property)
-	private String descripcionPostre;
-	
+	// {{ Nombre (property)
+	private String nombrePostre;
+
 	@Title
 	@Column(allowsNull = "false")
 	@MemberOrder(sequence = "2")
-	public String getDescripcionPostre() {
+	public String getNombre() {
+		return nombrePostre;
+	}
+
+	public void setNombre(final String nombrePostre) {
+		this.nombrePostre = nombrePostre;
+	}
+	// }}
+	// {{ Descripcion (property)
+	private String descripcionPostre;
+
+	@MultiLine(numberOfLines = 3)
+	@Optional
+	@MemberOrder(sequence = "3")
+	public String getDescripcion() {
 		return descripcionPostre;
 	}
 
-	public void setDescripcionPostre(final String descripcionPostre) {
+	public void setDescripcion(final String descripcionPostre) {
 		this.descripcionPostre = descripcionPostre;
 	}
 	// }}
-
-	// {{ PrecioPostre (property)
+	// {{ Precio (property)
 	private double precioPostre;
 
+	@TypicalLength(5)
 	@Column(allowsNull = "false")
-	@MemberOrder(sequence = "3")
-	public double getPrecioPostre() {
+	@MemberOrder(sequence = "4")
+	public double getPrecio() {
 		return precioPostre;
 	}
 
-	public void setPrecioPostre(final double precioPostre) {
+	public void setPrecio(final double precioPostre) {
 		this.precioPostre = precioPostre;
 	}
 	// }}
