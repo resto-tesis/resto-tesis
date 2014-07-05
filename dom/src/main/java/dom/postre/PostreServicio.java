@@ -22,10 +22,12 @@ import java.util.List;
 import org.apache.isis.applib.AbstractFactoryAndRepository;
 import org.apache.isis.applib.annotation.ActionSemantics;
 import org.apache.isis.applib.annotation.Hidden;
+import org.apache.isis.applib.annotation.MaxLength;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.MultiLine;
 import org.apache.isis.applib.annotation.Named;
 import org.apache.isis.applib.annotation.Optional;
+import org.apache.isis.applib.annotation.RegEx;
 import org.apache.isis.applib.annotation.ActionSemantics.Of;
 
 @Named("Postre")
@@ -34,7 +36,7 @@ public class PostreServicio extends AbstractFactoryAndRepository {
 	@Named("Crear")
 	@MemberOrder(sequence = "1")
 	public Postre crearPostre(
-			@Named("Nombre") final String nombrePostre,
+			@Named("Nombre") @RegEx(validation = "[a-zA-ZáéíóúÁÉÍÓÚ]*") @MaxLength(value = 15) final String nombrePostre,
 			@Optional @MultiLine(numberOfLines = 3) @Named("Descripcion") final String descripcionPostre,
 			@Named("Precio") final double precioPostre) {
 		return crearPostreNuevo(nombrePostre, descripcionPostre, precioPostre);

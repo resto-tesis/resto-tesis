@@ -23,8 +23,10 @@ import java.util.List;
 import org.apache.isis.applib.AbstractFactoryAndRepository;
 import org.apache.isis.applib.annotation.ActionSemantics;
 import org.apache.isis.applib.annotation.Hidden;
+import org.apache.isis.applib.annotation.MaxLength;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
+import org.apache.isis.applib.annotation.RegEx;
 import org.apache.isis.applib.annotation.ActionSemantics.Of;
 
 @Named("Encargado")
@@ -33,8 +35,8 @@ public class EncargadoServicio extends AbstractFactoryAndRepository {
 	@Named("Crear")
 	@MemberOrder(sequence = "1")
 	public Encargado crearEncargado(
-			@Named("Apellido:") final String apellidoEncargado,
-			@Named("Nombre:") final String nombreEncargado,
+			@Named("Apellido:") @RegEx(validation = "[a-zA-ZáéíóúÁÉÍÓÚ]*") @MaxLength(value = 20) final String apellidoEncargado,
+			@Named("Nombre:") @RegEx(validation = "[a-zA-ZáéíóúÁÉÍÓÚ]*") @MaxLength(value = 20) final String nombreEncargado,
 			@Named("Documento:") final long documentoEncargado,
 			@Named("Fecha de Nacimiento:") final Date fechadeNacimientoEncargado,
 			@Named("Fecha de Ingreso:") final Date fechadeIngresoEncargado) {
@@ -50,8 +52,10 @@ public class EncargadoServicio extends AbstractFactoryAndRepository {
 			final Date fechadeNacimientoEncargado,
 			final Date fechadeIngresoEncargado) {
 		final Encargado encargado = newTransientInstance(Encargado.class);
-		encargado.setApellido(apellidoEncargado.substring(0,1).toUpperCase()+apellidoEncargado.substring(1));
-		encargado.setNombre(nombreEncargado.substring(0,1).toUpperCase()+nombreEncargado.substring(1));
+		encargado.setApellido(apellidoEncargado.substring(0, 1).toUpperCase()
+				+ apellidoEncargado.substring(1));
+		encargado.setNombre(nombreEncargado.substring(0, 1).toUpperCase()
+				+ nombreEncargado.substring(1));
 		encargado.setDocumento(documentoEncargado);
 		encargado.setFechadeNacimiento(fechadeNacimientoEncargado);
 		encargado.setFechadeIngreso(fechadeIngresoEncargado);

@@ -23,8 +23,10 @@ import java.util.List;
 import org.apache.isis.applib.AbstractFactoryAndRepository;
 import org.apache.isis.applib.annotation.ActionSemantics;
 import org.apache.isis.applib.annotation.Hidden;
+import org.apache.isis.applib.annotation.MaxLength;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
+import org.apache.isis.applib.annotation.RegEx;
 import org.apache.isis.applib.annotation.ActionSemantics.Of;
 
 @Named("Cocinero")
@@ -36,8 +38,9 @@ public class CocineroServicio extends AbstractFactoryAndRepository {
 
 	@Named("Crear")
 	@MemberOrder(sequence = "1")
-	public Cocinero crearCocinero(@Named("Apellido") final String _apellido,
-			@Named("Nombre") final String _nombre,
+	public Cocinero crearCocinero(
+			@Named("Apellido") @RegEx(validation = "[a-zA-ZáéíóúÁÉÍÓÚ]*") @MaxLength(value = 20) final String _apellido,
+			@Named("Nombre") @RegEx(validation = "[a-zA-ZáéíóúÁÉÍÓÚ]*") @MaxLength(value = 20) final String _nombre,
 			@Named("Documento") final long _dni,
 			@Named("Fecha de Nacimiento") final Date _fechaNacimiento,
 			@Named("Fecha de Ingreso") final Date _fechaIngreso) {
@@ -50,11 +53,13 @@ public class CocineroServicio extends AbstractFactoryAndRepository {
 			final String _apellido, final long _dni,
 			final Date _fechaNacimiento, final Date _fechaIngreso) {
 		final Cocinero cocineroNuevo = newTransientInstance(Cocinero.class);
-		cocineroNuevo.setApellido(_apellido.substring(0,1).toUpperCase()+_apellido.substring(1));
+		cocineroNuevo.setApellido(_apellido.substring(0, 1).toUpperCase()
+				+ _apellido.substring(1));
 		cocineroNuevo.setDocumento(_dni);
 		cocineroNuevo.setFechadeIngreso(_fechaIngreso);
 		cocineroNuevo.setFechadeNacimiento(_fechaNacimiento);
-		cocineroNuevo.setNombre(_nombre.substring(0,1).toUpperCase()+_nombre.substring(1));
+		cocineroNuevo.setNombre(_nombre.substring(0, 1).toUpperCase()
+				+ _nombre.substring(1));
 		persist(cocineroNuevo);
 		return cocineroNuevo;
 	}

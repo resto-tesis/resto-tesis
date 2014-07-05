@@ -5,10 +5,12 @@ import java.util.List;
 import org.apache.isis.applib.AbstractFactoryAndRepository;
 import org.apache.isis.applib.annotation.ActionSemantics;
 import org.apache.isis.applib.annotation.Hidden;
+import org.apache.isis.applib.annotation.MaxLength;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.MultiLine;
 import org.apache.isis.applib.annotation.Named;
 import org.apache.isis.applib.annotation.Optional;
+import org.apache.isis.applib.annotation.RegEx;
 import org.apache.isis.applib.annotation.ActionSemantics.Of;
 
 /*
@@ -38,7 +40,7 @@ public class BebidaServicio extends AbstractFactoryAndRepository {
 	@Named("Crear")
 	@MemberOrder(sequence = "1")
 	public Bebida crearBebida(
-			@Named("Nombre") final String _nombre,
+			@Named("Nombre") @RegEx(validation = "[a-zA-ZáéíóúÁÉÍÓÚ]*") @MaxLength(value = 15) final String _nombre,
 			@Named("Descripcion") @Optional @MultiLine(numberOfLines = 3) final String _descripcion,
 			@Named("Precio") final double _precio) {
 		return nuevaInstanciaBebida(_nombre, _descripcion, _precio);
@@ -48,7 +50,8 @@ public class BebidaServicio extends AbstractFactoryAndRepository {
 	public Bebida nuevaInstanciaBebida(final String _nombre,
 			final String _descripcion, final double _precio) {
 		final Bebida nuevaBebida = new Bebida();
-		nuevaBebida.setNombre(_nombre.substring(0,1).toUpperCase()+_nombre.substring(1));
+		nuevaBebida.setNombre(_nombre.substring(0, 1).toUpperCase()
+				+ _nombre.substring(1));
 		nuevaBebida.setDescripcion(_descripcion);
 		nuevaBebida.setPrecio(_precio);
 		persist(nuevaBebida);

@@ -23,8 +23,10 @@ import java.util.List;
 import org.apache.isis.applib.AbstractFactoryAndRepository;
 import org.apache.isis.applib.annotation.ActionSemantics;
 import org.apache.isis.applib.annotation.Hidden;
+import org.apache.isis.applib.annotation.MaxLength;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
+import org.apache.isis.applib.annotation.RegEx;
 import org.apache.isis.applib.annotation.ActionSemantics.Of;
 import org.apache.isis.applib.filter.Filter;
 
@@ -35,9 +37,10 @@ public class MozoServicio extends AbstractFactoryAndRepository {
 
 	@Named("Crear")
 	@MemberOrder(sequence = "1")
-	public Mozo crearMozo(@Named("Apellido") final String apellido,
-			@Named("Nombre") final String nombre,
-			@Named("Documento") final long documento,
+	public Mozo crearMozo(
+			@Named("Apellido") @RegEx(validation = "[a-zA-ZáéíóúÁÉÍÓÚ]*") @MaxLength(value = 20) final String apellido,
+			@Named("Nombre") @RegEx(validation = "[a-zA-ZáéíóúÁÉÍÓÚ]*") @MaxLength(value = 20) final String nombre,
+			@Named("Documento") @RegEx(validation = "\\d") final long documento,
 			@Named("Fecha de Nacimiento") final Date fechaDeNacimiento,
 			@Named("Fecha de Ingreso") final Date fechaDeIngreso) {
 		return crearNuevoMozo(apellido, nombre, documento, fechaDeIngreso,
