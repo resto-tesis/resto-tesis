@@ -17,23 +17,23 @@ package dom.plato;
  * 
  */
 
-public enum CondicionDePlato {
-	
-	Caliente("Caliente"), Frio("Frio");
-	
-	private final String nombre;
+public enum TipoDePlatoEnum {
+		
+		Entrada("Entrada"), Principal("Principal");
+		
+		private final String nombre;
 
-	public String getNombre() {
-		return nombre;
-	}
+		public String getNombre() {
+			return nombre;
+		}
 
-	private CondicionDePlato(String _nombre) {
-		nombre = _nombre;
-	}
+		private TipoDePlatoEnum(String _nombre) {
+			nombre = _nombre;
+		}
 
-	@Override
-	public String toString() {
-		return this.nombre;
-	}
+		@Override
+		public String toString() {
+			return this.nombre;
+		}
 
 }

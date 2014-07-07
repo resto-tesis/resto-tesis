@@ -1,20 +1,5 @@
 package dom.plato;
 
-
-import java.util.List;
-
-import org.apache.isis.applib.AbstractFactoryAndRepository;
-import org.apache.isis.applib.annotation.ActionSemantics;
-import org.apache.isis.applib.annotation.Hidden;
-import org.apache.isis.applib.annotation.MaxLength;
-import org.apache.isis.applib.annotation.MemberOrder;
-import org.apache.isis.applib.annotation.MultiLine;
-import org.apache.isis.applib.annotation.Named;
-import org.apache.isis.applib.annotation.Optional;
-import org.apache.isis.applib.annotation.RegEx;
-import org.apache.isis.applib.annotation.ActionSemantics.Of;
-import org.apache.isis.applib.annotation.When.Persistable;
-
 /*
  * Copyright 2014 resto-tesis
  * 
@@ -31,44 +16,49 @@ import org.apache.isis.applib.annotation.When.Persistable;
  * limitations under the License.
  * 
  */
+
+import java.util.List;
+
+import org.apache.isis.applib.AbstractFactoryAndRepository;
+import org.apache.isis.applib.annotation.ActionSemantics;
+import org.apache.isis.applib.annotation.Hidden;
+import org.apache.isis.applib.annotation.MaxLength;
+import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.annotation.MultiLine;
+import org.apache.isis.applib.annotation.Named;
+import org.apache.isis.applib.annotation.Optional;
+import org.apache.isis.applib.annotation.RegEx;
+import org.apache.isis.applib.annotation.ActionSemantics.Of;
+
 @Named("Plato")
 public class PlatoServicio extends AbstractFactoryAndRepository {
+
 	@Named("Crear")
 	@MemberOrder(sequence = "1")
-	
-	public Plato crearPlato(/* Parametros de Entrada*/
-			@RegEx(validation = "[a-zA-ZáéíóúÁÉÍÓÚ]*") @MaxLength(value = 25)
-			@Named("Nombre")final String nombre,
-			@Named("Tipo") final TipoDePlato unTipoDePlato,
-			@Named("Condicion") final CondicionDePlato unaCondicion,
-			@Optional @MultiLine(numberOfLines = 3)
-			@Named("Descripcion")final String unaDescripcion,
-			@Named("Precio")final double unPrecio
-			)
-	{
-		/* Empieza el metodo*/
-		return crearUnPlato(nombre, unTipoDePlato, unaCondicion, unaDescripcion, unPrecio);
+	public Plato crearPlato(
+			/* Parametros de Entrada */
+			@RegEx(validation = "[a-zA-ZáéíóúÁÉÍÓÚ]*") @MaxLength(value = 25) @Named("Nombre") final String nombre,
+			@Named("Tipo") final TipoDePlatoEnum unTipoDePlato,
+			@Named("Condicion") final CondicionDePlatoEnum unaCondicion,
+			@Optional @MultiLine(numberOfLines = 3) @Named("Descripcion") final String unaDescripcion,
+			@Named("Precio") final double unPrecio) {
+		/* Empieza el metodo */
+		return crearUnPlato(nombre, unTipoDePlato, unaCondicion,unaDescripcion, unPrecio);
 	}
+
 	@Hidden
-	public Plato crearUnPlato(
-				final String nombre,
-				final TipoDePlato unTipoDePlato,
-				final CondicionDePlato unaCondicion,
-				final String unaDescripcion,
-				final double unPrecio
-				) { /* Empieza el Metodo*/
+	public Plato crearUnPlato(final String nombre, final TipoDePlatoEnum unTipoDePlato, final CondicionDePlatoEnum unaCondicion, final String unaDescripcion, final double unPrecio) { 
+		/* Empieza el Metodo*/
 		final Plato unPlato = newTransientInstance(Plato.class);
-		unPlato.setNombre(nombre.substring(0, 1).toUpperCase()
-				+ nombre.substring(1));
+		unPlato.setNombre(nombre.substring(0, 1).toUpperCase()+ nombre.substring(1));
 		unPlato.setTipoDePlato(unTipoDePlato);
 		unPlato.setCondicionDePlato(unaCondicion);
-		unPlato.setDescripcionPlato(unaDescripcion);
-		unPlato.setPrecioPlato(unPrecio);
+		unPlato.setDescripcion(unaDescripcion);
+		unPlato.setPrecio(unPrecio);
 		persist(unPlato);
 		return unPlato;
-		
 	}
-	
+
 	@Named("Listar")
 	@ActionSemantics(Of.SAFE)
 	@MemberOrder(sequence = "2")

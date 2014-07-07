@@ -1,4 +1,4 @@
-package dom;
+package dom.plato;
 
 /*
  * Copyright 2014 resto-tesis
@@ -17,6 +17,23 @@ package dom;
  * 
  */
 
-public class PlatoEntrada extends Plato{
+public enum CondicionDePlatoEnum {
+	
+	Caliente("Caliente"), Frio("Frio");
+	
+	private final String nombre;
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	private CondicionDePlatoEnum(String _nombre) {
+		nombre = _nombre;
+	}
+
+	@Override
+	public String toString() {
+		return this.nombre;
+	}
 
 }

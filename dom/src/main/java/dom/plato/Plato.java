@@ -42,23 +42,22 @@ import org.apache.isis.applib.annotation.TypicalLength;
 
 public class Plato {
 	
-	// {{ NumeroDePlato (property)
-	private int numeroDePLato;
-	
+	// {{ Numero (property)
+	private int numeroPlato;
+
 	@TypicalLength(3)
 	@Disabled
 	@Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT, sequence = "secuenciaNumeroPlato")
 	@Column(allowsNull = "false")
 	@MemberOrder(sequence = "1")
-	public int getNumeroDePlato() {
-		return numeroDePLato;
+	public int getNumero() {
+		return numeroPlato;
 	}
 
-	public void setNumeroDePlato(final int numeroDePLato) {
-		this.numeroDePLato = numeroDePLato;
+	public void setNumero(final int numeroPlato) {
+		this.numeroPlato = numeroPlato;
 	}
 	// }}
-	
 	// {{ Nombre (property)
 	private String nombrePlato;
 	
@@ -73,65 +72,61 @@ public class Plato {
 		this.nombrePlato = nombrePlato;
 	}
 	// }}
-	
-	// {{ DescripcionPlato (property)
-	private String descripcionDePlato;
-	
+	// {{ Descripcion (property)
+	private String descripcionPlato;
+
 	@MultiLine(numberOfLines = 3)
 	@Optional
 	@MemberOrder(sequence = "3")
-	public String getDescripcionPlato() {
-		return descripcionDePlato;
+	public String getDescripcion() {
+		return descripcionPlato;
 	}
 
-	public void setDescripcionPlato(final String descripcionDePlato) {
-		this.descripcionDePlato = descripcionDePlato;
+	public void setDescripcion(final String descripcionPlato) {
+		this.descripcionPlato = descripcionPlato;
 	}
 	// }}
-	
 	// {{ TipoDePlato (property)
-	private TipoDePlato tipoDePlato;
+	private TipoDePlatoEnum tipoDePlato;
 	
 	@Column(allowsNull = "false")
 	@MemberOrder(sequence = "4")
-	public TipoDePlato getTipoDePlato() {
+	public TipoDePlatoEnum getTipoDePlato() {
 		return tipoDePlato;
 	}
 
-	public void setTipoDePlato(final TipoDePlato tipoDePlato) {
+	public void setTipoDePlato(final TipoDePlatoEnum tipoDePlato) {
 		this.tipoDePlato = tipoDePlato;
 	}
 	// }}
-
 	// {{ CondicionDePlato (property)
-	private CondicionDePlato condicionDePLato;
+	private CondicionDePlatoEnum condicionDePLato;
 	
 	@Column(allowsNull = "false")
 	@MemberOrder(sequence = "5")
-	public CondicionDePlato getCondicionDePlato() {
+	public CondicionDePlatoEnum getCondicionDePlato() {
 		return condicionDePLato;
 	}
 
-	public void setCondicionDePlato(final CondicionDePlato condicionDePLato) {
+	public void setCondicionDePlato(final CondicionDePlatoEnum condicionDePLato) {
 		this.condicionDePLato = condicionDePLato;
 	}
 	// }}
-	
-	// {{ PrecioPlato (property)
+	// {{ Precio (property)
 	private double precioPlato;
-	
+
 	@TypicalLength(5)
 	@Column(allowsNull = "false")
-	@MemberOrder(sequence = "1")
-	public double getPrecioPlato() {
+	@MemberOrder(sequence = "6")
+	public double getPrecio() {
 		return precioPlato;
 	}
 
-	public void setPrecioPlato(final double precioPlato) {
+	public void setPrecio(final double precioPlato) {
 		this.precioPlato = precioPlato;
 	}
 	// }}
-	
+
 	@Named("Borrar")
 	@Bulk
 	@MemberOrder(name = "accionPlato", sequence = "1")
@@ -155,8 +150,8 @@ public class Plato {
 
 	private PlatoServicio platoServicio;
 
-	public void injectarPlatoServicio(final PlatoServicio servicioPlato) {
-		this.platoServicio = servicioPlato;
+	public void injectarPlatoServicio(final PlatoServicio servicioplato) {
+		this.platoServicio = servicioplato;
 	}
 
 	

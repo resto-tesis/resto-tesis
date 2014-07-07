@@ -31,7 +31,6 @@ import javax.jdo.annotations.Sequence;
 
 import org.apache.isis.applib.annotation.Disabled;
 import org.apache.isis.applib.annotation.MemberOrder;
-import org.apache.isis.applib.annotation.RegEx;
 import org.apache.isis.applib.annotation.Title;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
