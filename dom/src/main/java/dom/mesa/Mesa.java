@@ -35,6 +35,7 @@ import org.apache.isis.applib.annotation.Where;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Query(name = "mesasSeleccionadas", language = "JDOQL", value = "SELECT FROM dom.mesa.Mesa where estadoSeleccion == true")
+//@Query(name ="existeMesa", language = "JDOQL", value = "SELECT FROM dom.mesa.Mesa where 
 public class Mesa {
 
 	// {{ EstadoSeleccion (property)
@@ -57,9 +58,10 @@ public class Mesa {
 	@Bulk
 	@MemberOrder(name = "accionMesa", sequence = "2")
 	@Named("Seleccionar")
-	public void seleccionar() {
+	public List<Mesa> seleccionar() {
 		if (estadoAsignacionMesa == EstadoAsignacionMesaEnum.No_Asignada)
 			setEstadoSeleccion(true);
+		return mesaServicio.listarMesas();
 	}
 
 	// {{ numeroMesa (property)
@@ -76,6 +78,8 @@ public class Mesa {
 	public void setNumeroMesa(final int numeroMesa) {
 		this.numeroMesa = numeroMesa;
 	}
+
+
 
 	// {{ CapacidadMesa (property)
 	private int capacidadMesa;

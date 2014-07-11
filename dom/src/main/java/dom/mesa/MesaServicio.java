@@ -31,7 +31,7 @@ public class MesaServicio extends AbstractFactoryAndRepository {
 
 	@Named("Crear")
 	@MemberOrder(sequence = "1")
-	public Mesa crearMesa(@Named("Numero") final int numero,
+	public Mesa crearMesa(@Named("Número") final int numero,
 			@Named("Capacidad") final int capacidadMesa) {
 		return crearMesaNueva(numero, capacidadMesa);
 	}
@@ -47,6 +47,24 @@ public class MesaServicio extends AbstractFactoryAndRepository {
 		mesa.setEstadoSeleccion(false);
 		persist(mesa);
 		return mesa;
+	}
+
+	public String validateCrearMesa(final int numero, final int capacidadMesa) {
+		if (capacidadMesa > 20) {
+			return "La capacidad debe ser menor o igual a 20";
+		}
+		return existeMesa(numero) ? "Ya existe la mesa "
+				+ Integer.toString(numero) : null;
+	}
+
+	@Hidden
+	public boolean existeMesa(int numero) {
+		for (Mesa _mesa : allInstances(Mesa.class)) {
+			if (_mesa.getNumeroMesa() == numero) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	@Named("Listar")
