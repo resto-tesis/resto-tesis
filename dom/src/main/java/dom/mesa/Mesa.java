@@ -63,68 +63,60 @@ public class Mesa {
 			setEstadoSeleccion(true);
 		return mesaServicio.listarMesas();
 	}
-
-	// {{ numeroMesa (property)
+	// {{ Numero (property)
 	private int numeroMesa;
 
 	@Disabled
 	@Title(prepend = "Mesa Nº ")
 	@Column(allowsNull = "false")
-	@MemberOrder(sequence = "1")
-	public int getNumeroMesa() {
+	@MemberOrder(sequence = "2")
+	public int getNumero() {
 		return numeroMesa;
 	}
 
-	public void setNumeroMesa(final int numeroMesa) {
+	public void setNumero(final int numeroMesa) {
 		this.numeroMesa = numeroMesa;
 	}
-
-
-
-	// {{ CapacidadMesa (property)
+	// }}
+	// {{ Capacidad (property)
 	private int capacidadMesa;
 
 	@Column(allowsNull = "false")
-	@MemberOrder(sequence = "2")
-	public int getCapacidadMesa() {
+	@MemberOrder(sequence = "3")
+	public int getCapacidad() {
 		return capacidadMesa;
 	}
 
-	public void setCapacidadMesa(final int capacidadMesa) {
+	public void setCapacidad(final int capacidadMesa) {
 		this.capacidadMesa = capacidadMesa;
 	}
-
-	// {{ EstadoHabilitacionMesa (property)
+	// }}
+	// {{ EstadoHabilitacion (property)
 	private EstadoHabilitacionMesaEnum estadoHabilitacionMesa;
 
 	@Column(allowsNull = "false")
-	@MemberOrder(sequence = "3")
-	public EstadoHabilitacionMesaEnum getEstadoHabilitacionMesa() {
+	@MemberOrder(sequence = "4")
+	public EstadoHabilitacionMesaEnum getEstadoHabilitacion() {
 		return estadoHabilitacionMesa;
 	}
 
-	public void setEstadoHabilitacionMesa(
-			final EstadoHabilitacionMesaEnum habilitacionMesa) {
-		this.estadoHabilitacionMesa = habilitacionMesa;
+	public void setEstadoHabilitacion(final EstadoHabilitacionMesaEnum estadoHabilitacionMesa) {
+		this.estadoHabilitacionMesa = estadoHabilitacionMesa;
 	}
-
 	// }}
-
-	// {{ EstadoAsignacionMesa (property)
+	// {{ EstadoAsignacion (property)
 	private EstadoAsignacionMesaEnum estadoAsignacionMesa;
 
 	@Column(allowsNull = "false")
-	@MemberOrder(sequence = "4")
+	@MemberOrder(sequence = "5")
 	@Disabled
-	public EstadoAsignacionMesaEnum getEstadoAsignacionMesa() {
+	public EstadoAsignacionMesaEnum getEstadoAsignacion() {
 		return estadoAsignacionMesa;
 	}
 
-	public void setEstadoAsignacionMesa(
-			final EstadoAsignacionMesaEnum asignacionMesa) {
-		this.estadoAsignacionMesa = asignacionMesa;
+	public void setEstadoAsignacion(final EstadoAsignacionMesaEnum estadoAsignacionMesa) {
+		this.estadoAsignacionMesa = estadoAsignacionMesa;
 	}
-
 	// }}
 
 	@Named("Borrar")

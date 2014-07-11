@@ -40,10 +40,10 @@ public class MesaServicio extends AbstractFactoryAndRepository {
 	@Hidden
 	public Mesa crearMesaNueva(final int numero, final int capacidadMesa) {
 		final Mesa mesa = newTransientInstance(Mesa.class);
-		mesa.setCapacidadMesa(capacidadMesa);
-		mesa.setNumeroMesa(numero);
-		mesa.setEstadoHabilitacionMesa(EstadoHabilitacionMesaEnum.Desocupada);
-		mesa.setEstadoAsignacionMesa(EstadoAsignacionMesaEnum.No_Asignada);
+		mesa.setCapacidad(capacidadMesa);
+		mesa.setNumero(numero);
+		mesa.setEstadoHabilitacion(EstadoHabilitacionMesaEnum.Desocupada);
+		mesa.setEstadoAsignacion(EstadoAsignacionMesaEnum.No_Asignada);
 		mesa.setEstadoSeleccion(false);
 		persist(mesa);
 		return mesa;
@@ -60,7 +60,7 @@ public class MesaServicio extends AbstractFactoryAndRepository {
 	@Hidden
 	public boolean existeMesa(int numero) {
 		for (Mesa _mesa : allInstances(Mesa.class)) {
-			if (_mesa.getNumeroMesa() == numero) {
+			if (_mesa.getNumero() == numero) {
 				return true;
 			}
 		}
