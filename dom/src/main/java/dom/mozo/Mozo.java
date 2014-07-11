@@ -25,6 +25,7 @@ import javax.jdo.annotations.PersistenceCapable;
 
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.Bulk;
+import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
 
@@ -46,6 +47,16 @@ public class Mozo extends Empleado {
 
 	public void setListaMesas(final List<Mesa> listaMesas) {
 		this.listaMesas = listaMesas;
+	}
+
+	@Hidden
+	public void addMesa(final Mesa _mesa) {
+		listaMesas.add(_mesa);
+	}
+
+	@Hidden
+	public void removeMesa(final Mesa _mesa) {
+		listaMesas.remove(_mesa);
 	}
 
 	// }}

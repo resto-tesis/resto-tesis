@@ -81,10 +81,10 @@ public class MozoServicio extends AbstractFactoryAndRepository {
 	public Mozo asignarMesas(Mozo _mozo) {
 		List<Mesa> listaMesas = listaMesasSeleccionadas();
 		if (!listaMesas.isEmpty()) {
-			_mozo.setListaMesas(listaMesas);
 			for (Mesa _mesa : listaMesas) {
 				_mesa.setEstadoAsignacion(EstadoAsignacionMesaEnum.Asignada);
 				_mesa.setEstadoSeleccion(false);
+				_mozo.addMesa(_mesa);
 			}
 			getContainer().informUser("Mesas asignadas.");
 		} else {

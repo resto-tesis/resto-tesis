@@ -31,17 +31,15 @@ import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
 import org.apache.isis.applib.annotation.Title;
-import org.apache.isis.applib.annotation.Where;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Query(name = "mesasSeleccionadas", language = "JDOQL", value = "SELECT FROM dom.mesa.Mesa where estadoSeleccion == true")
-//@Query(name ="existeMesa", language = "JDOQL", value = "SELECT FROM dom.mesa.Mesa where 
 public class Mesa {
 
 	// {{ EstadoSeleccion (property)
 	private boolean estadoSeleccion;
 
-	@Hidden(where = Where.ALL_TABLES)
+	@Hidden
 	@Disabled
 	@Column(allowsNull = "false")
 	@MemberOrder(sequence = "1")
