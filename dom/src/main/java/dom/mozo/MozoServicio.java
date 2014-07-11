@@ -41,10 +41,10 @@ public class MozoServicio extends AbstractFactoryAndRepository {
 	public Mozo crearMozo(
 			@Named("Apellido") @RegEx(validation = "[a-zA-ZáéíóúÁÉÍÓÚ]*") @MaxLength(value = 20) final String apellido,
 			@Named("Nombre") @RegEx(validation = "[a-zA-ZáéíóúÁÉÍÓÚ]*") @MaxLength(value = 20) final String nombre,
-			@Named("Documento") @RegEx(validation = "\\d") final long documento,
+			@Named("Documento") @RegEx(validation = "[0-9*") @MaxLength(value = 8)final long _dni,
 			@Named("Fecha de Nacimiento") final Date fechaDeNacimiento,
 			@Named("Fecha de Ingreso") final Date fechaDeIngreso) {
-		return crearNuevoMozo(apellido, nombre, documento, fechaDeIngreso,
+		return crearNuevoMozo(apellido, nombre, _dni, fechaDeIngreso,
 				fechaDeNacimiento);
 	}
 

@@ -41,7 +41,7 @@ public class CocineroServicio extends AbstractFactoryAndRepository {
 	public Cocinero crearCocinero(
 			@Named("Apellido") @RegEx(validation = "[a-zA-ZáéíóúÁÉÍÓÚ]*") @MaxLength(value = 20) final String _apellido,
 			@Named("Nombre") @RegEx(validation = "[a-zA-ZáéíóúÁÉÍÓÚ]*") @MaxLength(value = 20) final String _nombre,
-			@Named("Documento") final long _dni,
+			@Named("Documento") @RegEx(validation = "[0-9*") @MaxLength(value = 8)final long _dni,
 			@Named("Fecha de Nacimiento") final Date _fechaNacimiento,
 			@Named("Fecha de Ingreso") final Date _fechaIngreso) {
 		return crearNuevoCocinero(_nombre, _apellido, _dni, _fechaNacimiento,

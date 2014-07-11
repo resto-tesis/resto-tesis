@@ -37,11 +37,11 @@ public class EncargadoServicio extends AbstractFactoryAndRepository {
 	public Encargado crearEncargado(
 			@Named("Apellido:") @RegEx(validation = "[a-zA-ZáéíóúÁÉÍÓÚ]*") @MaxLength(value = 20) final String apellidoEncargado,
 			@Named("Nombre:") @RegEx(validation = "[a-zA-ZáéíóúÁÉÍÓÚ]*") @MaxLength(value = 20) final String nombreEncargado,
-			@Named("Documento:") final long documentoEncargado,
+			@Named("Documento:") @RegEx(validation = "[0-9*") @MaxLength(value = 8)final long _dni,
 			@Named("Fecha de Nacimiento:") final Date fechadeNacimientoEncargado,
 			@Named("Fecha de Ingreso:") final Date fechadeIngresoEncargado) {
 		return crearEncargadoNuevo(apellidoEncargado, nombreEncargado,
-				documentoEncargado, fechadeNacimientoEncargado,
+				_dni, fechadeNacimientoEncargado,
 				fechadeIngresoEncargado);
 	}
 
