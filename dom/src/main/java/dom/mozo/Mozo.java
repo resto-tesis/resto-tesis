@@ -29,7 +29,6 @@ import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
 
 import dom.empleado.Empleado;
-import dom.mesa.EstadoAsignacionMesaEnum;
 import dom.mesa.Mesa;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
@@ -39,6 +38,7 @@ public class Mozo extends Empleado {
 
 	private List<Mesa> listaMesas = new ArrayList<Mesa>();
 
+	@Named("Mesas Asignadas")
 	@MemberOrder(sequence = "1")
 	public List<Mesa> getListamesas() {
 		return listaMesas;
@@ -85,14 +85,10 @@ public class Mozo extends Empleado {
 		return mozoServicio.listarMozos();
 	}
 
-	@Named("Asignar Mesa")
-	@Bulk
+	@Named("Asignar Mesas")
 	@MemberOrder(name = "accionMesaMozo", sequence = "2")
-	public Mozo asignarMesasMozo(@Named("Numero de Mesa") final int numeroDeMesa) {
-		this.mozoServicio.devolverMesa(numeroDeMesa).setEstadoAsignacionMesa(
-				EstadoAsignacionMesaEnum.Asignada);
-		this.listaMesas.add(mozoServicio.devolverMesa(numeroDeMesa));
-		return this;
+	public Mozo asignarMesasMozo() {
+		return mozoServicio.asignarMesas(this);
 
 	}
 

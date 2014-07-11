@@ -44,6 +44,7 @@ public class MesaServicio extends AbstractFactoryAndRepository {
 		mesa.setNumeroMesa(numero);
 		mesa.setEstadoHabilitacionMesa(EstadoHabilitacionMesaEnum.Desocupada);
 		mesa.setEstadoAsignacionMesa(EstadoAsignacionMesaEnum.No_Asignada);
+		mesa.setEstadoSeleccion(false);
 		persist(mesa);
 		return mesa;
 	}

@@ -28,8 +28,9 @@ import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
 import org.apache.isis.applib.annotation.RegEx;
 import org.apache.isis.applib.annotation.ActionSemantics.Of;
-import org.apache.isis.applib.filter.Filter;
+import org.apache.isis.applib.query.QueryDefault;
 
+import dom.mesa.EstadoAsignacionMesaEnum;
 import dom.mesa.Mesa;
 
 @Named("Mozo")
@@ -72,18 +73,25 @@ public class MozoServicio extends AbstractFactoryAndRepository {
 	}
 
 	@Hidden
-	public List<Mesa> listaDeMesas() {
-		return allInstances(Mesa.class);
+	public List<Mesa> listaMesasSeleccionadas() {
+		return allMatches(QueryDefault.create(Mesa.class, "mesasSeleccionadas"));
 	}
 
 	@Hidden
-	public Mesa devolverMesa(final int numeroDeMesa) {
-		return firstMatch(Mesa.class, new Filter<Mesa>() {
-			@Override
-			public boolean accept(final Mesa m) {
-				return m.getNumeroMesa() == numeroDeMesa;
+	public Mozo asignarMesas(Mozo _mozo) {
+		List<Mesa> listaMesas = listaMesasSeleccionadas();
+		if (!listaMesas.isEmpty()) {
+			_mozo.setListaMesas(listaMesas);
+			for (Mesa _mesa : listaMesas) {
+				_mesa.setEstadoAsignacionMesa(EstadoAsignacionMesaEnum.Asignada);
+				_mesa.setEstadoSeleccion(false);
 			}
-		});
+			getContainer().informUser("Mesas asignadas.");
+		} else {
+			getContainer().informUser(
+					"No hay Mesas seleccionadas para su asignación");
+		}
+		return _mozo;
 	}
 
 }

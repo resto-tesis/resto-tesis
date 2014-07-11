@@ -22,16 +22,45 @@ import java.util.List;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Query;
 
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.Bulk;
 import org.apache.isis.applib.annotation.Disabled;
+import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
 import org.apache.isis.applib.annotation.Title;
+import org.apache.isis.applib.annotation.Where;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
+@Query(name = "mesasSeleccionadas", language = "JDOQL", value = "SELECT FROM dom.mesa.Mesa where estadoSeleccion == true")
 public class Mesa {
+
+	// {{ EstadoSeleccion (property)
+	private boolean estadoSeleccion;
+
+	@Hidden(where = Where.ALL_TABLES)
+	@Disabled
+	@Column(allowsNull = "false")
+	@MemberOrder(sequence = "1")
+	public boolean getEstadoSeleccion() {
+		return estadoSeleccion;
+	}
+
+	public void setEstadoSeleccion(final boolean estadoSeleccion) {
+		this.estadoSeleccion = estadoSeleccion;
+	}
+
+	// }}
+
+	@Bulk
+	@MemberOrder(name = "accionMesa", sequence = "2")
+	@Named("Seleccionar")
+	public void seleccionar() {
+		if (estadoAsignacionMesa == EstadoAsignacionMesaEnum.No_Asignada)
+			setEstadoSeleccion(true);
+	}
 
 	// {{ numeroMesa (property)
 	private int numeroMesa;
@@ -82,6 +111,7 @@ public class Mesa {
 
 	@Column(allowsNull = "false")
 	@MemberOrder(sequence = "4")
+	@Disabled
 	public EstadoAsignacionMesaEnum getEstadoAsignacionMesa() {
 		return estadoAsignacionMesa;
 	}
