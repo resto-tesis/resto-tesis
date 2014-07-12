@@ -35,6 +35,7 @@ import org.apache.isis.applib.annotation.TypicalLength;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * 
+ * 
  */
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
