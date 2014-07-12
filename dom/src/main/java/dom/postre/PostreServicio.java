@@ -17,7 +17,10 @@ package dom.postre;
  * 
  */
 
+import java.math.BigDecimal;
 import java.util.List;
+
+import javax.validation.constraints.Digits;
 
 import org.apache.isis.applib.AbstractFactoryAndRepository;
 import org.apache.isis.applib.annotation.ActionSemantics;
@@ -38,18 +41,17 @@ public class PostreServicio extends AbstractFactoryAndRepository {
 	public Postre crearPostre(
 			@Named("Nombre") @RegEx(validation = "[a-zA-ZáéíóúÁÉÍÓÚ]*") @MaxLength(value = 15) final String nombrePostre,
 			@Optional @MultiLine(numberOfLines = 3) @Named("Descripcion") final String descripcionPostre,
-			@Named("Precio") final double precioPostre) {
+			@Named("Precio") @MaxLength(value = 5) @Digits(integer=2, fraction=2) final BigDecimal precioPostre) {
 		return crearPostreNuevo(nombrePostre, descripcionPostre, precioPostre);
 	}
 
-	// }}
 	@Hidden
 	public Postre crearPostreNuevo(final String nombrePostre,
-			final String descripcionPostre, final double precioPostre) {
+			final String descripcionPostre, final BigDecimal precioPostre) {
 		final Postre postre = newTransientInstance(Postre.class);
 		postre.setNombre(nombrePostre);
 		postre.setDescripcion(descripcionPostre);
-		postre.setPrecio(precioPostre);
+		postre.setPrecio(precioPostre.doubleValue());
 		persist(postre);
 		return postre;
 	}

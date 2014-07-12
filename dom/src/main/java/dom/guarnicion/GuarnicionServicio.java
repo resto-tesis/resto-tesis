@@ -17,7 +17,10 @@ package dom.guarnicion;
  * 
  */
 
+import java.math.BigDecimal;
 import java.util.List;
+
+import javax.validation.constraints.Digits;
 
 import org.apache.isis.applib.AbstractFactoryAndRepository;
 import org.apache.isis.applib.annotation.ActionSemantics;
@@ -37,21 +40,19 @@ public class GuarnicionServicio extends AbstractFactoryAndRepository {
 	@MemberOrder(sequence = "1")
 	public Guarnicion crearGuarnicion(
 			@Named("Nombre") @RegEx(validation = "[a-zA-ZáéíóúÁÉÍÓÚ]*") @MaxLength(value = 15) final String nombreGuarnicion,
-			@Optional @MultiLine(numberOfLines = 3) @Named("Descripcion") final String descripcionGuarnicion,
-			@Named("Precio") final double precioGuarnicion) {
+			@Named("Descripcion") @Optional @MultiLine(numberOfLines = 3) final String descripcionGuarnicion,
+			@Named("Precio") @MaxLength(value = 5) @Digits(integer=2, fraction=2) final BigDecimal precioGuarnicion) {
 		return crearGuarnicionNueva(nombreGuarnicion, descripcionGuarnicion,
 				precioGuarnicion);
 	}
 
-	// }}
 	@Hidden
 	public Guarnicion crearGuarnicionNueva(final String nombreGuarnicion,
-			final String descripcionGuarnicion, final double precioGuarnicion) {
+			final String descripcionGuarnicion, final BigDecimal precioGuarnicion) {
 		final Guarnicion guarnicion = newTransientInstance(Guarnicion.class);
-		guarnicion.setNombre(nombreGuarnicion.substring(0, 1).toUpperCase()
-				+ nombreGuarnicion.substring(1));
+		guarnicion.setNombre(nombreGuarnicion.substring(0, 1).toUpperCase() + nombreGuarnicion.substring(1));
 		guarnicion.setDescripcion(descripcionGuarnicion);
-		guarnicion.setPrecio(precioGuarnicion);
+		guarnicion.setPrecio(precioGuarnicion.doubleValue());
 		persist(guarnicion);
 		return guarnicion;
 	}

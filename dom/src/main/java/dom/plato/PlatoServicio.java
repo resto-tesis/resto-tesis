@@ -17,7 +17,10 @@ package dom.plato;
  * 
  */
 
+import java.math.BigDecimal;
 import java.util.List;
+
+import javax.validation.constraints.Digits;
 
 import org.apache.isis.applib.AbstractFactoryAndRepository;
 import org.apache.isis.applib.annotation.ActionSemantics;
@@ -41,20 +44,20 @@ public class PlatoServicio extends AbstractFactoryAndRepository {
 			@Named("Tipo") final TipoDePlatoEnum unTipoDePlato,
 			@Named("Condicion") final CondicionDePlatoEnum unaCondicion,
 			@Optional @MultiLine(numberOfLines = 3) @Named("Descripcion") final String unaDescripcion,
-			@Named("Precio") final double unPrecio) {
+			@Named("Precio") @MaxLength(value = 6) @Digits(integer=3, fraction=2) final BigDecimal unPrecio) {
 		/* Empieza el metodo */
 		return crearUnPlato(nombre, unTipoDePlato, unaCondicion,unaDescripcion, unPrecio);
 	}
 
 	@Hidden
-	public Plato crearUnPlato(final String nombre, final TipoDePlatoEnum unTipoDePlato, final CondicionDePlatoEnum unaCondicion, final String unaDescripcion, final double unPrecio) { 
+	public Plato crearUnPlato(final String nombre, final TipoDePlatoEnum unTipoDePlato, final CondicionDePlatoEnum unaCondicion, final String unaDescripcion, final BigDecimal unPrecio) { 
 		/* Empieza el Metodo*/
 		final Plato unPlato = newTransientInstance(Plato.class);
 		unPlato.setNombre(nombre.substring(0, 1).toUpperCase()+ nombre.substring(1));
 		unPlato.setTipoDePlato(unTipoDePlato);
 		unPlato.setCondicionDePlato(unaCondicion);
 		unPlato.setDescripcion(unaDescripcion);
-		unPlato.setPrecio(unPrecio);
+		unPlato.setPrecio(unPrecio.doubleValue());
 		persist(unPlato);
 		return unPlato;
 	}

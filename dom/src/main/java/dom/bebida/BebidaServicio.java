@@ -1,6 +1,9 @@
 package dom.bebida;
 
+import java.math.BigDecimal;
 import java.util.List;
+
+import javax.validation.constraints.Digits;
 
 import org.apache.isis.applib.AbstractFactoryAndRepository;
 import org.apache.isis.applib.annotation.ActionSemantics;
@@ -33,27 +36,23 @@ import org.apache.isis.applib.annotation.ActionSemantics.Of;
 @Named("Bebida")
 public class BebidaServicio extends AbstractFactoryAndRepository {
 
-	public BebidaServicio() {
-		// TODO Auto-generated constructor stub
-	}
-
 	@Named("Crear")
 	@MemberOrder(sequence = "1")
 	public Bebida crearBebida(
 			@Named("Nombre") @RegEx(validation = "[a-zA-ZáéíóúÁÉÍÓÚ]*") @MaxLength(value = 15) final String _nombre,
 			@Named("Descripcion") @Optional @MultiLine(numberOfLines = 3) final String _descripcion,
-			@Named("Precio") final double _precio) {
+			@Named("Precio") @MaxLength(value = 5) @Digits(integer=2, fraction=2) final BigDecimal _precio) {
 		return nuevaInstanciaBebida(_nombre, _descripcion, _precio);
 	}
 
 	@Hidden
 	public Bebida nuevaInstanciaBebida(final String _nombre,
-			final String _descripcion, final double _precio) {
+			final String _descripcion, final BigDecimal _precio) {
 		final Bebida nuevaBebida = new Bebida();
 		nuevaBebida.setNombre(_nombre.substring(0, 1).toUpperCase()
 				+ _nombre.substring(1));
 		nuevaBebida.setDescripcion(_descripcion);
-		nuevaBebida.setPrecio(_precio);
+		nuevaBebida.setPrecio(_precio.doubleValue());
 		persist(nuevaBebida);
 		return nuevaBebida;
 	}
