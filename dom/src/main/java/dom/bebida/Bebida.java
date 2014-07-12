@@ -42,7 +42,7 @@ import org.apache.isis.applib.annotation.TypicalLength;
 public class Bebida {
 
 	// {{ Numero (property)
-	private int numeroBebida;
+	private int numero;
 
 	@TypicalLength(3)
 	@Disabled
@@ -50,58 +50,58 @@ public class Bebida {
 	@Column(allowsNull = "false")
 	@MemberOrder(sequence = "1")
 	public int getNumero() {
-		return numeroBebida;
+		return numero;
 	}
 
 	public void setNumero(final int numeroBebida) {
-		this.numeroBebida = numeroBebida;
+		this.numero = numeroBebida;
 	}
 
 	// }}
 	// {{ Nombre (property)
-	private String nombreBebida;
+	private String nombre;
 
 	@Title
 	@Column(allowsNull = "false")
 	@MemberOrder(sequence = "2")
 	public String getNombre() {
-		return nombreBebida;
+		return nombre;
 	}
 
 	public void setNombre(final String nombreBebida) {
-		this.nombreBebida = nombreBebida;
+		this.nombre = nombreBebida;
 	}
 
 	// }}
 
 	// {{ Descripcion (property)
-	private String descripcionBebida;
+	private String descripcion;
 
 	@MultiLine(numberOfLines = 3)
 	@Optional
 	@MemberOrder(sequence = "3")
 	public String getDescripcion() {
-		return descripcionBebida;
+		return descripcion;
 	}
 
 	public void setDescripcion(final String descripcionBebida) {
-		this.descripcionBebida = descripcionBebida;
+		this.descripcion = descripcionBebida;
 	}
 
 	// }}
 
 	// {{ Precio (property)
-	private double precioBebida;
+	private double precio;
 
 	@TypicalLength(5)
 	@Column(allowsNull = "false")
 	@MemberOrder(sequence = "4")
 	public double getPrecio() {
-		return precioBebida;
+		return precio;
 	}
 
 	public void setPrecio(final double precioBebida) {
-		this.precioBebida = precioBebida;
+		this.precio = precioBebida;
 	}
 
 	// }}

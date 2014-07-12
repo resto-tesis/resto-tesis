@@ -43,7 +43,7 @@ import org.apache.isis.applib.annotation.TypicalLength;
 public class Plato {
 	
 	// {{ Numero (property)
-	private int numeroPlato;
+	private int numero;
 
 	@TypicalLength(3)
 	@Disabled
@@ -51,39 +51,39 @@ public class Plato {
 	@Column(allowsNull = "false")
 	@MemberOrder(sequence = "1")
 	public int getNumero() {
-		return numeroPlato;
+		return numero;
 	}
 
 	public void setNumero(final int numeroPlato) {
-		this.numeroPlato = numeroPlato;
+		this.numero = numeroPlato;
 	}
 	// }}
 	// {{ Nombre (property)
-	private String nombrePlato;
+	private String nombre;
 	
 	@Title
 	@Column(allowsNull = "false")
 	@MemberOrder(sequence = "2")
 	public String getNombre() {
-		return nombrePlato;
+		return nombre;
 	}
 
 	public void setNombre(final String nombrePlato) {
-		this.nombrePlato = nombrePlato;
+		this.nombre = nombrePlato;
 	}
 	// }}
 	// {{ Descripcion (property)
-	private String descripcionPlato;
+	private String descripcion;
 
 	@MultiLine(numberOfLines = 3)
 	@Optional
 	@MemberOrder(sequence = "3")
 	public String getDescripcion() {
-		return descripcionPlato;
+		return descripcion;
 	}
 
 	public void setDescripcion(final String descripcionPlato) {
-		this.descripcionPlato = descripcionPlato;
+		this.descripcion = descripcionPlato;
 	}
 	// }}
 	// {{ TipoDePlato (property)
@@ -100,30 +100,30 @@ public class Plato {
 	}
 	// }}
 	// {{ CondicionDePlato (property)
-	private CondicionDePlatoEnum condicionDePLato;
+	private CondicionDePlatoEnum condicionDePlato;
 	
 	@Column(allowsNull = "false")
 	@MemberOrder(sequence = "5")
 	public CondicionDePlatoEnum getCondicionDePlato() {
-		return condicionDePLato;
+		return condicionDePlato;
 	}
 
 	public void setCondicionDePlato(final CondicionDePlatoEnum condicionDePLato) {
-		this.condicionDePLato = condicionDePLato;
+		this.condicionDePlato = condicionDePLato;
 	}
 	// }}
 	// {{ Precio (property)
-	private double precioPlato;
+	private double precio;
 
 	@TypicalLength(5)
 	@Column(allowsNull = "false")
 	@MemberOrder(sequence = "6")
 	public double getPrecio() {
-		return precioPlato;
+		return precio;
 	}
 
 	public void setPrecio(final double precioPlato) {
-		this.precioPlato = precioPlato;
+		this.precio = precioPlato;
 	}
 	// }}
 

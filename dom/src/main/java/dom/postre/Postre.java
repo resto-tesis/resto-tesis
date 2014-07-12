@@ -45,7 +45,7 @@ import dom.postre.PostreServicio;
 public class Postre {
 
 	// {{ Numero (property)
-	private int numeroPostre;
+	private int numero;
 
 	@TypicalLength(3)
 	@Disabled
@@ -53,53 +53,53 @@ public class Postre {
 	@Column(allowsNull = "false")
 	@MemberOrder(sequence = "1")
 	public int getNumero() {
-		return numeroPostre;
+		return numero;
 	}
 
 	public void setNumero(final int numeroPostre) {
-		this.numeroPostre = numeroPostre;
+		this.numero = numeroPostre;
 	}
 	// }}
 	// {{ Nombre (property)
-	private String nombrePostre;
+	private String nombre;
 
 	@Title
 	@Column(allowsNull = "false")
 	@MemberOrder(sequence = "2")
 	public String getNombre() {
-		return nombrePostre;
+		return nombre;
 	}
 
 	public void setNombre(final String nombrePostre) {
-		this.nombrePostre = nombrePostre;
+		this.nombre = nombrePostre;
 	}
 	// }}
 	// {{ Descripcion (property)
-	private String descripcionPostre;
+	private String descripcion;
 
 	@MultiLine(numberOfLines = 3)
 	@Optional
 	@MemberOrder(sequence = "3")
 	public String getDescripcion() {
-		return descripcionPostre;
+		return descripcion;
 	}
 
 	public void setDescripcion(final String descripcionPostre) {
-		this.descripcionPostre = descripcionPostre;
+		this.descripcion = descripcionPostre;
 	}
 	// }}
 	// {{ Precio (property)
-	private double precioPostre;
+	private double precio;
 
 	@TypicalLength(5)
 	@Column(allowsNull = "false")
 	@MemberOrder(sequence = "4")
 	public double getPrecio() {
-		return precioPostre;
+		return precio;
 	}
 
 	public void setPrecio(final double precioPostre) {
-		this.precioPostre = precioPostre;
+		this.precio = precioPostre;
 	}
 	// }}
 	

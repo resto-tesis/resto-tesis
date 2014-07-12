@@ -39,18 +39,18 @@ import org.apache.isis.applib.annotation.Title;
 public abstract class Empleado {
 
 	// {{ legajo (property)
-	private int lejago;
+	private int legajo;
 
 	@Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT, sequence = "secuenciaLegajo")
 	@Disabled
 	@Column(allowsNull = "false")
 	@MemberOrder(sequence = "1")
 	public int getLegajo() {
-		return lejago;
+		return legajo;
 	}
 
 	public void setLegajo(final int lejago) {
-		this.lejago = lejago;
+		this.legajo = lejago;
 	}
 
 	// }}

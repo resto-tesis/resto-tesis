@@ -57,63 +57,63 @@ public class Mesa {
 	@MemberOrder(name = "accionMesa", sequence = "2")
 	@Named("Seleccionar")
 	public List<Mesa> seleccionar() {
-		if (estadoAsignacionMesa == EstadoAsignacionMesaEnum.No_Asignada)
+		if (estadoAsignacion == EstadoAsignacionMesaEnum.No_Asignada)
 			setEstadoSeleccion(true);
 		return mesaServicio.listarMesas();
 	}
 	// {{ Numero (property)
-	private int numeroMesa;
+	private int numero;
 
 	@Disabled
 	@Title(prepend = "Mesa Nº ")
 	@Column(allowsNull = "false")
 	@MemberOrder(sequence = "2")
 	public int getNumero() {
-		return numeroMesa;
+		return numero;
 	}
 
 	public void setNumero(final int numeroMesa) {
-		this.numeroMesa = numeroMesa;
+		this.numero = numeroMesa;
 	}
 	// }}
 	// {{ Capacidad (property)
-	private int capacidadMesa;
+	private int capacidad;
 
 	@Column(allowsNull = "false")
 	@MemberOrder(sequence = "3")
 	public int getCapacidad() {
-		return capacidadMesa;
+		return capacidad;
 	}
 
 	public void setCapacidad(final int capacidadMesa) {
-		this.capacidadMesa = capacidadMesa;
+		this.capacidad = capacidadMesa;
 	}
 	// }}
 	// {{ EstadoHabilitacion (property)
-	private EstadoHabilitacionMesaEnum estadoHabilitacionMesa;
+	private EstadoHabilitacionMesaEnum estadoHabilitacion;
 
 	@Column(allowsNull = "false")
 	@MemberOrder(sequence = "4")
 	public EstadoHabilitacionMesaEnum getEstadoHabilitacion() {
-		return estadoHabilitacionMesa;
+		return estadoHabilitacion;
 	}
 
 	public void setEstadoHabilitacion(final EstadoHabilitacionMesaEnum estadoHabilitacionMesa) {
-		this.estadoHabilitacionMesa = estadoHabilitacionMesa;
+		this.estadoHabilitacion = estadoHabilitacionMesa;
 	}
 	// }}
 	// {{ EstadoAsignacion (property)
-	private EstadoAsignacionMesaEnum estadoAsignacionMesa;
+	private EstadoAsignacionMesaEnum estadoAsignacion;
 
 	@Column(allowsNull = "false")
 	@MemberOrder(sequence = "5")
 	@Disabled
 	public EstadoAsignacionMesaEnum getEstadoAsignacion() {
-		return estadoAsignacionMesa;
+		return estadoAsignacion;
 	}
 
 	public void setEstadoAsignacion(final EstadoAsignacionMesaEnum estadoAsignacionMesa) {
-		this.estadoAsignacionMesa = estadoAsignacionMesa;
+		this.estadoAsignacion = estadoAsignacionMesa;
 	}
 	// }}
 

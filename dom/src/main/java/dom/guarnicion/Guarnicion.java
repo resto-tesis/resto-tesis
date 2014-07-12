@@ -42,7 +42,7 @@ import org.apache.isis.applib.annotation.TypicalLength;
 public class Guarnicion {
 
 	// {{ Numero (property)
-	private int  numeroGuarnicion;
+	private int  numero;
 
 	@TypicalLength(3)
 	@Disabled
@@ -50,53 +50,53 @@ public class Guarnicion {
 	@Column(allowsNull = "false")
 	@MemberOrder(sequence = "1")
 	public int  getNumero() {
-		return numeroGuarnicion;
+		return numero;
 	}
 
 	public void setNumero(final int  numeroGuarnicion) {
-		this.numeroGuarnicion = numeroGuarnicion;
+		this.numero = numeroGuarnicion;
 	}
 	// }}
 	// {{ Nombre (property)
-	private String nombreGuarnicion;
+	private String nombre;
 
 	@Title
 	@Column(allowsNull = "false")
 	@MemberOrder(sequence = "2")
 	public String getNombre() {
-		return nombreGuarnicion;
+		return nombre;
 	}
 
 	public void setNombre(final String nombreGuarnicion) {
-		this.nombreGuarnicion = nombreGuarnicion;
+		this.nombre = nombreGuarnicion;
 	}
 	// }}
 	// {{ Descripcion (property)
-	private String descripcionGuarnicion;
+	private String descripcion;
 
 	@MultiLine(numberOfLines = 3)
 	@Optional
 	@MemberOrder(sequence = "3")
 	public String getDescripcion() {
-		return descripcionGuarnicion;
+		return descripcion;
 	}
 
 	public void setDescripcion(final String descripcionGuarnicion) {
-		this.descripcionGuarnicion = descripcionGuarnicion;
+		this.descripcion = descripcionGuarnicion;
 	}
 	// }}
 	// {{ Precio (property)
-	private double precioGuarnicion;
+	private double precio;
 
 	@TypicalLength(5)
 	@Column(allowsNull = "false")
 	@MemberOrder(sequence = "4")
 	public double getPrecio() {
-		return precioGuarnicion;
+		return precio;
 	}
 
 	public void setPrecio(final double precioGuarnicion) {
-		this.precioGuarnicion = precioGuarnicion;
+		this.precio = precioGuarnicion;
 	}
 	// }}
 
