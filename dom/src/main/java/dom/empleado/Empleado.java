@@ -17,6 +17,7 @@ package dom.empleado;
  * 
  */
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.jdo.annotations.Column;
@@ -38,6 +39,8 @@ import org.apache.isis.applib.annotation.Title;
 @Inheritance(strategy = InheritanceStrategy.COMPLETE_TABLE)
 public abstract class Empleado {
 
+	private SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
+	
 	// {{ legajo (property)
 	private int legajo;
 
@@ -54,7 +57,6 @@ public abstract class Empleado {
 	}
 
 	// }}
-
 	// {{ apellido (property)
 	private String apellido;
 
@@ -70,7 +72,6 @@ public abstract class Empleado {
 	}
 
 	// }}
-
 	// {{ nombre (property)
 	private String nombre;
 
@@ -86,7 +87,6 @@ public abstract class Empleado {
 	}
 
 	// }}
-
 	// {{ documento (property)
 	private long documento;
 
@@ -105,10 +105,9 @@ public abstract class Empleado {
 	// {{ fechadeNacimiento (property)
 	private Date fechadeNacimiento;
 
-	@Column(allowsNull = "false")
 	@MemberOrder(sequence = "5")
-	public Date getFechadeNacimiento() {
-		return fechadeNacimiento;
+	public String getFechadeNacimiento() {
+		return formato.format(fechadeNacimiento);
 	}
 
 	public void setFechadeNacimiento(final Date fechadeNacimiento) {
@@ -116,14 +115,12 @@ public abstract class Empleado {
 	}
 
 	// }}
-
 	// {{ fechadeIngreso (property)
 	private Date fechadeIngreso;
 
-	@Column(allowsNull = "false")
 	@MemberOrder(sequence = "6")
-	public Date getFechadeIngreso() {
-		return fechadeIngreso;
+	public String getFechadeIngreso() {
+		return formato.format(fechadeIngreso);
 	}
 
 	public void setFechadeIngreso(final Date fechadeIngreso) {
