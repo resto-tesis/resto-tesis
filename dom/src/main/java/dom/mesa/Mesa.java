@@ -22,6 +22,7 @@ import java.util.List;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Queries;
 import javax.jdo.annotations.Query;
 
 import org.apache.isis.applib.DomainObjectContainer;
@@ -32,8 +33,13 @@ import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
 import org.apache.isis.applib.annotation.Title;
 
+import dom.mozo.Mozo;
+
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
-@Query(name = "mesasSeleccionadas", language = "JDOQL", value = "SELECT FROM dom.mesa.Mesa where estadoSeleccion == true")
+@Queries({
+	@Query(name = "mesasSeleccionadas", language = "JDOQL", value = "SELECT FROM dom.mesa.Mesa where estadoSeleccion == true"),
+	@Query(name = "mesasSinAsignar", language = "JDOQL", value = "SELECT FROM dom.mesa.Mesa where estadoAsignacion == 'No_Asignada'")
+	})
 public class Mesa {
 
 	// {{ EstadoSeleccion (property)
@@ -56,10 +62,10 @@ public class Mesa {
 	@Bulk
 	@MemberOrder(name = "accionMesa", sequence = "2")
 	@Named("Seleccionar")
-	public List<Mesa> seleccionar() {
+	public List<Mozo> seleccionar() {
 		if (estadoAsignacion == EstadoAsignacionMesaEnum.No_Asignada)
 			setEstadoSeleccion(true);
-		return mesaServicio.listarMesas();
+		return mesaServicio.listaDeMozos();
 	}
 	// {{ Numero (property)
 	private int numero;

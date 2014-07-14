@@ -25,6 +25,9 @@ import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
 import org.apache.isis.applib.annotation.ActionSemantics.Of;
+import org.apache.isis.applib.query.QueryDefault;
+
+import dom.mozo.Mozo;
 
 @Named("Mesa")
 public class MesaServicio extends AbstractFactoryAndRepository {
@@ -73,6 +76,14 @@ public class MesaServicio extends AbstractFactoryAndRepository {
 	public List<Mesa> listarMesas() {
 		final List<Mesa> listamesas = allInstances(Mesa.class);
 		return listamesas;
+	}
+	
+	@Hidden
+	public List<Mozo> listaDeMozos(){
+		return allMatches(
+                new QueryDefault<Mozo>(Mozo.class, 
+                        "todosLosMozos"                        
+                        )); 
 	}
 
 }

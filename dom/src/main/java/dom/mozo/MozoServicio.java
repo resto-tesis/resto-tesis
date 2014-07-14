@@ -71,10 +71,21 @@ public class MozoServicio extends AbstractFactoryAndRepository {
 		final List<Mozo> listamozos = allInstances(Mozo.class);
 		return listamozos;
 	}
-
+	
+	@Hidden
+	public List<Mesa> listarMesaSinAsignar() {
+		return allMatches(
+                new QueryDefault<Mesa>(Mesa.class, 
+                        "mesasSinAsignar"                        
+                        ));
+	}
+	
 	@Hidden
 	public List<Mesa> listaMesasSeleccionadas() {
-		return allMatches(QueryDefault.create(Mesa.class, "mesasSeleccionadas"));
+		return allMatches(
+                new QueryDefault<Mesa>(Mesa.class, 
+                        "mesasSeleccionadas" 
+                        ));			
 	}
 
 	@Hidden

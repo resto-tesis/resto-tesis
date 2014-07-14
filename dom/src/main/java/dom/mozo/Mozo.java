@@ -22,6 +22,8 @@ import java.util.List;
 
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Queries;
+import javax.jdo.annotations.Query;
 
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.Bulk;
@@ -33,6 +35,9 @@ import dom.empleado.Empleado;
 import dom.mesa.Mesa;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
+@Queries({
+	@Query(name = "todosLosMozos", language = "JDOQL", value = "SELECT FROM dom.mozo.Mozo")
+	})
 public class Mozo extends Empleado {
 
 	// {{ Lista De Mesas (Collection)
@@ -102,5 +107,12 @@ public class Mozo extends Empleado {
 		return mozoServicio.asignarMesas(this);
 
 	}
+	
+	@Named("Seleccionar Mesas a Mozos")	
+	@MemberOrder(name = "accionMesaMozo", sequence = "2")
+	public List<Mesa> MesasSinAsignar(){
+		return mozoServicio.listarMesaSinAsignar();
+	}
+	
 
 }
