@@ -24,7 +24,6 @@ import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Queries;
 import javax.jdo.annotations.Query;
-
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.Bulk;
 import org.apache.isis.applib.annotation.Disabled;
@@ -32,7 +31,6 @@ import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
 import org.apache.isis.applib.annotation.Title;
-
 import dom.mozo.Mozo;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
@@ -129,7 +127,6 @@ public class Mesa {
 	public List<Mesa> borrar() {
 
 		contenedor.removeIfNotAlready(this);
-
 		return mesaServicio.listarMesas();
 	}
 
