@@ -42,10 +42,10 @@ public class PlatoServicio extends AbstractFactoryAndRepository {
 			/* Parametros de Entrada */
 			@RegEx(validation = "[a-zA-ZáéíóúÁÉÍÓÚ]*") @MaxLength(value = 25) @Named("Nombre") final String nombre,
 			@Named("Condicion") final CondicionDePlatoEnum unaCondicion,
-			@Optional @MultiLine(numberOfLines = 3) @Named("Descripcion") final String unaDescripcion,
+			@Optional @MultiLine(numberOfLines = 3) @Named("Descripción") final String unaDescripcion,
 			@Named("Precio") @MaxLength(value = 6) @Digits(integer = 3, fraction = 2) final BigDecimal unPrecio) {
 		/* Empieza el metodo */
-		return crearUnPlatoEntrada(nombre, unaCondicion, unaDescripcion,
+		return crearUnPlatoPrincipal(nombre, unaCondicion, unaDescripcion,
 				unPrecio);
 	}
 
@@ -58,7 +58,7 @@ public class PlatoServicio extends AbstractFactoryAndRepository {
 			@Optional @MultiLine(numberOfLines = 3) @Named("Descripcion") final String unaDescripcion,
 			@Named("Precio") @MaxLength(value = 6) @Digits(integer = 3, fraction = 2) final BigDecimal unPrecio) {
 		/* Empieza el metodo */
-		return crearUnPlatoPrincipal(nombre, unaCondicion, unaDescripcion,
+		return crearUnPlatoEntrada(nombre, unaCondicion, unaDescripcion,
 				unPrecio);
 	}
 
@@ -71,8 +71,10 @@ public class PlatoServicio extends AbstractFactoryAndRepository {
 		unPlato.setNombre(nombre.substring(0, 1).toUpperCase()
 				+ nombre.substring(1));
 		unPlato.setCondicionDePlato(unaCondicion);
-		unPlato.setDescripcion(unaDescripcion.substring(0, 1).toUpperCase()
-				+ unaDescripcion.substring(1));
+		if (unaDescripcion != null) {
+			unPlato.setDescripcion(unaDescripcion.substring(0, 1).toUpperCase()
+					+ unaDescripcion.substring(1));
+		}
 		unPlato.setPrecio(unPrecio.doubleValue());
 		persist(unPlato);
 		return unPlato;
@@ -87,8 +89,10 @@ public class PlatoServicio extends AbstractFactoryAndRepository {
 		unPlato.setNombre(nombre.substring(0, 1).toUpperCase()
 				+ nombre.substring(1));
 		unPlato.setCondicionDePlato(unaCondicion);
-		unPlato.setDescripcion(unaDescripcion.substring(0, 1).toUpperCase()
-				+ unaDescripcion.substring(1));
+		if (unaDescripcion != null) {
+			unPlato.setDescripcion(unaDescripcion.substring(0, 1).toUpperCase()
+					+ unaDescripcion.substring(1));
+		}
 		unPlato.setPrecio(unPrecio.doubleValue());
 		persist(unPlato);
 		return unPlato;

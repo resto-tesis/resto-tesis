@@ -119,4 +119,11 @@ public abstract class Plato {
 		this.precio = precioPlato;
 	}
 	// }}
+
+	@Override
+	public String toString() {
+		return nombre;
+	}
+	
+	
 }

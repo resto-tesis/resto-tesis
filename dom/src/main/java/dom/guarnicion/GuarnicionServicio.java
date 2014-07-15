@@ -40,17 +40,19 @@ public class GuarnicionServicio extends AbstractFactoryAndRepository {
 	@MemberOrder(sequence = "1")
 	public Guarnicion crearGuarnicion(
 			@Named("Nombre") @RegEx(validation = "[a-zA-ZáéíóúÁÉÍÓÚ]*") @MaxLength(value = 15) final String nombreGuarnicion,
-			@Named("Descripcion") @Optional @MultiLine(numberOfLines = 3) final String descripcionGuarnicion,
-			@Named("Precio") @MaxLength(value = 5) @Digits(integer=2, fraction=2) final BigDecimal precioGuarnicion) {
+			@Named("Descripción") @Optional @MultiLine(numberOfLines = 3) final String descripcionGuarnicion,
+			@Named("Precio") @MaxLength(value = 5) @Digits(integer = 2, fraction = 2) final BigDecimal precioGuarnicion) {
 		return crearGuarnicionNueva(nombreGuarnicion, descripcionGuarnicion,
 				precioGuarnicion);
 	}
 
 	@Hidden
 	public Guarnicion crearGuarnicionNueva(final String nombreGuarnicion,
-			final String descripcionGuarnicion, final BigDecimal precioGuarnicion) {
+			final String descripcionGuarnicion,
+			final BigDecimal precioGuarnicion) {
 		final Guarnicion guarnicion = newTransientInstance(Guarnicion.class);
-		guarnicion.setNombre(nombreGuarnicion.substring(0, 1).toUpperCase() + nombreGuarnicion.substring(1));
+		guarnicion.setNombre(nombreGuarnicion.substring(0, 1).toUpperCase()
+				+ nombreGuarnicion.substring(1));
 		guarnicion.setDescripcion(descripcionGuarnicion);
 		guarnicion.setPrecio(precioGuarnicion.doubleValue());
 		persist(guarnicion);

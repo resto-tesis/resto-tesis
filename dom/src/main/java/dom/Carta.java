@@ -20,6 +20,7 @@ package dom;
 import java.util.List;
 
 import dom.guarnicion.Guarnicion;
+import dom.menu.Menu;
 import dom.plato.Plato;
 import dom.postre.Postre;
 
