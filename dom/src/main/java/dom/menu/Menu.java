@@ -50,7 +50,7 @@ public class Menu {
 
 	@TypicalLength(3)
 	@Disabled
-	@Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT, sequence = "secuenciaNumeroGuarnicion")
+	@Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT, sequence = "secuenciaNumeroMenu")
 	@Column(allowsNull = "false")
 	@MemberOrder(sequence = "1")
 	public int getNumero() {
@@ -66,7 +66,7 @@ public class Menu {
 	// {{ Nombre (property)
 	private String nombre;
 
-	@MemberOrder(sequence = "1")
+	@MemberOrder(sequence = "2")
 	@Column(allowsNull = "false")
 	@Title
 	public String getNombre() {
@@ -82,7 +82,7 @@ public class Menu {
 	// {{ PlatoPrincipal (property)
 	private PlatoPrincipal platoPrincipal;
 
-	@MemberOrder(sequence = "1")
+	@MemberOrder(sequence = "3")
 	@Column(allowsNull = "false")
 	public PlatoPrincipal getPlatoPrincipal() {
 		return platoPrincipal;
@@ -97,7 +97,7 @@ public class Menu {
 	// {{ Bebida (property)
 	private Bebida bebida;
 
-	@MemberOrder(sequence = "1")
+	@MemberOrder(sequence = "4")
 	@Column(allowsNull = "false")
 	public Bebida getBebida() {
 		return bebida;
@@ -113,7 +113,7 @@ public class Menu {
 	private Guarnicion guarnicion;
 
 	@Optional
-	@MemberOrder(sequence = "1")
+	@MemberOrder(sequence = "5")
 	public Guarnicion getGuarnicion() {
 		return guarnicion;
 	}
@@ -128,7 +128,7 @@ public class Menu {
 	private PlatoEntrada platoEntrada;
 
 	@Optional
-	@MemberOrder(sequence = "1")
+	@MemberOrder(sequence = "6")
 	public PlatoEntrada getPlatoEntrada() {
 		return platoEntrada;
 	}
@@ -143,7 +143,7 @@ public class Menu {
 	private Postre postre;
 
 	@Optional
-	@MemberOrder(sequence = "1")
+	@MemberOrder(sequence = "7")
 	public Postre getPostre() {
 		return postre;
 	}
@@ -158,7 +158,7 @@ public class Menu {
 	private int descuento;
 
 	@Named("Descuento (%)")
-	@MemberOrder(sequence = "1")
+	@MemberOrder(sequence = "8")
 	@Column(allowsNull = "false")
 	public int getDescuento() {
 		return descuento;
@@ -174,7 +174,7 @@ public class Menu {
 //	private double precioFinal;
 
 	@Disabled
-	@MemberOrder(sequence = "1")
+	@MemberOrder(sequence = "9")
 	public double getPrecioFinal() {
 		// return precioFinal;
 		return menuServicio.calcularDescuento(this);

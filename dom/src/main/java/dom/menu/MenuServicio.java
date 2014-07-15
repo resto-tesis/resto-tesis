@@ -61,23 +61,27 @@ public class MenuServicio extends AbstractFactoryAndRepository {
 			final Postre _postre, final int _descuento) {
 		final Menu menu = newTransientInstance(Menu.class);
 		menu.setBebida(_bebida);
-		menu.setGuarnicion(_guarnicion);
-		menu.setPlatoEntrada(_platoEntrada);
+		 menu.setGuarnicion(_guarnicion);
+		 menu.setPlatoEntrada(_platoEntrada);
 		menu.setPlatoPrincipal(_platoPrincipal);
-		menu.setPostre(_postre);
+		 menu.setPostre(_postre);
 		menu.setDescuento(_descuento);
-		menu.setNombre(_nombre);
+		menu.setNombre(_nombre.substring(0, 1).toUpperCase()
+				+ _nombre.substring(1));
 		persist(menu);
 		return menu;
 	}
 
 	@Hidden
 	public double calcularDescuento(Menu _menu) {
-		final Double total = _menu.getBebida().getPrecio()
-				+ _menu.getGuarnicion().getPrecio()
-				+ _menu.getPlatoEntrada().getPrecio()
-				+ _menu.getPlatoPrincipal().getPrecio()
-				+ _menu.getPostre().getPrecio();
+		Double total = _menu.getBebida().getPrecio()
+				+ _menu.getPlatoPrincipal().getPrecio();
+		total += (_menu.getGuarnicion() == null) ? 0 : _menu.getGuarnicion()
+				.getPrecio();
+		total += (_menu.getPlatoEntrada() == null) ? 0 : _menu
+				.getPlatoEntrada().getPrecio();
+		total += (_menu.getPostre() == null) ? 0 : _menu.getPostre()
+				.getPrecio();
 		final double calculo = total - ((total / 100) * _menu.getDescuento());
 		return calculo;
 	}
@@ -107,7 +111,7 @@ public class MenuServicio extends AbstractFactoryAndRepository {
 		return allInstances(Postre.class);
 	}
 
-	@Named("Listrar")
+	@Named("Listar")
 	@ActionSemantics(Of.SAFE)
 	@MemberOrder(sequence = "2")
 	public List<Menu> listarMenues() {

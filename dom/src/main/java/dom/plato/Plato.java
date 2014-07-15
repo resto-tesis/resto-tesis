@@ -120,10 +120,4 @@ public abstract class Plato {
 	}
 	// }}
 
-	@Override
-	public String toString() {
-		return nombre;
-	}
-	
-	
 }
