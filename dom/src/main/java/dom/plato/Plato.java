@@ -1,25 +1,5 @@
 package dom.plato;
 
-import java.util.List;
-
-import javax.jdo.annotations.Column;
-import javax.jdo.annotations.IdGeneratorStrategy;
-import javax.jdo.annotations.IdentityType;
-import javax.jdo.annotations.PersistenceCapable;
-import javax.jdo.annotations.Persistent;
-import javax.jdo.annotations.Sequence;
-import javax.jdo.annotations.SequenceStrategy;
-
-import org.apache.isis.applib.DomainObjectContainer;
-import org.apache.isis.applib.annotation.Bulk;
-import org.apache.isis.applib.annotation.Disabled;
-import org.apache.isis.applib.annotation.MemberOrder;
-import org.apache.isis.applib.annotation.MultiLine;
-import org.apache.isis.applib.annotation.Named;
-import org.apache.isis.applib.annotation.Optional;
-import org.apache.isis.applib.annotation.Title;
-import org.apache.isis.applib.annotation.TypicalLength;
-
 /*
  * Copyright 2014 resto-tesis
  * 
@@ -38,11 +18,28 @@ import org.apache.isis.applib.annotation.TypicalLength;
  * 
  */
 
+import javax.jdo.annotations.Column;
+import javax.jdo.annotations.IdGeneratorStrategy;
+import javax.jdo.annotations.IdentityType;
+import javax.jdo.annotations.Inheritance;
+import javax.jdo.annotations.InheritanceStrategy;
+import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Persistent;
+import javax.jdo.annotations.Sequence;
+import javax.jdo.annotations.SequenceStrategy;
+
+import org.apache.isis.applib.annotation.Disabled;
+import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.annotation.MultiLine;
+import org.apache.isis.applib.annotation.Optional;
+import org.apache.isis.applib.annotation.Title;
+import org.apache.isis.applib.annotation.TypicalLength;
+
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Sequence(name = "secuenciaNumeroPlato", strategy = SequenceStrategy.CONTIGUOUS)
+@Inheritance(strategy = InheritanceStrategy.COMPLETE_TABLE)
+public abstract class Plato {
 
-public class Plato {
-	
 	// {{ Numero (property)
 	private int numero;
 
@@ -58,10 +55,12 @@ public class Plato {
 	public void setNumero(final int numeroPlato) {
 		this.numero = numeroPlato;
 	}
+
 	// }}
+
 	// {{ Nombre (property)
 	private String nombre;
-	
+
 	@Title
 	@Column(allowsNull = "false")
 	@MemberOrder(sequence = "2")
@@ -72,7 +71,9 @@ public class Plato {
 	public void setNombre(final String nombrePlato) {
 		this.nombre = nombrePlato;
 	}
+
 	// }}
+
 	// {{ Descripcion (property)
 	private String descripcion;
 
@@ -86,23 +87,12 @@ public class Plato {
 	public void setDescripcion(final String descripcionPlato) {
 		this.descripcion = descripcionPlato;
 	}
-	// }}
-	// {{ TipoDePlato (property)
-	private TipoDePlatoEnum tipoDePlato;
-	
-	@Column(allowsNull = "false")
-	@MemberOrder(sequence = "4")
-	public TipoDePlatoEnum getTipoDePlato() {
-		return tipoDePlato;
-	}
 
-	public void setTipoDePlato(final TipoDePlatoEnum tipoDePlato) {
-		this.tipoDePlato = tipoDePlato;
-	}
 	// }}
+
 	// {{ CondicionDePlato (property)
 	private CondicionDePlatoEnum condicionDePlato;
-	
+
 	@Column(allowsNull = "false")
 	@MemberOrder(sequence = "5")
 	public CondicionDePlatoEnum getCondicionDePlato() {
@@ -112,7 +102,9 @@ public class Plato {
 	public void setCondicionDePlato(final CondicionDePlatoEnum condicionDePLato) {
 		this.condicionDePlato = condicionDePLato;
 	}
+
 	// }}
+
 	// {{ Precio (property)
 	private double precio;
 
@@ -127,34 +119,4 @@ public class Plato {
 		this.precio = precioPlato;
 	}
 	// }}
-
-	@Named("Borrar")
-	@Bulk
-	@MemberOrder(name = "accionPlato", sequence = "1")
-	public List<Plato> borrar() {
-
-		contenedor.removeIfNotAlready(this);
-
-		return platoServicio.listarPLatos();
-	}
-	
-	// {{ injected: DomainObjectContainer
-		private DomainObjectContainer contenedor;
-	
-	public DomainObjectContainer getContenedor() {
-		return contenedor;
-	}
-
-	public void setContenedor(DomainObjectContainer contenedor) {
-		this.contenedor = contenedor;
-	}
-
-	private PlatoServicio platoServicio;
-
-	public void injectarPlatoServicio(final PlatoServicio servicioplato) {
-		this.platoServicio = servicioplato;
-	}
-
-	
-
 }

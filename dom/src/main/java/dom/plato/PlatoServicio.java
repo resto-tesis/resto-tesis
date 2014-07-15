@@ -36,38 +36,77 @@ import org.apache.isis.applib.annotation.ActionSemantics.Of;
 @Named("Plato")
 public class PlatoServicio extends AbstractFactoryAndRepository {
 
-	@Named("Crear")
+	@Named("Crear Plato Principal")
 	@MemberOrder(sequence = "1")
-	public Plato crearPlato(
+	public Plato crearPlatoPrincipal(
 			/* Parametros de Entrada */
 			@RegEx(validation = "[a-zA-ZáéíóúÁÉÍÓÚ]*") @MaxLength(value = 25) @Named("Nombre") final String nombre,
-			@Named("Tipo") final TipoDePlatoEnum unTipoDePlato,
 			@Named("Condicion") final CondicionDePlatoEnum unaCondicion,
 			@Optional @MultiLine(numberOfLines = 3) @Named("Descripcion") final String unaDescripcion,
-			@Named("Precio") @MaxLength(value = 6) @Digits(integer=3, fraction=2) final BigDecimal unPrecio) {
+			@Named("Precio") @MaxLength(value = 6) @Digits(integer = 3, fraction = 2) final BigDecimal unPrecio) {
 		/* Empieza el metodo */
-		return crearUnPlato(nombre, unTipoDePlato, unaCondicion,unaDescripcion, unPrecio);
+		return crearUnPlatoEntrada(nombre, unaCondicion, unaDescripcion,
+				unPrecio);
+	}
+
+	@Named("Crear Plato de Entrada")
+	@MemberOrder(sequence = "2")
+	public Plato crearPlatoEntrada(
+			/* Parametros de Entrada */
+			@RegEx(validation = "[a-zA-ZáéíóúÁÉÍÓÚ]*") @MaxLength(value = 25) @Named("Nombre") final String nombre,
+			@Named("Condicion") final CondicionDePlatoEnum unaCondicion,
+			@Optional @MultiLine(numberOfLines = 3) @Named("Descripcion") final String unaDescripcion,
+			@Named("Precio") @MaxLength(value = 6) @Digits(integer = 3, fraction = 2) final BigDecimal unPrecio) {
+		/* Empieza el metodo */
+		return crearUnPlatoPrincipal(nombre, unaCondicion, unaDescripcion,
+				unPrecio);
 	}
 
 	@Hidden
-	public Plato crearUnPlato(final String nombre, final TipoDePlatoEnum unTipoDePlato, final CondicionDePlatoEnum unaCondicion, final String unaDescripcion, final BigDecimal unPrecio) { 
-		/* Empieza el Metodo*/
-		final Plato unPlato = newTransientInstance(Plato.class);
-		unPlato.setNombre(nombre.substring(0, 1).toUpperCase()+ nombre.substring(1));
-		unPlato.setTipoDePlato(unTipoDePlato);
+	public PlatoPrincipal crearUnPlatoPrincipal(final String nombre,
+			final CondicionDePlatoEnum unaCondicion,
+			final String unaDescripcion, final BigDecimal unPrecio) {
+		/* Empieza el Metodo */
+		final PlatoPrincipal unPlato = newTransientInstance(PlatoPrincipal.class);
+		unPlato.setNombre(nombre.substring(0, 1).toUpperCase()
+				+ nombre.substring(1));
 		unPlato.setCondicionDePlato(unaCondicion);
-		unPlato.setDescripcion(unaDescripcion);
+		unPlato.setDescripcion(unaDescripcion.substring(0, 1).toUpperCase()
+				+ unaDescripcion.substring(1));
 		unPlato.setPrecio(unPrecio.doubleValue());
 		persist(unPlato);
 		return unPlato;
 	}
 
-	@Named("Listar")
+	@Hidden
+	public PlatoEntrada crearUnPlatoEntrada(final String nombre,
+			final CondicionDePlatoEnum unaCondicion,
+			final String unaDescripcion, final BigDecimal unPrecio) {
+		/* Empieza el Metodo */
+		final PlatoEntrada unPlato = newTransientInstance(PlatoEntrada.class);
+		unPlato.setNombre(nombre.substring(0, 1).toUpperCase()
+				+ nombre.substring(1));
+		unPlato.setCondicionDePlato(unaCondicion);
+		unPlato.setDescripcion(unaDescripcion.substring(0, 1).toUpperCase()
+				+ unaDescripcion.substring(1));
+		unPlato.setPrecio(unPrecio.doubleValue());
+		persist(unPlato);
+		return unPlato;
+	}
+
+	@Named("Listar Platos de Entrada")
 	@ActionSemantics(Of.SAFE)
-	@MemberOrder(sequence = "2")
-	public List<Plato> listarPLatos() {
-		final List<Plato> listaPlatos = allInstances(Plato.class);
+	@MemberOrder(sequence = "4")
+	public List<PlatoEntrada> listarPLatosEntrada() {
+		final List<PlatoEntrada> listaPlatos = allInstances(PlatoEntrada.class);
 		return listaPlatos;
 	}
 
+	@Named("Listar Platos Principales")
+	@ActionSemantics(Of.SAFE)
+	@MemberOrder(sequence = "3")
+	public List<PlatoPrincipal> listarPLatosPrincipales() {
+		final List<PlatoPrincipal> listaPlatos = allInstances(PlatoPrincipal.class);
+		return listaPlatos;
+	}
 }
