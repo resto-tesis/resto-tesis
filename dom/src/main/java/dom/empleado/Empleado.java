@@ -36,7 +36,7 @@ import org.apache.isis.applib.annotation.Title;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Sequence(name = "secuenciaLegajo", strategy = SequenceStrategy.CONTIGUOUS)
-@Inheritance(strategy = InheritanceStrategy.COMPLETE_TABLE)
+@Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
 public abstract class Empleado {
 
 	private SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
@@ -127,5 +127,5 @@ public abstract class Empleado {
 		this.fechadeIngreso = fechadeIngreso;
 	}
 	// }}
-
+	
 }

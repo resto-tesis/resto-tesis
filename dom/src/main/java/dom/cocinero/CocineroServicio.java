@@ -17,6 +17,7 @@ package dom.cocinero;
  * 
  */
 
+
 import java.util.Date;
 import java.util.List;
 
@@ -71,4 +72,5 @@ public class CocineroServicio extends AbstractFactoryAndRepository {
 		final List<Cocinero> listaCocinero = allInstances(Cocinero.class);
 		return listaCocinero;
 	}
+	
 }
