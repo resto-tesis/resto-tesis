@@ -17,8 +17,6 @@ package dom.cocinero;
  * 
  */
 
-
-import java.util.Date;
 import java.util.List;
 
 import org.apache.isis.applib.AbstractFactoryAndRepository;
@@ -26,51 +24,97 @@ import org.apache.isis.applib.annotation.ActionSemantics;
 import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.MaxLength;
 import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.annotation.MinLength;
 import org.apache.isis.applib.annotation.Named;
 import org.apache.isis.applib.annotation.RegEx;
 import org.apache.isis.applib.annotation.ActionSemantics.Of;
+import org.joda.time.Days;
+import org.joda.time.LocalDate;
 
 @Named("Cocinero")
-public class CocineroServicio extends AbstractFactoryAndRepository {
+public class CocineroServicio extends AbstractFactoryAndRepository implements ICocineroServicio{
 
-	public CocineroServicio() {
-		// TODO Auto-generated constructor stub
-	}
-
+	/*
+	 * Atributo Extra para las validaciones de las fechas
+	 */
+	final LocalDate fecha_actual = LocalDate.now();
+	
 	@Named("Crear")
 	@MemberOrder(sequence = "1")
 	public Cocinero crearCocinero(
 			@Named("Apellido") @RegEx(validation = "[a-zA-ZáéíóúÁÉÍÓÚ]*") @MaxLength(value = 20) final String _apellido,
 			@Named("Nombre") @RegEx(validation = "[a-zA-ZáéíóúÁÉÍÓÚ]*") @MaxLength(value = 20) final String _nombre,
-			@Named("Documento") @RegEx(validation = "[0-9*") @MaxLength(value = 8)final long _dni,
-			@Named("Fecha de Nacimiento") final Date _fechaNacimiento,
-			@Named("Fecha de Ingreso") final Date _fechaIngreso) {
-		return crearNuevoCocinero(_nombre, _apellido, _dni, _fechaNacimiento,
-				_fechaIngreso);
+			@Named("Documento") @RegEx(validation = "[0-9*") @MaxLength(value = 8) @MinLength(value = 7)final long _dni,
+			@Named("Fecha de Nacimiento") final LocalDate fechadeNacimiento,
+			@Named("Fecha de Ingreso") final LocalDate fechadeIngreso) {
+		return crearNuevoCocinero(_nombre, _apellido, _dni, fechadeNacimiento,
+				fechadeIngreso);
 	}
 
 	@Hidden
 	public Cocinero crearNuevoCocinero(final String _nombre,
 			final String _apellido, final long _dni,
-			final Date _fechaNacimiento, final Date _fechaIngreso) {
+			final LocalDate fechadeNacimiento, final LocalDate fechadeIngreso) {
 		final Cocinero cocineroNuevo = newTransientInstance(Cocinero.class);
-		cocineroNuevo.setApellido(_apellido.substring(0, 1).toUpperCase()
-				+ _apellido.substring(1));
+		cocineroNuevo.setApellido(_apellido.substring(0, 1).toUpperCase() + _apellido.substring(1));
 		cocineroNuevo.setDocumento(_dni);
-		cocineroNuevo.setFechadeIngreso(_fechaIngreso);
-		cocineroNuevo.setFechadeNacimiento(_fechaNacimiento);
-		cocineroNuevo.setNombre(_nombre.substring(0, 1).toUpperCase()
-				+ _nombre.substring(1));
+		cocineroNuevo.setFechadeIngreso(fechadeIngreso.toDate());
+		cocineroNuevo.setFechadeNacimiento(fechadeNacimiento.toDate());
+		cocineroNuevo.setNombre(_nombre.substring(0, 1).toUpperCase() + _nombre.substring(1));
 		persist(cocineroNuevo);
 		return cocineroNuevo;
 	}
 
 	@Named("Listar")
-	@MemberOrder(sequence = "1")
+	@MemberOrder(sequence = "2")
 	@ActionSemantics(Of.SAFE)
 	public List<Cocinero> listarCocineros() {
 		final List<Cocinero> listaCocinero = allInstances(Cocinero.class);
 		return listaCocinero;
 	}
-	
+
+	/*
+	 * Validacion del ingreso de fechas por el UI
+	 */
+	@Override
+	public String validateCrearCocinero(String _nombre, String _apellido,
+			long _dni, LocalDate fechadeNacimiento, LocalDate fechadeIngreso) {
+		// TODO Auto-generated method stub
+		if(fechadeNacimiento.isAfter(fechadeIngreso)||fechadeNacimiento.isEqual(fechadeIngreso)) {
+			return "La fecha de nacimiento no debe ser mayor o igual a la fecha de ingreso de los empleados";
+		}else{
+			if(fechadeIngreso.isAfter(fecha_actual)){
+				return "La fecha de ingreso debe ser menor o igual a la fecha actual";
+			}else{
+				if (validaMayorEdad(fechadeNacimiento) == false){
+					return "El empleado es menor de edad";
+				}else{
+					return null;
+				}
+			}
+		}
+	}
+	/*
+	 * Validacion de la mayoria de edad de los empleados ingresados
+	 * 6575 son la cantidad de dias que tiene una persona de 18 años
+	 */
+	@Override
+	@Hidden
+	public boolean validaMayorEdad(LocalDate fechadeNacimiento) {
+		// TODO Auto-generated method stub
+		if(getDiasNacimiento_Hoy(fechadeNacimiento) >= 6575){
+			return true;
+		}
+		return false;
+	}
+	/*
+	 * Obtiene la cantidad de dias entre la fecha de nacimiento y la fecha actual
+	 */
+	@Override
+	@Hidden
+	public int getDiasNacimiento_Hoy(LocalDate fechadeNacimiento) {
+		// TODO Auto-generated method stub
+		Days meses = Days.daysBetween(fechadeNacimiento, fecha_actual);
+		return meses.getDays();
+	}
 }

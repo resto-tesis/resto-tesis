@@ -17,7 +17,6 @@ package dom.mozo;
  * 
  */
 
-import java.util.Date;
 import java.util.List;
 
 import org.apache.isis.applib.AbstractFactoryAndRepository;
@@ -25,45 +24,49 @@ import org.apache.isis.applib.annotation.ActionSemantics;
 import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.MaxLength;
 import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.annotation.MinLength;
 import org.apache.isis.applib.annotation.Named;
 import org.apache.isis.applib.annotation.RegEx;
 import org.apache.isis.applib.annotation.ActionSemantics.Of;
 import org.apache.isis.applib.query.QueryDefault;
+import org.joda.time.Days;
+import org.joda.time.LocalDate;
 
 import dom.mesa.EstadoAsignacionMesaEnum;
 import dom.mesa.Mesa;
 
 @Named("Mozo")
-public class MozoServicio extends AbstractFactoryAndRepository {
+public class MozoServicio extends AbstractFactoryAndRepository implements IMozoServicio{
 
+	/*
+	 * Atributo Extra para las validaciones de las fechas
+	 */
+	final LocalDate fecha_actual = LocalDate.now();
+	
 	@Named("Crear")
 	@MemberOrder(sequence = "1")
 	public Mozo crearMozo(
-			@Named("Apellido") @RegEx(validation = "[a-zA-ZáéíóúÁÉÍÓÚ]*") @MaxLength(value = 20) final String apellido,
-			@Named("Nombre") @RegEx(validation = "[a-zA-ZáéíóúÁÉÍÓÚ]*") @MaxLength(value = 20) final String nombre,
-			@Named("Documento") @RegEx(validation = "[0-9*") @MaxLength(value = 8)final long _dni,
-			@Named("Fecha de Nacimiento") final Date fechaDeNacimiento,
-			@Named("Fecha de Ingreso") final Date fechaDeIngreso) {
-		return crearNuevoMozo(apellido, nombre, _dni, fechaDeIngreso,
-				fechaDeNacimiento);
+			@Named("Apellido") @RegEx(validation = "[a-zA-ZáéíóúÁÉÍÓÚ]*") @MaxLength(value = 20) final String _apellido,
+			@Named("Nombre") @RegEx(validation = "[a-zA-ZáéíóúÁÉÍÓÚ]*") @MaxLength(value = 20) final String _nombre,
+			@Named("Documento") @RegEx(validation = "[0-9*") @MaxLength(value = 8) @MinLength(value = 7) final long _dni,
+			@Named("Fecha de Nacimiento") final LocalDate fechadeNacimiento,
+			@Named("Fecha de Ingreso") final LocalDate fechadeIngreso) {
+		return crearNuevoMozo(_apellido, _nombre, _dni, fechadeIngreso,
+				fechadeNacimiento);
 	}
-
 	@Hidden
-	public Mozo crearNuevoMozo(final String apellido, final String nombre,
-			final long documento, final Date fechaDeIngreso,
-			final Date fechaDeNacimiento) {
+	public Mozo crearNuevoMozo(final String _apellido, final String _nombre,
+			final long _dni, final LocalDate fechadeIngreso,
+			final LocalDate fechadeNacimiento) {
 		final Mozo mozo = newTransientInstance(Mozo.class);
-		mozo.setApellido(apellido.substring(0, 1).toUpperCase()
-				+ apellido.substring(1));
-		mozo.setNombre(nombre.substring(0, 1).toUpperCase()
-				+ nombre.substring(1));
-		mozo.setDocumento(documento);
-		mozo.setFechadeIngreso(fechaDeIngreso);
-		mozo.setFechadeNacimiento(fechaDeNacimiento);
+		mozo.setApellido(_apellido.substring(0, 1).toUpperCase() + _apellido.substring(1));
+		mozo.setNombre(_nombre.substring(0, 1).toUpperCase() + _nombre.substring(1));
+		mozo.setDocumento(_dni);
+		mozo.setFechadeIngreso(fechadeIngreso.toDate());
+		mozo.setFechadeNacimiento(fechadeNacimiento.toDate());
 		persist(mozo);
 		return mozo;
 	}
-
 	@Named("Listar")
 	@ActionSemantics(Of.SAFE)
 	@MemberOrder(sequence = "2")
@@ -71,7 +74,6 @@ public class MozoServicio extends AbstractFactoryAndRepository {
 		final List<Mozo> listamozos = allInstances(Mozo.class);
 		return listamozos;
 	}
-	
 	@Hidden
 	public List<Mesa> listarMesaSinAsignar() {
 		return allMatches(
@@ -79,7 +81,6 @@ public class MozoServicio extends AbstractFactoryAndRepository {
                         "mesasSinAsignar"                        
                         ));
 	}
-	
 	@Hidden
 	public List<Mesa> listaMesasSeleccionadas() {
 		return allMatches(
@@ -87,7 +88,6 @@ public class MozoServicio extends AbstractFactoryAndRepository {
                         "mesasSeleccionadas" 
                         ));			
 	}
-
 	@Hidden
 	public Mozo asignarMesas(Mozo _mozo) {
 		List<Mesa> listaMesas = listaMesasSeleccionadas();
@@ -105,4 +105,48 @@ public class MozoServicio extends AbstractFactoryAndRepository {
 		return _mozo;
 	}
 
+	/*
+	 * Validacion del ingreso de fechas por el UI
+	 */
+	@Override
+	public String validateCrearMozo(String _nombre, String _apellido,
+			long _dni, LocalDate fechadeNacimiento, LocalDate fechadeIngreso) {
+		// TODO Auto-generated method stub
+		if(fechadeNacimiento.isAfter(fechadeIngreso)||fechadeNacimiento.isEqual(fechadeIngreso)) {
+			return "La fecha de nacimiento no debe ser mayor o igual a la fecha de ingreso de los empleados";
+		}else{
+			if(fechadeIngreso.isAfter(fecha_actual)){
+				return "La fecha de ingreso debe ser menor o igual a la fecha actual";
+			}else{
+				if (validaMayorEdad(fechadeNacimiento) == false){
+					return "El empleado es menor de edad";
+				}else{
+					return null;
+				}
+			}
+		}
+	}
+	/*
+	 * Validacion de la mayoria de edad de los empleados ingresados
+	 * 6575 son la cantidad de dias que tiene una persona de 18 años
+	 */
+	@Override
+	@Hidden
+	public boolean validaMayorEdad(LocalDate fechadeNacimiento) {
+		// TODO Auto-generated method stub
+		if(getDiasNacimiento_Hoy(fechadeNacimiento) >= 6575){
+			return true;
+		}
+		return false;
+	}
+	/*
+	 * Obtiene la cantidad de dias entre la fecha de nacimiento y la fecha actual
+	 */
+	@Override
+	@Hidden
+	public int getDiasNacimiento_Hoy(LocalDate fechadeNacimiento) {
+		// TODO Auto-generated method stub
+		Days meses = Days.daysBetween(fechadeNacimiento, fecha_actual);
+		return meses.getDays();
+	}
 }

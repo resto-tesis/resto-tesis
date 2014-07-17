@@ -17,7 +17,6 @@ package dom.encargado;
  * 
  */
 
-import java.util.Date;
 import java.util.List;
 
 import org.apache.isis.applib.AbstractFactoryAndRepository;
@@ -25,40 +24,42 @@ import org.apache.isis.applib.annotation.ActionSemantics;
 import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.MaxLength;
 import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.annotation.MinLength;
 import org.apache.isis.applib.annotation.Named;
 import org.apache.isis.applib.annotation.RegEx;
 import org.apache.isis.applib.annotation.ActionSemantics.Of;
+import org.joda.time.Days;
+import org.joda.time.LocalDate;
 
 @Named("Encargado")
-public class EncargadoServicio extends AbstractFactoryAndRepository {
+public class EncargadoServicio extends AbstractFactoryAndRepository implements IEncargadoServicio{
 
+	/*
+	 * Atributo Extra para las validaciones de las fechas
+	 */
+	final LocalDate fecha_actual = LocalDate.now();
+	
 	@Named("Crear")
 	@MemberOrder(sequence = "1")
 	public Encargado crearEncargado(
-			@Named("Apellido:") @RegEx(validation = "[a-zA-ZáéíóúÁÉÍÓÚ]*") @MaxLength(value = 20) final String apellidoEncargado,
-			@Named("Nombre:") @RegEx(validation = "[a-zA-ZáéíóúÁÉÍÓÚ]*") @MaxLength(value = 20) final String nombreEncargado,
-			@Named("Documento:") @RegEx(validation = "[0-9*") @MaxLength(value = 8)final long _dni,
-			@Named("Fecha de Nacimiento:") final Date fechadeNacimientoEncargado,
-			@Named("Fecha de Ingreso:") final Date fechadeIngresoEncargado) {
-		return crearEncargadoNuevo(apellidoEncargado, nombreEncargado,
-				_dni, fechadeNacimientoEncargado,
-				fechadeIngresoEncargado);
+			@Named("Apellido:") @RegEx(validation = "[a-zA-ZáéíóúÁÉÍÓÚ]*") @MaxLength(value = 20) final String _apellido,
+			@Named("Nombre:") @RegEx(validation = "[a-zA-ZáéíóúÁÉÍÓÚ]*") @MaxLength(value = 20) final String _nombre,
+			@Named("Documento:") @RegEx(validation = "[0-9*") @MaxLength(value = 8) @MinLength(value = 7) final long _dni,
+			@Named("Fecha de Nacimiento:") final LocalDate fechadeNacimiento,
+			@Named("Fecha de Ingreso:") final LocalDate fechadeIngreso) {
+		return crearEncargadoNuevo(_apellido, _nombre, _dni, fechadeNacimiento, fechadeIngreso);
 	}
 
-	// }}
 	@Hidden
-	public Encargado crearEncargadoNuevo(final String apellidoEncargado,
-			final String nombreEncargado, final long documentoEncargado,
-			final Date fechadeNacimientoEncargado,
-			final Date fechadeIngresoEncargado) {
+	public Encargado crearEncargadoNuevo(final String _apellido,
+			final String _nombre, final long _dni,
+			final LocalDate fechadeNacimiento, final LocalDate fechadeIngreso) {
 		final Encargado encargado = newTransientInstance(Encargado.class);
-		encargado.setApellido(apellidoEncargado.substring(0, 1).toUpperCase()
-				+ apellidoEncargado.substring(1));
-		encargado.setNombre(nombreEncargado.substring(0, 1).toUpperCase()
-				+ nombreEncargado.substring(1));
-		encargado.setDocumento(documentoEncargado);
-		encargado.setFechadeNacimiento(fechadeNacimientoEncargado);
-		encargado.setFechadeIngreso(fechadeIngresoEncargado);
+		encargado.setApellido(_apellido.substring(0, 1).toUpperCase() + _apellido.substring(1));
+		encargado.setNombre(_nombre.substring(0, 1).toUpperCase() + _nombre.substring(1));
+		encargado.setDocumento(_dni);
+		encargado.setFechadeNacimiento(fechadeNacimiento.toDate());
+		encargado.setFechadeIngreso(fechadeIngreso.toDate());
 		persist(encargado);
 		return encargado;
 	}
@@ -69,5 +70,50 @@ public class EncargadoServicio extends AbstractFactoryAndRepository {
 	public List<Encargado> listarEncargados() {
 		final List<Encargado> listaencargados = allInstances(Encargado.class);
 		return listaencargados;
+	}
+
+	/*
+	 * Validacion del ingreso de fechas por el UI
+	 */
+	@Override
+	public String validateCrearEncargado(String _nombre, String _apellido,
+			long _dni, LocalDate fechadeNacimiento, LocalDate fechadeIngreso) {
+		// TODO Auto-generated method stub
+		if(fechadeNacimiento.isAfter(fechadeIngreso)||fechadeNacimiento.isEqual(fechadeIngreso)) {
+			return "La fecha de nacimiento no debe ser mayor o igual a la fecha de ingreso de los empleados";
+		}else{
+			if(fechadeIngreso.isAfter(fecha_actual)){
+				return "La fecha de ingreso debe ser menor o igual a la fecha actual";
+			}else{
+				if (validaMayorEdad(fechadeNacimiento) == false){
+					return "El empleado es menor de edad";
+				}else{
+					return null;
+				}
+			}
+		}
+	}
+	/*
+	 * Validacion de la mayoria de edad de los empleados ingresados
+	 * 6575 son la cantidad de dias que tiene una persona de 18 años
+	 */
+	@Override
+	@Hidden
+	public boolean validaMayorEdad(LocalDate fechadeNacimiento) {
+		// TODO Auto-generated method stub
+		if(getDiasNacimiento_Hoy(fechadeNacimiento) >= 6575){
+			return true;
+		}
+		return false;
+	}
+	/*
+	 * Obtiene la cantidad de dias entre la fecha de nacimiento y la fecha actual
+	 */
+	@Override
+	@Hidden
+	public int getDiasNacimiento_Hoy(LocalDate fechadeNacimiento) {
+		// TODO Auto-generated method stub
+		Days meses = Days.daysBetween(fechadeNacimiento, fecha_actual);
+		return meses.getDays();
 	}
 }
