@@ -76,13 +76,30 @@ public class Bebida {
 
 	// }}
 
+	// {{ Volumen (property)
+	private VolumenBebidaEnum volumen;
+
+	@TypicalLength(15)
+	@Column(allowsNull = "false")
+	@MemberOrder(sequence = "3")
+	public VolumenBebidaEnum getVolumen() {
+		return volumen;
+	}
+
+	public void setVolumen(final VolumenBebidaEnum volumen) {
+		this.volumen = volumen;
+	}
+	// }}
+
+
+	
 	// {{ Descripcion (property)
 	private String descripcion;
 
 	@Named("Descripción")
 	@MultiLine(numberOfLines = 3)
 	@Optional
-	@MemberOrder(sequence = "3")
+	@MemberOrder(sequence = "4")
 	public String getDescripcion() {
 		return descripcion;
 	}
@@ -98,7 +115,7 @@ public class Bebida {
 
 	@TypicalLength(5)
 	@Column(allowsNull = "false")
-	@MemberOrder(sequence = "4")
+	@MemberOrder(sequence = "5")
 	public double getPrecio() {
 		return precio;
 	}
@@ -130,7 +147,7 @@ public class Bebida {
 	 */
 	@Named("Borrar")
 	@Bulk
-	@MemberOrder(sequence = "5")
+	@MemberOrder(sequence = "1")
 	public List<Bebida> borrarBebida() {
 		contenedor.removeIfNotAlready(this);
 		return bebidaServicio.listarBebidas();

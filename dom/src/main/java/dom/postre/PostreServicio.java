@@ -39,7 +39,7 @@ public class PostreServicio extends AbstractFactoryAndRepository {
 	@Named("Crear")
 	@MemberOrder(sequence = "1")
 	public Postre crearPostre(
-			@Named("Nombre") @RegEx(validation = "[0-9a-zA-ZáéíóúÁÉÍÓÚ\\s]*") @MaxLength(value = 15) final String nombrePostre,
+			@Named("Nombre") @RegEx(validation = "[0-9a-zA-ZáéíóúÁÉÍÓÚ\\s]*") @MaxLength(value = 20) final String nombrePostre,
 			@Optional @MultiLine(numberOfLines = 3) @Named("Descripción") final String descripcionPostre,
 			@Named("Precio") @MaxLength(value = 5) @Digits(integer = 2, fraction = 2) final BigDecimal precioPostre) {
 		return crearPostreNuevo(nombrePostre, descripcionPostre, precioPostre);
