@@ -60,12 +60,30 @@ public class Bebida {
 
 	// }}
 
+	// {{ Tipo (property)
+	private TipoBebidaEnum tipo;
+
+	@TypicalLength(10)
+	@Optional
+	@Column(allowsNull = "false")
+	@MemberOrder(sequence = "2")
+	public TipoBebidaEnum getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(final TipoBebidaEnum tipo) {
+		this.tipo = tipo;
+	}
+	// }}
+
+
+	
 	// {{ Nombre (property)
 	private String nombre;
 
 	@Title
 	@Column(allowsNull = "false")
-	@MemberOrder(sequence = "2")
+	@MemberOrder(sequence = "3")
 	public String getNombre() {
 		return nombre;
 	}
@@ -81,7 +99,7 @@ public class Bebida {
 
 	@TypicalLength(15)
 	@Column(allowsNull = "false")
-	@MemberOrder(sequence = "3")
+	@MemberOrder(sequence = "4")
 	public VolumenBebidaEnum getVolumen() {
 		return volumen;
 	}
@@ -99,7 +117,7 @@ public class Bebida {
 	@Named("Descripción")
 	@MultiLine(numberOfLines = 3)
 	@Optional
-	@MemberOrder(sequence = "4")
+	@MemberOrder(sequence = "5")
 	public String getDescripcion() {
 		return descripcion;
 	}
@@ -115,7 +133,7 @@ public class Bebida {
 
 	@TypicalLength(5)
 	@Column(allowsNull = "false")
-	@MemberOrder(sequence = "5")
+	@MemberOrder(sequence = "6")
 	public double getPrecio() {
 		return precio;
 	}

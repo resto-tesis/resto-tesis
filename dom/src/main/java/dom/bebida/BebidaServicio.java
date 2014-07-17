@@ -41,17 +41,20 @@ public class BebidaServicio extends AbstractFactoryAndRepository {
 	@MemberOrder(sequence = "1")
 	public Bebida crearBebida(
 			@Named("Nombre") @RegEx(validation = "[0-9a-zA-ZáéíóúÁÉÍÓÚ\\s]*") @MaxLength(value = 20) final String _nombre,
-			@Named("Volumen") @TypicalLength(15) final VolumenBebidaEnum _volumen,
+			@Named("Tipo de Bebida") @TypicalLength(10) final TipoBebidaEnum _tipo,
+			@Named("Volumen") @Optional @TypicalLength(15) final VolumenBebidaEnum _volumen,
 			@Named("Descripción") @Optional @MultiLine(numberOfLines = 3) final String _descripcion,
 			@Named("Precio") @MaxLength(value = 5) @Digits(integer = 2, fraction = 2) final BigDecimal _precio) {
-		return nuevaInstanciaBebida(_nombre, _volumen, _descripcion, _precio);
+		return nuevaInstanciaBebida(_nombre, _tipo, _volumen, _descripcion, _precio);
 	}
 
 	@Hidden
-	public Bebida nuevaInstanciaBebida(final String _nombre, final VolumenBebidaEnum _volumen,
+	public Bebida nuevaInstanciaBebida(final String _nombre, final TipoBebidaEnum _tipo,
+			final VolumenBebidaEnum _volumen,
 			final String _descripcion, final BigDecimal _precio) {
 		final Bebida nuevaBebida = new Bebida();
 		nuevaBebida.setNombre(_nombre.substring(0, 1).toUpperCase() + _nombre.substring(1));
+		nuevaBebida.setTipo(_tipo);
 		nuevaBebida.setVolumen(_volumen);
 		nuevaBebida.setDescripcion(_descripcion);
 		nuevaBebida.setPrecio(_precio.doubleValue());
@@ -63,6 +66,7 @@ public class BebidaServicio extends AbstractFactoryAndRepository {
 	@ActionSemantics(Of.SAFE)
 	@Named("Listar")
 	public List<Bebida> listarBebidas() {
-		return allInstances(Bebida.class);
+		final List<Bebida> lista_bebidas = allInstances(Bebida.class);
+		return lista_bebidas;
 	}
 }

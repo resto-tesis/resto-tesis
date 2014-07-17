@@ -27,6 +27,7 @@ import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
 import org.apache.isis.applib.annotation.Optional;
 import org.apache.isis.applib.annotation.RegEx;
+import org.apache.isis.applib.annotation.Where;
 
 import dom.bebida.Bebida;
 import dom.guarnicion.Guarnicion;
@@ -37,16 +38,13 @@ import dom.postre.Postre;
 @Named("Menu")
 public class MenuServicio extends AbstractFactoryAndRepository {
 
-	public MenuServicio() {
-		// TODO Auto-generated constructor stub
-	}
-
+	@Hidden(where=Where.OBJECT_FORMS)
 	@Named("Crear")
 	@MemberOrder(sequence = "1")
 	public Menu crearMenu(
 			@Named("Nombre") @RegEx(validation = "[0-9a-zA-ZáéíóúÁÉÍÓÚ\\s]*") String _nombre,
 			@Named("Plato Principal") final PlatoPrincipal _platoPrincipal,
-			@Named("Bebída") final Bebida _bebida,
+			@Named("Bebida") final Bebida _bebida,
 			@Named("Plato de Entrada") @Optional final PlatoEntrada _platoEntrada,
 			@Named("Guarnición") @Optional final Guarnicion _guarnicion,
 			@Named("Postre") @Optional final Postre _postre,

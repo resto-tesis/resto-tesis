@@ -170,19 +170,12 @@ public class Menu {
 
 	// }}
 
-	// {{ PrecioFinal (property)
-	// private double precioFinal;
-
 	@Disabled
 	@MemberOrder(sequence = "9")
 	public double getPrecioFinal() {
 		// return precioFinal;
 		return menuServicio.calcularDescuento(this);
 	}
-
-	// public void setPrecioFinal(final double precioFinal) {
-	// this.precioFinal = precioFinal;
-	// }
 
 	// }}
 
