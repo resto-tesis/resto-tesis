@@ -31,6 +31,7 @@ import javax.jdo.annotations.SequenceStrategy;
 import org.apache.isis.applib.annotation.Disabled;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.MultiLine;
+import org.apache.isis.applib.annotation.Named;
 import org.apache.isis.applib.annotation.Optional;
 import org.apache.isis.applib.annotation.Title;
 import org.apache.isis.applib.annotation.TypicalLength;
@@ -43,6 +44,7 @@ public abstract class Plato {
 	// {{ Numero (property)
 	private int numero;
 
+	@Named("Número")
 	@TypicalLength(3)
 	@Disabled
 	@Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT, sequence = "secuenciaNumeroPlato")
@@ -77,6 +79,7 @@ public abstract class Plato {
 	// {{ Descripcion (property)
 	private String descripcion;
 
+	@Named("Descripción")
 	@MultiLine(numberOfLines = 3)
 	@Optional
 	@MemberOrder(sequence = "3")
@@ -93,6 +96,7 @@ public abstract class Plato {
 	// {{ CondicionDePlato (property)
 	private CondicionDePlatoEnum condicionDePlato;
 
+	@Named("Condición")
 	@Column(allowsNull = "false")
 	@MemberOrder(sequence = "5")
 	public CondicionDePlatoEnum getCondicionDePlato() {

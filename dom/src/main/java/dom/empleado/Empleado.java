@@ -40,7 +40,7 @@ import org.apache.isis.applib.annotation.Title;
 public abstract class Empleado {
 
 	private SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
-	
+
 	// {{ legajo (property)
 	private int legajo;
 
@@ -57,6 +57,7 @@ public abstract class Empleado {
 	}
 
 	// }}
+
 	// {{ apellido (property)
 	private String apellido;
 
@@ -72,6 +73,7 @@ public abstract class Empleado {
 	}
 
 	// }}
+
 	// {{ nombre (property)
 	private String nombre;
 
@@ -87,6 +89,7 @@ public abstract class Empleado {
 	}
 
 	// }}
+
 	// {{ documento (property)
 	private long documento;
 
@@ -102,30 +105,30 @@ public abstract class Empleado {
 
 	// }}
 
-	// {{ fechadeNacimiento (property)
-	private Date fechadeNacimiento;
+	// {{ fechaDeNacimiento (property)
+	private Date fechaDeNacimiento;
 
 	@MemberOrder(sequence = "5")
-	public String getFechadeNacimiento() {
-		return formato.format(fechadeNacimiento);
+	public String getFechaDeNacimiento() {
+		return formato.format(fechaDeNacimiento);
 	}
 
-	public void setFechadeNacimiento(final Date fechadeNacimiento) {
-		this.fechadeNacimiento = fechadeNacimiento;
+	public void setFechaDeNacimiento(final Date fechaDeNacimiento) {
+		this.fechaDeNacimiento = fechaDeNacimiento;
 	}
 
 	// }}
-	// {{ fechadeIngreso (property)
-	private Date fechadeIngreso;
+
+	// {{ fechaDeIngreso (property)
+	private Date fechaDeIngreso;
 
 	@MemberOrder(sequence = "6")
-	public String getFechadeIngreso() {
-		return formato.format(fechadeIngreso);
+	public String getFechaDeIngreso() {
+		return formato.format(fechaDeIngreso);
 	}
 
-	public void setFechadeIngreso(final Date fechadeIngreso) {
-		this.fechadeIngreso = fechadeIngreso;
+	public void setFechaDeIngreso(final Date fechaDeIngreso) {
+		this.fechaDeIngreso = fechaDeIngreso;
 	}
 	// }}
-	
 }

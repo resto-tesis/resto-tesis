@@ -26,6 +26,7 @@ import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
 import org.apache.isis.applib.annotation.Optional;
+import org.apache.isis.applib.annotation.RegEx;
 
 import dom.bebida.Bebida;
 import dom.guarnicion.Guarnicion;
@@ -43,9 +44,9 @@ public class MenuServicio extends AbstractFactoryAndRepository {
 	@Named("Crear")
 	@MemberOrder(sequence = "1")
 	public Menu crearMenu(
-			@Named("Nombre") String _nombre,
+			@Named("Nombre") @RegEx(validation = "[0-9a-zA-ZáéíóúÁÉÍÓÚ\\s]*") String _nombre,
 			@Named("Plato Principal") final PlatoPrincipal _platoPrincipal,
-			@Named("Bebida") final Bebida _bebida,
+			@Named("Bebída") final Bebida _bebida,
 			@Named("Plato de Entrada") @Optional final PlatoEntrada _platoEntrada,
 			@Named("Guarnición") @Optional final Guarnicion _guarnicion,
 			@Named("Postre") @Optional final Postre _postre,
@@ -61,10 +62,10 @@ public class MenuServicio extends AbstractFactoryAndRepository {
 			final Postre _postre, final int _descuento) {
 		final Menu menu = newTransientInstance(Menu.class);
 		menu.setBebida(_bebida);
-		 menu.setGuarnicion(_guarnicion);
-		 menu.setPlatoEntrada(_platoEntrada);
+		menu.setGuarnicion(_guarnicion);
+		menu.setPlatoEntrada(_platoEntrada);
 		menu.setPlatoPrincipal(_platoPrincipal);
-		 menu.setPostre(_postre);
+		menu.setPostre(_postre);
 		menu.setDescuento(_descuento);
 		menu.setNombre(_nombre.substring(0, 1).toUpperCase()
 				+ _nombre.substring(1));

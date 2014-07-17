@@ -44,6 +44,7 @@ public class Bebida {
 	// {{ Numero (property)
 	private int numero;
 
+	@Named("Número")
 	@TypicalLength(3)
 	@Disabled
 	@Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT, sequence = "secuenciaNumeroBebida")
@@ -58,6 +59,7 @@ public class Bebida {
 	}
 
 	// }}
+
 	// {{ Nombre (property)
 	private String nombre;
 
@@ -77,6 +79,7 @@ public class Bebida {
 	// {{ Descripcion (property)
 	private String descripcion;
 
+	@Named("Descripción")
 	@MultiLine(numberOfLines = 3)
 	@Optional
 	@MemberOrder(sequence = "3")

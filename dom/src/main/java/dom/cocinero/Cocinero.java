@@ -33,7 +33,7 @@ import dom.empleado.Empleado;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
-public class Cocinero extends Empleado{
+public class Cocinero extends Empleado {
 
 	public Cocinero() {
 		// TODO Auto-generated constructor stub
@@ -63,7 +63,7 @@ public class Cocinero extends Empleado{
 
 	@Named("Borrar")
 	@Bulk
-	@MemberOrder(name = "accionCocinero", sequence = "1")
+	@MemberOrder(sequence = "1")
 	public List<Cocinero> borrarCocinero() {
 		contenedor.removeIfNotAlready(this);
 		return servicioCocinero.listarCocineros();

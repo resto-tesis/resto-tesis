@@ -32,62 +32,70 @@ import org.apache.isis.applib.query.QueryDefault;
 import org.joda.time.Days;
 import org.joda.time.LocalDate;
 
+import dom.empleado.Empleado;
 import dom.mesa.EstadoAsignacionMesaEnum;
 import dom.mesa.Mesa;
 
 @Named("Mozo")
-public class MozoServicio extends AbstractFactoryAndRepository implements IMozoServicio{
+public class MozoServicio extends AbstractFactoryAndRepository implements
+		IMozoServicio {
 
 	/*
 	 * Atributo Extra para las validaciones de las fechas
 	 */
 	final LocalDate fecha_actual = LocalDate.now();
-	
+
 	@Named("Crear")
 	@MemberOrder(sequence = "1")
 	public Mozo crearMozo(
-			@Named("Apellido") @RegEx(validation = "[a-zA-ZáéíóúÁÉÍÓÚ]*") @MaxLength(value = 20) final String _apellido,
-			@Named("Nombre") @RegEx(validation = "[a-zA-ZáéíóúÁÉÍÓÚ]*") @MaxLength(value = 20) final String _nombre,
+			@Named("Apellido") @RegEx(validation = "[a-zA-ZáéíóúÁÉÍÓÚ\\s]*") @MaxLength(value = 20) final String _apellido,
+			@Named("Nombre") @RegEx(validation = "[a-zA-ZáéíóúÁÉÍÓÚ\\s]*") @MaxLength(value = 20) final String _nombre,
 			@Named("Documento") @RegEx(validation = "[0-9*") @MaxLength(value = 8) @MinLength(value = 7) final long _dni,
 			@Named("Fecha de Nacimiento") final LocalDate fechadeNacimiento,
 			@Named("Fecha de Ingreso") final LocalDate fechadeIngreso) {
 		return crearNuevoMozo(_apellido, _nombre, _dni, fechadeIngreso,
 				fechadeNacimiento);
 	}
+
 	@Hidden
 	public Mozo crearNuevoMozo(final String _apellido, final String _nombre,
 			final long _dni, final LocalDate fechadeIngreso,
 			final LocalDate fechadeNacimiento) {
 		final Mozo mozo = newTransientInstance(Mozo.class);
-		mozo.setApellido(_apellido.substring(0, 1).toUpperCase() + _apellido.substring(1));
-		mozo.setNombre(_nombre.substring(0, 1).toUpperCase() + _nombre.substring(1));
+		mozo.setApellido(_apellido.substring(0, 1).toUpperCase()
+				+ _apellido.substring(1));
+		mozo.setNombre(_nombre.substring(0, 1).toUpperCase()
+				+ _nombre.substring(1));
 		mozo.setDocumento(_dni);
-		mozo.setFechadeIngreso(fechadeIngreso.toDate());
-		mozo.setFechadeNacimiento(fechadeNacimiento.toDate());
+		mozo.setFechaDeIngreso(fechadeIngreso.toDate());
+		mozo.setFechaDeNacimiento(fechadeNacimiento.toDate());
 		persist(mozo);
 		return mozo;
 	}
+
 	@Named("Listar")
 	@ActionSemantics(Of.SAFE)
 	@MemberOrder(sequence = "2")
 	public List<Mozo> listarMozos() {
-		final List<Mozo> listamozos = allInstances(Mozo.class);
-		return listamozos;
+		return allInstances(Mozo.class);
 	}
+
+	@Hidden
+	public List<Empleado> listarEmpleados() {
+		return allInstances(Empleado.class);
+	}
+
 	@Hidden
 	public List<Mesa> listarMesaSinAsignar() {
-		return allMatches(
-                new QueryDefault<Mesa>(Mesa.class, 
-                        "mesasSinAsignar"                        
-                        ));
+		return allMatches(new QueryDefault<Mesa>(Mesa.class, "mesasSinAsignar"));
 	}
+
 	@Hidden
 	public List<Mesa> listaMesasSeleccionadas() {
-		return allMatches(
-                new QueryDefault<Mesa>(Mesa.class, 
-                        "mesasSeleccionadas" 
-                        ));			
+		return allMatches(new QueryDefault<Mesa>(Mesa.class,
+				"mesasSeleccionadas"));
 	}
+
 	@Hidden
 	public Mozo asignarMesas(Mozo _mozo) {
 		List<Mesa> listaMesas = listaMesasSeleccionadas();
@@ -112,35 +120,44 @@ public class MozoServicio extends AbstractFactoryAndRepository implements IMozoS
 	public String validateCrearMozo(String _nombre, String _apellido,
 			long _dni, LocalDate fechadeNacimiento, LocalDate fechadeIngreso) {
 		// TODO Auto-generated method stub
-		if(fechadeNacimiento.isAfter(fechadeIngreso)||fechadeNacimiento.isEqual(fechadeIngreso)) {
-			return "La fecha de nacimiento no debe ser mayor o igual a la fecha de ingreso de los empleados";
-		}else{
-			if(fechadeIngreso.isAfter(fecha_actual)){
-				return "La fecha de ingreso debe ser menor o igual a la fecha actual";
-			}else{
-				if (validaMayorEdad(fechadeNacimiento) == false){
-					return "El empleado es menor de edad";
-				}else{
+		for (Empleado _empleado : listarEmpleados()) {
+			if (_dni == _empleado.getDocumento()) {
+				return "Ya existe el número de documento ingresado.";
+			}
+		}
+		if (fechadeNacimiento.isAfter(fechadeIngreso)
+				|| fechadeNacimiento.isEqual(fechadeIngreso)) {
+			return "La fecha de nacimiento no debe ser mayor o igual a la fecha de ingreso de los empleados.";
+		} else {
+			if (fechadeIngreso.isAfter(fecha_actual)) {
+				return "La fecha de ingreso debe ser menor o igual a la fecha actual.";
+			} else {
+				if (validaMayorEdad(fechadeNacimiento) == false) {
+					return "El empleado es menor de edad.";
+				} else {
 					return null;
 				}
 			}
 		}
 	}
+
 	/*
-	 * Validacion de la mayoria de edad de los empleados ingresados
-	 * 6575 son la cantidad de dias que tiene una persona de 18 años
+	 * Validacion de la mayoria de edad de los empleados ingresados 6575 son la
+	 * cantidad de dias que tiene una persona de 18 años
 	 */
 	@Override
 	@Hidden
 	public boolean validaMayorEdad(LocalDate fechadeNacimiento) {
 		// TODO Auto-generated method stub
-		if(getDiasNacimiento_Hoy(fechadeNacimiento) >= 6575){
+		if (getDiasNacimiento_Hoy(fechadeNacimiento) >= 6575) {
 			return true;
 		}
 		return false;
 	}
+
 	/*
-	 * Obtiene la cantidad de dias entre la fecha de nacimiento y la fecha actual
+	 * Obtiene la cantidad de dias entre la fecha de nacimiento y la fecha
+	 * actual
 	 */
 	@Override
 	@Hidden

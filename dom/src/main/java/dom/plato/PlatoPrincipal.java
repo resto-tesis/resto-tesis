@@ -36,7 +36,7 @@ public class PlatoPrincipal extends Plato {
 
 	@Named("Borrar")
 	@Bulk
-	@MemberOrder(name = "accionPlato", sequence = "1")
+	@MemberOrder(sequence = "1")
 	public List<PlatoPrincipal> borrar() {
 
 		contenedor.removeIfNotAlready(this);

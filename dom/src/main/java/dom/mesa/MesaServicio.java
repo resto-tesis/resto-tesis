@@ -52,11 +52,15 @@ public class MesaServicio extends AbstractFactoryAndRepository {
 	}
 
 	public String validateCrearMesa(final int numero, final int capacidadMesa) {
-		if (capacidadMesa > 20) {
-			return "La capacidad debe ser menor o igual a 20";
+		if (capacidadMesa > 20 || capacidadMesa < 1) {
+			return "La capacidad debe ser menor o igual a 20 y mayor a 0.";
 		}
-		return existeMesa(numero) ? "Ya existe la mesa "
-				+ Integer.toString(numero) : null;
+		if (numero > 99 || numero < 1) {
+			return "El número de Mesa debe ser mayor a 0 y menor a 100.";
+		} else {
+			return existeMesa(numero) ? "Ya existe la mesa."
+					+ Integer.toString(numero) : null;
+		}
 	}
 
 	@Hidden
@@ -76,13 +80,10 @@ public class MesaServicio extends AbstractFactoryAndRepository {
 		final List<Mesa> listamesas = allInstances(Mesa.class);
 		return listamesas;
 	}
-	
+
 	@Hidden
-	public List<Mozo> listaDeMozos(){
-		return allMatches(
-                new QueryDefault<Mozo>(Mozo.class, 
-                        "todosLosMozos"                        
-                        )); 
+	public List<Mozo> listaDeMozos() {
+		return allMatches(new QueryDefault<Mozo>(Mozo.class, "todosLosMozos"));
 	}
 
 }

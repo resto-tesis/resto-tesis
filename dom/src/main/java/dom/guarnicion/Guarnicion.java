@@ -42,21 +42,24 @@ import org.apache.isis.applib.annotation.TypicalLength;
 public class Guarnicion {
 
 	// {{ Numero (property)
-	private int  numero;
+	private int numero;
 
+	@Named("Número")
 	@TypicalLength(3)
 	@Disabled
 	@Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT, sequence = "secuenciaNumeroGuarnicion")
 	@Column(allowsNull = "false")
 	@MemberOrder(sequence = "1")
-	public int  getNumero() {
+	public int getNumero() {
 		return numero;
 	}
 
-	public void setNumero(final int  numeroGuarnicion) {
+	public void setNumero(final int numeroGuarnicion) {
 		this.numero = numeroGuarnicion;
 	}
+
 	// }}
+
 	// {{ Nombre (property)
 	private String nombre;
 
@@ -70,10 +73,13 @@ public class Guarnicion {
 	public void setNombre(final String nombreGuarnicion) {
 		this.nombre = nombreGuarnicion;
 	}
+
 	// }}
+
 	// {{ Descripcion (property)
 	private String descripcion;
 
+	@Named("Descripción")
 	@MultiLine(numberOfLines = 3)
 	@Optional
 	@MemberOrder(sequence = "3")
@@ -84,7 +90,9 @@ public class Guarnicion {
 	public void setDescripcion(final String descripcionGuarnicion) {
 		this.descripcion = descripcionGuarnicion;
 	}
+
 	// }}
+
 	// {{ Precio (property)
 	private double precio;
 
@@ -98,11 +106,12 @@ public class Guarnicion {
 	public void setPrecio(final double precioGuarnicion) {
 		this.precio = precioGuarnicion;
 	}
+
 	// }}
 
 	@Named("Borrar")
 	@Bulk
-	@MemberOrder(name = "accionGuarnicion", sequence = "1")
+	@MemberOrder(sequence = "1")
 	public List<Guarnicion> borrar() {
 
 		contenedor.removeIfNotAlready(this);
@@ -113,7 +122,8 @@ public class Guarnicion {
 	// {{ injected: DomainObjectContainer
 	private DomainObjectContainer contenedor;
 
-	public void injectDomainObjectContainer(final DomainObjectContainer container) {
+	public void injectDomainObjectContainer(
+			final DomainObjectContainer container) {
 		this.setContenedor(container);
 	}
 
@@ -130,7 +140,8 @@ public class Guarnicion {
 	 */
 	private GuarnicionServicio guarnicionServicio;
 
-	public void injectarGuarnicionServicio(final GuarnicionServicio servicioguarnicion) {
+	public void injectarGuarnicionServicio(
+			final GuarnicionServicio servicioguarnicion) {
 		this.guarnicionServicio = servicioguarnicion;
 	}
 }

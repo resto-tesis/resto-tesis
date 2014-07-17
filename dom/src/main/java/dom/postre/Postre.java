@@ -47,6 +47,7 @@ public class Postre {
 	// {{ Numero (property)
 	private int numero;
 
+	@Named("Número")
 	@TypicalLength(3)
 	@Disabled
 	@Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT, sequence = "secuenciaNumeroPostre")
@@ -59,7 +60,9 @@ public class Postre {
 	public void setNumero(final int numeroPostre) {
 		this.numero = numeroPostre;
 	}
+
 	// }}
+	
 	// {{ Nombre (property)
 	private String nombre;
 
@@ -73,10 +76,13 @@ public class Postre {
 	public void setNombre(final String nombrePostre) {
 		this.nombre = nombrePostre;
 	}
+
 	// }}
+	
 	// {{ Descripcion (property)
 	private String descripcion;
 
+	@Named("Descripción")
 	@MultiLine(numberOfLines = 3)
 	@Optional
 	@MemberOrder(sequence = "3")
@@ -87,7 +93,9 @@ public class Postre {
 	public void setDescripcion(final String descripcionPostre) {
 		this.descripcion = descripcionPostre;
 	}
+
 	// }}
+	
 	// {{ Precio (property)
 	private double precio;
 
@@ -101,11 +109,12 @@ public class Postre {
 	public void setPrecio(final double precioPostre) {
 		this.precio = precioPostre;
 	}
+
 	// }}
-	
+
 	@Named("Borrar")
 	@Bulk
-	@MemberOrder(name = "accionPostre", sequence = "1")
+	@MemberOrder(sequence = "1")
 	public List<Postre> borrar() {
 
 		contenedor.removeIfNotAlready(this);
@@ -116,7 +125,8 @@ public class Postre {
 	// {{ injected: DomainObjectContainer
 	private DomainObjectContainer contenedor;
 
-	public void injectDomainObjectContainer(final DomainObjectContainer container) {
+	public void injectDomainObjectContainer(
+			final DomainObjectContainer container) {
 		this.setContenedor(container);
 	}
 

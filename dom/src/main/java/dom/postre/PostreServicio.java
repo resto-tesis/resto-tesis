@@ -39,7 +39,7 @@ public class PostreServicio extends AbstractFactoryAndRepository {
 	@Named("Crear")
 	@MemberOrder(sequence = "1")
 	public Postre crearPostre(
-			@Named("Nombre") @RegEx(validation = "[a-zA-ZáéíóúÁÉÍÓÚ]*") @MaxLength(value = 15) final String nombrePostre,
+			@Named("Nombre") @RegEx(validation = "[0-9a-zA-ZáéíóúÁÉÍÓÚ\\s]*") @MaxLength(value = 15) final String nombrePostre,
 			@Optional @MultiLine(numberOfLines = 3) @Named("Descripción") final String descripcionPostre,
 			@Named("Precio") @MaxLength(value = 5) @Digits(integer = 2, fraction = 2) final BigDecimal precioPostre) {
 		return crearPostreNuevo(nombrePostre, descripcionPostre, precioPostre);
@@ -51,7 +51,10 @@ public class PostreServicio extends AbstractFactoryAndRepository {
 		final Postre postre = newTransientInstance(Postre.class);
 		postre.setNombre(nombrePostre.substring(0, 1).toUpperCase()
 				+ nombrePostre.substring(1));
-		postre.setDescripcion(descripcionPostre);
+		if (descripcionPostre != null) {
+			postre.setDescripcion(descripcionPostre.substring(0, 1)
+					.toUpperCase() + descripcionPostre.substring(1));
+		}
 		postre.setPrecio(precioPostre.doubleValue());
 		persist(postre);
 		return postre;

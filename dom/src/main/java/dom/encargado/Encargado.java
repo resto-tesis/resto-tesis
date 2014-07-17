@@ -37,7 +37,7 @@ public class Encargado extends Empleado {
 
 	@Named("Borrar")
 	@Bulk
-	@MemberOrder(name = "accionEncargado", sequence = "1")
+	@MemberOrder(sequence = "1")
 	public List<Encargado> borrar() {
 
 		contenedor.removeIfNotAlready(this);

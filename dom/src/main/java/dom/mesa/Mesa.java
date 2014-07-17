@@ -35,9 +35,8 @@ import dom.mozo.Mozo;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Queries({
-	@Query(name = "mesasSeleccionadas", language = "JDOQL", value = "SELECT FROM dom.mesa.Mesa where estadoSeleccion == true"),
-	@Query(name = "mesasSinAsignar", language = "JDOQL", value = "SELECT FROM dom.mesa.Mesa where estadoAsignacion == 'No_Asignada'")
-	})
+		@Query(name = "mesasSeleccionadas", language = "JDOQL", value = "SELECT FROM dom.mesa.Mesa where estadoSeleccion == true"),
+		@Query(name = "mesasSinAsignar", language = "JDOQL", value = "SELECT FROM dom.mesa.Mesa where estadoAsignacion == 'No_Asignada'") })
 public class Mesa {
 
 	// {{ EstadoSeleccion (property)
@@ -58,16 +57,18 @@ public class Mesa {
 	// }}
 
 	@Bulk
-	@MemberOrder(name = "accionMesa", sequence = "2")
+	@MemberOrder(sequence = "2")
 	@Named("Seleccionar")
 	public List<Mozo> seleccionar() {
 		if (estadoAsignacion == EstadoAsignacionMesaEnum.No_Asignada)
 			setEstadoSeleccion(true);
 		return mesaServicio.listaDeMozos();
 	}
+
 	// {{ Numero (property)
 	private int numero;
 
+	@Named("Número")
 	@Disabled
 	@Title(prepend = "Mesa Nº ")
 	@Column(allowsNull = "false")
@@ -79,7 +80,9 @@ public class Mesa {
 	public void setNumero(final int numeroMesa) {
 		this.numero = numeroMesa;
 	}
+
 	// }}
+
 	// {{ Capacidad (property)
 	private int capacidad;
 
@@ -92,23 +95,30 @@ public class Mesa {
 	public void setCapacidad(final int capacidadMesa) {
 		this.capacidad = capacidadMesa;
 	}
+
 	// }}
+
 	// {{ EstadoHabilitacion (property)
 	private EstadoHabilitacionMesaEnum estadoHabilitacion;
 
+	@Named("Ocupación")
 	@Column(allowsNull = "false")
 	@MemberOrder(sequence = "4")
 	public EstadoHabilitacionMesaEnum getEstadoHabilitacion() {
 		return estadoHabilitacion;
 	}
 
-	public void setEstadoHabilitacion(final EstadoHabilitacionMesaEnum estadoHabilitacionMesa) {
+	public void setEstadoHabilitacion(
+			final EstadoHabilitacionMesaEnum estadoHabilitacionMesa) {
 		this.estadoHabilitacion = estadoHabilitacionMesa;
 	}
+
 	// }}
+
 	// {{ EstadoAsignacion (property)
 	private EstadoAsignacionMesaEnum estadoAsignacion;
 
+	@Named("Asignación")
 	@Column(allowsNull = "false")
 	@MemberOrder(sequence = "5")
 	@Disabled
@@ -116,14 +126,16 @@ public class Mesa {
 		return estadoAsignacion;
 	}
 
-	public void setEstadoAsignacion(final EstadoAsignacionMesaEnum estadoAsignacionMesa) {
+	public void setEstadoAsignacion(
+			final EstadoAsignacionMesaEnum estadoAsignacionMesa) {
 		this.estadoAsignacion = estadoAsignacionMesa;
 	}
+
 	// }}
 
 	@Named("Borrar")
 	@Bulk
-	@MemberOrder(name = "accionMesa", sequence = "1")
+	@MemberOrder(sequence = "1")
 	public List<Mesa> borrar() {
 
 		contenedor.removeIfNotAlready(this);

@@ -37,9 +37,7 @@ import dom.empleado.Empleado;
 import dom.mesa.Mesa;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
-@Queries({
-	@Query(name = "todosLosMozos", language = "JDOQL", value = "SELECT FROM dom.mozo.Mozo")
-	})
+@Queries({ @Query(name = "todosLosMozos", language = "JDOQL", value = "SELECT FROM dom.mozo.Mozo") })
 @Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
 public class Mozo extends Empleado {
 
@@ -68,6 +66,7 @@ public class Mozo extends Empleado {
 	}
 
 	// }}
+
 	// {{ injected: DomainObjectContainer
 	private DomainObjectContainer contenedor;
 
@@ -96,7 +95,7 @@ public class Mozo extends Empleado {
 
 	@Named("Borrar")
 	@Bulk
-	@MemberOrder(name = "accionMozo", sequence = "1")
+	@MemberOrder(sequence = "1")
 	public List<Mozo> borrar() {
 
 		contenedor.removeIfNotAlready(this);
@@ -105,17 +104,16 @@ public class Mozo extends Empleado {
 	}
 
 	@Named("Asignar Mesas")
-	@MemberOrder(name = "accionMesaMozo", sequence = "2")
+	@MemberOrder(sequence = "3")
 	public Mozo asignarMesasMozo() {
 		return mozoServicio.asignarMesas(this);
 
 	}
-	
-	@Named("Seleccionar Mesas a Mozos")	
-	@MemberOrder(name = "accionMesaMozo", sequence = "2")
-	public List<Mesa> MesasSinAsignar(){
+
+	@Named("Seleccionar Mesas")
+	@MemberOrder(sequence = "2")
+	public List<Mesa> MesasSinAsignar() {
 		return mozoServicio.listarMesaSinAsignar();
 	}
-	
 
 }
