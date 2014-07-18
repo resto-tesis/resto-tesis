@@ -22,6 +22,7 @@ public enum TipoBebidaEnum {
 	Vino("Vino"),
 	Cerveza("Cerveza"),
 	Jugo("Jugo"),
+	Agua("Agua"),
 	Cafe("Cafe");
 	
 	private final String nombre;

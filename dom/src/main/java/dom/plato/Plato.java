@@ -38,7 +38,7 @@ import org.apache.isis.applib.annotation.TypicalLength;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Sequence(name = "secuenciaNumeroPlato", strategy = SequenceStrategy.CONTIGUOUS)
-@Inheritance(strategy = InheritanceStrategy.COMPLETE_TABLE)
+@Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
 public abstract class Plato {
 
 	// {{ Numero (property)

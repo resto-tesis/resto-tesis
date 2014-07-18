@@ -73,7 +73,7 @@ public class MenuServicio extends AbstractFactoryAndRepository {
 
 	@Hidden
 	public double calcularDescuento(Menu _menu) {
-		Double total = _menu.getBebida().getPrecio()
+		double total = _menu.getBebida().getPrecio()
 				+ _menu.getPlatoPrincipal().getPrecio();
 		total += (_menu.getGuarnicion() == null) ? 0 : _menu.getGuarnicion()
 				.getPrecio();

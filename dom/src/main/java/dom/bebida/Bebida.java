@@ -65,7 +65,6 @@ public class Bebida {
 
 	@TypicalLength(10)
 	@Optional
-	@Column(allowsNull = "false")
 	@MemberOrder(sequence = "2")
 	public TipoBebidaEnum getTipo() {
 		return tipo;
@@ -98,7 +97,7 @@ public class Bebida {
 	private VolumenBebidaEnum volumen;
 
 	@TypicalLength(15)
-	@Column(allowsNull = "false")
+	@Optional
 	@MemberOrder(sequence = "4")
 	public VolumenBebidaEnum getVolumen() {
 		return volumen;
