@@ -28,14 +28,16 @@ import org.apache.isis.applib.annotation.MinLength;
 import org.apache.isis.applib.annotation.Named;
 import org.apache.isis.applib.annotation.RegEx;
 import org.apache.isis.applib.annotation.ActionSemantics.Of;
+import org.apache.isis.applib.query.QueryDefault;
 import org.joda.time.Days;
 import org.joda.time.LocalDate;
 
+import dom.comanda.Comanda;
+import dom.comanda.EstadoComandaEnum;
 import dom.empleado.Empleado;
 
 @Named("Cocinero")
-public class CocineroServicio extends AbstractFactoryAndRepository implements
-		ICocineroServicio {
+public class CocineroServicio extends AbstractFactoryAndRepository implements ICocineroServicio {
 
 	/*
 	 * Atributo Extra para las validaciones de las fechas
@@ -59,13 +61,11 @@ public class CocineroServicio extends AbstractFactoryAndRepository implements
 			final String _apellido, final long _dni,
 			final LocalDate fechadeNacimiento, final LocalDate fechadeIngreso) {
 		final Cocinero cocineroNuevo = newTransientInstance(Cocinero.class);
-		cocineroNuevo.setApellido(_apellido.substring(0, 1).toUpperCase()
-				+ _apellido.substring(1));
+		cocineroNuevo.setApellido(_apellido.substring(0, 1).toUpperCase() + _apellido.substring(1));
 		cocineroNuevo.setDocumento(_dni);
 		cocineroNuevo.setFechaDeIngreso(fechadeIngreso.toDate());
 		cocineroNuevo.setFechaDeNacimiento(fechadeNacimiento.toDate());
-		cocineroNuevo.setNombre(_nombre.substring(0, 1).toUpperCase()
-				+ _nombre.substring(1));
+		cocineroNuevo.setNombre(_nombre.substring(0, 1).toUpperCase() + _nombre.substring(1));
 		persist(cocineroNuevo);
 		return cocineroNuevo;
 	}
@@ -82,6 +82,42 @@ public class CocineroServicio extends AbstractFactoryAndRepository implements
 	public List<Empleado> listarEmpleados() {
 		return allInstances(Empleado.class);
 	}
+	
+	@Hidden
+	public List<Comanda> listarComandas() {
+		return allMatches(new QueryDefault<Comanda>(Comanda.class, "comandas"));
+	}
+	
+	@Hidden
+	public List<Comanda> listarComandasSeleccionadas() {
+		return allMatches(new QueryDefault<Comanda>(Comanda.class, "comandasSeleccionadas"));
+	}
+	
+	@Hidden
+	public Cocinero cambiarEstadoComandas(Cocinero _cocinero) {
+		List<Comanda> listaComandas = listarComandasSeleccionadas();
+		if (!listaComandas.isEmpty()) {
+			for (Comanda _comanda : listaComandas) {
+				if(_comanda.getEstadoPreparacion() == EstadoComandaEnum.Enviada){
+					_comanda.setEstadoPreparacion(EstadoComandaEnum.En_Preparacion);
+					_comanda.setEstadoSeleccion(true);
+				}else{
+					if(_comanda.getEstadoPreparacion() == EstadoComandaEnum.En_Preparacion){
+						_comanda.setEstadoPreparacion(EstadoComandaEnum.Finalizada);
+						_comanda.setEstadoSeleccion(true);
+					}else{
+						getContainer().informUser("La comanda seleccionada nº: " + _comanda.getNumero() + " que ya ha sido finalizada");
+						_comanda.setEstadoSeleccion(false);
+					}
+				}
+				_cocinero.addComanda(_comanda);
+			}
+			getContainer().informUser("Cambió el estado de la comanda");
+		} else {
+			getContainer().informUser("Debe seleccionar al menos una comanda para cambiar el estado");
+		}
+		return _cocinero;
+	}
 
 	/*
 	 * Validacion del ingreso de fechas por el UI
@@ -95,8 +131,7 @@ public class CocineroServicio extends AbstractFactoryAndRepository implements
 				return "Ya existe el número de documento ingresado.";
 			}
 		}
-		if (fechadeNacimiento.isAfter(fechadeIngreso)
-				|| fechadeNacimiento.isEqual(fechadeIngreso)) {
+		if (fechadeNacimiento.isAfter(fechadeIngreso) || fechadeNacimiento.isEqual(fechadeIngreso)) {
 			return "La fecha de nacimiento no debe ser mayor o igual a la fecha de ingreso de los empleados";
 		} else {
 			if (fechadeIngreso.isAfter(fecha_actual)) {

@@ -24,12 +24,15 @@ import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
+import javax.jdo.annotations.Queries;
+import javax.jdo.annotations.Query;
 import javax.jdo.annotations.Sequence;
 import javax.jdo.annotations.SequenceStrategy;
 
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.Bulk;
 import org.apache.isis.applib.annotation.Disabled;
+import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
 import org.apache.isis.applib.annotation.Optional;
@@ -37,6 +40,7 @@ import org.apache.isis.applib.annotation.Title;
 import org.apache.isis.applib.annotation.TypicalLength;
 
 import dom.bebida.Bebida;
+import dom.cocinero.Cocinero;
 import dom.guarnicion.Guarnicion;
 import dom.mesa.Mesa;
 import dom.platoEntrada.PlatoEntrada;
@@ -45,11 +49,10 @@ import dom.postre.Postre;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Sequence(name = "secuenciaNumeroComanda", strategy = SequenceStrategy.CONTIGUOUS)
+@Queries({
+	@Query(name = "comandasSeleccionadas", language = "JDOQL", value = "SELECT FROM dom.comanda.Comanda where estadoSeleccion == true"),
+	@Query(name = "comandas", language = "JDOQL", value = "SELECT FROM dom.comanda.Comanda") })
 public class Comanda {
-
-	public Comanda() {
-		// TODO Auto-generated constructor stub
-	}
 
 	// {{ Numero (property)
 	private int numero;
@@ -69,12 +72,42 @@ public class Comanda {
 	}
 
 	// }}
+	
+	// {{ EstadoPreparacion (property)
+	private EstadoComandaEnum estadoPreparacion;
+
+	@Column(allowsNull = "false")
+	@MemberOrder(sequence = "2")
+	public EstadoComandaEnum getEstadoPreparacion() {
+		return estadoPreparacion;
+	}
+
+	public void setEstadoPreparacion(final EstadoComandaEnum estadoPreparacion) {
+		this.estadoPreparacion = estadoPreparacion;
+	}
+	// }}
+
+	// {{ EstadoSeleccion (property)
+	private boolean estadoSeleccion;
+
+	@Hidden
+	@Disabled
+	@Column(allowsNull = "false")
+	@MemberOrder(sequence = "3")
+	public boolean getEstadoSeleccion() {
+		return estadoSeleccion;
+	}
+
+	public void setEstadoSeleccion(final boolean estadoSeleccion) {
+		this.estadoSeleccion = estadoSeleccion;
+	}
+	// }}
 
 	// {{ Mesa (property)
 	private Mesa mesa;
 
 	@Title(prepend = "Comanda ")
-	@MemberOrder(sequence = "2")
+	@MemberOrder(sequence = "4")
 	@Column(allowsNull = "false")
 	public Mesa getMesa() {
 		return mesa;
@@ -89,7 +122,7 @@ public class Comanda {
 	// {{ PlatoEntrada (property)
 	private PlatoEntrada platoEntrada;
 
-	@MemberOrder(sequence = "3")
+	@MemberOrder(sequence = "5")
 	@Optional
 	public PlatoEntrada getPlatoEntrada() {
 		return platoEntrada;
@@ -104,7 +137,7 @@ public class Comanda {
 	// {{ PlatoPrincipal (property)
 	private PlatoPrincipal platoPrincipal;
 
-	@MemberOrder(sequence = "4")
+	@MemberOrder(sequence = "6")
 	@Optional
 	public PlatoPrincipal getPlatoPrincipal() {
 		return platoPrincipal;
@@ -134,7 +167,7 @@ public class Comanda {
 	// {{ Postre (property)
 	private Postre postre;
 
-	@MemberOrder(sequence = "6")
+	@MemberOrder(sequence = "8")
 	@Optional
 	public Postre getPostre() {
 		return postre;
@@ -150,7 +183,7 @@ public class Comanda {
 	private Guarnicion guarnicion;
 
 	@Named("Guarnición")
-	@MemberOrder(sequence = "5")
+	@MemberOrder(sequence = "9")
 	@Optional
 	public Guarnicion getGuarnicion() {
 		return guarnicion;
@@ -217,5 +250,14 @@ public class Comanda {
 	public List<Comanda> borrar() {
 		contenedor.removeIfNotAlready(this);
 		return comandaServicio.listarComanda();
+	}
+	
+	@Named("Seleccionar")
+	@Bulk
+	@MemberOrder(sequence = "2")
+	public List<Cocinero> seleccionar() {
+		if (estadoPreparacion == EstadoComandaEnum.Enviada)
+			setEstadoSeleccion(true);
+		return comandaServicio.listarCocineros();
 	}
 }

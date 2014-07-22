@@ -17,28 +17,54 @@ package dom.cocinero;
  * 
  */
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.Inheritance;
 import javax.jdo.annotations.InheritanceStrategy;
 import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Queries;
+import javax.jdo.annotations.Query;
 
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.Bulk;
+import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
 
+import dom.comanda.Comanda;
 import dom.empleado.Empleado;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
+@Queries({ @Query(name = "todosLosCocineros", language = "JDOQL", value = "SELECT FROM dom.cocinero.Cocinero") })
 public class Cocinero extends Empleado {
 
-	public Cocinero() {
-		// TODO Auto-generated constructor stub
+	// {{ ListaComandas (Collection)
+	private List<Comanda> listaComandas = new ArrayList<Comanda>();
+
+	@Named("Lista de Comandas")
+	@MemberOrder(sequence = "1")
+	public List<Comanda> getListaComandas() {
+		return listaComandas;
 	}
 
+	public void setListaComandas(final List<Comanda> listaComandas) {
+		this.listaComandas = listaComandas;
+	}
+	// }}
+		
+	@Hidden
+	public void addComanda(final Comanda _comanda) {
+		listaComandas.add(_comanda);
+	}
+
+	@Hidden
+	public void removeComanda(final Comanda _comanda) {
+		listaComandas.remove(_comanda);
+	}
+	
 	// {{ Contenedor (property)
 	private DomainObjectContainer contenedor;
 
@@ -67,5 +93,17 @@ public class Cocinero extends Empleado {
 	public List<Cocinero> borrarCocinero() {
 		contenedor.removeIfNotAlready(this);
 		return servicioCocinero.listarCocineros();
+	}
+	
+	@Named("Tomar Comanda/as")
+	@MemberOrder(sequence = "2")
+	public List<Comanda> listarComandas(){
+		return servicioCocinero.listarComandas();
+	}
+	
+	@Named("Cambiar Estado a Comanda")
+	@MemberOrder(sequence = "3")
+	public Cocinero cambiarEstadoComandas() {
+		return servicioCocinero.cambiarEstadoComandas(this);
 	}
 }

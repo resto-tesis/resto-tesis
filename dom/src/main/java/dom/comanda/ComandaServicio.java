@@ -27,8 +27,10 @@ import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
 import org.apache.isis.applib.annotation.Optional;
 import org.apache.isis.applib.annotation.Where;
+import org.apache.isis.applib.query.QueryDefault;
 
 import dom.bebida.Bebida;
+import dom.cocinero.Cocinero;
 import dom.guarnicion.Guarnicion;
 import dom.mesa.Mesa;
 import dom.platoEntrada.PlatoEntrada;
@@ -37,10 +39,6 @@ import dom.postre.Postre;
 
 @Named("Comanda")
 public class ComandaServicio extends AbstractFactoryAndRepository {
-
-	public ComandaServicio() {
-		// TODO Auto-generated constructor stub
-	}
 
 	@Named("Crear")
 	@Hidden(where = Where.OBJECT_FORMS)
@@ -62,6 +60,8 @@ public class ComandaServicio extends AbstractFactoryAndRepository {
 			final PlatoPrincipal _platoPrincipal, final Guarnicion _guarnicion,
 			final Postre _postre, final Bebida _bebida) {
 		final Comanda comanda = newTransientInstance(Comanda.class);
+		comanda.setEstadoSeleccion(false);
+		comanda.setEstadoPreparacion(EstadoComandaEnum.Enviada);
 		comanda.setMesa(_mesa);
 		comanda.setBebida(_bebida);
 		comanda.setGuarnicion(_guarnicion);
@@ -109,4 +109,8 @@ public class ComandaServicio extends AbstractFactoryAndRepository {
 		return allInstances(Bebida.class);
 	}
 
+	@Hidden
+	public List<Cocinero> listarCocineros() {
+		return allMatches(new QueryDefault<Cocinero>(Cocinero.class, "todosLosCocineros"));
+	}
 }
