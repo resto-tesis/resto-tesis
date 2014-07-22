@@ -27,6 +27,8 @@ import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.Sequence;
 import javax.jdo.annotations.SequenceStrategy;
 
+import org.apache.isis.applib.DomainObjectContainer;
+import org.apache.isis.applib.annotation.Bulk;
 import org.apache.isis.applib.annotation.Disabled;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
@@ -191,5 +193,29 @@ public class Comanda {
 
 	public void injectarComandaServicio(final ComandaServicio _comandaServicio) {
 		this.comandaServicio = _comandaServicio;
+	}
+	
+	// {{ injected: DomainObjectContainer
+	private DomainObjectContainer contenedor;
+
+	public void injectDomainObjectContainer(
+			final DomainObjectContainer container) {
+		this.setContenedor(container);
+	}
+
+	public DomainObjectContainer getContenedor() {
+		return contenedor;
+	}
+
+	public void setContenedor(DomainObjectContainer contenedor) {
+		this.contenedor = contenedor;
+	}
+	
+	@Named("Borrar")
+	@Bulk
+	@MemberOrder(sequence = "1")
+	public List<Comanda> borrar() {
+		contenedor.removeIfNotAlready(this);
+		return comandaServicio.listarComanda();
 	}
 }
