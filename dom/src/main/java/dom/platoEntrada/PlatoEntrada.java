@@ -1,4 +1,4 @@
-package dom.plato;
+package dom.platoEntrada;
 
 /*
  * Copyright 2014 resto-tesis
@@ -29,22 +29,24 @@ import org.apache.isis.applib.annotation.Bulk;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
 
+import dom.plato.Plato;
+
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
-public class PlatoPrincipal extends Plato {
+public class PlatoEntrada extends Plato {
 
-	public PlatoPrincipal() {
+	public PlatoEntrada() {
 		// TODO Auto-generated constructor stub
 	}
 
 	@Named("Borrar")
 	@Bulk
 	@MemberOrder(sequence = "1")
-	public List<PlatoPrincipal> borrar() {
+	public List<PlatoEntrada> borrar() {
 
 		contenedor.removeIfNotAlready(this);
 
-		return platoServicio.listarPLatosPrincipales();
+		return platoEntradaServicio.listarPLatosEntrada();
 	}
 
 	// {{ injected: DomainObjectContainer
@@ -58,9 +60,10 @@ public class PlatoPrincipal extends Plato {
 		this.contenedor = contenedor;
 	}
 
-	private PlatoServicio platoServicio;
+	private PlatoEntradaServicio platoEntradaServicio;
 
-	public void injectPlatoServicio(final PlatoServicio servicioplato) {
-		this.platoServicio = servicioplato;
+	public void injectPlatoServicio(
+			final PlatoEntradaServicio _platoEntradaServicio) {
+		platoEntradaServicio = _platoEntradaServicio;
 	}
 }

@@ -31,8 +31,8 @@ import org.apache.isis.applib.annotation.Where;
 import dom.bebida.Bebida;
 import dom.guarnicion.Guarnicion;
 import dom.mesa.Mesa;
-import dom.plato.PlatoEntrada;
-import dom.plato.PlatoPrincipal;
+import dom.platoEntrada.PlatoEntrada;
+import dom.platoPrincipal.PlatoPrincipal;
 import dom.postre.Postre;
 
 @Named("Comanda")

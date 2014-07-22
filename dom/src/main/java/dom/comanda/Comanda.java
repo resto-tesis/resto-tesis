@@ -39,8 +39,8 @@ import org.apache.isis.applib.annotation.TypicalLength;
 import dom.bebida.Bebida;
 import dom.guarnicion.Guarnicion;
 import dom.mesa.Mesa;
-import dom.plato.PlatoEntrada;
-import dom.plato.PlatoPrincipal;
+import dom.platoEntrada.PlatoEntrada;
+import dom.platoPrincipal.PlatoPrincipal;
 import dom.postre.Postre;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)

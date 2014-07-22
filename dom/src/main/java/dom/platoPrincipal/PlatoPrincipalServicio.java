@@ -1,4 +1,4 @@
-package dom.plato;
+package dom.platoPrincipal;
 
 /*
  * Copyright 2014 resto-tesis
@@ -33,8 +33,12 @@ import org.apache.isis.applib.annotation.Optional;
 import org.apache.isis.applib.annotation.RegEx;
 import org.apache.isis.applib.annotation.ActionSemantics.Of;
 
-@Named("Plato")
-public class PlatoServicio extends AbstractFactoryAndRepository {
+import dom.plato.CondicionDePlatoEnum;
+import dom.plato.Plato;
+import dom.platoPrincipal.PlatoPrincipal;
+
+@Named("Plato Principal")
+public class PlatoPrincipalServicio extends AbstractFactoryAndRepository {
 
 	@Named("Crear Plato Principal")
 	@MemberOrder(sequence = "1")
@@ -46,19 +50,6 @@ public class PlatoServicio extends AbstractFactoryAndRepository {
 			@Named("Precio") @MaxLength(value = 6) @Digits(integer = 3, fraction = 2) final BigDecimal unPrecio) {
 		/* Empieza el metodo */
 		return crearUnPlatoPrincipal(nombre, unaCondicion, unaDescripcion,
-				unPrecio);
-	}
-
-	@Named("Crear Plato de Entrada")
-	@MemberOrder(sequence = "2")
-	public Plato crearPlatoEntrada(
-			/* Parametros de Entrada */
-			@RegEx(validation = "[0-9a-zA-ZáéíóúÁÉÍÓÚ\\s]*") @MaxLength(value = 25) @Named("Nombre") final String nombre,
-			@Named("Condición") final CondicionDePlatoEnum unaCondicion,
-			@Optional @MultiLine(numberOfLines = 3) @Named("Descripción") final String unaDescripcion,
-			@Named("Precio") @MaxLength(value = 6) @Digits(integer = 3, fraction = 2) final BigDecimal unPrecio) {
-		/* Empieza el metodo */
-		return crearUnPlatoEntrada(nombre, unaCondicion, unaDescripcion,
 				unPrecio);
 	}
 
@@ -78,32 +69,6 @@ public class PlatoServicio extends AbstractFactoryAndRepository {
 		unPlato.setPrecio(unPrecio.doubleValue());
 		persist(unPlato);
 		return unPlato;
-	}
-
-	@Hidden
-	public PlatoEntrada crearUnPlatoEntrada(final String nombre,
-			final CondicionDePlatoEnum unaCondicion,
-			final String unaDescripcion, final BigDecimal unPrecio) {
-		/* Empieza el Metodo */
-		final PlatoEntrada unPlato = newTransientInstance(PlatoEntrada.class);
-		unPlato.setNombre(nombre.substring(0, 1).toUpperCase()
-				+ nombre.substring(1));
-		unPlato.setCondicionDePlato(unaCondicion);
-		if (unaDescripcion != null) {
-			unPlato.setDescripcion(unaDescripcion.substring(0, 1).toUpperCase()
-					+ unaDescripcion.substring(1));
-		}
-		unPlato.setPrecio(unPrecio.doubleValue());
-		persist(unPlato);
-		return unPlato;
-	}
-
-	@Named("Listar Platos de Entrada")
-	@ActionSemantics(Of.SAFE)
-	@MemberOrder(sequence = "4")
-	public List<PlatoEntrada> listarPLatosEntrada() {
-		final List<PlatoEntrada> listaPlatos = allInstances(PlatoEntrada.class);
-		return listaPlatos;
 	}
 
 	@Named("Listar Platos Principales")
