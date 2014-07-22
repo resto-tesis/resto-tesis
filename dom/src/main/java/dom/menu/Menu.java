@@ -170,6 +170,26 @@ public class Menu {
 
 	// }}
 
+	public List<PlatoEntrada> choicesPlatoEntrada() {
+		return menuServicio.choices3CrearMenu();
+	}
+
+	public List<PlatoPrincipal> choicesPlatoPrincipal() {
+		return menuServicio.choices1CrearMenu();
+	}
+
+	public List<Bebida> choicesBebida() {
+		return menuServicio.choices2CrearMenu();
+	}
+
+	public List<Postre> choicesPostre() {
+		return menuServicio.choices5CrearMenu();
+	}
+
+	public List<Guarnicion> choicesGuarnicion() {
+		return menuServicio.choices4CrearMenu();
+	}
+
 	@Disabled
 	@MemberOrder(sequence = "9")
 	public double getPrecioFinal() {
