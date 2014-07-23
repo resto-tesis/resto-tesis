@@ -17,7 +17,6 @@ package dom.cocinero;
  * 
  */
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.jdo.annotations.IdentityType;
@@ -29,7 +28,6 @@ import javax.jdo.annotations.Query;
 
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.Bulk;
-import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
 
@@ -40,30 +38,6 @@ import dom.empleado.Empleado;
 @Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
 @Queries({ @Query(name = "todosLosCocineros", language = "JDOQL", value = "SELECT FROM dom.cocinero.Cocinero") })
 public class Cocinero extends Empleado {
-
-	// {{ ListaComandas (Collection)
-	private List<Comanda> listaComandas = new ArrayList<Comanda>();
-
-	@Named("Lista de Comandas")
-	@MemberOrder(sequence = "1")
-	public List<Comanda> getListaComandas() {
-		return listaComandas;
-	}
-
-	public void setListaComandas(final List<Comanda> listaComandas) {
-		this.listaComandas = listaComandas;
-	}
-	// }}
-		
-	@Hidden
-	public void addComanda(final Comanda _comanda) {
-		listaComandas.add(_comanda);
-	}
-
-	@Hidden
-	public void removeComanda(final Comanda _comanda) {
-		listaComandas.remove(_comanda);
-	}
 	
 	// {{ Contenedor (property)
 	private DomainObjectContainer contenedor;
@@ -101,9 +75,10 @@ public class Cocinero extends Empleado {
 		return servicioCocinero.listarComandas();
 	}
 	
-	@Named("Cambiar Estado a Comanda")
+	@Named("Cambiar Estado de Comanda/as")
 	@MemberOrder(sequence = "3")
 	public Cocinero cambiarEstadoComandas() {
 		return servicioCocinero.cambiarEstadoComandas(this);
 	}
+	
 }

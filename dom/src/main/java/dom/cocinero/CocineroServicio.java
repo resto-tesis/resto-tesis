@@ -110,7 +110,6 @@ public class CocineroServicio extends AbstractFactoryAndRepository implements IC
 						_comanda.setEstadoSeleccion(false);
 					}
 				}
-				_cocinero.addComanda(_comanda);
 			}
 			getContainer().informUser("Cambió el estado de la comanda");
 		} else {
@@ -171,4 +170,6 @@ public class CocineroServicio extends AbstractFactoryAndRepository implements IC
 		Days meses = Days.daysBetween(fechadeNacimiento, fecha_actual);
 		return meses.getDays();
 	}
+
+
 }
