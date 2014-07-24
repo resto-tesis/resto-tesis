@@ -1,4 +1,5 @@
-package dom;
+package dom.carta;
+
 
 /*
  * Copyright 2014 resto-tesis
@@ -17,19 +18,6 @@ package dom;
  * 
  */
 
-import java.util.List;
-
-import dom.guarnicion.Guarnicion;
-import dom.menu.Menu;
-import dom.plato.Plato;
-import dom.postre.Postre;
-
-public class Carta {
-
-	private List<Guarnicion> listaGuarniciones;
-	private List<Menu> listaMenues;
-	private List<Postre> listaPostre;
-	private List<Plato> listaPlatosPrincipales;
-	private List<Plato> listaPlatosEntrada;
+public class CartaServicio {
 
 }

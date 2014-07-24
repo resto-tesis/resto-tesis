@@ -24,6 +24,8 @@ import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
+import javax.jdo.annotations.Queries;
+import javax.jdo.annotations.Query;
 import javax.jdo.annotations.Sequence;
 import javax.jdo.annotations.SequenceStrategy;
 
@@ -42,6 +44,9 @@ import dom.postre.PostreServicio;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Sequence(name = "secuenciaNumeroPostre", strategy = SequenceStrategy.CONTIGUOUS)
+@Queries({
+	@Query(name = "todosLosPostres", language = "JDOQL", value = "SELECT FROM dom.postre.Postre")})
+
 public class Postre {
 
 	// {{ Numero (property)
