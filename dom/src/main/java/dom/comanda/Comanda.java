@@ -51,7 +51,11 @@ import dom.postre.Postre;
 @Sequence(name = "secuenciaNumeroComanda", strategy = SequenceStrategy.CONTIGUOUS)
 @Queries({
 	@Query(name = "comandasSeleccionadas", language = "JDOQL", value = "SELECT FROM dom.comanda.Comanda where estadoSeleccion == true"),
-	@Query(name = "comandas", language = "JDOQL", value = "SELECT FROM dom.comanda.Comanda") })
+	@Query(name = "comandasSinPreparacion", language = "JDOQL", value = "SELECT FROM dom.comanda.Comanda where estadoPreparacion == Enviada"),
+	@Query(name = "comandasEnPreparacion", language = "JDOQL", value = "SELECT FROM dom.comanda.Comanda where estadoPreparacion == En_Preparacion"),
+	@Query(name = "comandasFinalizadas", language = "JDOQL", value = "SELECT FROM dom.comanda.Comanda where estadoPreparacion == Finalizada") 
+	 
+	})
 public class Comanda {
 
 	// {{ Numero (property)

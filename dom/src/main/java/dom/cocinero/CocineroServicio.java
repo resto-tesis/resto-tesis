@@ -84,8 +84,13 @@ public class CocineroServicio extends AbstractFactoryAndRepository implements IC
 	}
 	
 	@Hidden
-	public List<Comanda> listarComandas() {
-		return allMatches(new QueryDefault<Comanda>(Comanda.class, "comandas"));
+	public List<Comanda> listarComandasSinPreparar() {
+		return allMatches(new QueryDefault<Comanda>(Comanda.class, "comandasSinPreparacion"));
+	}
+	
+	@Hidden
+	public List<Comanda> listarComandasEnPreparacion() {
+		return allMatches(new QueryDefault<Comanda>(Comanda.class, "comandasEnPreparacion"));
 	}
 	
 	@Hidden

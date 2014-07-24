@@ -72,13 +72,13 @@ public class Cocinero extends Empleado {
 	@Named("Tomar Comanda/as")
 	@MemberOrder(sequence = "2")
 	public List<Comanda> listarComandas(){
-		return servicioCocinero.listarComandas();
+		return servicioCocinero.listarComandasSinPreparar();
 	}
 	
 	@Named("Cambiar Estado de Comanda/as")
 	@MemberOrder(sequence = "3")
-	public Cocinero cambiarEstadoComandas() {
-		return servicioCocinero.cambiarEstadoComandas(this);
+	public List<Comanda> cambiarEstadoComandas() {
+		return servicioCocinero.listarComandasEnPreparacion();
 	}
 	
 }
