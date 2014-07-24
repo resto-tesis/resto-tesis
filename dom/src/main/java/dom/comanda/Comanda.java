@@ -51,9 +51,9 @@ import dom.postre.Postre;
 @Sequence(name = "secuenciaNumeroComanda", strategy = SequenceStrategy.CONTIGUOUS)
 @Queries({
 	@Query(name = "comandasSeleccionadas", language = "JDOQL", value = "SELECT FROM dom.comanda.Comanda where estadoSeleccion == true"),
-	@Query(name = "comandasSinPreparacion", language = "JDOQL", value = "SELECT FROM dom.comanda.Comanda where estadoPreparacion == Enviada"),
-	@Query(name = "comandasEnPreparacion", language = "JDOQL", value = "SELECT FROM dom.comanda.Comanda where estadoPreparacion == En_Preparacion"),
-	@Query(name = "comandasFinalizadas", language = "JDOQL", value = "SELECT FROM dom.comanda.Comanda where estadoPreparacion == Finalizada") 
+	@Query(name = "comandasSinPreparacion", language = "JDOQL", value = "SELECT FROM dom.comanda.Comanda where estadoPreparacion == 'Enviada'"),
+	@Query(name = "comandasEnPreparacion", language = "JDOQL", value = "SELECT FROM dom.comanda.Comanda where estadoPreparacion == 'En_Preparacion'"),
+	@Query(name = "comandasFinalizadas", language = "JDOQL", value = "SELECT FROM dom.comanda.Comanda where estadoPreparacion == 'Finalizada'") 
 	 
 	})
 public class Comanda {
@@ -255,13 +255,22 @@ public class Comanda {
 		contenedor.removeIfNotAlready(this);
 		return comandaServicio.listarComanda();
 	}
-	
-	@Named("Seleccionar")
+			
+	@Named("Enviar a Cocina")	
 	@Bulk
 	@MemberOrder(sequence = "2")
-	public List<Cocinero> seleccionar() {
-		if (estadoPreparacion == EstadoComandaEnum.Enviada)
-			setEstadoSeleccion(true);
+	public List<Cocinero> enviarComandaCocina() {
+		comandaServicio.enviarComandaACocina(this);
 		return comandaServicio.listarCocineros();
+		
+	}
+	
+	@Named("Finalizar")
+	@Bulk
+	@MemberOrder(sequence = "3")
+	public List<Cocinero> finalizarComandas() {
+		comandaServicio.FinalizarComanda(this);
+		return comandaServicio.listarCocineros();
+		
 	}
 }

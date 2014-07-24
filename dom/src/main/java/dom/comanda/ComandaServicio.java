@@ -71,6 +71,16 @@ public class ComandaServicio extends AbstractFactoryAndRepository {
 		persist(comanda);
 		return comanda;
 	}
+	
+	@Hidden 
+	public void enviarComandaACocina(Comanda unaComanda){
+		unaComanda.setEstadoPreparacion(EstadoComandaEnum.En_Preparacion);
+	}
+	
+	@Hidden 
+	public void FinalizarComanda(Comanda unaComanda){
+		unaComanda.setEstadoPreparacion(EstadoComandaEnum.Finalizada);
+	}
 
 	@Named("Listar")
 	@MemberOrder(sequence = "2")
