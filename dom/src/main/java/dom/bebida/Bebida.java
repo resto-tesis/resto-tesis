@@ -42,7 +42,7 @@ import org.apache.isis.applib.annotation.TypicalLength;
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Sequence(name = "secuenciaNumeroBebida", strategy = SequenceStrategy.CONTIGUOUS)
 @Queries({
-	@Query(name = "todosLasBebidas", language = "JDOQL", value = "SELECT FROM dom.bebida.Bebida")})
+	@Query(name = "todasLasBebidas", language = "JDOQL", value = "SELECT FROM dom.bebida.Bebida")})
 
 public class Bebida {
 

@@ -1,5 +1,18 @@
 package dom.carta;
 
+import java.util.List;
+
+import org.apache.isis.applib.AbstractFactoryAndRepository;
+import org.apache.isis.applib.annotation.Hidden;
+import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.annotation.Named;
+import org.apache.isis.applib.query.QueryDefault;
+import dom.bebida.Bebida;
+import dom.guarnicion.Guarnicion;
+import dom.menu.Menu;
+import dom.platoEntrada.PlatoEntrada;
+import dom.platoPrincipal.PlatoPrincipal;
+import dom.postre.Postre;
 
 /*
  * Copyright 2014 resto-tesis
@@ -18,6 +31,33 @@ package dom.carta;
  * 
  */
 
-public class CartaServicio {
-
+@Named("Carta")
+public class CartaServicio extends AbstractFactoryAndRepository{
+	
+	@Named("Bebidas")
+	@MemberOrder(sequence = "1")
+	public List<Bebida> listarBebidas() {
+		return allMatches(new QueryDefault<Bebida>(Bebida.class, "todasLasBebidas"));
+	}
+	@Hidden
+	public List<Guarnicion> listarGuarniciones() {
+		return allMatches(new QueryDefault<Guarnicion>(Guarnicion.class, "todasLasGuarniciones"));
+	}
+	@Hidden
+	public List<Menu> listarMenues() {
+		return allMatches(new QueryDefault<Menu>(Menu.class, "todosLosMenues"));
+	}
+	@Hidden
+	public List<PlatoEntrada> listarPlatoEntrada() {
+		return allMatches(new QueryDefault<PlatoEntrada>(PlatoEntrada.class, "todosLosPlatosEntrada"));
+	}
+	@Hidden
+	public List<PlatoPrincipal> listarPlatoPrincipal() {
+		return allMatches(new QueryDefault<PlatoPrincipal>(PlatoPrincipal.class, "todosLosPlatosPricipales"));
+	}
+	@Hidden
+	public List<Postre> listarPostre() {
+		return allMatches(new QueryDefault<Postre>(Postre.class, "todosLosPostres"));
+	}
+	
 }
