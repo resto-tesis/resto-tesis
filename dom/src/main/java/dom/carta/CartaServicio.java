@@ -39,6 +39,38 @@ public class CartaServicio extends AbstractFactoryAndRepository{
 	public List<Bebida> listarBebidas() {
 		return allMatches(new QueryDefault<Bebida>(Bebida.class, "todasLasBebidas"));
 	}
+	
+	@Named("Guarnicion")
+	@MemberOrder(sequence = "2")
+	public List<Guarnicion> listarGuarnicion() {
+		return allMatches(new QueryDefault<Guarnicion>(Guarnicion.class, "todasLasGuarniciones"));
+	}
+	
+	@Named("Menues")
+	@MemberOrder(sequence = "3")
+	public List<Menu> listarMenu() {
+		return allMatches(new QueryDefault<Menu>(Menu.class, "todosLosMenues"));
+	}
+	
+	@Named("Plato de Entrada")
+	@MemberOrder(sequence = "4")
+	public List<PlatoEntrada> listarPlatosEntradas() {
+		return allMatches(new QueryDefault<PlatoEntrada>(PlatoEntrada.class, "todosLosPlatosEntrada"));
+	}
+	
+	@Named("Platos Principales")
+	@MemberOrder(sequence = "5")
+	public List<PlatoPrincipal> listarPlatosPricipales() {
+		return allMatches(new QueryDefault<PlatoPrincipal>(PlatoPrincipal.class, "todosLosPlatosPricipales"));
+	}
+	
+	@Named("Postres")
+	@MemberOrder(sequence = "6")
+	public List<Postre> listarPostres() {
+		return allMatches(new QueryDefault<Postre>(Postre.class, "todosLosPostres"));
+	}
+	
+	
 	@Hidden
 	public List<Guarnicion> listarGuarniciones() {
 		return allMatches(new QueryDefault<Guarnicion>(Guarnicion.class, "todasLasGuarniciones"));
