@@ -28,10 +28,13 @@ import org.apache.isis.applib.annotation.MinLength;
 import org.apache.isis.applib.annotation.Named;
 import org.apache.isis.applib.annotation.RegEx;
 import org.apache.isis.applib.annotation.ActionSemantics.Of;
+import org.apache.isis.applib.query.QueryDefault;
 import org.joda.time.Days;
 import org.joda.time.LocalDate;
 
 import dom.empleado.Empleado;
+import dom.usuario.Rol;
+import dom.usuario.Usuario;
 
 @Named("Encargado")
 public class EncargadoServicio extends AbstractFactoryAndRepository implements
@@ -45,13 +48,26 @@ public class EncargadoServicio extends AbstractFactoryAndRepository implements
 	@Named("Crear")
 	@MemberOrder(sequence = "1")
 	public Encargado crearEncargado(
-			@Named("Apellido:") @RegEx(validation = "[a-zA-ZáéíóúÁÉÍÓÚ\\s]*") @MaxLength(value = 20) final String _apellido,
-			@Named("Nombre:") @RegEx(validation = "[a-zA-ZáéíóúÁÉÍÓÚ\\s]*") @MaxLength(value = 20) final String _nombre,
-			@Named("Documento:") @RegEx(validation = "[0-9*") @MaxLength(value = 8) @MinLength(value = 7) final long _dni,
-			@Named("Fecha de Nacimiento:") final LocalDate fechadeNacimiento,
-			@Named("Fecha de Ingreso:") final LocalDate fechadeIngreso) {
+			@Named("Apellido") @RegEx(validation = "[a-zA-ZáéíóúÁÉÍÓÚ\\s]*") @MaxLength(value = 20) final String _apellido,
+			@Named("Nombre") @RegEx(validation = "[a-zA-ZáéíóúÁÉÍÓÚ\\s]*") @MaxLength(value = 20) final String _nombre,
+			@Named("Documento") @RegEx(validation = "[0-9*") @MaxLength(value = 8) @MinLength(value = 7) final long _dni,
+			@Named("Fecha de Nacimiento") final LocalDate fechadeNacimiento,
+			@Named("Fecha de Ingreso") final LocalDate fechadeIngreso,
+			@Named("Usuario") final String _nombreUsuario,
+			@Named("Contraseña") final String _password) {
+		crearUsuario(_nombreUsuario, _password);
 		return crearEncargadoNuevo(_apellido, _nombre, _dni, fechadeNacimiento,
 				fechadeIngreso);
+	}
+
+	@Hidden
+	public void crearUsuario(final String _nombreUsuario, final String _password) {
+		final Usuario usuario = newTransientInstance(Usuario.class);
+		usuario.setNombre(_nombreUsuario);
+		usuario.setPassword(_password);
+		usuario.setRol(uniqueMatch(new QueryDefault<Rol>(Rol.class,
+				"encargado-role")));
+		persistIfNotAlready(usuario);
 	}
 
 	@Hidden
@@ -88,7 +104,8 @@ public class EncargadoServicio extends AbstractFactoryAndRepository implements
 	 */
 	@Override
 	public String validateCrearEncargado(String _nombre, String _apellido,
-			long _dni, LocalDate fechadeNacimiento, LocalDate fechadeIngreso) {
+			long _dni, LocalDate fechadeNacimiento, LocalDate fechadeIngreso,
+			String _nombreUsuario, String _password) {
 		// TODO Auto-generated method stub
 		for (Empleado _empleado : listarEmpleados()) {
 			if (_dni == _empleado.getDocumento()) {

@@ -129,7 +129,11 @@
     </build>
 
     <dependencies>
-    
+	<dependency>
+	  <groupId>org.postgresql</groupId>
+	  <artifactId>postgresql</artifactId>
+	<version>9.3-1102-jdbc41</version>
+	</dependency>
         <!-- other modules in this project -->
         <dependency>
             <groupId>${project.groupId}</groupId>

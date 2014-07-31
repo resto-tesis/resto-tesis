@@ -23,7 +23,12 @@ import org.apache.isis.viewer.wicket.viewer.registries.pages.PageClassListDefaul
 
 public class PageClassListForToDoApp extends PageClassListDefault {
 
-    @Override
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Override
     protected Class<? extends Page> getSignInPageClass() {
         // no override
         return super.getSignInPageClass();

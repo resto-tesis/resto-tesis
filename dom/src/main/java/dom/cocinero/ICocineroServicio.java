@@ -20,7 +20,12 @@ package dom.cocinero;
 import org.joda.time.LocalDate;
 
 public interface ICocineroServicio {
-	public String validateCrearCocinero(final String _nombre, final String _apellido, final long _dni, final LocalDate fechadeNacimiento, final LocalDate fechadeIngreso);
+	public String validateCrearCocinero(final String _nombre,
+			final String _apellido, final long _dni,
+			final LocalDate fechadeNacimiento, final LocalDate fechadeIngreso,
+			String _nombreUsuario, String _password);
+
 	public boolean validaMayorEdad(final LocalDate fechadeNacimiento);
+
 	public int getDiasNacimiento_Hoy(final LocalDate fechadeNacimiento);
 }
