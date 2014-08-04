@@ -55,24 +55,25 @@ public class EncargadoServicio extends AbstractFactoryAndRepository implements
 			@Named("Fecha de Ingreso") final LocalDate fechadeIngreso,
 			@Named("Usuario") final String _nombreUsuario,
 			@Named("Contraseña") final String _password) {
-		crearUsuario(_nombreUsuario, _password);
-		return crearEncargadoNuevo(_apellido, _nombre, _dni, fechadeNacimiento,
-				fechadeIngreso);
+		return crearEncargadoNuevo(crearUsuario(_nombreUsuario, _password),
+				_apellido, _nombre, _dni, fechadeNacimiento, fechadeIngreso);
 	}
 
 	@Hidden
-	public void crearUsuario(final String _nombreUsuario, final String _password) {
+	public Usuario crearUsuario(final String _nombreUsuario,
+			final String _password) {
 		final Usuario usuario = newTransientInstance(Usuario.class);
 		usuario.setNombre(_nombreUsuario);
 		usuario.setPassword(_password);
 		usuario.setRol(uniqueMatch(new QueryDefault<Rol>(Rol.class,
 				"encargado-role")));
 		persistIfNotAlready(usuario);
+		return usuario;
 	}
 
 	@Hidden
-	public Encargado crearEncargadoNuevo(final String _apellido,
-			final String _nombre, final long _dni,
+	public Encargado crearEncargadoNuevo(final Usuario _usuario,
+			final String _apellido, final String _nombre, final long _dni,
 			final LocalDate fechadeNacimiento, final LocalDate fechadeIngreso) {
 		final Encargado encargado = newTransientInstance(Encargado.class);
 		encargado.setApellido(_apellido.substring(0, 1).toUpperCase()
@@ -82,6 +83,7 @@ public class EncargadoServicio extends AbstractFactoryAndRepository implements
 		encargado.setDocumento(_dni);
 		encargado.setFechaDeNacimiento(fechadeNacimiento.toDate());
 		encargado.setFechaDeIngreso(fechadeIngreso.toDate());
+		encargado.setUsuario(_usuario);
 		persist(encargado);
 		return encargado;
 	}

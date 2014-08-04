@@ -57,24 +57,25 @@ public class CocineroServicio extends AbstractFactoryAndRepository implements
 			@Named("Fecha de Ingreso") final LocalDate fechadeIngreso,
 			@Named("Usuario") final String _nombreUsuario,
 			@Named("Contraseña") final String _password) {
-		crearUsuario(_nombreUsuario, _password);
-		return crearNuevoCocinero(_nombre, _apellido, _dni, fechadeNacimiento,
-				fechadeIngreso);
+		return crearNuevoCocinero(crearUsuario(_nombreUsuario, _password),
+				_nombre, _apellido, _dni, fechadeNacimiento, fechadeIngreso);
 	}
 
 	@Hidden
-	public void crearUsuario(final String _nombreUsuario, final String _password) {
+	public Usuario crearUsuario(final String _nombreUsuario,
+			final String _password) {
 		final Usuario usuario = newTransientInstance(Usuario.class);
 		usuario.setNombre(_nombreUsuario);
 		usuario.setPassword(_password);
 		usuario.setRol(uniqueMatch(new QueryDefault<Rol>(Rol.class,
 				"cocina-role")));
 		persistIfNotAlready(usuario);
+		return usuario;
 	}
 
 	@Hidden
-	public Cocinero crearNuevoCocinero(final String _nombre,
-			final String _apellido, final long _dni,
+	public Cocinero crearNuevoCocinero(final Usuario _usuario,
+			final String _nombre, final String _apellido, final long _dni,
 			final LocalDate fechadeNacimiento, final LocalDate fechadeIngreso) {
 		final Cocinero cocineroNuevo = newTransientInstance(Cocinero.class);
 		cocineroNuevo.setApellido(_apellido.substring(0, 1).toUpperCase()
@@ -84,6 +85,7 @@ public class CocineroServicio extends AbstractFactoryAndRepository implements
 		cocineroNuevo.setFechaDeNacimiento(fechadeNacimiento.toDate());
 		cocineroNuevo.setNombre(_nombre.substring(0, 1).toUpperCase()
 				+ _nombre.substring(1));
+		cocineroNuevo.setUsuario(_usuario);
 		persist(cocineroNuevo);
 		return cocineroNuevo;
 	}

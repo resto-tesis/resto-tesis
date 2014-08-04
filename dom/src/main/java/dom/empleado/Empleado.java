@@ -31,8 +31,11 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Sequence;
 
 import org.apache.isis.applib.annotation.Disabled;
+import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Title;
+
+import dom.usuario.Usuario;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Sequence(name = "secuenciaLegajo", strategy = SequenceStrategy.CONTIGUOUS)
@@ -130,5 +133,22 @@ public abstract class Empleado {
 	public void setFechaDeIngreso(final Date fechaDeIngreso) {
 		this.fechaDeIngreso = fechaDeIngreso;
 	}
+
 	// }}
+
+	// {{ Usuario (property)
+	private Usuario usuario;
+
+	@Hidden
+	@Persistent(dependent = "true")
+	@Column(allowsNull = "false")
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(final Usuario usuario) {
+		this.usuario = usuario;
+	}
+	// }}
+
 }

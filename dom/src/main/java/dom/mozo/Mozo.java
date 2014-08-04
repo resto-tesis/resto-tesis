@@ -97,9 +97,7 @@ public class Mozo extends Empleado {
 	@Bulk
 	@MemberOrder(sequence = "1")
 	public List<Mozo> borrar() {
-
 		contenedor.removeIfNotAlready(this);
-
 		return mozoServicio.listarMozos();
 	}
 

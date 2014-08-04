@@ -34,14 +34,12 @@ import dom.empleado.Empleado;
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
 public class Encargado extends Empleado {
-	
+
 	@Named("Borrar")
 	@Bulk
 	@MemberOrder(sequence = "1")
 	public List<Encargado> borrar() {
-
 		contenedor.removeIfNotAlready(this);
-
 		return encargadoServicio.listarEncargados();
 	}
 

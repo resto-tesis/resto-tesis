@@ -57,24 +57,25 @@ public class MozoServicio extends AbstractFactoryAndRepository implements
 			@Named("Fecha de Ingreso") final LocalDate fechadeIngreso,
 			@Named("Usuario") final String _nombreUsuario,
 			@Named("Contraseña") final String _password) {
-		crearUsuario(_nombreUsuario, _password);
-		return crearNuevoMozo(_apellido, _nombre, _dni, fechadeIngreso,
-				fechadeNacimiento);
+		return crearNuevoMozo(crearUsuario(_nombreUsuario, _password),
+				_apellido, _nombre, _dni, fechadeIngreso, fechadeNacimiento);
 	}
 
 	@Hidden
-	public void crearUsuario(final String _nombreUsuario, final String _password) {
+	public Usuario crearUsuario(final String _nombreUsuario,
+			final String _password) {
 		final Usuario usuario = newTransientInstance(Usuario.class);
 		usuario.setNombre(_nombreUsuario);
 		usuario.setPassword(_password);
 		usuario.setRol(uniqueMatch(new QueryDefault<Rol>(Rol.class, "mozo-role")));
 		persistIfNotAlready(usuario);
+		return usuario;
 	}
 
 	@Hidden
-	public Mozo crearNuevoMozo(final String _apellido, final String _nombre,
-			final long _dni, final LocalDate fechadeIngreso,
-			final LocalDate fechadeNacimiento) {
+	public Mozo crearNuevoMozo(final Usuario _usuario, final String _apellido,
+			final String _nombre, final long _dni,
+			final LocalDate fechadeIngreso, final LocalDate fechadeNacimiento) {
 		final Mozo mozo = newTransientInstance(Mozo.class);
 		mozo.setApellido(_apellido.substring(0, 1).toUpperCase()
 				+ _apellido.substring(1));
@@ -83,6 +84,7 @@ public class MozoServicio extends AbstractFactoryAndRepository implements
 		mozo.setDocumento(_dni);
 		mozo.setFechaDeIngreso(fechadeIngreso.toDate());
 		mozo.setFechaDeNacimiento(fechadeNacimiento.toDate());
+		mozo.setUsuario(_usuario);
 		persist(mozo);
 		return mozo;
 	}
