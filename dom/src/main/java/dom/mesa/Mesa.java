@@ -58,7 +58,6 @@ public class Mesa {
 
 	@Bulk
 	@MemberOrder(sequence = "2")
-	@Named("Seleccionar")
 	public List<Mozo> seleccionar() {
 		if (estadoAsignacion == EstadoAsignacionMesaEnum.No_Asignada)
 			setEstadoSeleccion(true);
@@ -133,7 +132,6 @@ public class Mesa {
 
 	// }}
 
-	@Named("Borrar")
 	@Bulk
 	@MemberOrder(sequence = "1")
 	public List<Mesa> borrar() {
@@ -144,11 +142,6 @@ public class Mesa {
 
 	// {{ injected: DomainObjectContainer
 	private DomainObjectContainer contenedor;
-
-	public void injectDomainObjectContainer(
-			final DomainObjectContainer container) {
-		this.setContenedor(container);
-	}
 
 	public DomainObjectContainer getContenedor() {
 		return contenedor;

@@ -113,19 +113,18 @@ public class MozoServicio extends AbstractFactoryAndRepository implements
 	}
 
 	@Hidden
+	public List<Mesa> listaMesas() {
+		return allInstances(Mesa.class);
+	}
+
+	@Hidden
 	public Mozo asignarMesas(Mozo _mozo) {
-		List<Mesa> listaMesas = listaMesasSeleccionadas();
-		if (!listaMesas.isEmpty()) {
-			for (Mesa _mesa : listaMesas) {
-				_mesa.setEstadoAsignacion(EstadoAsignacionMesaEnum.Asignada);
-				_mesa.setEstadoSeleccion(false);
-				_mozo.addMesa(_mesa);
-			}
-			getContainer().informUser("Mesas asignadas.");
-		} else {
-			getContainer().informUser(
-					"No hay Mesas seleccionadas para su asignación");
+		for (Mesa _mesa : listaMesasSeleccionadas()) {
+			_mozo.addMesa(_mesa);
+			_mesa.setEstadoAsignacion(EstadoAsignacionMesaEnum.Asignada);
+			_mesa.setEstadoSeleccion(false);
 		}
+		getContainer().informUser("Mesas asignadas.");
 		return _mozo;
 	}
 

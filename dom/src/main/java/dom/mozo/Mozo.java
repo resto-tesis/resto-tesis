@@ -34,6 +34,7 @@ import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
 
 import dom.empleado.Empleado;
+import dom.mesa.EstadoAsignacionMesaEnum;
 import dom.mesa.Mesa;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
@@ -46,7 +47,6 @@ public class Mozo extends Empleado {
 	private List<Mesa> listaMesas = new ArrayList<Mesa>();
 
 	@Named("Mesas Asignadas")
-	@MemberOrder(sequence = "1")
 	public List<Mesa> getListamesas() {
 		return listaMesas;
 	}
@@ -70,11 +70,6 @@ public class Mozo extends Empleado {
 	// {{ injected: DomainObjectContainer
 	private DomainObjectContainer contenedor;
 
-	public void injectDomainObjectContainer(
-			final DomainObjectContainer container) {
-		this.setContainer(container);
-	}
-
 	public DomainObjectContainer getContainer() {
 		return contenedor;
 	}
@@ -93,7 +88,6 @@ public class Mozo extends Empleado {
 		this.mozoServicio = serviciomozo;
 	}
 
-	@Named("Borrar")
 	@Bulk
 	@MemberOrder(sequence = "1")
 	public List<Mozo> borrar() {
@@ -101,17 +95,39 @@ public class Mozo extends Empleado {
 		return mozoServicio.listarMozos();
 	}
 
-	@Named("Asignar Mesas")
 	@MemberOrder(sequence = "3")
-	public Mozo asignarMesasMozo() {
+	public Mozo asignarMesas() {
 		return mozoServicio.asignarMesas(this);
-
 	}
 
-	@Named("Seleccionar Mesas")
+	public String disableAsignarMesas() {
+		return mozoServicio.listaMesasSeleccionadas().isEmpty() ? "No hay mesas seleccionadas"
+				: null;
+	}
+
 	@MemberOrder(sequence = "2")
-	public List<Mesa> MesasSinAsignar() {
+	public List<Mesa> seleccionarMesas() {
+		for (Mesa _mesa : contenedor.allInstances(Mesa.class))
+			_mesa.setEstadoSeleccion(false);
 		return mozoServicio.listarMesaSinAsignar();
 	}
 
+	public String disableSeleccionarMesas() {
+		return mozoServicio.listaMesas().isEmpty() ? "No existen mesas" : null;
+	}
+
+	@MemberOrder(sequence = "4")
+	public Mozo desasignarMesa(final Mesa _mesa) {
+		this.removeMesa(_mesa);
+		_mesa.setEstadoAsignacion(EstadoAsignacionMesaEnum.No_Asignada);
+		return this;
+	}
+
+	public String disableDesasignarMesa(final Mesa _mesa) {
+		return listaMesas.isEmpty() ? "No existen mesas asignadas" : null;
+	}
+
+	public List<Mesa> choices0DesasignarMesa() {
+		return getListamesas();
+	}
 }
