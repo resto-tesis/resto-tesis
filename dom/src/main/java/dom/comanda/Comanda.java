@@ -32,7 +32,6 @@ import javax.jdo.annotations.SequenceStrategy;
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.Bulk;
 import org.apache.isis.applib.annotation.Disabled;
-import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
 import org.apache.isis.applib.annotation.Optional;
@@ -40,7 +39,6 @@ import org.apache.isis.applib.annotation.Title;
 import org.apache.isis.applib.annotation.TypicalLength;
 
 import dom.bebida.Bebida;
-import dom.cocinero.Cocinero;
 import dom.guarnicion.Guarnicion;
 import dom.mesa.Mesa;
 import dom.platoEntrada.PlatoEntrada;
@@ -50,12 +48,12 @@ import dom.postre.Postre;
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Sequence(name = "secuenciaNumeroComanda", strategy = SequenceStrategy.CONTIGUOUS)
 @Queries({
-	@Query(name = "comandasSeleccionadas", language = "JDOQL", value = "SELECT FROM dom.comanda.Comanda where estadoSeleccion == true"),
-	@Query(name = "comandasSinPreparacion", language = "JDOQL", value = "SELECT FROM dom.comanda.Comanda where estadoPreparacion == 'Enviada'"),
-	@Query(name = "comandasEnPreparacion", language = "JDOQL", value = "SELECT FROM dom.comanda.Comanda where estadoPreparacion == 'En_Preparacion'"),
-	@Query(name = "comandasFinalizadas", language = "JDOQL", value = "SELECT FROM dom.comanda.Comanda where estadoPreparacion == 'Finalizada'") 
-	 
-	})
+		@Query(name = "comandasSeleccionadas", language = "JDOQL", value = "SELECT FROM dom.comanda.Comanda where estadoSeleccion == true"),
+		@Query(name = "comandasSinPreparacion", language = "JDOQL", value = "SELECT FROM dom.comanda.Comanda where estadoPreparacion == 'Enviada'"),
+		@Query(name = "comandasEnPreparacion", language = "JDOQL", value = "SELECT FROM dom.comanda.Comanda where estadoPreparacion == 'En_Preparacion'"),
+		@Query(name = "comandasFinalizadas", language = "JDOQL", value = "SELECT FROM dom.comanda.Comanda where estadoPreparacion == 'Finalizada'")
+
+})
 public class Comanda {
 
 	// {{ Numero (property)
@@ -76,7 +74,7 @@ public class Comanda {
 	}
 
 	// }}
-	
+
 	// {{ EstadoPreparacion (property)
 	private EstadoComandaEnum estadoPreparacion;
 
@@ -89,22 +87,7 @@ public class Comanda {
 	public void setEstadoPreparacion(final EstadoComandaEnum estadoPreparacion) {
 		this.estadoPreparacion = estadoPreparacion;
 	}
-	// }}
 
-	// {{ EstadoSeleccion (property)
-	private boolean estadoSeleccion;
-
-	@Hidden
-	@Disabled
-	@Column(allowsNull = "false")
-	@MemberOrder(sequence = "3")
-	public boolean getEstadoSeleccion() {
-		return estadoSeleccion;
-	}
-
-	public void setEstadoSeleccion(final boolean estadoSeleccion) {
-		this.estadoSeleccion = estadoSeleccion;
-	}
 	// }}
 
 	// {{ Mesa (property)
@@ -231,14 +214,9 @@ public class Comanda {
 	public void injectarComandaServicio(final ComandaServicio _comandaServicio) {
 		this.comandaServicio = _comandaServicio;
 	}
-	
+
 	// {{ injected: DomainObjectContainer
 	private DomainObjectContainer contenedor;
-
-	public void injectDomainObjectContainer(
-			final DomainObjectContainer container) {
-		this.setContenedor(container);
-	}
 
 	public DomainObjectContainer getContenedor() {
 		return contenedor;
@@ -247,30 +225,30 @@ public class Comanda {
 	public void setContenedor(DomainObjectContainer contenedor) {
 		this.contenedor = contenedor;
 	}
-	
-	@Named("Borrar")
+
 	@Bulk
 	@MemberOrder(sequence = "1")
 	public List<Comanda> borrar() {
 		contenedor.removeIfNotAlready(this);
 		return comandaServicio.listarComanda();
 	}
-			
-	@Named("Enviar a Cocina")	
+
 	@Bulk
 	@MemberOrder(sequence = "2")
-	public List<Cocinero> enviarComandaCocina() {
-		comandaServicio.enviarComandaACocina(this);
-		return comandaServicio.listarCocineros();
-		
+	public List<Comanda> preparar() {
+		if (getEstadoPreparacion() == EstadoComandaEnum.En_Espera)
+			setEstadoPreparacion(EstadoComandaEnum.En_Preparacion);
+		return comandaServicio.listarComanda();
+
 	}
-	
-	@Named("Finalizar")
+
 	@Bulk
 	@MemberOrder(sequence = "3")
-	public List<Cocinero> finalizarComandas() {
-		comandaServicio.FinalizarComanda(this);
-		return comandaServicio.listarCocineros();
-		
+	public List<Comanda> comandaLista() {
+		if (getEstadoPreparacion() == EstadoComandaEnum.En_Preparacion
+				|| getEstadoPreparacion() == EstadoComandaEnum.En_Espera)
+			setEstadoPreparacion(EstadoComandaEnum.Preparada);
+		return comandaServicio.listarComanda();
+
 	}
 }

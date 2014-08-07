@@ -29,16 +29,14 @@ import javax.jdo.annotations.Query;
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.Bulk;
 import org.apache.isis.applib.annotation.MemberOrder;
-import org.apache.isis.applib.annotation.Named;
 
-import dom.comanda.Comanda;
 import dom.empleado.Empleado;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
 @Queries({ @Query(name = "todosLosCocineros", language = "JDOQL", value = "SELECT FROM dom.cocinero.Cocinero") })
 public class Cocinero extends Empleado {
-	
+
 	// {{ Contenedor (property)
 	private DomainObjectContainer contenedor;
 
@@ -61,24 +59,10 @@ public class Cocinero extends Empleado {
 		servicioCocinero = _servicioCocinero;
 	}
 
-	@Named("Borrar")
 	@Bulk
 	@MemberOrder(sequence = "1")
-	public List<Cocinero> borrarCocinero() {
+	public List<Cocinero> borrar() {
 		contenedor.removeIfNotAlready(this);
 		return servicioCocinero.listarCocineros();
 	}
-	
-	@Named("Tomar Comanda/as")
-	@MemberOrder(sequence = "2")
-	public List<Comanda> listarComandasParaCocina(){
-		return servicioCocinero.listarComandasSinPreparar();
-	}
-	
-	@Named("Notificar Comandas Finalizadas")
-	@MemberOrder(sequence = "3")
-	public List<Comanda> listarComandasEnCocina() {
-		return servicioCocinero.listarComandasEnPreparacion();
-	}
-	
 }

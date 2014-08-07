@@ -32,8 +32,6 @@ import org.apache.isis.applib.query.QueryDefault;
 import org.joda.time.Days;
 import org.joda.time.LocalDate;
 
-import dom.comanda.Comanda;
-import dom.comanda.EstadoComandaEnum;
 import dom.empleado.Empleado;
 import dom.usuario.Rol;
 import dom.usuario.Usuario;
@@ -101,54 +99,6 @@ public class CocineroServicio extends AbstractFactoryAndRepository implements
 	@Hidden
 	public List<Empleado> listarEmpleados() {
 		return allInstances(Empleado.class);
-	}
-
-	@Hidden
-	public List<Comanda> listarComandasSinPreparar() {
-		return allMatches(new QueryDefault<Comanda>(Comanda.class,
-				"comandasSinPreparacion"));
-	}
-
-	@Hidden
-	public List<Comanda> listarComandasEnPreparacion() {
-		return allMatches(new QueryDefault<Comanda>(Comanda.class,
-				"comandasEnPreparacion"));
-	}
-
-	@Hidden
-	public List<Comanda> listarComandasSeleccionadas() {
-		return allMatches(new QueryDefault<Comanda>(Comanda.class,
-				"comandasSeleccionadas"));
-	}
-
-	@Hidden
-	public Cocinero cambiarEstadoComandas(Cocinero _cocinero) {
-		List<Comanda> listaComandas = listarComandasSeleccionadas();
-		if (!listaComandas.isEmpty()) {
-			for (Comanda _comanda : listaComandas) {
-				if (_comanda.getEstadoPreparacion() == EstadoComandaEnum.Enviada) {
-					_comanda.setEstadoPreparacion(EstadoComandaEnum.En_Preparacion);
-					_comanda.setEstadoSeleccion(true);
-				} else {
-					if (_comanda.getEstadoPreparacion() == EstadoComandaEnum.En_Preparacion) {
-						_comanda.setEstadoPreparacion(EstadoComandaEnum.Finalizada);
-						_comanda.setEstadoSeleccion(true);
-					} else {
-						getContainer().informUser(
-								"La comanda seleccionada nº: "
-										+ _comanda.getNumero()
-										+ " que ya ha sido finalizada");
-						_comanda.setEstadoSeleccion(false);
-					}
-				}
-			}
-			getContainer().informUser("Cambió el estado de la comanda");
-		} else {
-			getContainer()
-					.informUser(
-							"Debe seleccionar al menos una comanda para cambiar el estado");
-		}
-		return _cocinero;
 	}
 
 	/*

@@ -1,19 +1,5 @@
 package dom.carta;
 
-import java.util.List;
-
-import org.apache.isis.applib.AbstractFactoryAndRepository;
-import org.apache.isis.applib.annotation.Hidden;
-import org.apache.isis.applib.annotation.MemberOrder;
-import org.apache.isis.applib.annotation.Named;
-import org.apache.isis.applib.query.QueryDefault;
-import dom.bebida.Bebida;
-import dom.guarnicion.Guarnicion;
-import dom.menu.Menu;
-import dom.platoEntrada.PlatoEntrada;
-import dom.platoPrincipal.PlatoPrincipal;
-import dom.postre.Postre;
-
 /*
  * Copyright 2014 resto-tesis
  * 
@@ -31,65 +17,54 @@ import dom.postre.Postre;
  * 
  */
 
+import java.util.List;
+
+import org.apache.isis.applib.AbstractFactoryAndRepository;
+import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.annotation.Named;
+import dom.bebida.Bebida;
+import dom.guarnicion.Guarnicion;
+import dom.menu.Menu;
+import dom.platoEntrada.PlatoEntrada;
+import dom.platoPrincipal.PlatoPrincipal;
+import dom.postre.Postre;
+
 @Named("Carta")
-public class CartaServicio extends AbstractFactoryAndRepository{
-	
+public class CartaServicio extends AbstractFactoryAndRepository {
+
 	@Named("Bebidas")
 	@MemberOrder(sequence = "1")
 	public List<Bebida> listarBebidas() {
-		return allMatches(new QueryDefault<Bebida>(Bebida.class, "todasLasBebidas"));
+		return allInstances(Bebida.class);
 	}
-	
+
 	@Named("Guarnicion")
 	@MemberOrder(sequence = "2")
 	public List<Guarnicion> listarGuarnicion() {
-		return allMatches(new QueryDefault<Guarnicion>(Guarnicion.class, "todasLasGuarniciones"));
+		return allInstances(Guarnicion.class);
 	}
-	
+
 	@Named("Menues")
 	@MemberOrder(sequence = "3")
 	public List<Menu> listarMenu() {
-		return allMatches(new QueryDefault<Menu>(Menu.class, "todosLosMenues"));
+		return allInstances(Menu.class);
 	}
-	
+
 	@Named("Plato de Entrada")
 	@MemberOrder(sequence = "4")
 	public List<PlatoEntrada> listarPlatosEntradas() {
-		return allMatches(new QueryDefault<PlatoEntrada>(PlatoEntrada.class, "todosLosPlatosEntrada"));
+		return allInstances(PlatoEntrada.class);
 	}
-	
+
 	@Named("Platos Principales")
 	@MemberOrder(sequence = "5")
 	public List<PlatoPrincipal> listarPlatosPricipales() {
-		return allMatches(new QueryDefault<PlatoPrincipal>(PlatoPrincipal.class, "todosLosPlatosPricipales"));
+		return allInstances(PlatoPrincipal.class);
 	}
-	
+
 	@Named("Postres")
 	@MemberOrder(sequence = "6")
 	public List<Postre> listarPostres() {
-		return allMatches(new QueryDefault<Postre>(Postre.class, "todosLosPostres"));
+		return allInstances(Postre.class);
 	}
-	
-	
-	@Hidden
-	public List<Guarnicion> listarGuarniciones() {
-		return allMatches(new QueryDefault<Guarnicion>(Guarnicion.class, "todasLasGuarniciones"));
-	}
-	@Hidden
-	public List<Menu> listarMenues() {
-		return allMatches(new QueryDefault<Menu>(Menu.class, "todosLosMenues"));
-	}
-	@Hidden
-	public List<PlatoEntrada> listarPlatoEntrada() {
-		return allMatches(new QueryDefault<PlatoEntrada>(PlatoEntrada.class, "todosLosPlatosEntrada"));
-	}
-	@Hidden
-	public List<PlatoPrincipal> listarPlatoPrincipal() {
-		return allMatches(new QueryDefault<PlatoPrincipal>(PlatoPrincipal.class, "todosLosPlatosPricipales"));
-	}
-	@Hidden
-	public List<Postre> listarPostre() {
-		return allMatches(new QueryDefault<Postre>(Postre.class, "todosLosPostres"));
-	}
-	
 }

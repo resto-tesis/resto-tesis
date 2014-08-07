@@ -27,10 +27,8 @@ import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
 import org.apache.isis.applib.annotation.Optional;
 import org.apache.isis.applib.annotation.Where;
-import org.apache.isis.applib.query.QueryDefault;
 
 import dom.bebida.Bebida;
-import dom.cocinero.Cocinero;
 import dom.guarnicion.Guarnicion;
 import dom.mesa.Mesa;
 import dom.platoEntrada.PlatoEntrada;
@@ -60,8 +58,7 @@ public class ComandaServicio extends AbstractFactoryAndRepository {
 			final PlatoPrincipal _platoPrincipal, final Guarnicion _guarnicion,
 			final Postre _postre, final Bebida _bebida) {
 		final Comanda comanda = newTransientInstance(Comanda.class);
-		comanda.setEstadoSeleccion(false);
-		comanda.setEstadoPreparacion(EstadoComandaEnum.Enviada);
+		comanda.setEstadoPreparacion(EstadoComandaEnum.En_Espera);
 		comanda.setMesa(_mesa);
 		comanda.setBebida(_bebida);
 		comanda.setGuarnicion(_guarnicion);
@@ -70,16 +67,6 @@ public class ComandaServicio extends AbstractFactoryAndRepository {
 		comanda.setPostre(_postre);
 		persist(comanda);
 		return comanda;
-	}
-	
-	@Hidden 
-	public void enviarComandaACocina(Comanda unaComanda){
-		unaComanda.setEstadoPreparacion(EstadoComandaEnum.En_Preparacion);
-	}
-	
-	@Hidden 
-	public void FinalizarComanda(Comanda unaComanda){
-		unaComanda.setEstadoPreparacion(EstadoComandaEnum.Finalizada);
 	}
 
 	@Named("Listar")
@@ -117,10 +104,5 @@ public class ComandaServicio extends AbstractFactoryAndRepository {
 	@Hidden
 	public List<Bebida> choices5CrearComanda() {
 		return allInstances(Bebida.class);
-	}
-
-	@Hidden
-	public List<Cocinero> listarCocineros() {
-		return allMatches(new QueryDefault<Cocinero>(Cocinero.class, "todosLosCocineros"));
 	}
 }

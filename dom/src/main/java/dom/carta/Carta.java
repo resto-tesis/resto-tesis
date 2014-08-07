@@ -1,22 +1,5 @@
 package dom.carta;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.inject.Named;
-
-import org.apache.isis.applib.DomainObjectContainer;
-import org.apache.isis.applib.annotation.Disabled;
-import org.apache.isis.applib.annotation.MemberOrder;
-import org.apache.isis.applib.annotation.Optional;
-
-import dom.bebida.Bebida;
-import dom.guarnicion.Guarnicion;
-import dom.menu.Menu;
-import dom.platoEntrada.PlatoEntrada;
-import dom.platoPrincipal.PlatoPrincipal;
-import dom.postre.Postre;
-
 /*
  * Copyright 2014 resto-tesis
  * 
@@ -34,6 +17,23 @@ import dom.postre.Postre;
  * 
  */
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.inject.Named;
+
+import org.apache.isis.applib.DomainObjectContainer;
+import org.apache.isis.applib.annotation.Disabled;
+import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.annotation.Optional;
+
+import dom.bebida.Bebida;
+import dom.guarnicion.Guarnicion;
+import dom.menu.Menu;
+import dom.platoEntrada.PlatoEntrada;
+import dom.platoPrincipal.PlatoPrincipal;
+import dom.postre.Postre;
+
 public class Carta {
 
 	// {{ Bebida (Collection)
@@ -49,96 +49,103 @@ public class Carta {
 	public void setBebida(final List<Bebida> listaBebida) {
 		this.listaBebidas = listaBebida;
 	}
+
 	// }}
 
-// {{ Guarnicion (Collection)
-private List<Guarnicion> listaGuarniciones = new ArrayList<Guarnicion>();
+	// {{ Guarnicion (Collection)
+	private List<Guarnicion> listaGuarniciones = new ArrayList<Guarnicion>();
 
-@Disabled
-@MemberOrder(sequence = "2")
-public List<Guarnicion> getGuarnicion() {
-	return listaGuarniciones;
-}
+	@Disabled
+	@MemberOrder(sequence = "2")
+	public List<Guarnicion> getGuarnicion() {
+		return listaGuarniciones;
+	}
 
-public void setGuarnicion(final List<Guarnicion> listaguarnicion) {
-	this.listaGuarniciones = listaguarnicion;
-}
-// }}
+	public void setGuarnicion(final List<Guarnicion> listaguarnicion) {
+		this.listaGuarniciones = listaguarnicion;
+	}
 
-// {{ Menu (Collection)
-private List<Menu> listaMenues = new ArrayList<Menu>();
+	// }}
 
-@Optional
-@Disabled
-@MemberOrder(sequence = "3")
-public List<Menu> getMenu() {
-	return listaMenues;
-}
+	// {{ Menu (Collection)
+	private List<Menu> listaMenues = new ArrayList<Menu>();
 
-public void setMenu(final List<Menu> listaMenues) {
-	this.listaMenues = listaMenues;
-}
-// }}
+	@Optional
+	@Disabled
+	@MemberOrder(sequence = "3")
+	public List<Menu> getMenu() {
+		return listaMenues;
+	}
 
-// {{ PlatoEntrada (Collection)
-private List<PlatoEntrada> listaPlatosEntrada = new ArrayList<PlatoEntrada>();
+	public void setMenu(final List<Menu> listaMenues) {
+		this.listaMenues = listaMenues;
+	}
 
-@Disabled
-@MemberOrder(sequence = "4")
-public List<PlatoEntrada> getPlatoEntrada() {
-	return listaPlatosEntrada;
-}
+	// }}
 
-public void setPlatoEntrada(final List<PlatoEntrada> listaPlatoEntrada) {
-	this.listaPlatosEntrada = listaPlatoEntrada;
-}
-// }}
+	// {{ PlatoEntrada (Collection)
+	private List<PlatoEntrada> listaPlatosEntrada = new ArrayList<PlatoEntrada>();
 
-// {{ PlatoPrincipal (Collection)
-private List<PlatoPrincipal> listaPlatosPrincipales = new ArrayList<PlatoPrincipal>();
+	@Disabled
+	@MemberOrder(sequence = "4")
+	public List<PlatoEntrada> getPlatoEntrada() {
+		return listaPlatosEntrada;
+	}
 
-@Disabled
-@MemberOrder(sequence = "5")
-public List<PlatoPrincipal> getPlatoPrincipal() {
-	return listaPlatosPrincipales;
-}
+	public void setPlatoEntrada(final List<PlatoEntrada> listaPlatoEntrada) {
+		this.listaPlatosEntrada = listaPlatoEntrada;
+	}
 
-public void setPlatoPrincipal(final List<PlatoPrincipal> listaPlatoPrincipal) {
-	this.listaPlatosPrincipales = listaPlatoPrincipal;
-}
-// }}
+	// }}
 
-// {{ Postre (Collection)
-private List<Postre> listaPostres = new ArrayList<Postre>();
+	// {{ PlatoPrincipal (Collection)
+	private List<PlatoPrincipal> listaPlatosPrincipales = new ArrayList<PlatoPrincipal>();
 
-@Disabled
-@MemberOrder(sequence = "6")
-public List<Postre> getPostre() {
-	return listaPostres;
-}
+	@Disabled
+	@MemberOrder(sequence = "5")
+	public List<PlatoPrincipal> getPlatoPrincipal() {
+		return listaPlatosPrincipales;
+	}
 
-public void setPostre(final List<Postre> listaPostres) {
-	this.listaPostres = listaPostres;
-}
-// }}
+	public void setPlatoPrincipal(final List<PlatoPrincipal> listaPlatoPrincipal) {
+		this.listaPlatosPrincipales = listaPlatoPrincipal;
+	}
 
-// {{ injected: DomainObjectContainer
-private DomainObjectContainer contenedor;
+	// }}
 
-public DomainObjectContainer getContenedor() {
-	return contenedor;
-}
+	// {{ Postre (Collection)
+	private List<Postre> listaPostres = new ArrayList<Postre>();
 
-public void setContenedor(DomainObjectContainer contenedor) {
-	this.contenedor = contenedor;
-}
+	@Disabled
+	@MemberOrder(sequence = "6")
+	public List<Postre> getPostre() {
+		return listaPostres;
+	}
 
-private CartaServicio cartaServicio;
+	public void setPostre(final List<Postre> listaPostres) {
+		this.listaPostres = listaPostres;
+	}
 
-public void injectCartaServicio(final CartaServicio _cartaServicio) {
-	cartaServicio = _cartaServicio;
-}
-	public List<Bebida> MostrarBebidas(){
+	// }}
+
+	// {{ injected: DomainObjectContainer
+	private DomainObjectContainer contenedor;
+
+	public DomainObjectContainer getContenedor() {
+		return contenedor;
+	}
+
+	public void setContenedor(DomainObjectContainer contenedor) {
+		this.contenedor = contenedor;
+	}
+
+	private CartaServicio cartaServicio;
+
+	public void injectCartaServicio(final CartaServicio _cartaServicio) {
+		cartaServicio = _cartaServicio;
+	}
+
+	public List<Bebida> MostrarBebidas() {
 		return cartaServicio.listarBebidas();
 	}
 }

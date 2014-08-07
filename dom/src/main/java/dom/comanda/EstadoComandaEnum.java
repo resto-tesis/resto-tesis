@@ -18,9 +18,9 @@ package dom.comanda;
  */
 
 public enum EstadoComandaEnum {
-	Enviada("Sin Preparar"),
+	En_Espera("En Espera"),
 	En_Preparacion("En Preparación"),
-	Finalizada("Finalizada");
+	Preparada("Preparada");
 	
 	private final String nombre;
 
