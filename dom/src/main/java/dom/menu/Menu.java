@@ -46,9 +46,7 @@ import dom.postre.Postre;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Sequence(name = "secuenciaNumeroMenu", strategy = SequenceStrategy.CONTIGUOUS)
-@Queries({
-	@Query(name = "todosLosMenues", language = "JDOQL", value = "SELECT FROM dom.menu.Menu")})
-
+@Queries({ @Query(name = "todosLosMenues", language = "JDOQL", value = "SELECT FROM dom.menu.Menu") })
 public class Menu {
 	// {{ Numero (property)
 	private int numero;

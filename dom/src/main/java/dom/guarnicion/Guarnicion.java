@@ -41,9 +41,7 @@ import org.apache.isis.applib.annotation.TypicalLength;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Sequence(name = "secuenciaNumeroGuarnicion", strategy = SequenceStrategy.CONTIGUOUS)
-@Queries({
-	@Query(name = "todasLasGuarniciones", language = "JDOQL", value = "SELECT FROM dom.guarnicion.Guarnicion")})
-
+@Queries({ @Query(name = "todasLasGuarniciones", language = "JDOQL", value = "SELECT FROM dom.guarnicion.Guarnicion") })
 public class Guarnicion {
 
 	// {{ Numero (property)
@@ -118,9 +116,10 @@ public class Guarnicion {
 	@Bulk
 	@MemberOrder(sequence = "1")
 	public List<Guarnicion> borrar() {
-
-		contenedor.removeIfNotAlready(this);
-
+		if (guarnicionServicio.validaBorrado(this))
+			contenedor.removeIfNotAlready(this);
+		else
+			contenedor.informUser("Existe un Menu o Comanda dependiente!!");
 		return guarnicionServicio.listarGuarniciones();
 	}
 

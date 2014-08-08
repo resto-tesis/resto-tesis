@@ -33,6 +33,11 @@ import org.apache.isis.applib.annotation.Optional;
 import org.apache.isis.applib.annotation.RegEx;
 import org.apache.isis.applib.annotation.ActionSemantics.Of;
 
+import com.google.common.base.Predicate;
+
+import dom.comanda.Comanda;
+import dom.menu.Menu;
+
 @Named("Postre")
 public class PostreServicio extends AbstractFactoryAndRepository {
 
@@ -66,5 +71,25 @@ public class PostreServicio extends AbstractFactoryAndRepository {
 	public List<Postre> listarPostres() {
 		final List<Postre> listapostres = allInstances(Postre.class);
 		return listapostres;
+	}
+
+	// Se verifica que el elemento por borrar no este relacionado con ninguna
+	// comanda o menu
+	@Hidden
+	public boolean validaBorrado(final Postre _postre) {
+		return firstMatch(Menu.class, new Predicate<Menu>() {
+			@Override
+			public boolean apply(Menu _menu) {
+				// TODO Auto-generated method stub
+				return _menu.getPostre().equals(_postre);
+			}
+		}) != null ? false : firstMatch(Comanda.class,
+				new Predicate<Comanda>() {
+					@Override
+					public boolean apply(Comanda _comanda) {
+						// TODO Auto-generated method stub
+						return _comanda.getPostre().equals(_postre);
+					}
+				}) != null ? false : true;
 	}
 }

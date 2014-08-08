@@ -17,6 +17,11 @@ import org.apache.isis.applib.annotation.RegEx;
 import org.apache.isis.applib.annotation.TypicalLength;
 import org.apache.isis.applib.annotation.ActionSemantics.Of;
 
+import com.google.common.base.Predicate;
+
+import dom.comanda.Comanda;
+import dom.menu.Menu;
+
 /*
  * Copyright 2014 resto-tesis
  * 
@@ -45,15 +50,17 @@ public class BebidaServicio extends AbstractFactoryAndRepository {
 			@Named("Volumen") @Optional @TypicalLength(15) final VolumenBebidaEnum _volumen,
 			@Named("Descripción") @Optional @MultiLine(numberOfLines = 3) final String _descripcion,
 			@Named("Precio") @MaxLength(value = 5) @Digits(integer = 2, fraction = 2) final BigDecimal _precio) {
-		return nuevaInstanciaBebida(_nombre, _tipo, _volumen, _descripcion, _precio);
+		return nuevaInstanciaBebida(_nombre, _tipo, _volumen, _descripcion,
+				_precio);
 	}
 
 	@Hidden
-	public Bebida nuevaInstanciaBebida(final String _nombre, final TipoBebidaEnum _tipo,
-			final VolumenBebidaEnum _volumen,
+	public Bebida nuevaInstanciaBebida(final String _nombre,
+			final TipoBebidaEnum _tipo, final VolumenBebidaEnum _volumen,
 			final String _descripcion, final BigDecimal _precio) {
 		final Bebida nuevaBebida = new Bebida();
-		nuevaBebida.setNombre(_nombre.substring(0, 1).toUpperCase() + _nombre.substring(1));
+		nuevaBebida.setNombre(_nombre.substring(0, 1).toUpperCase()
+				+ _nombre.substring(1));
 		nuevaBebida.setTipo(_tipo);
 		nuevaBebida.setVolumen(_volumen);
 		nuevaBebida.setDescripcion(_descripcion);
@@ -68,5 +75,25 @@ public class BebidaServicio extends AbstractFactoryAndRepository {
 	public List<Bebida> listarBebidas() {
 		final List<Bebida> lista_bebidas = allInstances(Bebida.class);
 		return lista_bebidas;
+	}
+
+	// Se verifica que el elemento por borrar no este relacionado con ninguna
+	// comanda o menu
+	@Hidden
+	public boolean validaBorrado(final Bebida _bebida) {
+		return firstMatch(Menu.class, new Predicate<Menu>() {
+			@Override
+			public boolean apply(Menu _menu) {
+				// TODO Auto-generated method stub
+				return _menu.getBebida().equals(_bebida);
+			}
+		}) != null ? false : firstMatch(Comanda.class,
+				new Predicate<Comanda>() {
+					@Override
+					public boolean apply(Comanda _comanda) {
+						// TODO Auto-generated method stub
+						return _comanda.getBebida().equals(_bebida);
+					}
+				}) != null ? false : true;
 	}
 }

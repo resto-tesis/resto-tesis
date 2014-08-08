@@ -41,9 +41,7 @@ import org.apache.isis.applib.annotation.TypicalLength;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Sequence(name = "secuenciaNumeroBebida", strategy = SequenceStrategy.CONTIGUOUS)
-@Queries({
-	@Query(name = "todasLasBebidas", language = "JDOQL", value = "SELECT FROM dom.bebida.Bebida")})
-
+@Queries({ @Query(name = "todasLasBebidas", language = "JDOQL", value = "SELECT FROM dom.bebida.Bebida") })
 public class Bebida {
 
 	// {{ Numero (property)
@@ -78,10 +76,9 @@ public class Bebida {
 	public void setTipo(final TipoBebidaEnum tipo) {
 		this.tipo = tipo;
 	}
+
 	// }}
 
-
-	
 	// {{ Nombre (property)
 	private String nombre;
 
@@ -111,10 +108,9 @@ public class Bebida {
 	public void setVolumen(final VolumenBebidaEnum volumen) {
 		this.volumen = volumen;
 	}
+
 	// }}
 
-
-	
 	// {{ Descripcion (property)
 	private String descripcion;
 
@@ -171,7 +167,10 @@ public class Bebida {
 	@Bulk
 	@MemberOrder(sequence = "1")
 	public List<Bebida> borrarBebida() {
-		contenedor.removeIfNotAlready(this);
+		if (bebidaServicio.validaBorrado(this))
+			contenedor.removeIfNotAlready(this);
+		else
+			contenedor.informUser("Existe un Menu o Comanda dependiente!!");
 		return bebidaServicio.listarBebidas();
 	}
 

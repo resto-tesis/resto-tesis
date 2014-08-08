@@ -48,9 +48,10 @@ public class PlatoEntrada extends Plato {
 	@Bulk
 	@MemberOrder(sequence = "1")
 	public List<PlatoEntrada> borrar() {
-
-		contenedor.removeIfNotAlready(this);
-
+		if (platoEntradaServicio.validaBorrado(this))
+			contenedor.removeIfNotAlready(this);
+		else
+			contenedor.informUser("Existe un Menu o Comanda dependiente!!");
 		return platoEntradaServicio.listarPLatosEntrada();
 	}
 

@@ -33,6 +33,10 @@ import org.apache.isis.applib.annotation.Optional;
 import org.apache.isis.applib.annotation.RegEx;
 import org.apache.isis.applib.annotation.ActionSemantics.Of;
 
+import com.google.common.base.Predicate;
+
+import dom.comanda.Comanda;
+import dom.menu.Menu;
 import dom.plato.CondicionDePlatoEnum;
 import dom.plato.Plato;
 
@@ -78,4 +82,23 @@ public class PlatoEntradaServicio extends AbstractFactoryAndRepository {
 		return listaPlatos;
 	}
 
+	// Se verifica que el elemento por borrar no este relacionado con ninguna
+	// comanda o menu
+	@Hidden
+	public boolean validaBorrado(final PlatoEntrada _plato) {
+		return firstMatch(Menu.class, new Predicate<Menu>() {
+			@Override
+			public boolean apply(Menu _menu) {
+				// TODO Auto-generated method stub
+				return _menu.getPlatoEntrada().equals(_plato);
+			}
+		}) != null ? false : firstMatch(Comanda.class,
+				new Predicate<Comanda>() {
+					@Override
+					public boolean apply(Comanda _comanda) {
+						// TODO Auto-generated method stub
+						return _comanda.getPlatoEntrada().equals(_plato);
+					}
+				}) != null ? false : true;
+	}
 }

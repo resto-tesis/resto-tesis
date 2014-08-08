@@ -33,6 +33,11 @@ import org.apache.isis.applib.annotation.RegEx;
 import org.apache.isis.applib.annotation.ActionSemantics.Of;
 import org.apache.isis.applib.annotation.Optional;
 
+import com.google.common.base.Predicate;
+
+import dom.comanda.Comanda;
+import dom.menu.Menu;
+
 @Named("Guarnicion")
 public class GuarnicionServicio extends AbstractFactoryAndRepository {
 
@@ -65,5 +70,25 @@ public class GuarnicionServicio extends AbstractFactoryAndRepository {
 	public List<Guarnicion> listarGuarniciones() {
 		final List<Guarnicion> listaguarniciones = allInstances(Guarnicion.class);
 		return listaguarniciones;
+	}
+
+	// Se verifica que el elemento por borrar no este relacionado con ninguna
+	// comanda o menu
+	@Hidden
+	public boolean validaBorrado(final Guarnicion _guarnicion) {
+		return firstMatch(Menu.class, new Predicate<Menu>() {
+			@Override
+			public boolean apply(Menu _menu) {
+				// TODO Auto-generated method stub
+				return _menu.getGuarnicion().equals(_guarnicion);
+			}
+		}) != null ? false : firstMatch(Comanda.class,
+				new Predicate<Comanda>() {
+					@Override
+					public boolean apply(Comanda _comanda) {
+						// TODO Auto-generated method stub
+						return _comanda.getGuarnicion().equals(_guarnicion);
+					}
+				}) != null ? false : true;
 	}
 }

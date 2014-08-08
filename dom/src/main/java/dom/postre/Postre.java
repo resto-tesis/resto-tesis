@@ -121,9 +121,10 @@ public class Postre {
 	@Bulk
 	@MemberOrder(sequence = "1")
 	public List<Postre> borrar() {
-
-		contenedor.removeIfNotAlready(this);
-
+		if (postreServicio.validaBorrado(this))
+			contenedor.removeIfNotAlready(this);
+		else
+			contenedor.informUser("Existe un Menu o Comanda dependiente!!");
 		return postreServicio.listarPostres();
 	}
 

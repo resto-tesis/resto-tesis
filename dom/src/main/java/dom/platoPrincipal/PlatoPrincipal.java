@@ -48,9 +48,10 @@ public class PlatoPrincipal extends Plato {
 	@Bulk
 	@MemberOrder(sequence = "1")
 	public List<PlatoPrincipal> borrar() {
-
-		contenedor.removeIfNotAlready(this);
-
+		if (platoPrincipalServicio.validaBorrado(this))
+			contenedor.removeIfNotAlready(this);
+		else
+			contenedor.informUser("Existe un Menu o Comanda dependiente!!");
 		return platoPrincipalServicio.listarPLatosPrincipales();
 	}
 

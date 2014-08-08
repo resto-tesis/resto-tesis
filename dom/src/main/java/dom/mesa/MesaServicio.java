@@ -26,6 +26,10 @@ import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
 import org.apache.isis.applib.annotation.ActionSemantics.Of;
 import org.apache.isis.applib.query.QueryDefault;
+
+import com.google.common.base.Predicate;
+
+import dom.comanda.Comanda;
 import dom.mozo.Mozo;
 
 @Named("Mesa")
@@ -86,4 +90,16 @@ public class MesaServicio extends AbstractFactoryAndRepository {
 		return allMatches(new QueryDefault<Mozo>(Mozo.class, "todosLosMozos"));
 	}
 
+	// Se verifica que el elemento por borrar no este relacionado con ninguna
+	// comanda
+	@Hidden
+	public boolean validaBorrado(final Mesa _mesa) {
+		return firstMatch(Comanda.class, new Predicate<Comanda>() {
+			@Override
+			public boolean apply(Comanda _comanda) {
+				// TODO Auto-generated method stub
+				return _comanda.getMesa().equals(_mesa);
+			}
+		}) != null ? false : true;
+	}
 }

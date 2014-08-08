@@ -135,8 +135,10 @@ public class Mesa {
 	@Bulk
 	@MemberOrder(sequence = "1")
 	public List<Mesa> borrar() {
-
-		contenedor.removeIfNotAlready(this);
+		if (mesaServicio.validaBorrado(this))
+			contenedor.removeIfNotAlready(this);
+		else
+			contenedor.informUser("Existe una Comanda dependiente!!");
 		return mesaServicio.listarMesas();
 	}
 
