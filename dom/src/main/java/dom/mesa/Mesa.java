@@ -36,7 +36,9 @@ import dom.mozo.Mozo;
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Queries({
 		@Query(name = "mesasSeleccionadas", language = "JDOQL", value = "SELECT FROM dom.mesa.Mesa where estadoSeleccion == true"),
-		@Query(name = "mesasSinAsignar", language = "JDOQL", value = "SELECT FROM dom.mesa.Mesa where estadoAsignacion == 'No_Asignada'") })
+		@Query(name = "mesasSinAsignar", language = "JDOQL", value = "SELECT FROM dom.mesa.Mesa where estadoAsignacion == 'No_Asignada'"),
+		@Query(name = "mesasAsignadas", language = "JDOQL", value = "SELECT FROM dom.mesa.Mesa where estadoAsignacion == 'Asignada'") 
+})
 public class Mesa {
 
 	// {{ EstadoSeleccion (property)

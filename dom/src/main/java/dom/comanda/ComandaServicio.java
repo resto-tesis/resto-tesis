@@ -27,6 +27,7 @@ import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
 import org.apache.isis.applib.annotation.Optional;
 import org.apache.isis.applib.annotation.Where;
+import org.apache.isis.applib.query.QueryDefault;
 
 import dom.bebida.Bebida;
 import dom.guarnicion.Guarnicion;
@@ -78,7 +79,7 @@ public class ComandaServicio extends AbstractFactoryAndRepository {
 
 	@Hidden
 	public List<Mesa> choices0CrearComanda() {
-		return allInstances(Mesa.class);
+		return allMatches(new QueryDefault<Mesa>(Mesa.class, "mesasAsignadas"));
 	}
 
 	@Hidden
