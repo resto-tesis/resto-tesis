@@ -32,6 +32,8 @@ import org.apache.isis.applib.annotation.Bulk;
 import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
+import org.apache.isis.applib.annotation.Render;
+import org.apache.isis.applib.annotation.Render.Type;
 
 import dom.empleado.Empleado;
 import dom.mesa.EstadoAsignacionMesaEnum;
@@ -45,7 +47,8 @@ public class Mozo extends Empleado {
 	// {{ Lista De Mesas (Collection)
 
 	private List<Mesa> listaMesas = new ArrayList<Mesa>();
-
+	
+	@Render(Type.EAGERLY)
 	@Named("Mesas Asignadas")
 	public List<Mesa> getListamesas() {
 		return listaMesas;

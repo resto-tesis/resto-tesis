@@ -48,7 +48,7 @@ public class PlatoPrincipalServicio extends AbstractFactoryAndRepository {
 	@MemberOrder(sequence = "1")
 	public Plato crearPlatoPrincipal(
 			/* Parametros de Entrada */
-			@RegEx(validation = "[0-9a-zA-ZáéíóúÁÉÍÓÚ\\s]*") @MaxLength(value = 25) @Named("Nombre") final String nombre,
+			@RegEx(validation = "[0-9a-zA-ZáéíóúÁÉÍÓÚ\\s]*") @MaxLength(value = 30) @Named("Nombre") final String nombre,
 			@Named("Condición") final CondicionDePlatoEnum unaCondicion,
 			@Optional @MultiLine(numberOfLines = 3) @Named("Descripción") final String unaDescripcion,
 			@Named("Precio") @MaxLength(value = 6) @Digits(integer = 3, fraction = 2) final BigDecimal unPrecio) {

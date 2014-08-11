@@ -27,12 +27,15 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.Sequence;
 import javax.jdo.annotations.SequenceStrategy;
+import javax.validation.constraints.Digits;
 
 import org.apache.isis.applib.annotation.Disabled;
+import org.apache.isis.applib.annotation.MaxLength;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.MultiLine;
 import org.apache.isis.applib.annotation.Named;
 import org.apache.isis.applib.annotation.Optional;
+import org.apache.isis.applib.annotation.RegEx;
 import org.apache.isis.applib.annotation.Title;
 import org.apache.isis.applib.annotation.TypicalLength;
 
@@ -63,6 +66,8 @@ public abstract class Plato {
 	// {{ Nombre (property)
 	private String nombre;
 
+	@RegEx(validation = "[0-9a-zA-ZáéíóúÁÉÍÓÚ\\s]*")
+	@MaxLength(value = 30)
 	@Title
 	@Column(allowsNull = "false")
 	@MemberOrder(sequence = "2")
@@ -112,7 +117,8 @@ public abstract class Plato {
 	// {{ Precio (property)
 	private double precio;
 
-	@TypicalLength(5)
+	@MaxLength(value = 6)
+	@Digits(integer = 3, fraction = 2)
 	@Column(allowsNull = "false")
 	@MemberOrder(sequence = "6")
 	public double getPrecio() {

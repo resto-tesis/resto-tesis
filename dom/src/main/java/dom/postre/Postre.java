@@ -32,10 +32,12 @@ import javax.jdo.annotations.SequenceStrategy;
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.Bulk;
 import org.apache.isis.applib.annotation.Disabled;
+import org.apache.isis.applib.annotation.MaxLength;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.MultiLine;
 import org.apache.isis.applib.annotation.Named;
 import org.apache.isis.applib.annotation.Optional;
+import org.apache.isis.applib.annotation.RegEx;
 import org.apache.isis.applib.annotation.Title;
 import org.apache.isis.applib.annotation.TypicalLength;
 
@@ -44,9 +46,7 @@ import dom.postre.PostreServicio;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Sequence(name = "secuenciaNumeroPostre", strategy = SequenceStrategy.CONTIGUOUS)
-@Queries({
-	@Query(name = "todosLosPostres", language = "JDOQL", value = "SELECT FROM dom.postre.Postre")})
-
+@Queries({ @Query(name = "todosLosPostres", language = "JDOQL", value = "SELECT FROM dom.postre.Postre") })
 public class Postre {
 
 	// {{ Numero (property)
@@ -67,10 +67,12 @@ public class Postre {
 	}
 
 	// }}
-	
+
 	// {{ Nombre (property)
 	private String nombre;
 
+	@RegEx(validation = "[0-9a-zA-ZáéíóúÁÉÍÓÚ\\s]*")
+	@MaxLength(value = 30)
 	@Title
 	@Column(allowsNull = "false")
 	@MemberOrder(sequence = "2")
@@ -83,7 +85,7 @@ public class Postre {
 	}
 
 	// }}
-	
+
 	// {{ Descripcion (property)
 	private String descripcion;
 
@@ -100,7 +102,7 @@ public class Postre {
 	}
 
 	// }}
-	
+
 	// {{ Precio (property)
 	private double precio;
 
