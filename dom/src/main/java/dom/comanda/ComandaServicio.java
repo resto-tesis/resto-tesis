@@ -58,16 +58,21 @@ public class ComandaServicio extends AbstractFactoryAndRepository {
 			final PlatoEntrada _platoEntrada,
 			final PlatoPrincipal _platoPrincipal, final Guarnicion _guarnicion,
 			final Postre _postre, final Bebida _bebida) {
-		final Comanda comanda = newTransientInstance(Comanda.class);
-		comanda.setEstadoPreparacion(EstadoComandaEnum.En_Espera);
-		comanda.setMesa(_mesa);
-		comanda.setBebida(_bebida);
-		comanda.setGuarnicion(_guarnicion);
-		comanda.setPlatoEntrada(_platoEntrada);
-		comanda.setPlatoPrincipal(_platoPrincipal);
-		comanda.setPostre(_postre);
-		persist(comanda);
-		return comanda;
+		if (_platoEntrada != null || _platoPrincipal != null || _guarnicion != null
+				|| _postre != null || _bebida != null){
+			final Comanda comanda = newTransientInstance(Comanda.class);
+			comanda.setEstadoPreparacion(EstadoComandaEnum.En_Espera);
+			comanda.setMesa(_mesa);
+			comanda.setBebida(_bebida);
+			comanda.setGuarnicion(_guarnicion);
+			comanda.setPlatoEntrada(_platoEntrada);
+			comanda.setPlatoPrincipal(_platoPrincipal);
+			comanda.setPostre(_postre);
+			persist(comanda);
+			return comanda;
+		}
+		getContainer().informUser("Debe seleccionar un producto como mínimo para poder enviar una comanda");
+		return null;
 	}
 
 	@Named("Listar")
