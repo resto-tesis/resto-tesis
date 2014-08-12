@@ -249,6 +249,6 @@ public class Comanda {
 				|| getEstadoPreparacion() == EstadoComandaEnum.En_Espera)
 			setEstadoPreparacion(EstadoComandaEnum.Preparada);
 		return comandaServicio.listarComanda();
-
 	}
+	
 }
