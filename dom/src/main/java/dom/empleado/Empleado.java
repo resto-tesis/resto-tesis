@@ -20,6 +20,7 @@ package dom.empleado;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.inject.Inject;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
@@ -157,6 +158,13 @@ public abstract class Empleado {
 	public void setUsuario(final Usuario usuario) {
 		this.usuario = usuario;
 	}
+
 	// }}
 
+	public String validateDocumento(long documento) {
+		return empleadoServicio.validarDocumento(documento);
+	}
+
+	@Inject
+	private EmpleadoServicio empleadoServicio;
 }
