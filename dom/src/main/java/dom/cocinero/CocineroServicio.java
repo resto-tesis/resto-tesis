@@ -34,12 +34,13 @@ import org.joda.time.Days;
 import org.joda.time.LocalDate;
 
 import dom.empleado.Empleado;
+import dom.empleado.IValidacionEmpleado;
 import dom.usuario.Rol;
 import dom.usuario.Usuario;
 
 @Named("Cocinero")
 public class CocineroServicio extends AbstractFactoryAndRepository implements
-		ICocineroServicio {
+		IValidacionEmpleado {
 
 	/*
 	 * Atributo Extra para las validaciones de las fechas
@@ -48,7 +49,7 @@ public class CocineroServicio extends AbstractFactoryAndRepository implements
 
 	@Named("Crear")
 	@MemberOrder(sequence = "1")
-	public Cocinero crearCocinero(
+	public Cocinero crear(
 			@Named("Apellido") @RegEx(validation = "[a-zA-ZáéíóúÁÉÍÓÚ\\s]*") @MaxLength(value = 20) final String _apellido,
 			@Named("Nombre") @RegEx(validation = "[a-zA-ZáéíóúÁÉÍÓÚ\\s]*") @MaxLength(value = 20) final String _nombre,
 			@Named("Documento") @RegEx(validation = "[0-9*") @MaxLength(value = 8) @MinLength(value = 7) final long _dni,
@@ -106,29 +107,22 @@ public class CocineroServicio extends AbstractFactoryAndRepository implements
 	 * Validacion del ingreso de fechas por el UI
 	 */
 	@Override
-	public String validateCrearCocinero(String _nombre, String _apellido,
-			long _dni, LocalDate fechadeNacimiento, LocalDate fechadeIngreso,
+	public String validateCrear(String _nombre, String _apellido, long _dni,
+			LocalDate fechadeNacimiento, LocalDate fechadeIngreso,
 			String _nombreUsuario, Password _password) {
 		// TODO Auto-generated method stub
-		for (Empleado _empleado : listarEmpleados()) {
-			if (_dni == _empleado.getDocumento()) {
+		for (Empleado _empleado : listarEmpleados())
+			if (_dni == _empleado.getDocumento())
 				return "Ya existe el número de documento ingresado.";
-			}
-		}
 		if (fechadeNacimiento.isAfter(fechadeIngreso)
-				|| fechadeNacimiento.isEqual(fechadeIngreso)) {
+				|| fechadeNacimiento.isEqual(fechadeIngreso))
 			return "La fecha de nacimiento no debe ser mayor o igual a la fecha de ingreso de los empleados";
-		} else {
-			if (fechadeIngreso.isAfter(fecha_actual)) {
-				return "La fecha de ingreso debe ser menor o igual a la fecha actual";
-			} else {
-				if (validaMayorEdad(fechadeNacimiento) == false) {
-					return "El empleado es menor de edad";
-				} else {
-					return null;
-				}
-			}
-		}
+		if (fechadeIngreso.isAfter(fecha_actual))
+			return "La fecha de ingreso debe ser menor o igual a la fecha actual";
+		if (validaMayorEdad(fechadeNacimiento) == false)
+			return "El empleado es menor de edad";
+		else
+			return null;
 	}
 
 	/*

@@ -1,5 +1,3 @@
-package dom.cocinero;
-
 /*
  * Copyright 2014 resto-tesis
  * 
@@ -17,11 +15,13 @@ package dom.cocinero;
  * 
  */
 
+package dom.empleado;
+
 import org.apache.isis.applib.value.Password;
 import org.joda.time.LocalDate;
 
-public interface ICocineroServicio {
-	public String validateCrearCocinero(final String _nombre,
+public interface IValidacionEmpleado {
+	public String validateCrear(final String _nombre,
 			final String _apellido, final long _dni,
 			final LocalDate fechadeNacimiento, final LocalDate fechadeIngreso,
 			String _nombreUsuario, Password _password);
@@ -29,4 +29,5 @@ public interface ICocineroServicio {
 	public boolean validaMayorEdad(final LocalDate fechadeNacimiento);
 
 	public int getDiasNacimiento_Hoy(final LocalDate fechadeNacimiento);
+	
 }

@@ -32,7 +32,9 @@ import javax.jdo.annotations.Sequence;
 
 import org.apache.isis.applib.annotation.Disabled;
 import org.apache.isis.applib.annotation.Hidden;
+import org.apache.isis.applib.annotation.MaxLength;
 import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.annotation.RegEx;
 import org.apache.isis.applib.annotation.Title;
 
 import dom.usuario.Usuario;
@@ -64,6 +66,8 @@ public abstract class Empleado {
 	// {{ apellido (property)
 	private String apellido;
 
+	@RegEx(validation = "[a-zA-ZáéíóúÁÉÍÓÚ\\s]*")
+	@MaxLength(value = 20)
 	@Title(sequence = "1.0")
 	@Column(allowsNull = "false")
 	@MemberOrder(sequence = "2")
@@ -80,6 +84,8 @@ public abstract class Empleado {
 	// {{ nombre (property)
 	private String nombre;
 
+	@RegEx(validation = "[a-zA-ZáéíóúÁÉÍÓÚ\\s]*")
+	@MaxLength(value = 20)
 	@Title(sequence = "1.5", prepend = ", ")
 	@Column(allowsNull = "false")
 	@MemberOrder(sequence = "3")
@@ -96,6 +102,8 @@ public abstract class Empleado {
 	// {{ documento (property)
 	private long documento;
 
+	@RegEx(validation = "[0-9*")
+	@MaxLength(value = 8)
 	@Column(allowsNull = "false")
 	@MemberOrder(sequence = "4")
 	public long getDocumento() {
