@@ -1,5 +1,3 @@
-package dom.carta;
-
 /*
  * Copyright 2014 resto-tesis
  * 
@@ -17,11 +15,14 @@ package dom.carta;
  * 
  */
 
+package dom.carta;
+
 import java.util.List;
 
 import org.apache.isis.applib.AbstractFactoryAndRepository;
-import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.Named;
+
 import dom.bebida.Bebida;
 import dom.guarnicion.Guarnicion;
 import dom.menu.Menu;
@@ -32,38 +33,37 @@ import dom.postre.Postre;
 @Named("Carta")
 public class CartaServicio extends AbstractFactoryAndRepository {
 
-	@Named("Bebidas")
-	@MemberOrder(sequence = "1")
+	@Named("Mostrar Carta")
+	public Carta mostrarCarta() {
+		return newViewModelInstance(Carta.class, "carta");
+	}
+
+	@Hidden
 	public List<Bebida> listarBebidas() {
 		return allInstances(Bebida.class);
 	}
 
-	@Named("Guarnicion")
-	@MemberOrder(sequence = "2")
+	@Hidden
 	public List<Guarnicion> listarGuarnicion() {
 		return allInstances(Guarnicion.class);
 	}
 
-	@Named("Menues")
-	@MemberOrder(sequence = "3")
+	@Hidden
 	public List<Menu> listarMenu() {
 		return allInstances(Menu.class);
 	}
 
-	@Named("Plato de Entrada")
-	@MemberOrder(sequence = "4")
+	@Hidden
 	public List<PlatoEntrada> listarPlatosEntradas() {
 		return allInstances(PlatoEntrada.class);
 	}
 
-	@Named("Platos Principales")
-	@MemberOrder(sequence = "5")
+	@Hidden
 	public List<PlatoPrincipal> listarPlatosPricipales() {
 		return allInstances(PlatoPrincipal.class);
 	}
 
-	@Named("Postres")
-	@MemberOrder(sequence = "6")
+	@Hidden
 	public List<Postre> listarPostres() {
 		return allInstances(Postre.class);
 	}

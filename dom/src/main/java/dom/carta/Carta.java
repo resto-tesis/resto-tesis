@@ -1,5 +1,3 @@
-package dom.carta;
-
 /*
  * Copyright 2014 resto-tesis
  * 
@@ -17,15 +15,18 @@ package dom.carta;
  * 
  */
 
-import java.util.ArrayList;
+package dom.carta;
+
 import java.util.List;
 
-import javax.inject.Named;
+import javax.inject.Inject;
 
-import org.apache.isis.applib.DomainObjectContainer;
+import org.apache.isis.applib.AbstractViewModel;
 import org.apache.isis.applib.annotation.Disabled;
+import org.apache.isis.applib.annotation.MemberGroupLayout;
 import org.apache.isis.applib.annotation.MemberOrder;
-import org.apache.isis.applib.annotation.Optional;
+import org.apache.isis.applib.annotation.Render;
+import org.apache.isis.applib.annotation.Render.Type;
 
 import dom.bebida.Bebida;
 import dom.guarnicion.Guarnicion;
@@ -34,118 +35,68 @@ import dom.platoEntrada.PlatoEntrada;
 import dom.platoPrincipal.PlatoPrincipal;
 import dom.postre.Postre;
 
-public class Carta {
+@MemberGroupLayout(columnSpans = { 6, 0, 6 }, left = { "izquierda" }, right = { "derecha" })
+public class Carta extends AbstractViewModel {
 
-	// {{ Bebida (Collection)
-	private List<Bebida> listaBebidas = new ArrayList<Bebida>();
+	public String title() {
+		return "Carta";
+	}
+
+	private String memento;
 
 	@Disabled
-	@Named("Lista de bebidas")
-	@MemberOrder(sequence = "1")
+	@MemberOrder(name = "izquierda", sequence = "1")
+	@Render(Type.EAGERLY)
 	public List<Bebida> getBebida() {
-		return listaBebidas;
+		return cartaServicio.listarBebidas();
 	}
-
-	public void setBebida(final List<Bebida> listaBebida) {
-		this.listaBebidas = listaBebida;
-	}
-
-	// }}
-
-	// {{ Guarnicion (Collection)
-	private List<Guarnicion> listaGuarniciones = new ArrayList<Guarnicion>();
 
 	@Disabled
-	@MemberOrder(sequence = "2")
+	@MemberOrder(name = "izquierda", sequence = "2")
+	@Render(Type.EAGERLY)
 	public List<Guarnicion> getGuarnicion() {
-		return listaGuarniciones;
+		return cartaServicio.listarGuarnicion();
 	}
 
-	public void setGuarnicion(final List<Guarnicion> listaguarnicion) {
-		this.listaGuarniciones = listaguarnicion;
-	}
-
-	// }}
-
-	// {{ Menu (Collection)
-	private List<Menu> listaMenues = new ArrayList<Menu>();
-
-	@Optional
+	@Render(Type.EAGERLY)
+	@MemberOrder(name = "izquierda", sequence = "3")
 	@Disabled
-	@MemberOrder(sequence = "3")
-	public List<Menu> getMenu() {
-		return listaMenues;
-	}
-
-	public void setMenu(final List<Menu> listaMenues) {
-		this.listaMenues = listaMenues;
-	}
-
-	// }}
-
-	// {{ PlatoEntrada (Collection)
-	private List<PlatoEntrada> listaPlatosEntrada = new ArrayList<PlatoEntrada>();
-
-	@Disabled
-	@MemberOrder(sequence = "4")
-	public List<PlatoEntrada> getPlatoEntrada() {
-		return listaPlatosEntrada;
-	}
-
-	public void setPlatoEntrada(final List<PlatoEntrada> listaPlatoEntrada) {
-		this.listaPlatosEntrada = listaPlatoEntrada;
-	}
-
-	// }}
-
-	// {{ PlatoPrincipal (Collection)
-	private List<PlatoPrincipal> listaPlatosPrincipales = new ArrayList<PlatoPrincipal>();
-
-	@Disabled
-	@MemberOrder(sequence = "5")
-	public List<PlatoPrincipal> getPlatoPrincipal() {
-		return listaPlatosPrincipales;
-	}
-
-	public void setPlatoPrincipal(final List<PlatoPrincipal> listaPlatoPrincipal) {
-		this.listaPlatosPrincipales = listaPlatoPrincipal;
-	}
-
-	// }}
-
-	// {{ Postre (Collection)
-	private List<Postre> listaPostres = new ArrayList<Postre>();
-
-	@Disabled
-	@MemberOrder(sequence = "6")
 	public List<Postre> getPostre() {
-		return listaPostres;
+		return cartaServicio.listarPostres();
 	}
 
-	public void setPostre(final List<Postre> listaPostres) {
-		this.listaPostres = listaPostres;
+	@Render(Type.EAGERLY)
+	@MemberOrder(name = "derecha", sequence = "1")
+	public List<Menu> getMenu() {
+		return cartaServicio.listarMenu();
 	}
 
-	// }}
-
-	// {{ injected: DomainObjectContainer
-	private DomainObjectContainer contenedor;
-
-	public DomainObjectContainer getContenedor() {
-		return contenedor;
+	@Render(Type.EAGERLY)
+	@MemberOrder(name = "derecha", sequence = "2")
+	@Disabled
+	public List<PlatoEntrada> getPlatoEntrada() {
+		return cartaServicio.listarPlatosEntradas();
 	}
 
-	public void setContenedor(DomainObjectContainer contenedor) {
-		this.contenedor = contenedor;
+	@Render(Type.EAGERLY)
+	@MemberOrder(name = "derecha", sequence = "3")
+	@Disabled
+	public List<PlatoPrincipal> getPlatoPrincipal() {
+		return cartaServicio.listarPlatosPricipales();
 	}
 
+	@Inject
 	private CartaServicio cartaServicio;
 
-	public void injectCartaServicio(final CartaServicio _cartaServicio) {
-		cartaServicio = _cartaServicio;
+	@Override
+	public String viewModelMemento() {
+		// TODO Auto-generated method stub
+		return memento;
 	}
 
-	public List<Bebida> MostrarBebidas() {
-		return cartaServicio.listarBebidas();
+	@Override
+	public void viewModelInit(String memento) {
+		// TODO Auto-generated method stub
+		this.memento = memento;
 	}
 }

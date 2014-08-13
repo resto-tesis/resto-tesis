@@ -32,7 +32,6 @@ import org.apache.isis.applib.annotation.Bulk;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
 
-import dom.guarnicion.GuarnicionServicio;
 import dom.plato.Plato;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)

@@ -40,7 +40,6 @@ import dom.comanda.Comanda;
 import dom.menu.Menu;
 import dom.plato.CondicionDePlatoEnum;
 import dom.plato.Plato;
-import dom.platoEntrada.PlatoEntrada;
 import dom.platoPrincipal.PlatoPrincipal;
 
 @Named("Plato Principal")

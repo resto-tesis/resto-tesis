@@ -42,7 +42,6 @@ import org.apache.isis.applib.annotation.RegEx;
 import org.apache.isis.applib.annotation.Title;
 import org.apache.isis.applib.annotation.TypicalLength;
 
-import dom.guarnicion.GuarnicionServicio;
 import dom.postre.Postre;
 import dom.postre.PostreServicio;
 

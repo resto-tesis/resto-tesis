@@ -37,7 +37,6 @@ import org.apache.isis.applib.query.QueryDefault;
 import com.google.common.base.Predicate;
 
 import dom.comanda.Comanda;
-import dom.guarnicion.Guarnicion;
 import dom.menu.Menu;
 
 @Named("Postre")
