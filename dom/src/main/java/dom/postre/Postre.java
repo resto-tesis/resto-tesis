@@ -30,6 +30,7 @@ import javax.jdo.annotations.Sequence;
 import javax.jdo.annotations.SequenceStrategy;
 
 import org.apache.isis.applib.DomainObjectContainer;
+import org.apache.isis.applib.annotation.AutoComplete;
 import org.apache.isis.applib.annotation.Bulk;
 import org.apache.isis.applib.annotation.Disabled;
 import org.apache.isis.applib.annotation.MaxLength;
@@ -41,12 +42,17 @@ import org.apache.isis.applib.annotation.RegEx;
 import org.apache.isis.applib.annotation.Title;
 import org.apache.isis.applib.annotation.TypicalLength;
 
+import dom.guarnicion.GuarnicionServicio;
 import dom.postre.Postre;
 import dom.postre.PostreServicio;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Sequence(name = "secuenciaNumeroPostre", strategy = SequenceStrategy.CONTIGUOUS)
-@Queries({ @Query(name = "todosLosPostres", language = "JDOQL", value = "SELECT FROM dom.postre.Postre") })
+@Queries({ 
+	@Query(name = "todosLosPostres", language = "JDOQL", value = "SELECT FROM dom.postre.Postre"),
+	@Query(name = "postresQueEmpiezan", language = "JDOQL", value = "SELECT FROM dom.postre.Postre WHERE nombre.startsWith(:nombre)")
+	})
+@AutoComplete(repository=PostreServicio.class, action="completarPostres")
 public class Postre {
 
 	// {{ Numero (property)

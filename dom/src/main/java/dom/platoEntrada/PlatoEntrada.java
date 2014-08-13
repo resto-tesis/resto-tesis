@@ -27,17 +27,21 @@ import javax.jdo.annotations.Queries;
 import javax.jdo.annotations.Query;
 
 import org.apache.isis.applib.DomainObjectContainer;
+import org.apache.isis.applib.annotation.AutoComplete;
 import org.apache.isis.applib.annotation.Bulk;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
 
+import dom.guarnicion.GuarnicionServicio;
 import dom.plato.Plato;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
 @Queries({
-	@Query(name = "todosLosPlatosEntrada", language = "JDOQL", value = "SELECT FROM dom.platoEntrada.PlatoEntrada")})
-
+	@Query(name = "todosLosPlatosEntrada", language = "JDOQL", value = "SELECT FROM dom.platoEntrada.PlatoEntrada"),
+	@Query(name = "platoEntradaQueEmpiezan", language = "JDOQL", value = "SELECT FROM dom.platoEntrada.PlatoEntrada WHERE nombre.startsWith(:nombre)")
+		})
+@AutoComplete(repository=PlatoEntradaServicio.class, action="completarPlatoEntrada")
 public class PlatoEntrada extends Plato {
 
 	public PlatoEntrada() {

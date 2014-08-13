@@ -30,6 +30,7 @@ import javax.jdo.annotations.Sequence;
 import javax.jdo.annotations.SequenceStrategy;
 
 import org.apache.isis.applib.DomainObjectContainer;
+import org.apache.isis.applib.annotation.AutoComplete;
 import org.apache.isis.applib.annotation.Bulk;
 import org.apache.isis.applib.annotation.Disabled;
 import org.apache.isis.applib.annotation.MaxLength;
@@ -43,7 +44,11 @@ import org.apache.isis.applib.annotation.TypicalLength;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Sequence(name = "secuenciaNumeroGuarnicion", strategy = SequenceStrategy.CONTIGUOUS)
-@Queries({ @Query(name = "todasLasGuarniciones", language = "JDOQL", value = "SELECT FROM dom.guarnicion.Guarnicion") })
+@Queries({ 
+	@Query(name = "todasLasGuarniciones", language = "JDOQL", value = "SELECT FROM dom.guarnicion.Guarnicion"),
+	@Query(name = "guarnicionesQueEmpiezan", language = "JDOQL", value = "SELECT FROM dom.guarnicion.Guarnicion WHERE nombre.startsWith(:nombre)")
+	})
+@AutoComplete(repository=GuarnicionServicio.class, action="completarGuarniciones")
 public class Guarnicion {
 
 	// {{ Numero (property)

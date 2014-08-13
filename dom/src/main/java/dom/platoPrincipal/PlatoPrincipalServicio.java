@@ -32,6 +32,7 @@ import org.apache.isis.applib.annotation.Named;
 import org.apache.isis.applib.annotation.Optional;
 import org.apache.isis.applib.annotation.RegEx;
 import org.apache.isis.applib.annotation.ActionSemantics.Of;
+import org.apache.isis.applib.query.QueryDefault;
 
 import com.google.common.base.Predicate;
 
@@ -39,6 +40,7 @@ import dom.comanda.Comanda;
 import dom.menu.Menu;
 import dom.plato.CondicionDePlatoEnum;
 import dom.plato.Plato;
+import dom.platoEntrada.PlatoEntrada;
 import dom.platoPrincipal.PlatoPrincipal;
 
 @Named("Plato Principal")
@@ -75,6 +77,11 @@ public class PlatoPrincipalServicio extends AbstractFactoryAndRepository {
 		return unPlato;
 	}
 
+	@Hidden
+	public List<PlatoPrincipal> completarPlatoPrincipal(final String nombre) {
+		 return allMatches(new QueryDefault<PlatoPrincipal>(PlatoPrincipal.class, "platoPrincipalQueEmpiezan","nombre",nombre.substring(0, 1).toUpperCase()+nombre.substring(1)) );
+	    }
+	
 	@Named("Listar Platos Principales")
 	@ActionSemantics(Of.SAFE)
 	@MemberOrder(sequence = "3")

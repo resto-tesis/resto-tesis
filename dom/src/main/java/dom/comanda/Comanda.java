@@ -184,28 +184,12 @@ public class Comanda {
 
 	public List<Mesa> choicesMesa() {
 		return comandaServicio.choices0CrearComanda();
-	}
-
-	public List<PlatoEntrada> choicesPlatoEntrada() {
-		return comandaServicio.choices1CrearComanda();
-	}
-
-	public List<PlatoPrincipal> choicesPlatoPrincipal() {
-		return comandaServicio.choices2CrearComanda();
-	}
+	}	
 
 	public List<Bebida> choicesBebida() {
 		return comandaServicio.choices5CrearComanda();
 	}
-
-	public List<Postre> choicesPostre() {
-		return comandaServicio.choices4CrearComanda();
-	}
-
-	public List<Guarnicion> choicesGuarnicion() {
-		return comandaServicio.choices3CrearComanda();
-	}
-
+	
 	/*
 	 * Inyección del servicio
 	 */

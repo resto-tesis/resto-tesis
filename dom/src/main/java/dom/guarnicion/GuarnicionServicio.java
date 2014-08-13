@@ -32,11 +32,13 @@ import org.apache.isis.applib.annotation.Named;
 import org.apache.isis.applib.annotation.RegEx;
 import org.apache.isis.applib.annotation.ActionSemantics.Of;
 import org.apache.isis.applib.annotation.Optional;
+import org.apache.isis.applib.query.QueryDefault;
 
 import com.google.common.base.Predicate;
 
 import dom.comanda.Comanda;
 import dom.menu.Menu;
+import dom.mozo.Mozo;
 
 @Named("Guarnicion")
 public class GuarnicionServicio extends AbstractFactoryAndRepository {
@@ -63,7 +65,23 @@ public class GuarnicionServicio extends AbstractFactoryAndRepository {
 		persist(guarnicion);
 		return guarnicion;
 	}
-
+	/*
+	 @Hidden
+	 public List<Guarnicion> completarGuarniciones(final String nombre) {
+		 return allMatches(Guarnicion.class, new Filter<Guarnicion>() 
+			{
+			   @Override
+			   public boolean accept(final Guarnicion g) 
+			   {
+				 return g.getNombre().contains(nombre);
+	           }
+	         });
+	    }*/
+	@Hidden
+	public List<Guarnicion> completarGuarniciones(final String nombre) {
+		 return allMatches(new QueryDefault<Guarnicion>(Guarnicion.class, "guarnicionesQueEmpiezan","nombre",nombre.substring(0, 1).toUpperCase()+nombre.substring(1)) );
+	    }
+	
 	@Named("Listar")
 	@ActionSemantics(Of.SAFE)
 	@MemberOrder(sequence = "2")

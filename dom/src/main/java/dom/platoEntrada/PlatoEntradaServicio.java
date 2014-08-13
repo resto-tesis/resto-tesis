@@ -32,10 +32,12 @@ import org.apache.isis.applib.annotation.Named;
 import org.apache.isis.applib.annotation.Optional;
 import org.apache.isis.applib.annotation.RegEx;
 import org.apache.isis.applib.annotation.ActionSemantics.Of;
+import org.apache.isis.applib.query.QueryDefault;
 
 import com.google.common.base.Predicate;
 
 import dom.comanda.Comanda;
+import dom.guarnicion.Guarnicion;
 import dom.menu.Menu;
 import dom.plato.CondicionDePlatoEnum;
 import dom.plato.Plato;
@@ -73,6 +75,11 @@ public class PlatoEntradaServicio extends AbstractFactoryAndRepository {
 		persist(unPlato);
 		return unPlato;
 	}
+	
+	@Hidden
+	public List<PlatoEntrada> completarPlatoEntrada(final String nombre) {
+		 return allMatches(new QueryDefault<PlatoEntrada>(PlatoEntrada.class, "platoEntradaQueEmpiezan","nombre",nombre.substring(0, 1).toUpperCase()+nombre.substring(1)) );
+	    }
 
 	@Named("Listar Platos de Entrada")
 	@ActionSemantics(Of.SAFE)

@@ -80,28 +80,8 @@ public class ComandaServicio extends AbstractFactoryAndRepository {
 	@Hidden
 	public List<Mesa> choices0CrearComanda() {
 		return allMatches(new QueryDefault<Mesa>(Mesa.class, "mesasAsignadas"));
-	}
-
-	@Hidden
-	public List<PlatoEntrada> choices1CrearComanda() {
-		return allInstances(PlatoEntrada.class);
-	}
-
-	@Hidden
-	public List<PlatoPrincipal> choices2CrearComanda() {
-		return allInstances(PlatoPrincipal.class);
-	}
-
-	@Hidden
-	public List<Guarnicion> choices3CrearComanda() {
-		return allInstances(Guarnicion.class);
-	}
-
-	@Hidden
-	public List<Postre> choices4CrearComanda() {
-		return allInstances(Postre.class);
-	}
-
+	}	
+	
 	@Hidden
 	public List<Bebida> choices5CrearComanda() {
 		return allInstances(Bebida.class);

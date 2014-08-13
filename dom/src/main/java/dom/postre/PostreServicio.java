@@ -32,10 +32,12 @@ import org.apache.isis.applib.annotation.Named;
 import org.apache.isis.applib.annotation.Optional;
 import org.apache.isis.applib.annotation.RegEx;
 import org.apache.isis.applib.annotation.ActionSemantics.Of;
+import org.apache.isis.applib.query.QueryDefault;
 
 import com.google.common.base.Predicate;
 
 import dom.comanda.Comanda;
+import dom.guarnicion.Guarnicion;
 import dom.menu.Menu;
 
 @Named("Postre")
@@ -65,6 +67,11 @@ public class PostreServicio extends AbstractFactoryAndRepository {
 		return postre;
 	}
 
+	@Hidden
+	public List<Postre> completarPostres(final String nombre) {
+		 return allMatches(new QueryDefault<Postre>(Postre.class, "postresQueEmpiezan","nombre",nombre.substring(0, 1).toUpperCase()+nombre.substring(1)) );
+	    }
+	
 	@Named("Listar")
 	@ActionSemantics(Of.SAFE)
 	@MemberOrder(sequence = "2")
