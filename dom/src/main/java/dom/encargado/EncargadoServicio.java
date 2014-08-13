@@ -29,6 +29,7 @@ import org.apache.isis.applib.annotation.Named;
 import org.apache.isis.applib.annotation.RegEx;
 import org.apache.isis.applib.annotation.ActionSemantics.Of;
 import org.apache.isis.applib.query.QueryDefault;
+import org.apache.isis.applib.value.Password;
 import org.joda.time.Days;
 import org.joda.time.LocalDate;
 
@@ -54,17 +55,17 @@ public class EncargadoServicio extends AbstractFactoryAndRepository implements
 			@Named("Fecha de Nacimiento") final LocalDate fechadeNacimiento,
 			@Named("Fecha de Ingreso") final LocalDate fechadeIngreso,
 			@Named("Usuario") final String _nombreUsuario,
-			@Named("Contraseña") final String _password) {
+			@Named("Contraseña") final Password _password) {
 		return crearEncargadoNuevo(crearUsuario(_nombreUsuario, _password),
 				_apellido, _nombre, _dni, fechadeNacimiento, fechadeIngreso);
 	}
 
 	@Hidden
 	public Usuario crearUsuario(final String _nombreUsuario,
-			final String _password) {
+			final Password _password) {
 		final Usuario usuario = newTransientInstance(Usuario.class);
 		usuario.setNombre(_nombreUsuario);
-		usuario.setPassword(_password);
+		usuario.setPassword(_password.getPassword());
 		usuario.setRol(uniqueMatch(new QueryDefault<Rol>(Rol.class,
 				"encargado-role")));
 		persistIfNotAlready(usuario);
@@ -107,7 +108,7 @@ public class EncargadoServicio extends AbstractFactoryAndRepository implements
 	@Override
 	public String validateCrearEncargado(String _nombre, String _apellido,
 			long _dni, LocalDate fechadeNacimiento, LocalDate fechadeIngreso,
-			String _nombreUsuario, String _password) {
+			String _nombreUsuario, Password _password) {
 		// TODO Auto-generated method stub
 		for (Empleado _empleado : listarEmpleados()) {
 			if (_dni == _empleado.getDocumento()) {

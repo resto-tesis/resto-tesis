@@ -17,13 +17,14 @@ package dom.cocinero;
  * 
  */
 
+import org.apache.isis.applib.value.Password;
 import org.joda.time.LocalDate;
 
 public interface ICocineroServicio {
 	public String validateCrearCocinero(final String _nombre,
 			final String _apellido, final long _dni,
 			final LocalDate fechadeNacimiento, final LocalDate fechadeIngreso,
-			String _nombreUsuario, String _password);
+			String _nombreUsuario, Password _password);
 
 	public boolean validaMayorEdad(final LocalDate fechadeNacimiento);
 
