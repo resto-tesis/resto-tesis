@@ -68,9 +68,11 @@ public class PostreServicio extends AbstractFactoryAndRepository {
 
 	@Hidden
 	public List<Postre> completarPostres(final String nombre) {
-		 return allMatches(new QueryDefault<Postre>(Postre.class, "postresQueEmpiezan","nombre",nombre.substring(0, 1).toUpperCase()+nombre.substring(1)) );
-	    }
-	
+		return allMatches(new QueryDefault<Postre>(Postre.class,
+				"postresQueEmpiezan", "nombre", nombre.substring(0, 1)
+						.toUpperCase() + nombre.substring(1)));
+	}
+
 	@Named("Listar")
 	@ActionSemantics(Of.SAFE)
 	@MemberOrder(sequence = "2")
@@ -83,19 +85,21 @@ public class PostreServicio extends AbstractFactoryAndRepository {
 	// comanda o menu
 	@Hidden
 	public boolean validaBorrado(final Postre _postre) {
-		return firstMatch(Menu.class, new Predicate<Menu>() {
+		return (firstMatch(Menu.class, new Predicate<Menu>() {
 			@Override
 			public boolean apply(Menu _menu) {
 				// TODO Auto-generated method stub
 				return _menu.getPostre().equals(_postre);
 			}
-		}) != null ? false : firstMatch(Comanda.class,
+		}) != null) ? false : (firstMatch(Comanda.class,
 				new Predicate<Comanda>() {
 					@Override
 					public boolean apply(Comanda _comanda) {
 						// TODO Auto-generated method stub
-						return _comanda.getPostre().equals(_postre);
+						for (Postre postre : _comanda.getPostres())
+							return postre.equals(_postre);
+						return false;
 					}
-				}) != null ? false : true;
+				}) != null) ? false : true;
 	}
 }

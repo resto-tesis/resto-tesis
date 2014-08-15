@@ -74,11 +74,13 @@ public class PlatoEntradaServicio extends AbstractFactoryAndRepository {
 		persist(unPlato);
 		return unPlato;
 	}
-	
+
 	@Hidden
 	public List<PlatoEntrada> completarPlatoEntrada(final String nombre) {
-		 return allMatches(new QueryDefault<PlatoEntrada>(PlatoEntrada.class, "platoEntradaQueEmpiezan","nombre",nombre.substring(0, 1).toUpperCase()+nombre.substring(1)) );
-	    }
+		return allMatches(new QueryDefault<PlatoEntrada>(PlatoEntrada.class,
+				"platoEntradaQueEmpiezan", "nombre", nombre.substring(0, 1)
+						.toUpperCase() + nombre.substring(1)));
+	}
 
 	@Named("Listar Platos de Entrada")
 	@ActionSemantics(Of.SAFE)
@@ -91,20 +93,23 @@ public class PlatoEntradaServicio extends AbstractFactoryAndRepository {
 	// Se verifica que el elemento por borrar no este relacionado con ninguna
 	// comanda o menu
 	@Hidden
-	public boolean validaBorrado(final PlatoEntrada _plato) {
-		return firstMatch(Menu.class, new Predicate<Menu>() {
+	public boolean validaBorrado(final PlatoEntrada _platoEntrada) {
+		return (firstMatch(Menu.class, new Predicate<Menu>() {
 			@Override
 			public boolean apply(Menu _menu) {
 				// TODO Auto-generated method stub
-				return _menu.getPlatoEntrada().equals(_plato);
+				return _menu.getPlatoEntrada().equals(_platoEntrada);
 			}
-		}) != null ? false : firstMatch(Comanda.class,
+		}) != null) ? false : (firstMatch(Comanda.class,
 				new Predicate<Comanda>() {
 					@Override
 					public boolean apply(Comanda _comanda) {
 						// TODO Auto-generated method stub
-						return _comanda.getPlatoEntrada().equals(_plato);
+						for (PlatoEntrada platoEntrada : _comanda
+								.getPlatosEntrada())
+							return platoEntrada.equals(_platoEntrada);
+						return false;
 					}
-				}) != null ? false : true;
+				}) != null) ? false : true;
 	}
 }

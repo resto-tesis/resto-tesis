@@ -1,5 +1,3 @@
-package dom.comanda;
-
 /*
  * Copyright 2014 resto-tesis
  * 
@@ -17,6 +15,8 @@ package dom.comanda;
  * 
  */
 
+package dom.comanda;
+
 import java.util.List;
 
 import org.apache.isis.applib.AbstractFactoryAndRepository;
@@ -25,9 +25,6 @@ import org.apache.isis.applib.annotation.ActionSemantics.Of;
 import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
-import org.apache.isis.applib.annotation.Optional;
-import org.apache.isis.applib.annotation.Where;
-import org.apache.isis.applib.query.QueryDefault;
 
 import dom.bebida.Bebida;
 import dom.guarnicion.Guarnicion;
@@ -40,32 +37,9 @@ import dom.postre.Postre;
 public class ComandaServicio extends AbstractFactoryAndRepository {
 
 	@Named("Crear")
-	@Hidden(where = Where.OBJECT_FORMS)
-	@MemberOrder(sequence = "1")
-	public Comanda crearComanda(
-			@Named("Mesa") final Mesa _mesa,
-			@Named("Plato Entrada") @Optional final PlatoEntrada _platoEntrada,
-			@Named("Plato Principal") @Optional final PlatoPrincipal _platoPrincipal,
-			@Named("Guarnición") @Optional final Guarnicion _guarnicion,
-			@Named("Postre") @Optional final Postre _postre,
-			@Named("Bebida") @Optional final Bebida _bebida) {
-		return nuevaComanda(_mesa, _platoEntrada, _platoPrincipal, _guarnicion,
-				_postre, _bebida);
-	}
-
-	@Hidden
-	public Comanda nuevaComanda(final Mesa _mesa,
-			final PlatoEntrada _platoEntrada,
-			final PlatoPrincipal _platoPrincipal, final Guarnicion _guarnicion,
-			final Postre _postre, final Bebida _bebida) {
+	public Comanda crear(final Mesa mesa) {
 		final Comanda comanda = newTransientInstance(Comanda.class);
-		comanda.setEstadoPreparacion(EstadoComandaEnum.En_Espera);
-		comanda.setMesa(_mesa);
-		comanda.setBebida(_bebida);
-		comanda.setGuarnicion(_guarnicion);
-		comanda.setPlatoEntrada(_platoEntrada);
-		comanda.setPlatoPrincipal(_platoPrincipal);
-		comanda.setPostre(_postre);
+		comanda.setMesa(mesa);
 		persist(comanda);
 		return comanda;
 	}
@@ -78,22 +52,32 @@ public class ComandaServicio extends AbstractFactoryAndRepository {
 	}
 
 	@Hidden
-	public List<Mesa> choices0CrearComanda() {
-		return allMatches(new QueryDefault<Mesa>(Mesa.class, "mesasAsignadas"));
-	}	
-	
+	public List<Mesa> choices0Crear() {
+		return allInstances(Mesa.class);
+	}
+
 	@Hidden
-	public List<Bebida> choices5CrearComanda() {
+	public List<Bebida> listaBebidas() {
 		return allInstances(Bebida.class);
 	}
-	
-	public String validateCrearComanda(final Mesa _mesa,
-			final PlatoEntrada _platoEntrada,
-			final PlatoPrincipal _platoPrincipal, final Guarnicion _guarnicion,
-			final Postre _postre, final Bebida _bebida) {
-		return _platoEntrada == null & _platoPrincipal == null
-				& _guarnicion == null & _postre == null & _bebida == null ? "Ingrese al menos un pedido."
-				: null;
+
+	@Hidden
+	public List<Guarnicion> listaGuarnicion() {
+		return allInstances(Guarnicion.class);
 	}
-	
+
+	@Hidden
+	public List<Postre> listarPostres() {
+		return allInstances(Postre.class);
+	}
+
+	@Hidden
+	public List<PlatoEntrada> listarPlatosEntrada() {
+		return allInstances(PlatoEntrada.class);
+	}
+
+	@Hidden
+	public List<PlatoPrincipal> listarPlatosPrincipales() {
+		return allInstances(PlatoPrincipal.class);
+	}
 }

@@ -84,19 +84,21 @@ public class GuarnicionServicio extends AbstractFactoryAndRepository {
 	// comanda o menu
 	@Hidden
 	public boolean validaBorrado(final Guarnicion _guarnicion) {
-		return firstMatch(Menu.class, new Predicate<Menu>() {
+		return (firstMatch(Menu.class, new Predicate<Menu>() {
 			@Override
 			public boolean apply(Menu _menu) {
 				// TODO Auto-generated method stub
 				return _menu.getGuarnicion().equals(_guarnicion);
 			}
-		}) != null ? false : firstMatch(Comanda.class,
+		}) != null) ? false : (firstMatch(Comanda.class,
 				new Predicate<Comanda>() {
 					@Override
 					public boolean apply(Comanda _comanda) {
 						// TODO Auto-generated method stub
-						return _comanda.getGuarnicion().equals(_guarnicion);
+						for (Guarnicion guarnicion : _comanda.getGuarniciones())
+							return guarnicion.equals(_guarnicion);
+						return false;
 					}
-				}) != null ? false : true;
+				}) != null) ? false : true;
 	}
 }

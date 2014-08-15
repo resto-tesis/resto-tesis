@@ -1,5 +1,3 @@
-package dom.comanda;
-
 /*
  * Copyright 2014 resto-tesis
  * 
@@ -17,8 +15,12 @@ package dom.comanda;
  * 
  */
 
+package dom.comanda;
+
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
@@ -34,9 +36,10 @@ import org.apache.isis.applib.annotation.Bulk;
 import org.apache.isis.applib.annotation.Disabled;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
-import org.apache.isis.applib.annotation.Optional;
+import org.apache.isis.applib.annotation.Render;
 import org.apache.isis.applib.annotation.Title;
 import org.apache.isis.applib.annotation.TypicalLength;
+import org.apache.isis.applib.annotation.Render.Type;
 
 import dom.bebida.Bebida;
 import dom.guarnicion.Guarnicion;
@@ -79,7 +82,8 @@ public class Comanda {
 	private EstadoComandaEnum estadoPreparacion;
 
 	@Column(allowsNull = "false")
-	@MemberOrder(sequence = "2")
+	@Disabled
+	@MemberOrder(sequence = "3")
 	public EstadoComandaEnum getEstadoPreparacion() {
 		return estadoPreparacion;
 	}
@@ -93,8 +97,9 @@ public class Comanda {
 	// {{ Mesa (property)
 	private Mesa mesa;
 
+	@Disabled
 	@Title(prepend = "Comanda ")
-	@MemberOrder(sequence = "4")
+	@MemberOrder(sequence = "2")
 	@Column(allowsNull = "false")
 	public Mesa getMesa() {
 		return mesa;
@@ -104,100 +109,11 @@ public class Comanda {
 		this.mesa = mesa;
 	}
 
-	// }}
-
-	// {{ PlatoEntrada (property)
-	private PlatoEntrada platoEntrada;
-
-	@MemberOrder(sequence = "5")
-	@Optional
-	public PlatoEntrada getPlatoEntrada() {
-		return platoEntrada;
-	}
-
-	public void setPlatoEntrada(final PlatoEntrada platoEntrada) {
-		this.platoEntrada = platoEntrada;
-	}
-
-	// }}
-
-	// {{ PlatoPrincipal (property)
-	private PlatoPrincipal platoPrincipal;
-
-	@MemberOrder(sequence = "6")
-	@Optional
-	public PlatoPrincipal getPlatoPrincipal() {
-		return platoPrincipal;
-	}
-
-	public void setPlatoPrincipal(final PlatoPrincipal platoPrincipal) {
-		this.platoPrincipal = platoPrincipal;
-	}
-
-	// }}
-
-	// {{ Bebida (property)
-	private Bebida bebida;
-
-	@MemberOrder(sequence = "7")
-	@Optional
-	public Bebida getBebida() {
-		return bebida;
-	}
-
-	public void setBebida(final Bebida bebida) {
-		this.bebida = bebida;
-	}
-
-	// }}
-
-	// {{ Postre (property)
-	private Postre postre;
-
-	@MemberOrder(sequence = "8")
-	@Optional
-	public Postre getPostre() {
-		return postre;
-	}
-
-	public void setPostre(final Postre postre) {
-		this.postre = postre;
-	}
-
-	// }}
-
-	// {{ Guarnicion (property)
-	private Guarnicion guarnicion;
-
-	@Named("Guarnición")
-	@MemberOrder(sequence = "9")
-	@Optional
-	public Guarnicion getGuarnicion() {
-		return guarnicion;
-	}
-
-	public void setGuarnicion(final Guarnicion guarnicion) {
-		this.guarnicion = guarnicion;
-	}
-
-	// }}
-
-	public List<Mesa> choicesMesa() {
-		return comandaServicio.choices0CrearComanda();
-	}	
-
-	public List<Bebida> choicesBebida() {
-		return comandaServicio.choices5CrearComanda();
-	}
-	
 	/*
 	 * Inyección del servicio
 	 */
+	@Inject
 	private ComandaServicio comandaServicio;
-
-	public void injectarComandaServicio(final ComandaServicio _comandaServicio) {
-		this.comandaServicio = _comandaServicio;
-	}
 
 	// {{ injected: DomainObjectContainer
 	private DomainObjectContainer contenedor;
@@ -234,5 +150,177 @@ public class Comanda {
 			setEstadoPreparacion(EstadoComandaEnum.Preparada);
 		return comandaServicio.listarComanda();
 	}
-	
+
+	// {{ Guarniciones (Collection)
+	private List<Guarnicion> guarniciones = new ArrayList<Guarnicion>();
+
+	@Render(Type.EAGERLY)
+	public List<Guarnicion> getGuarniciones() {
+		return guarniciones;
+	}
+
+	public void setGuarniciones(final List<Guarnicion> guarniciones) {
+		this.guarniciones = guarniciones;
+	}
+
+	// }}
+
+	@MemberOrder(name = "guarniciones", sequence = "1")
+	public Comanda agregarGuarnicion(
+			@Named("Guarnición") final Guarnicion _guarnicion) {
+		getGuarniciones().add(_guarnicion);
+		return this;
+	}
+
+	public List<Guarnicion> choices0AgregarGuarnicion() {
+		return comandaServicio.listaGuarnicion();
+	}
+
+	@MemberOrder(name = "guarniciones", sequence = "2")
+	public Comanda quitarGuarnicion(
+			@Named("Guarnición") final Guarnicion _guarnicion) {
+		getGuarniciones().remove(_guarnicion);
+		return this;
+	}
+
+	public List<Guarnicion> choices0QuitarGuarnicion() {
+		return getGuarniciones();
+	}
+
+	// {{ Bebidas (Collection)
+	private List<Bebida> bebidas = new ArrayList<Bebida>();
+
+	@Render(Type.EAGERLY)
+	public List<Bebida> getBebidas() {
+		return bebidas;
+	}
+
+	public void setBebidas(final List<Bebida> bebidas) {
+		this.bebidas = bebidas;
+	}
+
+	// }}
+
+	@MemberOrder(name = "bebidas", sequence = "1")
+	public Comanda agregarBebida(final Bebida bebida) {
+		getBebidas().add(bebida);
+		return this;
+	}
+
+	public List<Bebida> choices0AgregarBebida() {
+		return comandaServicio.listaBebidas();
+	}
+
+	@MemberOrder(name = "bebidas", sequence = "2")
+	public Comanda quitarBebida(final Bebida bebida) {
+		getBebidas().remove(bebida);
+		return this;
+	}
+
+	public List<Bebida> choices0QuitarBebida() {
+		return getBebidas();
+	}
+
+	// {{ Postres (Collection)
+	private List<Postre> postres = new ArrayList<Postre>();
+
+	@Render(Type.EAGERLY)
+	public List<Postre> getPostres() {
+		return postres;
+	}
+
+	public void setPostres(final List<Postre> postres) {
+		this.postres = postres;
+	}
+
+	// }}
+
+	@MemberOrder(name = "postres", sequence = "1")
+	public Comanda agregarPostre(final Postre postre) {
+		getPostres().add(postre);
+		return this;
+	}
+
+	public List<Postre> choices0AgregarPostre() {
+		return comandaServicio.listarPostres();
+	}
+
+	@MemberOrder(name = "postres", sequence = "2")
+	public Comanda quitarPostre(final Postre postre) {
+		getPostres().remove(postre);
+		return this;
+	}
+
+	public List<Postre> choices0QuitarPostre() {
+		return getPostres();
+	}
+
+	// {{ PlatosPrincipales (Collection)
+	private List<PlatoPrincipal> platosPrincipales = new ArrayList<PlatoPrincipal>();
+
+	@Render(Type.EAGERLY)
+	public List<PlatoPrincipal> getPlatosPrincipales() {
+		return platosPrincipales;
+	}
+
+	public void setPlatosPrincipales(
+			final List<PlatoPrincipal> platosPrincipales) {
+		this.platosPrincipales = platosPrincipales;
+	}
+
+	// }}
+
+	@MemberOrder(name = "platosPrincipales", sequence = "1")
+	public Comanda agregarPlatoPrincipal(final PlatoPrincipal platoPrincipal) {
+		getPlatosPrincipales().add(platoPrincipal);
+		return this;
+	}
+
+	public List<PlatoPrincipal> choices0AgregarPlatoPrincipal() {
+		return comandaServicio.listarPlatosPrincipales();
+	}
+
+	@MemberOrder(name = "platosPrincipales", sequence = "2")
+	public Comanda quitarPlatoPrincipal(final PlatoPrincipal platoPrincipal) {
+		getPlatosPrincipales().remove(platoPrincipal);
+		return this;
+	}
+
+	public List<PlatoPrincipal> choices0QuitarPlatoPrincipal() {
+		return getPlatosPrincipales();
+	}
+
+	// {{ PlatosEntrada (Collection)
+	private List<PlatoEntrada> platosEntrada = new ArrayList<PlatoEntrada>();
+
+	@Render(Type.EAGERLY)
+	public List<PlatoEntrada> getPlatosEntrada() {
+		return platosEntrada;
+	}
+
+	public void setPlatosEntrada(final List<PlatoEntrada> platosEntrada) {
+		this.platosEntrada = platosEntrada;
+	}
+
+	// }}
+
+	@MemberOrder(name = "platosEntrada", sequence = "1")
+	public Comanda agregarPlatoEntrada(final PlatoEntrada platoEntrada) {
+		getPlatosEntrada().add(platoEntrada);
+		return this;
+	}
+
+	public List<PlatoEntrada> choices0AgregarPlatoEntrada() {
+		return comandaServicio.listarPlatosEntrada();
+	}
+
+	@MemberOrder(name = "platosEntrada", sequence = "2")
+	public Comanda quitarPlatoEntrada(final PlatoEntrada platoEntrada) {
+		getPlatosEntrada().remove(platoEntrada);
+		return this;
+	}
+
+	public List<PlatoEntrada> choices0QuitarPlatoEntrada() {
+		return getPlatosEntrada();
+	}
 }

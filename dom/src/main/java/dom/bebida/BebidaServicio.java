@@ -81,19 +81,21 @@ public class BebidaServicio extends AbstractFactoryAndRepository {
 	// comanda o menu
 	@Hidden
 	public boolean validaBorrado(final Bebida _bebida) {
-		return firstMatch(Menu.class, new Predicate<Menu>() {
+		return (firstMatch(Menu.class, new Predicate<Menu>() {
 			@Override
 			public boolean apply(Menu _menu) {
 				// TODO Auto-generated method stub
 				return _menu.getBebida().equals(_bebida);
 			}
-		}) != null ? false : firstMatch(Comanda.class,
+		}) != null) ? false : (firstMatch(Comanda.class,
 				new Predicate<Comanda>() {
 					@Override
 					public boolean apply(Comanda _comanda) {
 						// TODO Auto-generated method stub
-						return _comanda.getBebida().equals(_bebida);
+						for (Bebida bebida : _comanda.getBebidas())
+							return bebida.equals(_bebida);
+						return false;
 					}
-				}) != null ? false : true;
+				}) != null) ? false : true;
 	}
 }

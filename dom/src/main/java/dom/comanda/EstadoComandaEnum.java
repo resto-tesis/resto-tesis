@@ -1,5 +1,3 @@
-package dom.comanda;
-
 /*
  * Copyright 2014 resto-tesis
  * 
@@ -17,11 +15,12 @@ package dom.comanda;
  * 
  */
 
+package dom.comanda;
+
 public enum EstadoComandaEnum {
-	En_Espera("En Espera"),
-	En_Preparacion("En Preparación"),
-	Preparada("Preparada");
-	
+	En_Espera("En Espera"), En_Preparacion("En Preparación"), Preparada(
+			"Preparada");
+
 	private final String nombre;
 
 	public String getNombre() {

@@ -78,9 +78,11 @@ public class PlatoPrincipalServicio extends AbstractFactoryAndRepository {
 
 	@Hidden
 	public List<PlatoPrincipal> completarPlatoPrincipal(final String nombre) {
-		 return allMatches(new QueryDefault<PlatoPrincipal>(PlatoPrincipal.class, "platoPrincipalQueEmpiezan","nombre",nombre.substring(0, 1).toUpperCase()+nombre.substring(1)) );
-	    }
-	
+		return allMatches(new QueryDefault<PlatoPrincipal>(
+				PlatoPrincipal.class, "platoPrincipalQueEmpiezan", "nombre",
+				nombre.substring(0, 1).toUpperCase() + nombre.substring(1)));
+	}
+
 	@Named("Listar Platos Principales")
 	@ActionSemantics(Of.SAFE)
 	@MemberOrder(sequence = "3")
@@ -92,20 +94,23 @@ public class PlatoPrincipalServicio extends AbstractFactoryAndRepository {
 	// Se verifica que el elemento por borrar no este relacionado con ninguna
 	// comanda o menu
 	@Hidden
-	public boolean validaBorrado(final PlatoPrincipal _plato) {
-		return firstMatch(Menu.class, new Predicate<Menu>() {
+	public boolean validaBorrado(final PlatoPrincipal _platoPrincipal) {
+		return (firstMatch(Menu.class, new Predicate<Menu>() {
 			@Override
 			public boolean apply(Menu _menu) {
 				// TODO Auto-generated method stub
-				return _menu.getPlatoPrincipal().equals(_plato);
+				return _menu.getPlatoPrincipal().equals(_platoPrincipal);
 			}
-		}) != null ? false : firstMatch(Comanda.class,
+		}) != null) ? false : (firstMatch(Comanda.class,
 				new Predicate<Comanda>() {
 					@Override
 					public boolean apply(Comanda _comanda) {
 						// TODO Auto-generated method stub
-						return _comanda.getPlatoPrincipal().equals(_plato);
+						for (PlatoPrincipal platoPrincipal : _comanda
+								.getPlatosPrincipales())
+							return platoPrincipal.equals(_platoPrincipal);
+						return false;
 					}
-				}) != null ? false : true;
+				}) != null) ? false : true;
 	}
 }
