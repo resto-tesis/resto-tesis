@@ -171,11 +171,7 @@ public class Comanda {
 		getGuarniciones().add(_guarnicion);
 		return this;
 	}
-
-	public List<Guarnicion> choices0AgregarGuarnicion() {
-		return comandaServicio.listaGuarnicion();
-	}
-
+	
 	@MemberOrder(name = "guarniciones", sequence = "2")
 	public Comanda quitarGuarnicion(
 			@Named("Guarnición") final Guarnicion _guarnicion) {
@@ -220,6 +216,7 @@ public class Comanda {
 	public List<Bebida> choices0QuitarBebida() {
 		return getBebidas();
 	}
+	
 
 	// {{ Postres (Collection)
 	private List<Postre> postres = new ArrayList<Postre>();
@@ -239,10 +236,6 @@ public class Comanda {
 	public Comanda agregarPostre(final Postre postre) {
 		getPostres().add(postre);
 		return this;
-	}
-
-	public List<Postre> choices0AgregarPostre() {
-		return comandaServicio.listarPostres();
 	}
 
 	@MemberOrder(name = "postres", sequence = "2")
@@ -276,10 +269,6 @@ public class Comanda {
 		return this;
 	}
 
-	public List<PlatoPrincipal> choices0AgregarPlatoPrincipal() {
-		return comandaServicio.listarPlatosPrincipales();
-	}
-
 	@MemberOrder(name = "platosPrincipales", sequence = "2")
 	public Comanda quitarPlatoPrincipal(final PlatoPrincipal platoPrincipal) {
 		getPlatosPrincipales().remove(platoPrincipal);
@@ -308,10 +297,6 @@ public class Comanda {
 	public Comanda agregarPlatoEntrada(final PlatoEntrada platoEntrada) {
 		getPlatosEntrada().add(platoEntrada);
 		return this;
-	}
-
-	public List<PlatoEntrada> choices0AgregarPlatoEntrada() {
-		return comandaServicio.listarPlatosEntrada();
 	}
 
 	@MemberOrder(name = "platosEntrada", sequence = "2")
