@@ -38,7 +38,7 @@ import dom.plato.Plato;
 @Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
 @Queries({
 	@Query(name = "todosLosPlatosPricipales", language = "JDOQL", value = "SELECT FROM dom.platoPrincipal.PlatoPrincipal"),
-	@Query(name = "platoPrincipalQueEmpiezan", language = "JDOQL", value = "SELECT FROM dom.platoPrincipal.PlatoPrincipal WHERE nombre.startsWith(:nombre)")	
+	@Query(name = "platoPrincipalQueEmpiezan", language = "JDOQL", value = "SELECT FROM dom.platoPrincipal.PlatoPrincipal WHERE nombre.matches(:nombre)")	
 		})
 
 @AutoComplete(repository=PlatoPrincipalServicio.class, action="completarPlatoPrincipal")

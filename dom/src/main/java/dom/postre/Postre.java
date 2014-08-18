@@ -49,7 +49,7 @@ import dom.postre.PostreServicio;
 @Sequence(name = "secuenciaNumeroPostre", strategy = SequenceStrategy.CONTIGUOUS)
 @Queries({ 
 	@Query(name = "todosLosPostres", language = "JDOQL", value = "SELECT FROM dom.postre.Postre"),
-	@Query(name = "postresQueEmpiezan", language = "JDOQL", value = "SELECT FROM dom.postre.Postre WHERE nombre.startsWith(:nombre)")
+	@Query(name = "postresQueEmpiezan", language = "JDOQL", value = "SELECT FROM dom.postre.Postre WHERE nombre.matches(:nombre)")
 	})
 @AutoComplete(repository=PostreServicio.class, action="completarPostres")
 public class Postre {

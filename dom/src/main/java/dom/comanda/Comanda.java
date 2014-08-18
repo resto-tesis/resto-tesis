@@ -203,10 +203,6 @@ public class Comanda {
 		return this;
 	}
 
-	public List<Bebida> choices0AgregarBebida() {
-		return comandaServicio.listaBebidas();
-	}
-
 	@MemberOrder(name = "bebidas", sequence = "2")
 	public Comanda quitarBebida(final Bebida bebida) {
 		getBebidas().remove(bebida);

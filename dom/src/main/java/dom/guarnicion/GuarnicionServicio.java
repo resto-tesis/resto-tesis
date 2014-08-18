@@ -68,8 +68,7 @@ public class GuarnicionServicio extends AbstractFactoryAndRepository {
 	@Hidden
 	public List<Guarnicion> completarGuarniciones(final String nombre) {
 		return allMatches(new QueryDefault<Guarnicion>(Guarnicion.class,
-				"guarnicionesQueEmpiezan", "nombre", nombre.substring(0, 1)
-						.toUpperCase() + nombre.substring(1)));
+				"guarnicionesQueEmpiezan", "nombre", "(?i).*"+nombre+".*"));
 	}
 
 	@Named("Listar")

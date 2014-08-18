@@ -46,7 +46,7 @@ import org.apache.isis.applib.annotation.TypicalLength;
 @Sequence(name = "secuenciaNumeroGuarnicion", strategy = SequenceStrategy.CONTIGUOUS)
 @Queries({ 
 	@Query(name = "todasLasGuarniciones", language = "JDOQL", value = "SELECT FROM dom.guarnicion.Guarnicion"),
-	@Query(name = "guarnicionesQueEmpiezan", language = "JDOQL", value = "SELECT FROM dom.guarnicion.Guarnicion WHERE nombre.startsWith(:nombre)")
+	@Query(name = "guarnicionesQueEmpiezan", language = "JDOQL", value = "SELECT FROM dom.guarnicion.Guarnicion WHERE nombre.matches(:nombre)")
 	})
 @AutoComplete(repository=GuarnicionServicio.class, action="completarGuarniciones")
 public class Guarnicion {

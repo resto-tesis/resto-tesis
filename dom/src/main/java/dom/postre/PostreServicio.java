@@ -69,8 +69,7 @@ public class PostreServicio extends AbstractFactoryAndRepository {
 	@Hidden
 	public List<Postre> completarPostres(final String nombre) {
 		return allMatches(new QueryDefault<Postre>(Postre.class,
-				"postresQueEmpiezan", "nombre", nombre.substring(0, 1)
-						.toUpperCase() + nombre.substring(1)));
+				"postresQueEmpiezan", "nombre", "(?i).*"+nombre+".*"));
 	}
 
 	@Named("Listar")

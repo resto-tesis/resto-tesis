@@ -33,11 +33,13 @@ import org.apache.isis.applib.annotation.Optional;
 import org.apache.isis.applib.annotation.RegEx;
 import org.apache.isis.applib.annotation.TypicalLength;
 import org.apache.isis.applib.annotation.ActionSemantics.Of;
+import org.apache.isis.applib.query.QueryDefault;
 
 import com.google.common.base.Predicate;
 
 import dom.comanda.Comanda;
 import dom.menu.Menu;
+import dom.postre.Postre;
 
 @Named("Bebida")
 public class BebidaServicio extends AbstractFactoryAndRepository {
@@ -67,6 +69,12 @@ public class BebidaServicio extends AbstractFactoryAndRepository {
 		nuevaBebida.setPrecio(_precio.doubleValue());
 		persist(nuevaBebida);
 		return nuevaBebida;
+	}
+	
+	@Hidden
+	public List<Bebida> completarBebidas(final String nombre) {
+		return allMatches(new QueryDefault<Bebida>(Bebida.class,
+				"bebidasQueEmpiezan", "nombre", "(?i).*"+nombre+".*"));
 	}
 	
 	@Hidden

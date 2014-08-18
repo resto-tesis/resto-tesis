@@ -79,8 +79,7 @@ public class PlatoPrincipalServicio extends AbstractFactoryAndRepository {
 	@Hidden
 	public List<PlatoPrincipal> completarPlatoPrincipal(final String nombre) {
 		return allMatches(new QueryDefault<PlatoPrincipal>(
-				PlatoPrincipal.class, "platoPrincipalQueEmpiezan", "nombre",
-				nombre.substring(0, 1).toUpperCase() + nombre.substring(1)));
+				PlatoPrincipal.class, "platoPrincipalQueEmpiezan", "nombre","(?i).*"+nombre+".*"));
 	}
 
 	@Named("Listar Platos Principales")

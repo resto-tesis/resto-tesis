@@ -78,8 +78,7 @@ public class PlatoEntradaServicio extends AbstractFactoryAndRepository {
 	@Hidden
 	public List<PlatoEntrada> completarPlatoEntrada(final String nombre) {
 		return allMatches(new QueryDefault<PlatoEntrada>(PlatoEntrada.class,
-				"platoEntradaQueEmpiezan", "nombre", nombre.substring(0, 1)
-						.toUpperCase() + nombre.substring(1)));
+				"platoEntradaQueEmpiezan", "nombre", "(?i).*"+nombre+".*"));
 	}
 
 	@Named("Listar Platos de Entrada")

@@ -13,6 +13,7 @@ import javax.jdo.annotations.Sequence;
 import javax.jdo.annotations.SequenceStrategy;
 
 import org.apache.isis.applib.DomainObjectContainer;
+import org.apache.isis.applib.annotation.AutoComplete;
 import org.apache.isis.applib.annotation.Bulk;
 import org.apache.isis.applib.annotation.Disabled;
 import org.apache.isis.applib.annotation.MaxLength;
@@ -23,6 +24,8 @@ import org.apache.isis.applib.annotation.Optional;
 import org.apache.isis.applib.annotation.RegEx;
 import org.apache.isis.applib.annotation.Title;
 import org.apache.isis.applib.annotation.TypicalLength;
+
+import dom.postre.PostreServicio;
 
 /*
  * Copyright 2014 resto-tesis
@@ -43,7 +46,11 @@ import org.apache.isis.applib.annotation.TypicalLength;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Sequence(name = "secuenciaNumeroBebida", strategy = SequenceStrategy.CONTIGUOUS)
-@Queries({ @Query(name = "todasLasBebidas", language = "JDOQL", value = "SELECT FROM dom.bebida.Bebida") })
+@Queries({ 
+	@Query(name = "todasLasBebidas", language = "JDOQL", value = "SELECT FROM dom.bebida.Bebida"),
+	@Query(name = "bebidasQueEmpiezan", language = "JDOQL", value = "SELECT FROM dom.bebida.Bebida WHERE nombre.matches(:nombre)")
+		})
+@AutoComplete(repository=BebidaServicio.class, action="completarBebidas")
 public class Bebida {
 
 	// {{ Numero (property)
