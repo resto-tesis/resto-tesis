@@ -1,5 +1,22 @@
 package dom.bebida;
 
+/*
+ * Copyright 2014 resto-tesis
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * 
+ */
+
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -21,23 +38,6 @@ import com.google.common.base.Predicate;
 
 import dom.comanda.Comanda;
 import dom.menu.Menu;
-
-/*
- * Copyright 2014 resto-tesis
- * 
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- * 
- * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- * 
- */
 
 @Named("Bebida")
 public class BebidaServicio extends AbstractFactoryAndRepository {
@@ -67,6 +67,27 @@ public class BebidaServicio extends AbstractFactoryAndRepository {
 		nuevaBebida.setPrecio(_precio.doubleValue());
 		persist(nuevaBebida);
 		return nuevaBebida;
+	}
+	
+	@Hidden
+	public TipoBebidaEnum default1CrearBebida() {
+        return TipoBebidaEnum.Gaseosa;
+    }
+	@Hidden
+    public VolumenBebidaEnum default2CrearBebida() {
+        return default1CrearBebida().volumen().get(0);
+    }
+	
+	public List<VolumenBebidaEnum> choices2CrearBebida(final String nombre,
+			final TipoBebidaEnum tipoBebida) {
+		return VolumenBebidaEnum.listar(tipoBebida);
+	}
+
+	public String validateCrearBebida(final String _nombre,
+			final TipoBebidaEnum _tipoBebida,
+			final VolumenBebidaEnum _volumenBebida, final String _descripcion,
+			final BigDecimal _precio) {
+		return VolumenBebidaEnum.validate(_tipoBebida, _volumenBebida);
 	}
 
 	@MemberOrder(sequence = "2")

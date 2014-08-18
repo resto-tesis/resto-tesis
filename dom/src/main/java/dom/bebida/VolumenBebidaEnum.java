@@ -17,17 +17,35 @@ package dom.bebida;
  * 
  */
 
+import java.util.Collections;
+import java.util.List;
+
 public enum VolumenBebidaEnum {
 	Lata("Lata"),
-	TresLitros("3 Litros"),
-	DosLitrosYUnCuarto("2,25 Litros"),
-	DosLitros("2 Litros"),
-	UnLitroYMedio("1,5 Litros"),
-	UnLitroYUnCuarto("1,25 Litros"),
-	UnLitro("1 Litro"), 
-	MedioLitro("500 ml"),
-	SieteCincuentaCentimetrosCubicos("750 cc"),
-	TresCincuentaCentimetrosCubicos("350 cc");
+	Lata_Grande("Lata Grande"),
+	Tres_Litros("3 Litros"),
+	Dos_Litros_Y_Un_Cuarto("2,25 Litros"),
+	Dos_Litros("2 Litros"),
+	Un_Litro_Y_Medio("1,5 Litros"),
+	Un_Litro_Y_Un_Cuarto("1,25 Litros"),
+	Un_Litro("1 Litro"), 
+	Siete_Cincuenta_Mililitros("750 ml"),
+	Medio_Litro("500 ml"),
+	Grande("Grande"),
+	Mediano("Mediano"),
+	Chico("Chico"),
+	Otro_Volumen("Otro");
+	
+	public static List<VolumenBebidaEnum> listar(TipoBebidaEnum _tipoBebida) {
+		return _tipoBebida != null ? _tipoBebida.volumen() : Collections.<VolumenBebidaEnum> emptyList();
+	}
+
+	public static String validate(final TipoBebidaEnum _tipoBebida,
+			final VolumenBebidaEnum _volumenBebida) {
+		if (_tipoBebida == null)
+			return "Seleccionar un tipo de bebida primero";
+		return !_tipoBebida.volumen().contains(_volumenBebida) ? "Volumen inválido" : null;
+	}
 	
 	private final String nombre;
 
