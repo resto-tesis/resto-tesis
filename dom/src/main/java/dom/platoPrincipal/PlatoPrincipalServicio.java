@@ -1,5 +1,3 @@
-package dom.platoPrincipal;
-
 /*
  * Copyright 2014 resto-tesis
  * 
@@ -16,6 +14,8 @@ package dom.platoPrincipal;
  * limitations under the License.
  * 
  */
+
+package dom.platoPrincipal;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -79,7 +79,8 @@ public class PlatoPrincipalServicio extends AbstractFactoryAndRepository {
 	@Hidden
 	public List<PlatoPrincipal> completarPlatoPrincipal(final String nombre) {
 		return allMatches(new QueryDefault<PlatoPrincipal>(
-				PlatoPrincipal.class, "platoPrincipalQueEmpiezan", "nombre","(?i).*"+nombre+".*"));
+				PlatoPrincipal.class, "platoPrincipalQueEmpiezan", "nombre",
+				"(?i).*" + nombre + ".*"));
 	}
 
 	@Named("Listar Platos Principales")

@@ -1,5 +1,3 @@
-package dom.bebida;
-
 /*
  * Copyright 2014 resto-tesis
  * 
@@ -17,52 +15,66 @@ package dom.bebida;
  * 
  */
 
+package dom.bebida;
+
 import java.util.Arrays;
 import java.util.List;
 
 public enum TipoBebidaEnum {
-	Gaseosa{
+	Gaseosa {
 		@Override
-        public List<VolumenBebidaEnum> volumen() {
-            return Arrays.asList(VolumenBebidaEnum.Lata, VolumenBebidaEnum.Lata_Grande, 
-            		VolumenBebidaEnum.Medio_Litro, VolumenBebidaEnum.Siete_Cincuenta_Mililitros, 
-            		VolumenBebidaEnum.Un_Litro, VolumenBebidaEnum.Un_Litro_Y_Un_Cuarto, 
-            		VolumenBebidaEnum.Un_Litro_Y_Medio, VolumenBebidaEnum.Dos_Litros, 
-            		VolumenBebidaEnum.Dos_Litros_Y_Un_Cuarto, VolumenBebidaEnum.Tres_Litros);
-        }
-	}, Vino{
+		public List<VolumenBebidaEnum> volumen() {
+			return Arrays.asList(VolumenBebidaEnum.Lata,
+					VolumenBebidaEnum.Lata_Grande,
+					VolumenBebidaEnum.Medio_Litro,
+					VolumenBebidaEnum.Siete_Cincuenta_Mililitros,
+					VolumenBebidaEnum.Un_Litro,
+					VolumenBebidaEnum.Un_Litro_Y_Un_Cuarto,
+					VolumenBebidaEnum.Un_Litro_Y_Medio,
+					VolumenBebidaEnum.Dos_Litros,
+					VolumenBebidaEnum.Dos_Litros_Y_Un_Cuarto,
+					VolumenBebidaEnum.Tres_Litros);
+		}
+	},
+	Vino {
 		@Override
-        public List<VolumenBebidaEnum> volumen() {
-            return Arrays.asList(VolumenBebidaEnum.Un_Litro);
-        }
-	}, Cerveza{
+		public List<VolumenBebidaEnum> volumen() {
+			return Arrays.asList(VolumenBebidaEnum.Un_Litro);
+		}
+	},
+	Cerveza {
 		@Override
-        public List<VolumenBebidaEnum> volumen() {
-            return Arrays.asList(VolumenBebidaEnum.Lata, VolumenBebidaEnum.Lata_Grande, 
-            		VolumenBebidaEnum.Un_Litro);
-        }
-	}, Jugo{
+		public List<VolumenBebidaEnum> volumen() {
+			return Arrays.asList(VolumenBebidaEnum.Lata,
+					VolumenBebidaEnum.Lata_Grande, VolumenBebidaEnum.Un_Litro);
+		}
+	},
+	Jugo {
 		@Override
-        public List<VolumenBebidaEnum> volumen() {
-            return Arrays.asList(VolumenBebidaEnum.Un_Litro);
-        }
-	}, Agua{
+		public List<VolumenBebidaEnum> volumen() {
+			return Arrays.asList(VolumenBebidaEnum.Un_Litro);
+		}
+	},
+	Agua {
 		@Override
-        public List<VolumenBebidaEnum> volumen() {
-            return Arrays.asList(VolumenBebidaEnum.Medio_Litro, VolumenBebidaEnum.Un_Litro);
-        }
-	}, Cafe{
+		public List<VolumenBebidaEnum> volumen() {
+			return Arrays.asList(VolumenBebidaEnum.Medio_Litro,
+					VolumenBebidaEnum.Un_Litro);
+		}
+	},
+	Cafe {
 		@Override
-        public List<VolumenBebidaEnum> volumen() {
-            return Arrays.asList(VolumenBebidaEnum.Chico, VolumenBebidaEnum.Mediano, 
-            		VolumenBebidaEnum.Grande);
-        }
-	}, Otro{
+		public List<VolumenBebidaEnum> volumen() {
+			return Arrays.asList(VolumenBebidaEnum.Chico,
+					VolumenBebidaEnum.Mediano, VolumenBebidaEnum.Grande);
+		}
+	},
+	Otro {
 		@Override
-        public List<VolumenBebidaEnum> volumen() {
-            return Arrays.asList(VolumenBebidaEnum.Otro_Volumen);
-        }
+		public List<VolumenBebidaEnum> volumen() {
+			return Arrays.asList(VolumenBebidaEnum.Otro_Volumen);
+		}
 	};
-	
-	public abstract  List<VolumenBebidaEnum> volumen();
+
+	public abstract List<VolumenBebidaEnum> volumen();
 }

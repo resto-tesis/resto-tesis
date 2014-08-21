@@ -1,5 +1,3 @@
-package dom.bebida;
-
 /*
  * Copyright 2014 resto-tesis
  * 
@@ -16,6 +14,8 @@ package dom.bebida;
  * limitations under the License.
  * 
  */
+
+package dom.bebida;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -39,7 +39,6 @@ import com.google.common.base.Predicate;
 
 import dom.comanda.Comanda;
 import dom.menu.Menu;
-import dom.postre.Postre;
 
 @Named("Bebida")
 public class BebidaServicio extends AbstractFactoryAndRepository {
@@ -70,22 +69,23 @@ public class BebidaServicio extends AbstractFactoryAndRepository {
 		persist(nuevaBebida);
 		return nuevaBebida;
 	}
-	
+
 	@Hidden
 	public List<Bebida> completarBebidas(final String nombre) {
 		return allMatches(new QueryDefault<Bebida>(Bebida.class,
-				"bebidasQueEmpiezan", "nombre", "(?i).*"+nombre+".*"));
+				"bebidasQueEmpiezan", "nombre", "(?i).*" + nombre + ".*"));
 	}
-	
+
 	@Hidden
 	public TipoBebidaEnum default1CrearBebida() {
-        return TipoBebidaEnum.Gaseosa;
-    }
+		return TipoBebidaEnum.Gaseosa;
+	}
+
 	@Hidden
-    public VolumenBebidaEnum default2CrearBebida() {
-        return default1CrearBebida().volumen().get(0);
-    }
-	
+	public VolumenBebidaEnum default2CrearBebida() {
+		return default1CrearBebida().volumen().get(0);
+	}
+
 	public List<VolumenBebidaEnum> choices2CrearBebida(final String nombre,
 			final TipoBebidaEnum tipoBebida) {
 		return VolumenBebidaEnum.listar(tipoBebida);

@@ -1,5 +1,3 @@
-package dom.postre;
-
 /*
  * Copyright 2014 resto-tesis
  * 
@@ -16,6 +14,8 @@ package dom.postre;
  * limitations under the License.
  * 
  */
+
+package dom.postre;
 
 import java.util.List;
 
@@ -47,11 +47,10 @@ import dom.postre.PostreServicio;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Sequence(name = "secuenciaNumeroPostre", strategy = SequenceStrategy.CONTIGUOUS)
-@Queries({ 
-	@Query(name = "todosLosPostres", language = "JDOQL", value = "SELECT FROM dom.postre.Postre"),
-	@Query(name = "postresQueEmpiezan", language = "JDOQL", value = "SELECT FROM dom.postre.Postre WHERE nombre.matches(:nombre)")
-	})
-@AutoComplete(repository=PostreServicio.class, action="completarPostres")
+@Queries({
+		@Query(name = "todosLosPostres", language = "JDOQL", value = "SELECT FROM dom.postre.Postre"),
+		@Query(name = "postresQueEmpiezan", language = "JDOQL", value = "SELECT FROM dom.postre.Postre WHERE nombre.matches(:nombre)") })
+@AutoComplete(repository = PostreServicio.class, action = "completarPostres")
 public class Postre {
 
 	// {{ Numero (property)
@@ -137,11 +136,6 @@ public class Postre {
 
 	// {{ injected: DomainObjectContainer
 	private DomainObjectContainer contenedor;
-
-	public void injectDomainObjectContainer(
-			final DomainObjectContainer container) {
-		this.setContenedor(container);
-	}
 
 	public DomainObjectContainer getContenedor() {
 		return contenedor;

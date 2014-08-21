@@ -1,5 +1,3 @@
-package dom.guarnicion;
-
 /*
  * Copyright 2014 resto-tesis
  * 
@@ -16,6 +14,8 @@ package dom.guarnicion;
  * limitations under the License.
  * 
  */
+
+package dom.guarnicion;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -68,7 +68,7 @@ public class GuarnicionServicio extends AbstractFactoryAndRepository {
 	@Hidden
 	public List<Guarnicion> completarGuarniciones(final String nombre) {
 		return allMatches(new QueryDefault<Guarnicion>(Guarnicion.class,
-				"guarnicionesQueEmpiezan", "nombre", "(?i).*"+nombre+".*"));
+				"guarnicionesQueEmpiezan", "nombre", "(?i).*" + nombre + ".*"));
 	}
 
 	@Named("Listar")

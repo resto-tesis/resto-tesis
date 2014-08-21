@@ -1,3 +1,20 @@
+/*
+ * Copyright 2014 resto-tesis
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * 
+ */
+
 package dom.bebida;
 
 import java.util.List;
@@ -25,32 +42,13 @@ import org.apache.isis.applib.annotation.RegEx;
 import org.apache.isis.applib.annotation.Title;
 import org.apache.isis.applib.annotation.TypicalLength;
 
-import dom.postre.PostreServicio;
-
-/*
- * Copyright 2014 resto-tesis
- * 
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- * 
- * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- * 
- */
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Sequence(name = "secuenciaNumeroBebida", strategy = SequenceStrategy.CONTIGUOUS)
-@Queries({ 
-	@Query(name = "todasLasBebidas", language = "JDOQL", value = "SELECT FROM dom.bebida.Bebida"),
-	@Query(name = "bebidasQueEmpiezan", language = "JDOQL", value = "SELECT FROM dom.bebida.Bebida WHERE nombre.matches(:nombre)")
-		})
-@AutoComplete(repository=BebidaServicio.class, action="completarBebidas")
+@Queries({
+		@Query(name = "todasLasBebidas", language = "JDOQL", value = "SELECT FROM dom.bebida.Bebida"),
+		@Query(name = "bebidasQueEmpiezan", language = "JDOQL", value = "SELECT FROM dom.bebida.Bebida WHERE nombre.matches(:nombre)") })
+@AutoComplete(repository = BebidaServicio.class, action = "completarBebidas")
 public class Bebida {
 
 	// {{ Numero (property)

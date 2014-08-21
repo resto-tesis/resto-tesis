@@ -1,5 +1,3 @@
-package dom.plato;
-
 /*
  * Copyright 2014 resto-tesis
  * 
@@ -17,6 +15,8 @@ package dom.plato;
  * 
  * 
  */
+
+package dom.plato;
 
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdGeneratorStrategy;

@@ -1,5 +1,3 @@
-package dom.platoPrincipal;
-
 /*
  * Copyright 2014 resto-tesis
  * 
@@ -16,6 +14,8 @@ package dom.platoPrincipal;
  * limitations under the License.
  * 
  */
+
+package dom.platoPrincipal;
 
 import java.util.List;
 
@@ -37,11 +37,9 @@ import dom.plato.Plato;
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
 @Queries({
-	@Query(name = "todosLosPlatosPricipales", language = "JDOQL", value = "SELECT FROM dom.platoPrincipal.PlatoPrincipal"),
-	@Query(name = "platoPrincipalQueEmpiezan", language = "JDOQL", value = "SELECT FROM dom.platoPrincipal.PlatoPrincipal WHERE nombre.matches(:nombre)")	
-		})
-
-@AutoComplete(repository=PlatoPrincipalServicio.class, action="completarPlatoPrincipal")
+		@Query(name = "todosLosPlatosPricipales", language = "JDOQL", value = "SELECT FROM dom.platoPrincipal.PlatoPrincipal"),
+		@Query(name = "platoPrincipalQueEmpiezan", language = "JDOQL", value = "SELECT FROM dom.platoPrincipal.PlatoPrincipal WHERE nombre.matches(:nombre)") })
+@AutoComplete(repository = PlatoPrincipalServicio.class, action = "completarPlatoPrincipal")
 public class PlatoPrincipal extends Plato {
 
 	public PlatoPrincipal() {

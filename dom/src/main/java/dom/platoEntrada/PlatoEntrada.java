@@ -1,5 +1,3 @@
-package dom.platoEntrada;
-
 /*
  * Copyright 2014 resto-tesis
  * 
@@ -16,6 +14,8 @@ package dom.platoEntrada;
  * limitations under the License.
  * 
  */
+
+package dom.platoEntrada;
 
 import java.util.List;
 
@@ -37,10 +37,9 @@ import dom.plato.Plato;
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
 @Queries({
-	@Query(name = "todosLosPlatosEntrada", language = "JDOQL", value = "SELECT FROM dom.platoEntrada.PlatoEntrada"),
-	@Query(name = "platoEntradaQueEmpiezan", language = "JDOQL", value = "SELECT FROM dom.platoEntrada.PlatoEntrada WHERE nombre.matches(:nombre)")
-		})
-@AutoComplete(repository=PlatoEntradaServicio.class, action="completarPlatoEntrada")
+		@Query(name = "todosLosPlatosEntrada", language = "JDOQL", value = "SELECT FROM dom.platoEntrada.PlatoEntrada"),
+		@Query(name = "platoEntradaQueEmpiezan", language = "JDOQL", value = "SELECT FROM dom.platoEntrada.PlatoEntrada WHERE nombre.matches(:nombre)") })
+@AutoComplete(repository = PlatoEntradaServicio.class, action = "completarPlatoEntrada")
 public class PlatoEntrada extends Plato {
 
 	public PlatoEntrada() {

@@ -1,5 +1,3 @@
-package dom.platoEntrada;
-
 /*
  * Copyright 2014 resto-tesis
  * 
@@ -16,6 +14,8 @@ package dom.platoEntrada;
  * limitations under the License.
  * 
  */
+
+package dom.platoEntrada;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -78,7 +78,7 @@ public class PlatoEntradaServicio extends AbstractFactoryAndRepository {
 	@Hidden
 	public List<PlatoEntrada> completarPlatoEntrada(final String nombre) {
 		return allMatches(new QueryDefault<PlatoEntrada>(PlatoEntrada.class,
-				"platoEntradaQueEmpiezan", "nombre", "(?i).*"+nombre+".*"));
+				"platoEntradaQueEmpiezan", "nombre", "(?i).*" + nombre + ".*"));
 	}
 
 	@Named("Listar Platos de Entrada")

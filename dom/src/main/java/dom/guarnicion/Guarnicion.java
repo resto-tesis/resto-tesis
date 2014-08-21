@@ -1,5 +1,3 @@
-package dom.guarnicion;
-
 /*
  * Copyright 2014 resto-tesis
  * 
@@ -16,6 +14,8 @@ package dom.guarnicion;
  * limitations under the License.
  * 
  */
+
+package dom.guarnicion;
 
 import java.util.List;
 
@@ -44,11 +44,10 @@ import org.apache.isis.applib.annotation.TypicalLength;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Sequence(name = "secuenciaNumeroGuarnicion", strategy = SequenceStrategy.CONTIGUOUS)
-@Queries({ 
-	@Query(name = "todasLasGuarniciones", language = "JDOQL", value = "SELECT FROM dom.guarnicion.Guarnicion"),
-	@Query(name = "guarnicionesQueEmpiezan", language = "JDOQL", value = "SELECT FROM dom.guarnicion.Guarnicion WHERE nombre.matches(:nombre)")
-	})
-@AutoComplete(repository=GuarnicionServicio.class, action="completarGuarniciones")
+@Queries({
+		@Query(name = "todasLasGuarniciones", language = "JDOQL", value = "SELECT FROM dom.guarnicion.Guarnicion"),
+		@Query(name = "guarnicionesQueEmpiezan", language = "JDOQL", value = "SELECT FROM dom.guarnicion.Guarnicion WHERE nombre.matches(:nombre)") })
+@AutoComplete(repository = GuarnicionServicio.class, action = "completarGuarniciones")
 public class Guarnicion {
 
 	// {{ Numero (property)

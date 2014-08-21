@@ -1,5 +1,3 @@
-package dom.plato;
-
 /*
  * Copyright 2014 resto-tesis
  * 
@@ -17,10 +15,12 @@ package dom.plato;
  * 
  */
 
+package dom.plato;
+
 public enum CondicionDePlatoEnum {
-	
+
 	Caliente("Caliente"), Frio("Frio");
-	
+
 	private final String nombre;
 
 	public String getNombre() {
