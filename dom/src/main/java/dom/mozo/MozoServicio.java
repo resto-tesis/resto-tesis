@@ -118,17 +118,7 @@ public class MozoServicio extends AbstractFactoryAndRepository implements
 	public List<Mesa> listaMesas() {
 		return allInstances(Mesa.class);
 	}
-
-	@Hidden
-	public Mozo asignarMesas(Mozo _mozo) {
-		for (Mesa _mesa : listaMesasSeleccionadas()) {
-			_mozo.addMesa(_mesa);
-			_mesa.setEstadoAsignacion(EstadoAsignacionMesaEnum.Asignada);
-			_mesa.setEstadoSeleccion(false);
-		}
-		getContainer().informUser("Mesas asignadas.");
-		return _mozo;
-	}
+	
 
 	/*
 	 * Validacion del ingreso de fechas por el UI

@@ -54,7 +54,7 @@ public class MesaServicio extends AbstractFactoryAndRepository {
 		persist(mesa);
 		return mesa;
 	}
-
+	@Hidden
 	public String validateCrearMesa(final int numero, final int capacidadMesa) {
 		if (capacidadMesa > 20 || capacidadMesa < 1) {
 			return "La capacidad debe ser menor o igual a 20 y mayor a 0.";
