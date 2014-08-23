@@ -25,7 +25,9 @@ import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.MaxLength;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.MinLength;
+import org.apache.isis.applib.annotation.MultiLine;
 import org.apache.isis.applib.annotation.Named;
+import org.apache.isis.applib.annotation.Optional;
 import org.apache.isis.applib.annotation.RegEx;
 import org.apache.isis.applib.annotation.ActionSemantics.Of;
 import org.apache.isis.applib.query.QueryDefault;
@@ -35,7 +37,6 @@ import org.joda.time.LocalDate;
 
 import dom.empleado.Empleado;
 import dom.empleado.IValidacionEmpleado;
-import dom.mesa.EstadoAsignacionMesaEnum;
 import dom.mesa.Mesa;
 import dom.usuario.Rol;
 import dom.usuario.Usuario;
@@ -55,12 +56,17 @@ public class MozoServicio extends AbstractFactoryAndRepository implements
 			@Named("Apellido") @RegEx(validation = "[a-zA-ZáéíóúÁÉÍÓÚ\\s]*") @MaxLength(value = 20) final String _apellido,
 			@Named("Nombre") @RegEx(validation = "[a-zA-ZáéíóúÁÉÍÓÚ\\s]*") @MaxLength(value = 20) final String _nombre,
 			@Named("Documento") @RegEx(validation = "[0-9*") @MaxLength(value = 8) @MinLength(value = 7) final long _dni,
+			@Named("Direccion") @MultiLine(numberOfLines = 2) final String _direccion,
+			@Named("Telefono") @RegEx(validation="\\d{7,10}") @Optional @MaxLength(value = 15) final String _telefono,
+			@Named("Celular") @RegEx(validation="\\d{3,7}(-)?\\d{6}") @Optional @MaxLength(value = 15) final String _celular,
+			@Named("Correo Electronico") @RegEx(validation="(\\w+\\.)*\\w+@(\\w+\\.)+[A-Za-z]+") @Optional final String _correo,
 			@Named("Fecha de Nacimiento") final LocalDate fechadeNacimiento,
 			@Named("Fecha de Ingreso") final LocalDate fechadeIngreso,
 			@Named("Usuario") final String _nombreUsuario,
 			@Named("Contraseña") final Password _password) {
 		return crearNuevoMozo(crearUsuario(_nombreUsuario, _password),
-				_apellido, _nombre, _dni, fechadeIngreso, fechadeNacimiento);
+				_apellido, _nombre, _dni, _direccion, _telefono, _celular,
+				_correo, fechadeIngreso, fechadeNacimiento);
 	}
 
 	@Hidden
@@ -76,7 +82,8 @@ public class MozoServicio extends AbstractFactoryAndRepository implements
 
 	@Hidden
 	public Mozo crearNuevoMozo(final Usuario _usuario, final String _apellido,
-			final String _nombre, final long _dni,
+			final String _nombre, final long _dni, final String _direccion, 
+			final String _telefono, final String _celular, final String _correo,
 			final LocalDate fechadeIngreso, final LocalDate fechadeNacimiento) {
 		final Mozo mozo = newTransientInstance(Mozo.class);
 		mozo.setApellido(_apellido.substring(0, 1).toUpperCase()
@@ -84,6 +91,10 @@ public class MozoServicio extends AbstractFactoryAndRepository implements
 		mozo.setNombre(_nombre.substring(0, 1).toUpperCase()
 				+ _nombre.substring(1));
 		mozo.setDocumento(_dni);
+		mozo.setDireccion(_direccion);
+		mozo.setTelefono(_telefono);
+		mozo.setCelular(_celular);
+		mozo.setCorreo(_correo);
 		mozo.setFechaDeIngreso(fechadeIngreso.toDate());
 		mozo.setFechaDeNacimiento(fechadeNacimiento.toDate());
 		mozo.setUsuario(_usuario);
@@ -125,6 +136,7 @@ public class MozoServicio extends AbstractFactoryAndRepository implements
 	 */
 	@Override
 	public String validateCrear(String _nombre, String _apellido, long _dni,
+			String _direccion, String _telefono, String _celular, String _correo,
 			LocalDate fechadeNacimiento, LocalDate fechadeIngreso,
 			String _nombreUsuario, Password _password) {
 		// TODO Auto-generated method stub

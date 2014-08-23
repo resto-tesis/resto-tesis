@@ -25,7 +25,9 @@ import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.MaxLength;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.MinLength;
+import org.apache.isis.applib.annotation.MultiLine;
 import org.apache.isis.applib.annotation.Named;
+import org.apache.isis.applib.annotation.Optional;
 import org.apache.isis.applib.annotation.RegEx;
 import org.apache.isis.applib.annotation.ActionSemantics.Of;
 import org.apache.isis.applib.query.QueryDefault;
@@ -53,12 +55,17 @@ public class CocineroServicio extends AbstractFactoryAndRepository implements
 			@Named("Apellido") @RegEx(validation = "[a-zA-ZáéíóúÁÉÍÓÚ\\s]*") @MaxLength(value = 20) final String _apellido,
 			@Named("Nombre") @RegEx(validation = "[a-zA-ZáéíóúÁÉÍÓÚ\\s]*") @MaxLength(value = 20) final String _nombre,
 			@Named("Documento") @RegEx(validation = "[0-9*") @MaxLength(value = 8) @MinLength(value = 7) final long _dni,
+			@Named("Direccion") @MultiLine(numberOfLines = 2) final String _direccion,
+			@Named("Telefono") @RegEx(validation="\\d{7,10}") @Optional @MaxLength(value = 15) final String _telefono,
+			@Named("Celular") @RegEx(validation="\\d{3,7}(-)?\\d{6}") @Optional @MaxLength(value = 15) final String _celular,
+			@Named("Correo Electronico") @RegEx(validation="(\\w+\\.)*\\w+@(\\w+\\.)+[A-Za-z]+") @Optional final String _correo,
 			@Named("Fecha de Nacimiento") final LocalDate fechadeNacimiento,
 			@Named("Fecha de Ingreso") final LocalDate fechadeIngreso,
 			@Named("Usuario") final String _nombreUsuario,
 			@Named("Contraseña") final Password _password) {
 		return crearNuevoCocinero(crearUsuario(_nombreUsuario, _password),
-				_nombre, _apellido, _dni, fechadeNacimiento, fechadeIngreso);
+				_nombre, _apellido, _dni, _direccion, _telefono, _celular,
+				_correo, fechadeNacimiento, fechadeIngreso);
 	}
 
 	@Hidden
@@ -74,13 +81,18 @@ public class CocineroServicio extends AbstractFactoryAndRepository implements
 	}
 
 	@Hidden
-	public Cocinero crearNuevoCocinero(final Usuario _usuario,
-			final String _nombre, final String _apellido, final long _dni,
+	public Cocinero crearNuevoCocinero(final Usuario _usuario,final String _nombre, 
+			final String _apellido, final long _dni, final String _direccion, 
+			final String _telefono, final String _celular, final String _correo,
 			final LocalDate fechadeNacimiento, final LocalDate fechadeIngreso) {
 		final Cocinero cocineroNuevo = newTransientInstance(Cocinero.class);
 		cocineroNuevo.setApellido(_apellido.substring(0, 1).toUpperCase()
 				+ _apellido.substring(1));
 		cocineroNuevo.setDocumento(_dni);
+		cocineroNuevo.setDireccion(_direccion);
+		cocineroNuevo.setTelefono(_telefono);
+		cocineroNuevo.setCelular(_celular);
+		cocineroNuevo.setCorreo(_correo);
 		cocineroNuevo.setFechaDeIngreso(fechadeIngreso.toDate());
 		cocineroNuevo.setFechaDeNacimiento(fechadeNacimiento.toDate());
 		cocineroNuevo.setNombre(_nombre.substring(0, 1).toUpperCase()
@@ -108,6 +120,7 @@ public class CocineroServicio extends AbstractFactoryAndRepository implements
 	 */
 	@Override
 	public String validateCrear(String _nombre, String _apellido, long _dni,
+			String _direccion, String _telefono, String _celular, String _correo,
 			LocalDate fechadeNacimiento, LocalDate fechadeIngreso,
 			String _nombreUsuario, Password _password) {
 		// TODO Auto-generated method stub

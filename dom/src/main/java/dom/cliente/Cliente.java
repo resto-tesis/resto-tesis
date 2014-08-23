@@ -1,3 +1,5 @@
+package dom.cliente;
+
 /*
  * Copyright 2014 resto-tesis
  * 
@@ -15,21 +17,15 @@
  * 
  */
 
-package dom.empleado;
+import javax.jdo.annotations.IdentityType;
+import javax.jdo.annotations.Inheritance;
+import javax.jdo.annotations.InheritanceStrategy;
+import javax.jdo.annotations.PersistenceCapable;
 
-import org.apache.isis.applib.value.Password;
-import org.joda.time.LocalDate;
+import dom.persona.Persona;
 
-public interface IValidacionEmpleado {
-	public String validateCrear(final String _nombre,
-			final String _apellido, final long _dni,
-			final String _direccion, final String _telefono,
-			final String _celular, final String _correo,
-			final LocalDate fechadeNacimiento, final LocalDate fechadeIngreso,
-			String _nombreUsuario, Password _password);
-
-	public boolean validaMayorEdad(final LocalDate fechadeNacimiento);
-
-	public int getDiasNacimiento_Hoy(final LocalDate fechadeNacimiento);
+@PersistenceCapable(identityType = IdentityType.DATASTORE)
+@Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
+public class Cliente extends Persona{
 	
 }

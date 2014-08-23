@@ -26,7 +26,6 @@ import javax.jdo.annotations.Queries;
 import javax.jdo.annotations.Query;
 
 import org.apache.isis.applib.DomainObjectContainer;
-import org.apache.isis.applib.annotation.AutoComplete;
 import org.apache.isis.applib.annotation.Bulk;
 import org.apache.isis.applib.annotation.Disabled;
 import org.apache.isis.applib.annotation.Hidden;
@@ -34,7 +33,6 @@ import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
 import org.apache.isis.applib.annotation.Title;
 
-import dom.guarnicion.GuarnicionServicio;
 import dom.mozo.Mozo;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)

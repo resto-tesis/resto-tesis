@@ -32,7 +32,9 @@ import org.apache.isis.applib.annotation.MemberOrder;
 @Queries({
 		@Query(name = "mozo-role", language = "JDOQL", value = "SELECT FROM dom.usuario.Rol where nombre=='mozo-role'"),
 		@Query(name = "cocina-role", language = "JDOQL", value = "SELECT FROM dom.usuario.Rol where nombre=='cocina-role'"),
-		@Query(name = "encargado-role", language = "JDOQL", value = "SELECT FROM dom.usuario.Rol where nombre=='encargado-role'") })
+		@Query(name = "encargado-role", language = "JDOQL", value = "SELECT FROM dom.usuario.Rol where nombre=='encargado-role'"),
+		@Query(name = "cliente-role", language = "JDOQL", value = "SELECT FROM dom.usuario.Rol where nombre=='cliente-role'")
+})
 public class Rol {
 
 	public Rol() {

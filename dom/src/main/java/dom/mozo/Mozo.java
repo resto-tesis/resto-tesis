@@ -29,15 +29,12 @@ import javax.jdo.annotations.Query;
 
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.Bulk;
-import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
 import org.apache.isis.applib.annotation.Render;
 import org.apache.isis.applib.annotation.Render.Type;
 
-import dom.comanda.Comanda;
 import dom.empleado.Empleado;
-import dom.guarnicion.Guarnicion;
 import dom.mesa.EstadoAsignacionMesaEnum;
 import dom.mesa.Mesa;
 

@@ -22,7 +22,6 @@ import java.util.Date;
 
 import javax.inject.Inject;
 import javax.jdo.annotations.Column;
-import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.Inheritance;
 import javax.jdo.annotations.InheritanceStrategy;
@@ -31,91 +30,18 @@ import javax.jdo.annotations.SequenceStrategy;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Sequence;
 
-import org.apache.isis.applib.annotation.Disabled;
 import org.apache.isis.applib.annotation.Hidden;
-import org.apache.isis.applib.annotation.MaxLength;
 import org.apache.isis.applib.annotation.MemberOrder;
-import org.apache.isis.applib.annotation.RegEx;
-import org.apache.isis.applib.annotation.Title;
 
+import dom.persona.Persona;
 import dom.usuario.Usuario;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Sequence(name = "secuenciaLegajo", strategy = SequenceStrategy.CONTIGUOUS)
 @Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
-public abstract class Empleado {
+public abstract class Empleado extends Persona{
 
 	private SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
-
-	// {{ legajo (property)
-	private int legajo;
-
-	@Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT, sequence = "secuenciaLegajo")
-	@Disabled
-	@Column(allowsNull = "false")
-	@MemberOrder(sequence = "1")
-	public int getLegajo() {
-		return legajo;
-	}
-
-	public void setLegajo(final int lejago) {
-		this.legajo = lejago;
-	}
-
-	// }}
-
-	// {{ apellido (property)
-	private String apellido;
-
-	@RegEx(validation = "[a-zA-ZáéíóúÁÉÍÓÚ\\s]*")
-	@MaxLength(value = 20)
-	@Title(sequence = "1.0")
-	@Column(allowsNull = "false")
-	@MemberOrder(sequence = "2")
-	public String getApellido() {
-		return apellido;
-	}
-
-	public void setApellido(final String apellido) {
-		this.apellido = apellido;
-	}
-
-	// }}
-
-	// {{ nombre (property)
-	private String nombre;
-
-	@RegEx(validation = "[a-zA-ZáéíóúÁÉÍÓÚ\\s]*")
-	@MaxLength(value = 20)
-	@Title(sequence = "1.5", prepend = ", ")
-	@Column(allowsNull = "false")
-	@MemberOrder(sequence = "3")
-	public String getNombre() {
-		return nombre;
-	}
-
-	public void setNombre(final String nombre) {
-		this.nombre = nombre;
-	}
-
-	// }}
-
-	// {{ documento (property)
-	private long documento;
-
-	@RegEx(validation = "[0-9*")
-	@MaxLength(value = 8)
-	@Column(allowsNull = "false")
-	@MemberOrder(sequence = "4")
-	public long getDocumento() {
-		return documento;
-	}
-
-	public void setDocumento(final long documento) {
-		this.documento = documento;
-	}
-
-	// }}
 
 	// {{ fechaDeNacimiento (property)
 	private Date fechaDeNacimiento;
