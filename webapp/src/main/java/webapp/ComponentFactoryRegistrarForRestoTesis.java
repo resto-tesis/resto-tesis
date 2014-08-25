@@ -23,7 +23,7 @@ import com.google.inject.Singleton;
 import org.apache.isis.viewer.wicket.viewer.registries.components.ComponentFactoryRegistrarDefault;
 
 @Singleton
-public class ComponentFactoryRegistrarForToDoApp extends ComponentFactoryRegistrarDefault {
+public class ComponentFactoryRegistrarForRestoTesis extends ComponentFactoryRegistrarDefault {
 
     @Override
     public void addComponentFactories(ComponentFactoryList componentFactories) {

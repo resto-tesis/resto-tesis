@@ -21,7 +21,7 @@ import org.apache.wicket.Page;
 import org.apache.isis.viewer.wicket.ui.ComponentFactory;
 import org.apache.isis.viewer.wicket.viewer.registries.pages.PageClassListDefault;
 
-public class PageClassListForToDoApp extends PageClassListDefault {
+public class PageClassListForRestoTesis extends PageClassListDefault {
 
     /**
 	 * 
