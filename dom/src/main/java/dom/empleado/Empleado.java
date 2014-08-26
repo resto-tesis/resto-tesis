@@ -1,5 +1,3 @@
-package dom.empleado;
-
 /*
  * Copyright 2014 resto-tesis
  * 
@@ -16,6 +14,8 @@ package dom.empleado;
  * limitations under the License.
  * 
  */
+
+package dom.empleado;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -39,7 +39,7 @@ import dom.usuario.Usuario;
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Sequence(name = "secuenciaLegajo", strategy = SequenceStrategy.CONTIGUOUS)
 @Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
-public abstract class Empleado extends Persona{
+public abstract class Empleado extends Persona {
 
 	private SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
 

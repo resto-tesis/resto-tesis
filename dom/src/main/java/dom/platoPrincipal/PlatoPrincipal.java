@@ -23,7 +23,6 @@ import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.Inheritance;
 import javax.jdo.annotations.InheritanceStrategy;
 import javax.jdo.annotations.PersistenceCapable;
-import javax.jdo.annotations.Queries;
 import javax.jdo.annotations.Query;
 
 import org.apache.isis.applib.DomainObjectContainer;
@@ -36,9 +35,7 @@ import dom.plato.Plato;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
-@Queries({
-		@Query(name = "todosLosPlatosPricipales", language = "JDOQL", value = "SELECT FROM dom.platoPrincipal.PlatoPrincipal"),
-		@Query(name = "platoPrincipalQueEmpiezan", language = "JDOQL", value = "SELECT FROM dom.platoPrincipal.PlatoPrincipal WHERE nombre.matches(:nombre)") })
+@Query(name = "platoPrincipalQueEmpiezan", language = "JDOQL", value = "SELECT FROM dom.platoPrincipal.PlatoPrincipal WHERE nombre.matches(:nombre)")
 @AutoComplete(repository = PlatoPrincipalServicio.class, action = "completarPlatoPrincipal")
 public class PlatoPrincipal extends Plato {
 

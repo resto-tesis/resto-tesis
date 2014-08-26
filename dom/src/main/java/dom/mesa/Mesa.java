@@ -1,5 +1,3 @@
-package dom.mesa;
-
 /*
  * Copyright 2014 resto-tesis
  * 
@@ -16,6 +14,8 @@ package dom.mesa;
  * limitations under the License.
  * 
  */
+
+package dom.mesa;
 
 import java.util.List;
 
@@ -39,9 +39,7 @@ import dom.mozo.Mozo;
 @Queries({
 		@Query(name = "mesasSeleccionadas", language = "JDOQL", value = "SELECT FROM dom.mesa.Mesa where estadoSeleccion == true"),
 		@Query(name = "mesasSinAsignar", language = "JDOQL", value = "SELECT FROM dom.mesa.Mesa where estadoAsignacion == 'No_Asignada'"),
-		@Query(name = "mesasAsignadas", language = "JDOQL", value = "SELECT FROM dom.mesa.Mesa where estadoAsignacion == 'Asignada'")
-})
-
+		@Query(name = "mesasAsignadas", language = "JDOQL", value = "SELECT FROM dom.mesa.Mesa where estadoAsignacion == 'Asignada'") })
 public class Mesa {
 
 	// {{ EstadoSeleccion (property)

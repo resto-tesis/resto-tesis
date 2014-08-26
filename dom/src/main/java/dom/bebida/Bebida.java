@@ -24,7 +24,6 @@ import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
-import javax.jdo.annotations.Queries;
 import javax.jdo.annotations.Query;
 import javax.jdo.annotations.Sequence;
 import javax.jdo.annotations.SequenceStrategy;
@@ -42,12 +41,9 @@ import org.apache.isis.applib.annotation.RegEx;
 import org.apache.isis.applib.annotation.Title;
 import org.apache.isis.applib.annotation.TypicalLength;
 
-
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Sequence(name = "secuenciaNumeroBebida", strategy = SequenceStrategy.CONTIGUOUS)
-@Queries({
-		@Query(name = "todasLasBebidas", language = "JDOQL", value = "SELECT FROM dom.bebida.Bebida"),
-		@Query(name = "bebidasQueEmpiezan", language = "JDOQL", value = "SELECT FROM dom.bebida.Bebida WHERE nombre.matches(:nombre)") })
+@Query(name = "bebidasQueEmpiezan", language = "JDOQL", value = "SELECT FROM dom.bebida.Bebida WHERE nombre.matches(:nombre)")
 @AutoComplete(repository = BebidaServicio.class, action = "completarBebidas")
 public class Bebida {
 

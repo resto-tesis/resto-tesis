@@ -1,5 +1,3 @@
-package dom.menu;
-
 /*
  * Copyright 2014 resto-tesis
  * 
@@ -17,6 +15,8 @@ package dom.menu;
  * 
  */
 
+package dom.menu;
+
 import java.util.List;
 
 import javax.jdo.annotations.Column;
@@ -24,8 +24,6 @@ import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
-import javax.jdo.annotations.Queries;
-import javax.jdo.annotations.Query;
 import javax.jdo.annotations.Sequence;
 import javax.jdo.annotations.SequenceStrategy;
 
@@ -46,7 +44,6 @@ import dom.postre.Postre;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Sequence(name = "secuenciaNumeroMenu", strategy = SequenceStrategy.CONTIGUOUS)
-@Queries({ @Query(name = "todosLosMenues", language = "JDOQL", value = "SELECT FROM dom.menu.Menu") })
 public class Menu {
 	// {{ Numero (property)
 	private int numero;

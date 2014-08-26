@@ -1,5 +1,3 @@
-package dom.mesa;
-
 /*
  * Copyright 2014 resto-tesis
  * 
@@ -16,6 +14,8 @@ package dom.mesa;
  * limitations under the License.
  * 
  */
+
+package dom.mesa;
 
 public enum EstadoAsignacionMesaEnum {
 	Asignada("Asignada"), No_Asignada("No Asignada");

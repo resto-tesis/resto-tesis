@@ -1,5 +1,3 @@
-package dom.notificacion;
-
 /*
  * Copyright 2014 resto-tesis
  * 
@@ -17,21 +15,18 @@ package dom.notificacion;
  * 
  */
 
+package dom.notificacion;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
-import javax.jdo.annotations.Queries;
-import javax.jdo.annotations.Query;
 
 import org.apache.isis.applib.annotation.MemberOrder;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
-@Queries({
-	@Query(name = "notificacionesEncargado", language = "JDOQL", value = "SELECT FROM dom.notificacion.NotificacionEncargado")
-	})
 public class NotificacionEncargado {
 
 	// {{ NotificacionesMozos (Collection)
@@ -43,9 +38,11 @@ public class NotificacionEncargado {
 		return listaNotificacionesMozos;
 	}
 
-	public void setNotificacionesMozos(final List<NotificacionMozo> listaNotificacionesMozos) {
+	public void setNotificacionesMozos(
+			final List<NotificacionMozo> listaNotificacionesMozos) {
 		this.listaNotificacionesMozos = listaNotificacionesMozos;
 	}
+
 	// }}
 
 	// {{ NotificacionesCocineros (Collection)
@@ -57,10 +54,10 @@ public class NotificacionEncargado {
 		return listaNotificacionesCocineros;
 	}
 
-	public void setNotificacionesCocineros(final List<NotificacionCocinero> listaNotificacionesCocineros) {
+	public void setNotificacionesCocineros(
+			final List<NotificacionCocinero> listaNotificacionesCocineros) {
 		this.listaNotificacionesCocineros = listaNotificacionesCocineros;
 	}
 	// }}
-
 
 }

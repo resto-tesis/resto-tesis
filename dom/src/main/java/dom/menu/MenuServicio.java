@@ -1,5 +1,3 @@
-package dom.menu;
-
 /*
  * Copyright 2014 resto-tesis
  * 
@@ -16,6 +14,8 @@ package dom.menu;
  * limitations under the License.
  * 
  */
+
+package dom.menu;
 
 import java.util.List;
 
@@ -38,7 +38,7 @@ import dom.postre.Postre;
 @Named("Menu")
 public class MenuServicio extends AbstractFactoryAndRepository {
 
-	@Hidden(where=Where.OBJECT_FORMS)
+	@Hidden(where = Where.OBJECT_FORMS)
 	@Named("Crear")
 	@MemberOrder(sequence = "1")
 	public Menu crearMenu(

@@ -1,5 +1,3 @@
-package dom.postre;
-
 /*
  * Copyright 2014 resto-tesis
  * 
@@ -16,6 +14,8 @@ package dom.postre;
  * limitations under the License.
  * 
  */
+
+package dom.postre;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -69,7 +69,7 @@ public class PostreServicio extends AbstractFactoryAndRepository {
 	@Hidden
 	public List<Postre> completarPostres(final String nombre) {
 		return allMatches(new QueryDefault<Postre>(Postre.class,
-				"postresQueEmpiezan", "nombre", "(?i).*"+nombre+".*"));
+				"postresQueEmpiezan", "nombre", "(?i).*" + nombre + ".*"));
 	}
 
 	@Named("Listar")

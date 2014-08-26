@@ -1,5 +1,3 @@
-package dom.mozo;
-
 /*
  * Copyright 2014 resto-tesis
  * 
@@ -17,6 +15,8 @@ package dom.mozo;
  * 
  */
 
+package dom.mozo;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,8 +24,6 @@ import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.Inheritance;
 import javax.jdo.annotations.InheritanceStrategy;
 import javax.jdo.annotations.PersistenceCapable;
-import javax.jdo.annotations.Queries;
-import javax.jdo.annotations.Query;
 
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.Bulk;
@@ -39,14 +37,13 @@ import dom.mesa.EstadoAsignacionMesaEnum;
 import dom.mesa.Mesa;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
-@Queries({ @Query(name = "todosLosMozos", language = "JDOQL", value = "SELECT FROM dom.mozo.Mozo") })
 @Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
 public class Mozo extends Empleado {
 
 	// {{ Lista De Mesas (Collection)
 
 	private List<Mesa> listaMesas = new ArrayList<Mesa>();
-	
+
 	@Render(Type.EAGERLY)
 	@Named("Mesas Asignadas")
 	public List<Mesa> getListamesas() {
@@ -56,30 +53,27 @@ public class Mozo extends Empleado {
 	public void setListaMesas(final List<Mesa> listaMesas) {
 		this.listaMesas = listaMesas;
 	}
-	
-	
+
 	// }}
-	
+
 	@MemberOrder(name = "listaMesas", sequence = "1")
-	public Mozo agregarMesa(
-			@Named("Mesa") final Mesa unaMesa) {
+	public Mozo agregarMesa(@Named("Mesa") final Mesa unaMesa) {
 		unaMesa.setEstadoAsignacion(EstadoAsignacionMesaEnum.Asignada);
 		getListamesas().add(unaMesa);
 		return this;
 	}
-	
+
 	@MemberOrder(name = "listaMesas", sequence = "2")
-	public Mozo quitarMesa(
-			@Named("Mesa") final Mesa unaMesa) {
+	public Mozo quitarMesa(@Named("Mesa") final Mesa unaMesa) {
 		unaMesa.setEstadoAsignacion(EstadoAsignacionMesaEnum.No_Asignada);
 		getListamesas().remove(unaMesa);
 		return this;
 	}
-	
+
 	public List<Mesa> choices0AgregarMesa() {
 		return mozoServicio.listarMesaSinAsignar();
 	}
-	
+
 	public List<Mesa> choices0QuitarMesa() {
 		return getListamesas();
 	}
@@ -111,5 +105,5 @@ public class Mozo extends Empleado {
 		contenedor.removeIfNotAlready(this);
 		return mozoServicio.listarMozos();
 	}
-	
+
 }

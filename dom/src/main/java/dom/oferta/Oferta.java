@@ -15,20 +15,16 @@
  * 
  */
 
-package dom.empleado;
+package dom.oferta;
 
-import org.apache.isis.applib.value.Password;
-import org.joda.time.LocalDate;
+import javax.jdo.annotations.IdentityType;
+import javax.jdo.annotations.PersistenceCapable;
 
-public interface IValidacionEmpleado {
-	public String validateCrear(final String _nombre, final String _apellido,
-			final long _dni, final String _direccion, final String _telefono,
-			final String _celular, final String _correo,
-			final LocalDate fechadeNacimiento, final LocalDate fechadeIngreso,
-			String _nombreUsuario, Password _password);
+@PersistenceCapable(identityType = IdentityType.DATASTORE)
+public class Oferta {
 
-	public boolean validaMayorEdad(final LocalDate fechadeNacimiento);
-
-	public int getDiasNacimiento_Hoy(final LocalDate fechadeNacimiento);
+	public Oferta() {
+		// TODO Auto-generated constructor stub
+	}
 
 }

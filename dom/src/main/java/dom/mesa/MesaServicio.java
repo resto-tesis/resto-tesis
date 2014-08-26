@@ -25,7 +25,6 @@ import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
 import org.apache.isis.applib.annotation.ActionSemantics.Of;
-import org.apache.isis.applib.query.QueryDefault;
 
 import com.google.common.base.Predicate;
 
@@ -87,7 +86,7 @@ public class MesaServicio extends AbstractFactoryAndRepository {
 
 	@Hidden
 	public List<Mozo> listaDeMozos() {
-		return allMatches(new QueryDefault<Mozo>(Mozo.class, "todosLosMozos"));
+		return allInstances(Mozo.class);
 	}
 
 	// Se verifica que el elemento por borrar no este relacionado con ninguna

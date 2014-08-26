@@ -1,5 +1,3 @@
-package dom.cliente;
-
 /*
  * Copyright 2014 resto-tesis
  * 
@@ -17,6 +15,8 @@ package dom.cliente;
  * 
  */
 
+package dom.cliente;
+
 import org.apache.isis.applib.AbstractFactoryAndRepository;
 import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.MaxLength;
@@ -33,7 +33,7 @@ import dom.usuario.Rol;
 import dom.usuario.Usuario;
 
 @Named("Cliente")
-public class ClienteServicio extends AbstractFactoryAndRepository{
+public class ClienteServicio extends AbstractFactoryAndRepository {
 	@Named("Registrarme")
 	@MemberOrder(sequence = "1")
 	public Cliente cargarCliente(
@@ -41,15 +41,15 @@ public class ClienteServicio extends AbstractFactoryAndRepository{
 			@Named("Nombre") @RegEx(validation = "[a-zA-ZáéíóúÁÉÍÓÚ\\s]*") @MaxLength(value = 20) final String _nombre,
 			@Named("Documento") @RegEx(validation = "[0-9*") @MaxLength(value = 8) @MinLength(value = 7) final long _dni,
 			@Named("Direccion") @MultiLine(numberOfLines = 2) final String _direccion,
-			@Named("Telefono") @RegEx(validation="\\d{7,10}") @Optional @MaxLength(value = 15) final String _telefono,
-			@Named("Celular") @RegEx(validation="\\d{3,7}(-)?\\d{6}") @Optional @MaxLength(value = 15) final String _celular,
-			@Named("Correo Electronico") @RegEx(validation="(\\w+\\.)*\\w+@(\\w+\\.)+[A-Za-z]+") @Optional final String _correo,
+			@Named("Telefono") @RegEx(validation = "\\d{7,10}") @Optional @MaxLength(value = 15) final String _telefono,
+			@Named("Celular") @RegEx(validation = "\\d{3,7}(-)?\\d{6}") @Optional @MaxLength(value = 15) final String _celular,
+			@Named("Correo Electronico") @RegEx(validation = "(\\w+\\.)*\\w+@(\\w+\\.)+[A-Za-z]+") @Optional final String _correo,
 			@Named("Usuario") final String _nombreUsuario,
-			@Named("Contraseña") final Password _password){
-		return nuevoCliente(_apellido, _nombre, _dni, _direccion,
-				_telefono, _celular, _correo, crearUsuario(_nombreUsuario, _password));
+			@Named("Contraseña") final Password _password) {
+		return nuevoCliente(_apellido, _nombre, _dni, _direccion, _telefono,
+				_celular, _correo, crearUsuario(_nombreUsuario, _password));
 	}
-	
+
 	@Hidden
 	public Usuario crearUsuario(final String _nombreUsuario,
 			final Password _password) {
@@ -61,11 +61,11 @@ public class ClienteServicio extends AbstractFactoryAndRepository{
 		persistIfNotAlready(usuario);
 		return usuario;
 	}
-	
+
 	@Hidden
 	public Cliente nuevoCliente(final String _apellido, final String _nombre,
 			final long _dni, final String _direccion, final String _telefono,
-			final String _celular, final String _correo, final Usuario _usuario){
+			final String _celular, final String _correo, final Usuario _usuario) {
 		final Cliente clienteNuevo = newTransientInstance(Cliente.class);
 		clienteNuevo.setApellido(_apellido.substring(0, 1).toUpperCase()
 				+ _apellido.substring(1));
@@ -81,4 +81,3 @@ public class ClienteServicio extends AbstractFactoryAndRepository{
 		return clienteNuevo;
 	}
 }
-

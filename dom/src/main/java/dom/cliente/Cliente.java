@@ -1,5 +1,3 @@
-package dom.cliente;
-
 /*
  * Copyright 2014 resto-tesis
  * 
@@ -17,6 +15,8 @@ package dom.cliente;
  * 
  */
 
+package dom.cliente;
+
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.Inheritance;
 import javax.jdo.annotations.InheritanceStrategy;
@@ -26,6 +26,6 @@ import dom.persona.Persona;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
-public class Cliente extends Persona{
-	
+public class Cliente extends Persona {
+
 }

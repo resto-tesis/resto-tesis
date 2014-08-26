@@ -1,5 +1,3 @@
-package dom.encargado;
-
 /*
  * Copyright 2014 resto-tesis
  * 
@@ -16,6 +14,8 @@ package dom.encargado;
  * limitations under the License.
  * 
  */
+
+package dom.encargado;
 
 import java.util.List;
 
@@ -121,9 +121,9 @@ public class EncargadoServicio extends AbstractFactoryAndRepository implements
 	 */
 	@Override
 	public String validateCrear(String _nombre, String _apellido, long _dni,
-			String _direccion, String _telefono, String _celular, String _correo,
-			LocalDate fechadeNacimiento, LocalDate fechadeIngreso,
-			String _nombreUsuario, Password _password) {
+			String _direccion, String _telefono, String _celular,
+			String _correo, LocalDate fechadeNacimiento,
+			LocalDate fechadeIngreso, String _nombreUsuario, Password _password) {
 		// TODO Auto-generated method stub
 		for (Empleado _empleado : listarEmpleados())
 			if (_dni == _empleado.getDocumento())

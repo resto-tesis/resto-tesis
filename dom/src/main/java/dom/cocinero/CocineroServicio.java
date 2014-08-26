@@ -1,5 +1,3 @@
-package dom.cocinero;
-
 /*
  * Copyright 2014 resto-tesis
  * 
@@ -16,6 +14,8 @@ package dom.cocinero;
  * limitations under the License.
  * 
  */
+
+package dom.cocinero;
 
 import java.util.List;
 
@@ -56,9 +56,9 @@ public class CocineroServicio extends AbstractFactoryAndRepository implements
 			@Named("Nombre") @RegEx(validation = "[a-zA-ZáéíóúÁÉÍÓÚ\\s]*") @MaxLength(value = 20) final String _nombre,
 			@Named("Documento") @RegEx(validation = "[0-9*") @MaxLength(value = 8) @MinLength(value = 7) final long _dni,
 			@Named("Direccion") @MultiLine(numberOfLines = 2) final String _direccion,
-			@Named("Telefono") @RegEx(validation="\\d{7,10}") @Optional @MaxLength(value = 15) final String _telefono,
-			@Named("Celular") @RegEx(validation="\\d{3,7}(-)?\\d{6}") @Optional @MaxLength(value = 15) final String _celular,
-			@Named("Correo Electronico") @RegEx(validation="(\\w+\\.)*\\w+@(\\w+\\.)+[A-Za-z]+") @Optional final String _correo,
+			@Named("Telefono") @RegEx(validation = "\\d{7,10}") @Optional @MaxLength(value = 15) final String _telefono,
+			@Named("Celular") @RegEx(validation = "\\d{3,7}(-)?\\d{6}") @Optional @MaxLength(value = 15) final String _celular,
+			@Named("Correo Electronico") @RegEx(validation = "(\\w+\\.)*\\w+@(\\w+\\.)+[A-Za-z]+") @Optional final String _correo,
 			@Named("Fecha de Nacimiento") final LocalDate fechadeNacimiento,
 			@Named("Fecha de Ingreso") final LocalDate fechadeIngreso,
 			@Named("Usuario") final String _nombreUsuario,
@@ -81,9 +81,10 @@ public class CocineroServicio extends AbstractFactoryAndRepository implements
 	}
 
 	@Hidden
-	public Cocinero crearNuevoCocinero(final Usuario _usuario,final String _nombre, 
-			final String _apellido, final long _dni, final String _direccion, 
-			final String _telefono, final String _celular, final String _correo,
+	public Cocinero crearNuevoCocinero(final Usuario _usuario,
+			final String _nombre, final String _apellido, final long _dni,
+			final String _direccion, final String _telefono,
+			final String _celular, final String _correo,
 			final LocalDate fechadeNacimiento, final LocalDate fechadeIngreso) {
 		final Cocinero cocineroNuevo = newTransientInstance(Cocinero.class);
 		cocineroNuevo.setApellido(_apellido.substring(0, 1).toUpperCase()
@@ -120,9 +121,9 @@ public class CocineroServicio extends AbstractFactoryAndRepository implements
 	 */
 	@Override
 	public String validateCrear(String _nombre, String _apellido, long _dni,
-			String _direccion, String _telefono, String _celular, String _correo,
-			LocalDate fechadeNacimiento, LocalDate fechadeIngreso,
-			String _nombreUsuario, Password _password) {
+			String _direccion, String _telefono, String _celular,
+			String _correo, LocalDate fechadeNacimiento,
+			LocalDate fechadeIngreso, String _nombreUsuario, Password _password) {
 		// TODO Auto-generated method stub
 		for (Empleado _empleado : listarEmpleados())
 			if (_dni == _empleado.getDocumento())

@@ -1,5 +1,3 @@
-package dom.encargado;
-
 /*
  * Copyright 2014 resto-tesis
  * 
@@ -16,6 +14,8 @@ package dom.encargado;
  * limitations under the License.
  * 
  */
+
+package dom.encargado;
 
 import java.util.List;
 

@@ -1,5 +1,3 @@
-package dom.usuario;
-
 /*
  * Copyright 2014 resto-tesis
  * 
@@ -16,6 +14,8 @@ package dom.usuario;
  * limitations under the License.
  * 
  */
+
+package dom.usuario;
 
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdentityType;

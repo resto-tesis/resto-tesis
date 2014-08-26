@@ -80,7 +80,7 @@ public class AplicacionRestoTesis extends IsisWicketApplication {
 
 				bind(String.class)
 						.annotatedWith(Names.named("applicationName"))
-						.toInstance("ToDo App");
+						.toInstance("Resto Tesis");
 				bind(String.class).annotatedWith(Names.named("applicationCss"))
 						.toInstance("css/application.css");
 				bind(String.class).annotatedWith(Names.named("applicationJs"))
@@ -88,7 +88,7 @@ public class AplicacionRestoTesis extends IsisWicketApplication {
 				bind(String.class).annotatedWith(Names.named("welcomeMessage"))
 						.toInstance(readLines("welcome.html"));
 				bind(String.class).annotatedWith(Names.named("aboutMessage"))
-						.toInstance("ToDo App");
+						.toInstance("Resto Tesis");
 				bind(InputStream.class).annotatedWith(
 						Names.named("metaInfManifest")).toProvider(
 						Providers.of(getServletContext().getResourceAsStream(

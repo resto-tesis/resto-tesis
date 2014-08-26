@@ -85,11 +85,14 @@ public class ReservaServicio extends AbstractFactoryAndRepository {
 
 	public String validateCrearReserva(final int _comensales, final Mesa _mesa,
 			final Date _fecha, final String _hora) {
+//		se valida que la fecha ingresada sea posterior a la fecha actual.
 		if (sumaFechaHora(_fecha, _hora).before(Calendar.getInstance()))
 			return "La fecha y hora debe ser posterior a hoy.";
 		for (Reserva _reserva : allMatches(Reserva.class,
+//				Se otienen todas las reservas de la fecha
+//				seleccionada correspondientes a la mesa 
+//				seleccionada.
 				new Predicate<Reserva>() {
-
 					@Override
 					public boolean apply(Reserva input) {
 						// TODO Auto-generated method stub
@@ -106,6 +109,7 @@ public class ReservaServicio extends AbstractFactoryAndRepository {
 						return false;
 					}
 				})) {
+//			Se valida que el horario de reserva no interfiera con uno existente.
 			Calendar calendarioReservado = Calendar.getInstance();
 			calendarioReservado.setTime(_reserva.getFechaHora());
 			Calendar calendarioSeteado=sumaFechaHora(_fecha, _hora);

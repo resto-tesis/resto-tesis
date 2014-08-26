@@ -1,5 +1,3 @@
-package dom.persona;
-
 /*
  * Copyright 2014 resto-tesis
  * 
@@ -16,6 +14,8 @@ package dom.persona;
  * limitations under the License.
  * 
  */
+
+package dom.persona;
 
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdGeneratorStrategy;
@@ -53,8 +53,9 @@ public abstract class Persona {
 	public void setNumero(final int numero) {
 		this.numero = numero;
 	}
+
 	// }}
-	
+
 	// {{ Apellido (property)
 	private String apellido;
 
@@ -68,6 +69,7 @@ public abstract class Persona {
 	public void setApellido(final String apellido) {
 		this.apellido = apellido;
 	}
+
 	// }}
 
 	// {{ Nombre (property)
@@ -83,6 +85,7 @@ public abstract class Persona {
 	public void setNombre(final String nombre) {
 		this.nombre = nombre;
 	}
+
 	// }}
 
 	// {{ Documento (property)
@@ -97,6 +100,7 @@ public abstract class Persona {
 	public void setDocumento(final long documento) {
 		this.documento = documento;
 	}
+
 	// }}
 
 	// {{ Telefono (property)
@@ -107,12 +111,13 @@ public abstract class Persona {
 	public String getTelefono() {
 		return telefono;
 	}
-	
+
 	public void setTelefono(final String telefono) {
 		this.telefono = telefono;
 	}
+
 	// }}
-		
+
 	// {{ Celular (property)
 	private String celular;
 
@@ -125,6 +130,7 @@ public abstract class Persona {
 	public void setCelular(final String celular) {
 		this.celular = celular;
 	}
+
 	// }}
 
 	// {{ Correo (property)
@@ -139,8 +145,9 @@ public abstract class Persona {
 	public void setCorreo(final String correo) {
 		this.correo = correo;
 	}
+
 	// }}
-		
+
 	// {{ Direccion (property)
 	private String direccion;
 
@@ -153,6 +160,7 @@ public abstract class Persona {
 	public void setDireccion(final String direccion) {
 		this.direccion = direccion;
 	}
+
 	// }}
 
 	// {{ Usuario (property)
