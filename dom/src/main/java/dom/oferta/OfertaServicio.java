@@ -17,6 +17,11 @@
 
 package dom.oferta;
 
+import org.apache.isis.applib.annotation.DomainService;
+import org.apache.isis.applib.annotation.Named;
+
+@DomainService
+@Named("Oferta")
 public class OfertaServicio {
 
 	public OfertaServicio() {

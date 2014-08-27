@@ -22,6 +22,7 @@ import java.util.List;
 import org.apache.isis.applib.AbstractFactoryAndRepository;
 import org.apache.isis.applib.annotation.ActionSemantics;
 import org.apache.isis.applib.annotation.ActionSemantics.Of;
+import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
@@ -35,6 +36,7 @@ import dom.platoEntrada.PlatoEntrada;
 import dom.platoPrincipal.PlatoPrincipal;
 import dom.postre.Postre;
 
+@DomainService
 @Named("Menu")
 public class MenuServicio extends AbstractFactoryAndRepository {
 

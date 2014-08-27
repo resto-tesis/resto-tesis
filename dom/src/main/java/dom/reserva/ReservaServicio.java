@@ -22,6 +22,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.isis.applib.AbstractFactoryAndRepository;
+import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.Named;
 
@@ -29,6 +30,7 @@ import com.google.common.base.Predicate;
 
 import dom.mesa.Mesa;
 
+@DomainService
 @Named("Reserva")
 public class ReservaServicio extends AbstractFactoryAndRepository {
 

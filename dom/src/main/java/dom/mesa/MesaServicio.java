@@ -21,6 +21,7 @@ import java.util.List;
 
 import org.apache.isis.applib.AbstractFactoryAndRepository;
 import org.apache.isis.applib.annotation.ActionSemantics;
+import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
@@ -31,6 +32,7 @@ import com.google.common.base.Predicate;
 import dom.comanda.Comanda;
 import dom.mozo.Mozo;
 
+@DomainService
 @Named("Mesa")
 public class MesaServicio extends AbstractFactoryAndRepository {
 

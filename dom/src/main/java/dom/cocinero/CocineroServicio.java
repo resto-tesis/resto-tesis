@@ -21,6 +21,7 @@ import java.util.List;
 
 import org.apache.isis.applib.AbstractFactoryAndRepository;
 import org.apache.isis.applib.annotation.ActionSemantics;
+import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.MaxLength;
 import org.apache.isis.applib.annotation.MemberOrder;
@@ -40,6 +41,7 @@ import dom.empleado.IValidacionEmpleado;
 import dom.usuario.Rol;
 import dom.usuario.Usuario;
 
+@DomainService
 @Named("Cocinero")
 public class CocineroServicio extends AbstractFactoryAndRepository implements
 		IValidacionEmpleado {

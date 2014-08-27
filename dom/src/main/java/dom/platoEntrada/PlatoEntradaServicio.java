@@ -24,6 +24,7 @@ import javax.validation.constraints.Digits;
 
 import org.apache.isis.applib.AbstractFactoryAndRepository;
 import org.apache.isis.applib.annotation.ActionSemantics;
+import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.MaxLength;
 import org.apache.isis.applib.annotation.MemberOrder;
@@ -41,6 +42,7 @@ import dom.menu.Menu;
 import dom.plato.CondicionDePlatoEnum;
 import dom.plato.Plato;
 
+@DomainService
 @Named("Plato Entrada")
 public class PlatoEntradaServicio extends AbstractFactoryAndRepository {
 

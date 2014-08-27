@@ -20,6 +20,7 @@ package dom.carta;
 import java.util.List;
 
 import org.apache.isis.applib.AbstractFactoryAndRepository;
+import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.HomePage;
 import org.apache.isis.applib.annotation.Named;
@@ -31,6 +32,8 @@ import dom.platoEntrada.PlatoEntrada;
 import dom.platoPrincipal.PlatoPrincipal;
 import dom.postre.Postre;
 
+
+@DomainService
 @Named("Carta")
 public class CartaServicio extends AbstractFactoryAndRepository {
 
