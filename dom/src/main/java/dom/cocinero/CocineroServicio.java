@@ -41,8 +41,7 @@ import dom.empleado.IValidacionEmpleado;
 import dom.usuario.Rol;
 import dom.usuario.Usuario;
 
-@DomainService
-@Named("Cocinero")
+@DomainService()
 public class CocineroServicio extends AbstractFactoryAndRepository implements
 		IValidacionEmpleado {
 
@@ -51,8 +50,8 @@ public class CocineroServicio extends AbstractFactoryAndRepository implements
 	 */
 	final LocalDate fecha_actual = LocalDate.now();
 
-	@Named("Crear")
-	@MemberOrder(sequence = "1")
+	@Named("Nuevo Cocinero")
+	@MemberOrder(name = "Empleados", sequence = "10.5")
 	public Cocinero crear(
 			@Named("Apellido") @RegEx(validation = "[a-zA-ZáéíóúÁÉÍÓÚ\\s]*") @MaxLength(value = 20) final String _apellido,
 			@Named("Nombre") @RegEx(validation = "[a-zA-ZáéíóúÁÉÍÓÚ\\s]*") @MaxLength(value = 20) final String _nombre,
@@ -105,8 +104,8 @@ public class CocineroServicio extends AbstractFactoryAndRepository implements
 		return cocineroNuevo;
 	}
 
-	@Named("Listar")
-	@MemberOrder(sequence = "2")
+	@Named("Cocineros")
+	@MemberOrder(name = "Empleados", sequence = "10.2")
 	@ActionSemantics(Of.SAFE)
 	public List<Cocinero> listarCocineros() {
 		final List<Cocinero> listaCocinero = allInstances(Cocinero.class);

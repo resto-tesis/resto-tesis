@@ -43,11 +43,10 @@ import dom.plato.CondicionDePlatoEnum;
 import dom.plato.Plato;
 
 @DomainService
-@Named("Plato Entrada")
 public class PlatoEntradaServicio extends AbstractFactoryAndRepository {
 
-	@Named("Crear Plato de Entrada")
-	@MemberOrder(sequence = "2")
+	@Named("Plato de Entrada")
+	@MemberOrder(name = "Crear",sequence = "1")
 	public Plato crearPlatoEntrada(
 			/* Parametros de Entrada */
 			@RegEx(validation = "[0-9a-zA-ZáéíóúÁÉÍÓÚ\\s]*") @MaxLength(value = 30) @Named("Nombre") final String nombre,
@@ -83,9 +82,9 @@ public class PlatoEntradaServicio extends AbstractFactoryAndRepository {
 				"platoEntradaQueEmpiezan", "nombre", "(?i).*" + nombre + ".*"));
 	}
 
-	@Named("Listar Platos de Entrada")
+	@Named("Platos de Entrada")
 	@ActionSemantics(Of.SAFE)
-	@MemberOrder(sequence = "4")
+	@MemberOrder(name="Listar",sequence = "2")
 	public List<PlatoEntrada> listarPLatosEntrada() {
 		final List<PlatoEntrada> listaPlatos = allInstances(PlatoEntrada.class);
 		return listaPlatos;

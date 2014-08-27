@@ -42,7 +42,6 @@ import dom.usuario.Rol;
 import dom.usuario.Usuario;
 
 @DomainService
-@Named("Encargado")
 public class EncargadoServicio extends AbstractFactoryAndRepository implements
 		IValidacionEmpleado {
 
@@ -51,8 +50,8 @@ public class EncargadoServicio extends AbstractFactoryAndRepository implements
 	 */
 	final LocalDate fecha_actual = LocalDate.now();
 
-	@Named("Crear")
-	@MemberOrder(sequence = "1")
+	@Named("Nuevo Encargado")
+	@MemberOrder(name = "Empleados",sequence = "10.6")
 	public Encargado crear(
 			@Named("Apellido") @RegEx(validation = "[a-zA-ZáéíóúÁÉÍÓÚ\\s]*") @MaxLength(value = 20) final String _apellido,
 			@Named("Nombre") @RegEx(validation = "[a-zA-ZáéíóúÁÉÍÓÚ\\s]*") @MaxLength(value = 20) final String _nombre,
@@ -105,9 +104,9 @@ public class EncargadoServicio extends AbstractFactoryAndRepository implements
 		return encargado;
 	}
 
-	@Named("Listar")
+	@Named("Encargados")
 	@ActionSemantics(Of.SAFE)
-	@MemberOrder(sequence = "2")
+	@MemberOrder(name = "Empleados",sequence = "10.3")
 	public List<Encargado> listarEncargados() {
 		final List<Encargado> listaencargados = allInstances(Encargado.class);
 		return listaencargados;

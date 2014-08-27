@@ -33,7 +33,7 @@ import org.apache.isis.applib.value.Password;
 import dom.usuario.Rol;
 import dom.usuario.Usuario;
 
-@DomainService
+@DomainService(menuOrder="11")
 @Named("Cliente")
 public class ClienteServicio extends AbstractFactoryAndRepository {
 	@Named("Registrarme")

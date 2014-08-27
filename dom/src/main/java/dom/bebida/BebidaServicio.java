@@ -42,11 +42,10 @@ import dom.comanda.Comanda;
 import dom.menu.Menu;
 
 @DomainService
-@Named("Bebida")
 public class BebidaServicio extends AbstractFactoryAndRepository {
 
-	@Named("Crear")
-	@MemberOrder(sequence = "1")
+	@Named("Bebida")
+	@MemberOrder(name = "Crear",sequence = "1")
 	public Bebida crearBebida(
 			@Named("Nombre") @RegEx(validation = "[0-9a-zA-ZáéíóúÁÉÍÓÚ\\s]*") @MaxLength(value = 30) final String _nombre,
 			@Named("Tipo de Bebida") @TypicalLength(10) final TipoBebidaEnum _tipo,
@@ -100,9 +99,9 @@ public class BebidaServicio extends AbstractFactoryAndRepository {
 		return VolumenBebidaEnum.validate(_tipoBebida, _volumenBebida);
 	}
 
-	@MemberOrder(sequence = "2")
+	@MemberOrder(name="Listar",sequence = "2")
 	@ActionSemantics(Of.SAFE)
-	@Named("Listar")
+	@Named("Bebidas")
 	public List<Bebida> listarBebidas() {
 		final List<Bebida> lista_bebidas = allInstances(Bebida.class);
 		return lista_bebidas;

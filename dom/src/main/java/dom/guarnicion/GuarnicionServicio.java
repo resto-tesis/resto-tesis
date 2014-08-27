@@ -41,11 +41,10 @@ import dom.comanda.Comanda;
 import dom.menu.Menu;
 
 @DomainService
-@Named("Guarnicion")
 public class GuarnicionServicio extends AbstractFactoryAndRepository {
 
-	@Named("Crear")
-	@MemberOrder(sequence = "1")
+	@Named("Guarnición")
+	@MemberOrder(name = "Crear", sequence = "1")
 	public Guarnicion crearGuarnicion(
 			@Named("Nombre") @RegEx(validation = "[0-9a-zA-ZáéíóúÁÉÍÓÚ\\s]*") @MaxLength(value = 30) final String nombreGuarnicion,
 			@Named("Descripción") @Optional @MultiLine(numberOfLines = 3) final String descripcionGuarnicion,
@@ -73,9 +72,9 @@ public class GuarnicionServicio extends AbstractFactoryAndRepository {
 				"guarnicionesQueEmpiezan", "nombre", "(?i).*" + nombre + ".*"));
 	}
 
-	@Named("Listar")
+	@Named("Guarniciones")
 	@ActionSemantics(Of.SAFE)
-	@MemberOrder(sequence = "2")
+	@MemberOrder(name="Listar",sequence = "2")
 	public List<Guarnicion> listarGuarniciones() {
 		final List<Guarnicion> listaguarniciones = allInstances(Guarnicion.class);
 		return listaguarniciones;

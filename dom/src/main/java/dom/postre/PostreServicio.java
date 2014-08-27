@@ -41,11 +41,10 @@ import dom.comanda.Comanda;
 import dom.menu.Menu;
 
 @DomainService
-@Named("Postre")
 public class PostreServicio extends AbstractFactoryAndRepository {
 
-	@Named("Crear")
-	@MemberOrder(sequence = "1")
+	@Named("Postre")
+	@MemberOrder(name = "Crear",sequence = "1")
 	public Postre crearPostre(
 			@Named("Nombre") @RegEx(validation = "[0-9a-zA-ZáéíóúÁÉÍÓÚ\\s]*") @MaxLength(value = 30) final String nombrePostre,
 			@Optional @MultiLine(numberOfLines = 3) @Named("Descripción") final String descripcionPostre,
@@ -74,9 +73,9 @@ public class PostreServicio extends AbstractFactoryAndRepository {
 				"postresQueEmpiezan", "nombre", "(?i).*" + nombre + ".*"));
 	}
 
-	@Named("Listar")
+	@Named("Postres")
 	@ActionSemantics(Of.SAFE)
-	@MemberOrder(sequence = "2")
+	@MemberOrder(name="Listar",sequence = "2")
 	public List<Postre> listarPostres() {
 		final List<Postre> listapostres = allInstances(Postre.class);
 		return listapostres;

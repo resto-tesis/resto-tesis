@@ -44,11 +44,10 @@ import dom.plato.Plato;
 import dom.platoPrincipal.PlatoPrincipal;
 
 @DomainService
-@Named("Plato Principal")
 public class PlatoPrincipalServicio extends AbstractFactoryAndRepository {
 
-	@Named("Crear Plato Principal")
-	@MemberOrder(sequence = "1")
+	@Named("Plato Principal")
+	@MemberOrder(name = "Crear",sequence = "1")
 	public Plato crearPlatoPrincipal(
 			/* Parametros de Entrada */
 			@RegEx(validation = "[0-9a-zA-ZáéíóúÁÉÍÓÚ\\s]*") @MaxLength(value = 30) @Named("Nombre") final String nombre,
@@ -85,9 +84,9 @@ public class PlatoPrincipalServicio extends AbstractFactoryAndRepository {
 				"(?i).*" + nombre + ".*"));
 	}
 
-	@Named("Listar Platos Principales")
+	@Named("Platos Principales")
 	@ActionSemantics(Of.SAFE)
-	@MemberOrder(sequence = "3")
+	@MemberOrder(name="Listar",sequence = "2")
 	public List<PlatoPrincipal> listarPLatosPrincipales() {
 		final List<PlatoPrincipal> listaPlatos = allInstances(PlatoPrincipal.class);
 		return listaPlatos;

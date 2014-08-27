@@ -43,7 +43,6 @@ import dom.usuario.Rol;
 import dom.usuario.Usuario;
 
 @DomainService
-@Named("Mozo")
 public class MozoServicio extends AbstractFactoryAndRepository implements
 		IValidacionEmpleado {
 
@@ -52,8 +51,8 @@ public class MozoServicio extends AbstractFactoryAndRepository implements
 	 */
 	final LocalDate fecha_actual = LocalDate.now();
 
-	@Named("Crear")
-	@MemberOrder(sequence = "1")
+	@Named("Nuevo Mozo")
+	@MemberOrder(name = "Empleados",sequence = "10.4")
 	public Mozo crear(
 			@Named("Apellido") @RegEx(validation = "[a-zA-ZáéíóúÁÉÍÓÚ\\s]*") @MaxLength(value = 20) final String _apellido,
 			@Named("Nombre") @RegEx(validation = "[a-zA-ZáéíóúÁÉÍÓÚ\\s]*") @MaxLength(value = 20) final String _nombre,
@@ -105,9 +104,9 @@ public class MozoServicio extends AbstractFactoryAndRepository implements
 		return mozo;
 	}
 
-	@Named("Listar")
+	@Named("Mozos")
 	@ActionSemantics(Of.SAFE)
-	@MemberOrder(sequence = "2")
+	@MemberOrder(name = "Empleados",sequence = "10.1")
 	public List<Mozo> listarMozos() {
 		return allInstances(Mozo.class);
 	}
