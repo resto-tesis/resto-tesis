@@ -26,7 +26,7 @@
     </parent>
 
 	<artifactId>resto-integtests</artifactId>
-	<name>Quickstart Wicket/Restful/JDO Integration Tests</name>
+	<name>Resto Tesis Tests</name>
 
     <build>
         <testResources>

@@ -31,8 +31,6 @@ import com.google.inject.name.Names;
 import com.google.inject.util.Modules;
 import com.google.inject.util.Providers;
 
-import org.apache.isis.viewer.wicket.ui.app.registry.ComponentFactoryRegistrar;
-import org.apache.isis.viewer.wicket.ui.pages.PageClassList;
 import org.apache.isis.viewer.wicket.viewer.IsisWicketApplication;
 
 /**
@@ -74,10 +72,8 @@ public class AplicacionRestoTesis extends IsisWicketApplication {
 		final Module restoTesisOverrides = new AbstractModule() {
 			@Override
 			protected void configure() {
-				bind(ComponentFactoryRegistrar.class).to(
-						ComponentFactoryRegistrarForRestoTesis.class);
-				bind(PageClassList.class).to(PageClassListForRestoTesis.class);
-
+//				bind(ComponentFactoryRegistrar.class).to(
+//						ComponeontFactoryRegistrarForRestoTesis.class);
 				bind(String.class)
 						.annotatedWith(Names.named("applicationName"))
 						.toInstance("Resto Tesis");
@@ -107,7 +103,7 @@ public class AplicacionRestoTesis extends IsisWicketApplication {
 			final String aboutText = Joiner.on("\n").join(readLines);
 			return aboutText;
 		} catch (IOException e) {
-			return "This is Quick Start";
+			return "Resto Tesis";
 		}
 	}
 

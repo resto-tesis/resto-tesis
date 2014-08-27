@@ -23,7 +23,7 @@
     <artifactId>resto</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    <name>Quickstart Wicket/Restful/JDO App</name>
+    <name>Resto Tesis</name>
 
     <packaging>pom</packaging>
 

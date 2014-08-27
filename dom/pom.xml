@@ -20,7 +20,7 @@
 	</parent>
 
 	<artifactId>resto-dom</artifactId>
-	<name>Quickstart Wicket/Restful/JDO DOM</name>
+	<name>Resto Tesis DOM</name>
 
 	<build>
 		<resources>
