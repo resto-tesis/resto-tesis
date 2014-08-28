@@ -20,13 +20,9 @@ package dom.guarnicion;
 import java.util.List;
 
 import javax.jdo.annotations.Column;
-import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
-import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.Query;
-import javax.jdo.annotations.Sequence;
-import javax.jdo.annotations.SequenceStrategy;
 
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.AutoComplete;
@@ -42,7 +38,6 @@ import org.apache.isis.applib.annotation.Title;
 import org.apache.isis.applib.annotation.TypicalLength;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
-@Sequence(name = "secuenciaNumeroGuarnicion", strategy = SequenceStrategy.CONTIGUOUS)
 @Query(name = "guarnicionesQueEmpiezan", language = "JDOQL", value = "SELECT FROM dom.guarnicion.Guarnicion WHERE nombre.matches(:nombre)")
 @AutoComplete(repository = GuarnicionServicio.class, action = "completarGuarniciones")
 public class Guarnicion {
@@ -53,7 +48,6 @@ public class Guarnicion {
 	@Named("Número")
 	@TypicalLength(3)
 	@Disabled
-	@Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT, sequence = "secuenciaNumeroGuarnicion")
 	@Column(allowsNull = "false")
 	@MemberOrder(sequence = "1")
 	public int getNumero() {

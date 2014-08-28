@@ -20,13 +20,9 @@ package dom.postre;
 import java.util.List;
 
 import javax.jdo.annotations.Column;
-import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
-import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.Query;
-import javax.jdo.annotations.Sequence;
-import javax.jdo.annotations.SequenceStrategy;
 
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.AutoComplete;
@@ -45,7 +41,6 @@ import dom.postre.Postre;
 import dom.postre.PostreServicio;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
-@Sequence(name = "secuenciaNumeroPostre", strategy = SequenceStrategy.CONTIGUOUS)
 @Query(name = "postresQueEmpiezan", language = "JDOQL", value = "SELECT FROM dom.postre.Postre WHERE nombre.matches(:nombre)")
 @AutoComplete(repository = PostreServicio.class, action = "completarPostres")
 public class Postre {
@@ -56,7 +51,6 @@ public class Postre {
 	@Named("Número")
 	@TypicalLength(3)
 	@Disabled
-	@Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT, sequence = "secuenciaNumeroPostre")
 	@Column(allowsNull = "false")
 	@MemberOrder(sequence = "1")
 	public int getNumero() {

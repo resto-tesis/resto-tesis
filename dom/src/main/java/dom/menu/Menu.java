@@ -20,12 +20,8 @@ package dom.menu;
 import java.util.List;
 
 import javax.jdo.annotations.Column;
-import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
-import javax.jdo.annotations.Persistent;
-import javax.jdo.annotations.Sequence;
-import javax.jdo.annotations.SequenceStrategy;
 
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.Bulk;
@@ -43,14 +39,12 @@ import dom.platoPrincipal.PlatoPrincipal;
 import dom.postre.Postre;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
-@Sequence(name = "secuenciaNumeroMenu", strategy = SequenceStrategy.CONTIGUOUS)
 public class Menu {
 	// {{ Numero (property)
 	private int numero;
 
 	@TypicalLength(3)
 	@Disabled
-	@Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT, sequence = "secuenciaNumeroMenu")
 	@Column(allowsNull = "false")
 	@MemberOrder(sequence = "1")
 	public int getNumero() {

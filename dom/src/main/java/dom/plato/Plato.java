@@ -19,14 +19,10 @@
 package dom.plato;
 
 import javax.jdo.annotations.Column;
-import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.Inheritance;
 import javax.jdo.annotations.InheritanceStrategy;
 import javax.jdo.annotations.PersistenceCapable;
-import javax.jdo.annotations.Persistent;
-import javax.jdo.annotations.Sequence;
-import javax.jdo.annotations.SequenceStrategy;
 import javax.validation.constraints.Digits;
 
 import org.apache.isis.applib.annotation.Disabled;
@@ -40,7 +36,6 @@ import org.apache.isis.applib.annotation.Title;
 import org.apache.isis.applib.annotation.TypicalLength;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
-@Sequence(name = "secuenciaNumeroPlato", strategy = SequenceStrategy.CONTIGUOUS)
 @Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
 public abstract class Plato {
 
@@ -50,7 +45,6 @@ public abstract class Plato {
 	@Named("Número")
 	@TypicalLength(3)
 	@Disabled
-	@Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT, sequence = "secuenciaNumeroPlato")
 	@Column(allowsNull = "false")
 	@MemberOrder(sequence = "1")
 	public int getNumero() {

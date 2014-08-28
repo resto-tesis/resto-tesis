@@ -26,9 +26,7 @@ import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.Inheritance;
 import javax.jdo.annotations.InheritanceStrategy;
 import javax.jdo.annotations.Persistent;
-import javax.jdo.annotations.SequenceStrategy;
 import javax.jdo.annotations.PersistenceCapable;
-import javax.jdo.annotations.Sequence;
 
 import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.MemberOrder;
@@ -37,11 +35,25 @@ import dom.persona.Persona;
 import dom.usuario.Usuario;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
-@Sequence(name = "secuenciaLegajo", strategy = SequenceStrategy.CONTIGUOUS)
 @Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
 public abstract class Empleado extends Persona {
 
 	private SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
+
+	// {{ Legajo (property)
+	private long legajo;
+
+	@MemberOrder(sequence = "1")
+	@Column(allowsNull = "false")
+	public long getLegajo() {
+		return legajo;
+	}
+
+	public void setLegajo(final long legajo) {
+		this.legajo = legajo;
+	}
+
+	// }}
 
 	// {{ fechaDeNacimiento (property)
 	private Date fechaDeNacimiento;

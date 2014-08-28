@@ -17,15 +17,33 @@
 
 package dom.cliente;
 
+import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.Inheritance;
 import javax.jdo.annotations.InheritanceStrategy;
 import javax.jdo.annotations.PersistenceCapable;
+
+import org.apache.isis.applib.annotation.MemberOrder;
 
 import dom.persona.Persona;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
 public class Cliente extends Persona {
+
+	// {{ NumeroCliente (property)
+	private long numeroCliente;
+
+	@MemberOrder(sequence = "1")
+	@Column(allowsNull = "false")
+	public long getNumeroCliente() {
+		return numeroCliente;
+	}
+
+	public void setNumeroCliente(final long numeroCliente) {
+		this.numeroCliente = numeroCliente;
+	}
+	// }}
+
 
 }

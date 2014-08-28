@@ -18,16 +18,12 @@
 package dom.persona;
 
 import javax.jdo.annotations.Column;
-import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.Inheritance;
 import javax.jdo.annotations.InheritanceStrategy;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
-import javax.jdo.annotations.Sequence;
-import javax.jdo.annotations.SequenceStrategy;
 
-import org.apache.isis.applib.annotation.Disabled;
 import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Optional;
@@ -36,25 +32,8 @@ import org.apache.isis.applib.annotation.Title;
 import dom.usuario.Usuario;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
-@Sequence(name = "secuenciaNumero", strategy = SequenceStrategy.CONTIGUOUS)
 @Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
 public abstract class Persona {
-	// {{ Numero (property)
-	private int numero;
-
-	@Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT, sequence = "secuenciaNumero")
-	@Disabled
-	@Column(allowsNull = "false")
-	@MemberOrder(sequence = "1")
-	public int getNumero() {
-		return numero;
-	}
-
-	public void setNumero(final int numero) {
-		this.numero = numero;
-	}
-
-	// }}
 
 	// {{ Apellido (property)
 	private String apellido;
