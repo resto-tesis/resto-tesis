@@ -20,10 +20,14 @@ package dom.mesa;
 import java.util.List;
 
 import javax.jdo.annotations.Column;
+import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.Queries;
 import javax.jdo.annotations.Query;
+import javax.jdo.annotations.Sequence;
+import javax.jdo.annotations.SequenceStrategy;
 
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.Bulk;
@@ -36,6 +40,7 @@ import org.apache.isis.applib.annotation.Title;
 import dom.mozo.Mozo;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
+@Sequence(name = "secuenciaNumeroMesa", strategy = SequenceStrategy.CONTIGUOUS)
 @Queries({
 		@Query(name = "mesasSeleccionadas", language = "JDOQL", value = "SELECT FROM dom.mesa.Mesa where estadoSeleccion == true"),
 		@Query(name = "mesasSinAsignar", language = "JDOQL", value = "SELECT FROM dom.mesa.Mesa where estadoAsignacion == 'No_Asignada'"),
@@ -70,6 +75,7 @@ public class Mesa {
 	// {{ Numero (property)
 	private int numero;
 
+	@Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT, sequence = "secuenciaNumeroMesa")
 	@Named("Número")
 	@Disabled
 	@Title(prepend = "Mesa Nº ")

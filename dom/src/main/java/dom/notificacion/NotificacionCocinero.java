@@ -18,19 +18,27 @@
 package dom.notificacion;
 
 import javax.jdo.annotations.Column;
+import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Persistent;
+import javax.jdo.annotations.Sequence;
+import javax.jdo.annotations.SequenceStrategy;
 
 import org.apache.isis.applib.annotation.Disabled;
 import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.annotation.Named;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
+@Sequence(name = "secuenciaNumeroNotificCocinero", strategy = SequenceStrategy.CONTIGUOUS,initialValue=1000)
 public class NotificacionCocinero {
 
 	// {{ Numero (property)
 	private int numero;
 
 	@Disabled
+	@Named("Número")
+	@Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT, sequence = "secuenciaNumeroNotificCocinero")
 	@Column(allowsNull = "false")
 	@MemberOrder(sequence = "1")
 	public int getNumero() {

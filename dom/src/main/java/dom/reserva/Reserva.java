@@ -22,8 +22,12 @@ import java.util.List;
 
 import javax.inject.Inject;
 import javax.jdo.annotations.Column;
+import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Persistent;
+import javax.jdo.annotations.Sequence;
+import javax.jdo.annotations.SequenceStrategy;
 
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.Bulk;
@@ -36,6 +40,7 @@ import org.apache.isis.applib.annotation.Title;
 import dom.mesa.Mesa;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
+@Sequence(name = "secuenciaNumeroReserva", strategy = SequenceStrategy.CONTIGUOUS)
 public class Reserva {
 
 	public Reserva() {
@@ -45,6 +50,7 @@ public class Reserva {
 	// {{ Numero (property)
 	private int numero;
 
+	@Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT, sequence = "secuenciaNumeroReserva")
 	@Hidden
 	@Named("Número")
 	@Disabled

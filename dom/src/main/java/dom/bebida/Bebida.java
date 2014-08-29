@@ -20,9 +20,13 @@ package dom.bebida;
 import java.util.List;
 
 import javax.jdo.annotations.Column;
+import javax.jdo.annotations.IdGeneratorStrategy;
+import javax.jdo.annotations.SequenceStrategy;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.Query;
+import javax.jdo.annotations.Sequence;
 
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.AutoComplete;
@@ -38,6 +42,7 @@ import org.apache.isis.applib.annotation.Title;
 import org.apache.isis.applib.annotation.TypicalLength;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
+@Sequence(name = "secuenciaNumeroBebida", strategy = SequenceStrategy.CONTIGUOUS)
 @Query(name = "bebidasQueEmpiezan", language = "JDOQL", value = "SELECT FROM dom.bebida.Bebida WHERE nombre.matches(:nombre)")
 @AutoComplete(repository = BebidaServicio.class, action = "completarBebidas")
 public class Bebida {
@@ -47,6 +52,7 @@ public class Bebida {
 
 	@Named("Número")
 	@TypicalLength(3)
+	@Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT, sequence = "secuenciaNumeroBebida")
 	@Disabled
 	@Column(allowsNull = "false")
 	@MemberOrder(sequence = "1")

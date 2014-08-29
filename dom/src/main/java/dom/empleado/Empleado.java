@@ -22,20 +22,22 @@ import java.util.Date;
 
 import javax.inject.Inject;
 import javax.jdo.annotations.Column;
+import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.Inheritance;
 import javax.jdo.annotations.InheritanceStrategy;
-import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Persistent;
+import javax.jdo.annotations.Sequence;
+import javax.jdo.annotations.SequenceStrategy;
 
-import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.MemberOrder;
 
 import dom.persona.Persona;
-import dom.usuario.Usuario;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
+@Sequence(name = "secuenciaLegajo", strategy = SequenceStrategy.CONTIGUOUS)
 public abstract class Empleado extends Persona {
 
 	private SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
@@ -43,6 +45,7 @@ public abstract class Empleado extends Persona {
 	// {{ Legajo (property)
 	private long legajo;
 
+	@Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT, sequence = "secuenciaLegajo")
 	@MemberOrder(sequence = "1")
 	@Column(allowsNull = "false")
 	public long getLegajo() {
@@ -79,22 +82,6 @@ public abstract class Empleado extends Persona {
 
 	public void setFechaDeIngreso(final Date fechaDeIngreso) {
 		this.fechaDeIngreso = fechaDeIngreso;
-	}
-
-	// }}
-
-	// {{ Usuario (property)
-	private Usuario usuario;
-
-	@Hidden
-	@Persistent(dependent = "true")
-	@Column(allowsNull = "false")
-	public Usuario getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(final Usuario usuario) {
-		this.usuario = usuario;
 	}
 
 	// }}

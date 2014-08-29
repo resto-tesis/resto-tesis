@@ -18,22 +18,28 @@
 package dom.cliente;
 
 import javax.jdo.annotations.Column;
+import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.Inheritance;
 import javax.jdo.annotations.InheritanceStrategy;
 import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Persistent;
+import javax.jdo.annotations.Sequence;
+import javax.jdo.annotations.SequenceStrategy;
 
 import org.apache.isis.applib.annotation.MemberOrder;
 
 import dom.persona.Persona;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
+@Sequence(name = "secuenciaNumeroCliente", strategy = SequenceStrategy.CONTIGUOUS)
 @Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
 public class Cliente extends Persona {
 
 	// {{ NumeroCliente (property)
 	private long numeroCliente;
 
+	@Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT, sequence = "secuenciaNumeroCliente")
 	@MemberOrder(sequence = "1")
 	@Column(allowsNull = "false")
 	public long getNumeroCliente() {
