@@ -59,6 +59,10 @@ import dom.postre.Postre;
 })
 public class Comanda {
 
+	public Comanda(){
+		setEstadoPreparacion(EstadoComandaEnum.No_confirmada);
+	}
+	
 	// {{ Numero (property)
 	private int numero;
 
@@ -125,7 +129,21 @@ public class Comanda {
 	public void setContenedor(DomainObjectContainer contenedor) {
 		this.contenedor = contenedor;
 	}
-
+	
+	
+	@MemberOrder(sequence = "4")
+	public Comanda enviarComanda (){
+		if(this.getBebidas().isEmpty() &&			
+		  (this.getPostres().isEmpty()) &&
+		  (this.getGuarniciones().isEmpty()) &&	
+		  (this.getPlatosEntrada().isEmpty()) &&	
+		  (this.getPlatosPrincipales().isEmpty()))
+			 contenedor.informUser("Debe tener al menos un item");	
+		else
+			setEstadoPreparacion(EstadoComandaEnum.En_Espera);		
+		return this;
+	}
+	
 	@Bulk
 	@MemberOrder(sequence = "1")
 	public List<Comanda> borrar() {
@@ -304,4 +322,15 @@ public class Comanda {
 	public List<PlatoEntrada> choices0QuitarPlatoEntrada() {
 		return getPlatosEntrada();
 	}
+	/*
+	public String validateEnviarComanda(){
+		if(this.getBebidas().isEmpty() &&			
+		(this.getPostres().isEmpty()) &&
+		(this.getGuarniciones().isEmpty()) &&	
+		(this.getPlatosEntrada().isEmpty()) &&	
+		(this.getPlatosPrincipales().isEmpty()))
+		return "Comanda vacia";
+		return null;
+		
+	}*/
 }

@@ -37,7 +37,7 @@ import dom.postre.Postre;
 @Named("Carta")
 public class CartaServicio extends AbstractFactoryAndRepository {
 
-	@HomePage
+	
 	@Named("Mostrar Carta")
 	public Carta mostrarCarta() {
 		return newViewModelInstance(Carta.class, "carta");
