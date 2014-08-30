@@ -43,6 +43,7 @@ import org.apache.isis.applib.annotation.Render.Type;
 
 import dom.bebida.Bebida;
 import dom.guarnicion.Guarnicion;
+import dom.menu.Menu;
 import dom.mesa.Mesa;
 import dom.platoEntrada.PlatoEntrada;
 import dom.platoPrincipal.PlatoPrincipal;
@@ -136,7 +137,8 @@ public class Comanda {
 		if(this.getBebidas().isEmpty() &&			
 		  (this.getPostres().isEmpty()) &&
 		  (this.getGuarniciones().isEmpty()) &&	
-		  (this.getPlatosEntrada().isEmpty()) &&	
+		  (this.getPlatosEntrada().isEmpty()) &&
+		  (this.getMenues().isEmpty())&&
 		  (this.getPlatosPrincipales().isEmpty()))
 			 contenedor.informUser("Debe tener al menos un item");	
 		else
@@ -322,6 +324,39 @@ public class Comanda {
 	public List<PlatoEntrada> choices0QuitarPlatoEntrada() {
 		return getPlatosEntrada();
 	}
+
+	
+	// {{ Menues (property)
+	private List<Menu> menues;
+
+	@Render(Type.EAGERLY)
+	public List<Menu> getMenues() {
+		return menues;
+	}
+
+	public void setMenues(final List<Menu> menues) {
+		this.menues = menues;
+	}
+	// }}
+
+	@MemberOrder(name = "menues", sequence = "1")
+	public Comanda agregarMenu(final Menu menu) {
+		getMenues().add(menu);
+		return this;
+	}
+
+	@MemberOrder(name = "menues", sequence = "2")
+	public Comanda quitarMenu(final Menu menu) {
+		getMenues().remove(menu);
+		return this;
+	}
+
+	public List<Menu> choices0QuitarMenu() {
+		return getMenues();
+	}
+
+	
+	
 	/*
 	public String validateEnviarComanda(){
 		if(this.getBebidas().isEmpty() &&			

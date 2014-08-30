@@ -24,10 +24,12 @@ import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
+import javax.jdo.annotations.Query;
 import javax.jdo.annotations.Sequence;
 import javax.jdo.annotations.SequenceStrategy;
 
 import org.apache.isis.applib.DomainObjectContainer;
+import org.apache.isis.applib.annotation.AutoComplete;
 import org.apache.isis.applib.annotation.Bulk;
 import org.apache.isis.applib.annotation.Disabled;
 import org.apache.isis.applib.annotation.MemberOrder;
@@ -44,6 +46,8 @@ import dom.postre.Postre;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Sequence(name = "secuenciaNumeroMenu", strategy = SequenceStrategy.CONTIGUOUS)
+@Query(name = "menuQueEmpiezan", language = "JDOQL", value = "SELECT FROM dom.menu.Menu WHERE nombre.matches(:nombre)")
+@AutoComplete(repository = MenuServicio.class, action = "completarMenu")
 public class Menu {
 	// {{ Numero (property)
 	private int numero;

@@ -29,6 +29,7 @@ import org.apache.isis.applib.annotation.Named;
 
 import dom.bebida.Bebida;
 import dom.guarnicion.Guarnicion;
+import dom.menu.Menu;
 import dom.mesa.Mesa;
 import dom.platoEntrada.PlatoEntrada;
 import dom.platoPrincipal.PlatoPrincipal;
@@ -77,9 +78,13 @@ public class ComandaServicio extends AbstractFactoryAndRepository {
 	public List<PlatoEntrada> listarPlatosEntrada() {
 		return allInstances(PlatoEntrada.class);
 	}
-
+	
 	@Hidden
 	public List<PlatoPrincipal> listarPlatosPrincipales() {
 		return allInstances(PlatoPrincipal.class);
+	}
+	@Hidden
+	public List<Menu> listarMenues() {
+		return allInstances(Menu.class);
 	}
 }

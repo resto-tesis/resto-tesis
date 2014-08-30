@@ -29,6 +29,7 @@ import org.apache.isis.applib.annotation.Named;
 import org.apache.isis.applib.annotation.Optional;
 import org.apache.isis.applib.annotation.RegEx;
 import org.apache.isis.applib.annotation.Where;
+import org.apache.isis.applib.query.QueryDefault;
 
 import dom.bebida.Bebida;
 import dom.guarnicion.Guarnicion;
@@ -110,6 +111,13 @@ public class MenuServicio extends AbstractFactoryAndRepository {
 	@Hidden
 	public List<Postre> choices5CrearMenu() {
 		return allInstances(Postre.class);
+	}
+	
+	@Hidden
+	public List<Menu> completarMenu(final String nombre) {
+		return allMatches(new QueryDefault<Menu>(
+				Menu.class, "menuQueEmpiezan", "nombre",
+				"(?i).*" + nombre + ".*"));
 	}
 
 	@Named("Listar")
