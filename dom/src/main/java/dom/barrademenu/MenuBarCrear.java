@@ -15,7 +15,7 @@
  * 
  */
 
-package dom;
+package dom.barrademenu;
 
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.Named;
