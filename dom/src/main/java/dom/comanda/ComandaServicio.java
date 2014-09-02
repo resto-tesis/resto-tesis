@@ -38,8 +38,9 @@ import dom.postre.Postre;
 @DomainService
 @Named("Comanda")
 public class ComandaServicio extends AbstractFactoryAndRepository {
-
+	
 	@Named("Crear")
+	@MemberOrder(sequence = "1")
 	public Comanda crear(final Mesa mesa) {
 		final Comanda comanda = newTransientInstance(Comanda.class);
 		comanda.setMesa(mesa);

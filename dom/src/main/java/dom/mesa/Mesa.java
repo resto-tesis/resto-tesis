@@ -17,6 +17,7 @@
 
 package dom.mesa;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.jdo.annotations.Column;
@@ -35,8 +36,11 @@ import org.apache.isis.applib.annotation.Disabled;
 import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
+import org.apache.isis.applib.annotation.Render;
 import org.apache.isis.applib.annotation.Title;
+import org.apache.isis.applib.annotation.Render.Type;
 
+import dom.comanda.Comanda;
 import dom.mozo.Mozo;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
@@ -139,6 +143,21 @@ public class Mesa {
 		this.estadoAsignacion = estadoAsignacionMesa;
 	}
 
+	// }}
+	
+	// {{ ListaComandas (Collection)
+	private List<Comanda> listacomandas = new ArrayList<Comanda>();
+
+	@Render(Type.EAGERLY)
+	@Persistent(mappedBy = "mesa")
+	@MemberOrder(sequence = "1")
+	public List<Comanda> getListaComandas() {
+		return listacomandas;
+	}
+
+	public void setListaComandas(final List<Comanda> listacomandas) {
+		this.listacomandas = listacomandas;
+	}
 	// }}
 
 	@Bulk

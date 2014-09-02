@@ -55,8 +55,8 @@ import dom.postre.Postre;
 		@Query(name = "comandasSeleccionadas", language = "JDOQL", value = "SELECT FROM dom.comanda.Comanda where estadoSeleccion == true"),
 		@Query(name = "comandasSinPreparacion", language = "JDOQL", value = "SELECT FROM dom.comanda.Comanda where estadoPreparacion == 'Enviada'"),
 		@Query(name = "comandasEnPreparacion", language = "JDOQL", value = "SELECT FROM dom.comanda.Comanda where estadoPreparacion == 'En_Preparacion'"),
-		@Query(name = "comandasFinalizadas", language = "JDOQL", value = "SELECT FROM dom.comanda.Comanda where estadoPreparacion == 'Finalizada'")
-
+		@Query(name = "comandasFinalizadas", language = "JDOQL", value = "SELECT FROM dom.comanda.Comanda where estadoPreparacion == 'Finalizada'"),
+		@Query(name = "comandasPorMesa", language = "JDOQL", value = "SELECT FROM dom.comanda.Comanda where mesa_Mesa_ID_OID == Mesa_ID"),
 })
 public class Comanda {
 
@@ -88,7 +88,7 @@ public class Comanda {
 
 	@Column(allowsNull = "false")
 	@Disabled
-	@MemberOrder(sequence = "3")
+	@MemberOrder(sequence = "2")
 	public EstadoComandaEnum getEstadoPreparacion() {
 		return estadoPreparacion;
 	}
@@ -104,7 +104,7 @@ public class Comanda {
 
 	@Disabled
 	@Title(prepend = "Comanda ")
-	@MemberOrder(sequence = "2")
+	@MemberOrder(sequence = "3")
 	@Column(allowsNull = "false")
 	public Mesa getMesa() {
 		return mesa;
@@ -113,6 +113,7 @@ public class Comanda {
 	public void setMesa(final Mesa mesa) {
 		this.mesa = mesa;
 	}
+	//
 
 	/*
 	 * Inyección del servicio
