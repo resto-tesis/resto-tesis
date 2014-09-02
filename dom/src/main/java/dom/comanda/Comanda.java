@@ -29,19 +29,28 @@ import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.Queries;
 import javax.jdo.annotations.Query;
 import javax.jdo.annotations.Sequence;
+import javax.jdo.annotations.Extension;
 import javax.jdo.annotations.SequenceStrategy;
 
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.Bulk;
 import org.apache.isis.applib.annotation.Disabled;
+import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
+import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.Render;
 import org.apache.isis.applib.annotation.Title;
 import org.apache.isis.applib.annotation.TypicalLength;
 import org.apache.isis.applib.annotation.Render.Type;
 
 import dom.bebida.Bebida;
+import dom.comanda.estado.EnEspera;
+import dom.comanda.estado.EnPreparacion;
+import dom.comanda.estado.Facturada;
+import dom.comanda.estado.IEstadoComanda;
+import dom.comanda.estado.NoConfirmada;
+import dom.comanda.estado.Preparada;
 import dom.guarnicion.Guarnicion;
 import dom.menu.Menu;
 import dom.mesa.Mesa;
@@ -53,17 +62,18 @@ import dom.postre.Postre;
 @Sequence(name = "secuenciaNumeroComanda", strategy = SequenceStrategy.CONTIGUOUS)
 @Queries({
 		@Query(name = "comandasSeleccionadas", language = "JDOQL", value = "SELECT FROM dom.comanda.Comanda where estadoSeleccion == true"),
-		@Query(name = "comandasSinPreparacion", language = "JDOQL", value = "SELECT FROM dom.comanda.Comanda where estadoPreparacion == 'Enviada'"),
-		@Query(name = "comandasEnPreparacion", language = "JDOQL", value = "SELECT FROM dom.comanda.Comanda where estadoPreparacion == 'En_Preparacion'"),
-		@Query(name = "comandasFinalizadas", language = "JDOQL", value = "SELECT FROM dom.comanda.Comanda where estadoPreparacion == 'Finalizada'"),
-		@Query(name = "comandasPorMesa", language = "JDOQL", value = "SELECT FROM dom.comanda.Comanda where mesa_Mesa_ID_OID == Mesa_ID"),
-})
+		@Query(name = "comandasPorMesa", language = "JDOQL", value = "SELECT FROM dom.comanda.Comanda where mesa_Mesa_ID_OID == Mesa_ID"), })
 public class Comanda {
 
-	public Comanda(){
-		setEstadoPreparacion(EstadoComandaEnum.No_confirmada);
+	public Comanda() {
+		noConfirmada = new NoConfirmada(this);
+		enEspera = new EnEspera(this);
+		enPreparacion = new EnPreparacion(this);
+		preparada = new Preparada(this);
+		facturada = new Facturada(this);
+		estado = noConfirmada;
 	}
-	
+
 	// {{ Numero (property)
 	private int numero;
 
@@ -83,21 +93,114 @@ public class Comanda {
 
 	// }}
 
-	// {{ EstadoPreparacion (property)
-	private EstadoComandaEnum estadoPreparacion;
+	// {{ Estado (property)
+	private IEstadoComanda estado;
 
+	@Persistent(extensions = {
+			@Extension(vendorName = "datanucleus", key = "mapping-strategy", value = "per-implementation"),
+			@Extension(vendorName = "datanucleus", key = "implementation-classes", value = "dom.comanda.estado.NoConfirmada"
+					+ ",dom.comanda.estado.EnEspera"
+					+ ",dom.comanda.estado.EnPreparacion"
+					+ ",dom.comanda.estado.Preparada"
+					+ ",dom.comanda.estado.Facturada") }, columns = {
+			@Column(name = "idNoConfirmada"), @Column(name = "idEnEspera"),
+			@Column(name = "idEnPreparacion"), @Column(name = "idPreparada"),
+			@Column(name = "idFacturada") })
+	@MemberOrder(sequence = "1")
 	@Column(allowsNull = "false")
-	@Disabled
-	@MemberOrder(sequence = "2")
-	public EstadoComandaEnum getEstadoPreparacion() {
-		return estadoPreparacion;
+	public IEstadoComanda getEstado() {
+		return estado;
 	}
 
-	public void setEstadoPreparacion(final EstadoComandaEnum estadoPreparacion) {
-		this.estadoPreparacion = estadoPreparacion;
+	public void setEstado(final IEstadoComanda estado) {
+		this.estado = estado;
 	}
 
 	// }}
+
+	// ////////////////////////////////////////////Estados//////////////////////////////////////////////
+
+	// {{ NoConfirmada (property)
+	private NoConfirmada noConfirmada;
+
+	@Hidden
+	@MemberOrder(sequence = "1")
+	@Column(allowsNull = "false")
+	public NoConfirmada getNoConfirmada() {
+		return noConfirmada;
+	}
+
+	public void setNoConfirmada(final NoConfirmada noConfirmada) {
+		this.noConfirmada = noConfirmada;
+	}
+
+	// }}
+
+	// {{ EnEspera (property)
+	private EnEspera enEspera;
+
+	@Hidden
+	@MemberOrder(sequence = "1")
+	@Column(allowsNull = "false")
+	public EnEspera getEnEspera() {
+		return enEspera;
+	}
+
+	public void setEnEspera(final EnEspera enEspera) {
+		this.enEspera = enEspera;
+	}
+
+	// }}
+
+	// {{ EnPreparacion (property)
+	private EnPreparacion enPreparacion;
+
+	@Hidden
+	@MemberOrder(sequence = "1")
+	@Column(allowsNull = "false")
+	public EnPreparacion getEnPreparacion() {
+		return enPreparacion;
+	}
+
+	public void setEnPreparacion(final EnPreparacion enPreparacion) {
+		this.enPreparacion = enPreparacion;
+	}
+
+	// }}
+
+	// {{ Preparada (property)
+	private Preparada preparada;
+
+	@Hidden
+	@MemberOrder(sequence = "1")
+	@Column(allowsNull = "false")
+	public Preparada getPreparada() {
+		return preparada;
+	}
+
+	public void setPreparada(final Preparada preparada) {
+		this.preparada = preparada;
+	}
+
+	// }}
+
+	// {{ Facturada (property)
+	private Facturada facturada;
+
+	@Hidden
+	@MemberOrder(sequence = "1")
+	@Column(allowsNull = "false")
+	public Facturada getFacturada() {
+		return facturada;
+	}
+
+	public void setFacturada(final Facturada facturada) {
+		this.facturada = facturada;
+	}
+
+	// }}
+
+	// ////////////////////////////////////////////Estados//////////////////////////////////////////////
 
 	// {{ Mesa (property)
 	private Mesa mesa;
@@ -113,7 +216,8 @@ public class Comanda {
 	public void setMesa(final Mesa mesa) {
 		this.mesa = mesa;
 	}
-	//
+
+	// }}
 
 	/*
 	 * Inyección del servicio
@@ -122,53 +226,48 @@ public class Comanda {
 	private ComandaServicio comandaServicio;
 
 	// {{ injected: DomainObjectContainer
+	@Inject
 	private DomainObjectContainer contenedor;
 
-	public DomainObjectContainer getContenedor() {
-		return contenedor;
-	}
-
-	public void setContenedor(DomainObjectContainer contenedor) {
-		this.contenedor = contenedor;
-	}
-	
-	
 	@MemberOrder(sequence = "4")
-	public Comanda enviarComanda (){
-		if(this.getBebidas().isEmpty() &&			
-		  (this.getPostres().isEmpty()) &&
-		  (this.getGuarniciones().isEmpty()) &&	
-		  (this.getPlatosEntrada().isEmpty()) &&
-		  (this.getMenues().isEmpty())&&
-		  (this.getPlatosPrincipales().isEmpty()))
-			 contenedor.informUser("Debe tener al menos un item");	
-		else
-			setEstadoPreparacion(EstadoComandaEnum.En_Espera);		
+	public Comanda enviar() {
+		cambiarEstado();
 		return this;
 	}
-	
+
+	public String disableEnviar() {
+		return estado.Enviar();
+	}
+
+	@MemberOrder(sequence = "2")
+	public Comanda preparar() {
+		cambiarEstado();
+		return this;
+	}
+
+	public String disablePreparar() {
+		return estado.Preparar();
+	}
+
+	@MemberOrder(sequence = "3")
+	public Comanda comandaLista() {
+		cambiarEstado();
+		return this;
+	}
+
+	public String disableComandaLista() {
+		return estado.ComandaFinalizada();
+	}
+
+	@Programmatic
+	public void cambiarEstado() {
+		getEstado().cambiarEstado();
+	}
+
 	@Bulk
 	@MemberOrder(sequence = "1")
 	public List<Comanda> borrar() {
 		contenedor.removeIfNotAlready(this);
-		return comandaServicio.listarComanda();
-	}
-
-	@Bulk
-	@MemberOrder(sequence = "2")
-	public List<Comanda> preparar() {
-		if (getEstadoPreparacion() == EstadoComandaEnum.En_Espera)
-			setEstadoPreparacion(EstadoComandaEnum.En_Preparacion);
-		return comandaServicio.listarComanda();
-
-	}
-
-	@Bulk
-	@MemberOrder(sequence = "3")
-	public List<Comanda> comandaLista() {
-		if (getEstadoPreparacion() == EstadoComandaEnum.En_Preparacion
-				|| getEstadoPreparacion() == EstadoComandaEnum.En_Espera)
-			setEstadoPreparacion(EstadoComandaEnum.Preparada);
 		return comandaServicio.listarComanda();
 	}
 
@@ -192,7 +291,7 @@ public class Comanda {
 		getGuarniciones().add(_guarnicion);
 		return this;
 	}
-	
+
 	@MemberOrder(name = "guarniciones", sequence = "2")
 	public Comanda quitarGuarnicion(
 			@Named("Guarnición") final Guarnicion _guarnicion) {
@@ -233,7 +332,6 @@ public class Comanda {
 	public List<Bebida> choices0QuitarBebida() {
 		return getBebidas();
 	}
-	
 
 	// {{ Postres (Collection)
 	private List<Postre> postres = new ArrayList<Postre>();
@@ -326,7 +424,6 @@ public class Comanda {
 		return getPlatosEntrada();
 	}
 
-	
 	// {{ Menues (property)
 	private List<Menu> menues;
 
@@ -338,6 +435,7 @@ public class Comanda {
 	public void setMenues(final List<Menu> menues) {
 		this.menues = menues;
 	}
+
 	// }}
 
 	@MemberOrder(name = "menues", sequence = "1")
@@ -355,18 +453,4 @@ public class Comanda {
 	public List<Menu> choices0QuitarMenu() {
 		return getMenues();
 	}
-
-	
-	
-	/*
-	public String validateEnviarComanda(){
-		if(this.getBebidas().isEmpty() &&			
-		(this.getPostres().isEmpty()) &&
-		(this.getGuarniciones().isEmpty()) &&	
-		(this.getPlatosEntrada().isEmpty()) &&	
-		(this.getPlatosPrincipales().isEmpty()))
-		return "Comanda vacia";
-		return null;
-		
-	}*/
 }
