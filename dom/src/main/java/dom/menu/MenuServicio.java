@@ -76,6 +76,12 @@ public class MenuServicio extends AbstractFactoryAndRepository {
 
 	@Hidden
 	public double calcularDescuento(Menu _menu) {
+		final double total = calcularTotal(_menu);
+		return (total - ((total / 100) * _menu.getDescuento()));
+	}
+
+	@Hidden
+	public double calcularTotal(Menu _menu) {
 		double total = _menu.getBebida().getPrecio()
 				+ _menu.getPlatoPrincipal().getPrecio();
 		total += (_menu.getGuarnicion() == null) ? 0 : _menu.getGuarnicion()
@@ -84,8 +90,7 @@ public class MenuServicio extends AbstractFactoryAndRepository {
 				.getPlatoEntrada().getPrecio();
 		total += (_menu.getPostre() == null) ? 0 : _menu.getPostre()
 				.getPrecio();
-		final double calculo = total - ((total / 100) * _menu.getDescuento());
-		return calculo;
+		return total;
 	}
 
 	@Hidden
@@ -112,12 +117,11 @@ public class MenuServicio extends AbstractFactoryAndRepository {
 	public List<Postre> choices5CrearMenu() {
 		return allInstances(Postre.class);
 	}
-	
+
 	@Hidden
 	public List<Menu> completarMenu(final String nombre) {
-		return allMatches(new QueryDefault<Menu>(
-				Menu.class, "menuQueEmpiezan", "nombre",
-				"(?i).*" + nombre + ".*"));
+		return allMatches(new QueryDefault<Menu>(Menu.class, "menuQueEmpiezan",
+				"nombre", "(?i).*" + nombre + ".*"));
 	}
 
 	@Named("Listar")

@@ -19,6 +19,7 @@ package dom.menu;
 
 import java.util.List;
 
+import javax.inject.Inject;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
@@ -194,11 +195,19 @@ public class Menu {
 		return menuServicio.choices4CrearMenu();
 	}
 
+	@Named("Precio Final ($)")
 	@Disabled
-	@MemberOrder(sequence = "9")
+	@MemberOrder(sequence = "11")
 	public double getPrecioFinal() {
 		// return precioFinal;
 		return menuServicio.calcularDescuento(this);
+	}
+	
+	@Named("Precio Sin Descuento ($)")
+	@Disabled
+	@MemberOrder(sequence="10")
+	public double getPrecioSinDescuento(){
+		return menuServicio.calcularTotal(this);
 	}
 
 	// }}
@@ -212,19 +221,9 @@ public class Menu {
 	}
 
 	// {{ injected: DomainObjectContainer
+	@Inject
 	private DomainObjectContainer contenedor;
 
-	public DomainObjectContainer getContenedor() {
-		return contenedor;
-	}
-
-	public void setContenedor(DomainObjectContainer contenedor) {
-		this.contenedor = contenedor;
-	}
-
+	@Inject
 	private MenuServicio menuServicio;
-
-	public void injectMenuServicio(final MenuServicio _menuServicio) {
-		menuServicio = _menuServicio;
-	}
 }

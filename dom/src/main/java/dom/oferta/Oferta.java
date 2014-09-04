@@ -1,5 +1,3 @@
-package dom.oferta;
-
 /*
  * Copyright 2014 resto-tesis
  * 
@@ -17,10 +15,13 @@ package dom.oferta;
  * 
  */
 
+package dom.oferta;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.inject.Inject;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
@@ -29,13 +30,11 @@ import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.Query;
 import javax.jdo.annotations.Sequence;
 import javax.jdo.annotations.SequenceStrategy;
-import javax.validation.constraints.Digits;
 
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.AutoComplete;
 import org.apache.isis.applib.annotation.Bulk;
 import org.apache.isis.applib.annotation.Disabled;
-import org.apache.isis.applib.annotation.MaxLength;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.MultiLine;
 import org.apache.isis.applib.annotation.Named;
@@ -68,8 +67,9 @@ public class Oferta {
 	public void setNumero(final int numero) {
 		this.numero = numero;
 	}
+
 	// }}
-	
+
 	// {{ Nombre (property)
 	private String nombre;
 
@@ -85,22 +85,24 @@ public class Oferta {
 	public void setNombre(final String nombre) {
 		this.nombre = nombre;
 	}
+
 	// }}
 
 	// {{ CantidadPersonas (property)
-	private int cantidad_personas;
+	private int cantidadPersonas;
 
 	@Optional
 	@MemberOrder(sequence = "3")
 	public int getCantidadPersonas() {
-		return cantidad_personas;
+		return cantidadPersonas;
 	}
 
-	public void setCantidadPersonas(final int cantidad_personas) {
-		this.cantidad_personas = cantidad_personas;
+	public void setCantidadPersonas(final int cantidadPersonas) {
+		this.cantidadPersonas = cantidadPersonas;
 	}
+
 	// }}
-	
+
 	// {{ Descripcion (property)
 	private String descripcion;
 
@@ -115,6 +117,7 @@ public class Oferta {
 	public void setDescripcion(final String descripcion) {
 		this.descripcion = descripcion;
 	}
+
 	// }}
 
 	// {{ Menu (property)
@@ -129,21 +132,23 @@ public class Oferta {
 	public void setMenu(final Menu menu) {
 		this.menu = menu;
 	}
+
 	// }}
-	
+
 	private SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
-	
+
 	// {{ FechaInicio (property)
-	private Date fecha_inicio;
+	private Date fechaInicio;
 
 	@MemberOrder(sequence = "6")
 	public String getFechaInicio() {
-		return formato.format(fecha_inicio);
+		return formato.format(fechaInicio);
 	}
 
-	public void setFechaInicio(final Date fecha_inicio) {
-		this.fecha_inicio = fecha_inicio;
+	public void setFechaInicio(final Date fechaInicio) {
+		this.fechaInicio = fechaInicio;
 	}
+
 	// }}
 
 	// {{ Caducidad (property)
@@ -157,26 +162,24 @@ public class Oferta {
 	public void setCaducidad(final Date caducidad) {
 		this.caducidad = caducidad;
 	}
+
 	// }}
 	
-	// {{ Precio (property)
-	private double precio;
+	// {{ Descuento (property)
+	private int descuento;
 
-	@TypicalLength(5)
-	@MaxLength(value = 5) 
-	@Digits(integer = 2, fraction = 2)
-	@MemberOrder(sequence = "8")
+	@Named("Descuento (%)")
+	@MemberOrder(sequence = "1")
 	@Column(allowsNull = "false")
-	public double getPrecio() {
-		return precio;
+	public int getDescuento() {
+		return descuento;
 	}
 
-	public void setPrecio(final double precio) {
-		this.precio = precio;
+	public void setDescuento(final int descuento) {
+		this.descuento = descuento;
 	}
 	// }}
-	
-	@Named("Borrar")
+
 	@Bulk
 	@MemberOrder(sequence = "1")
 	public List<Oferta> borrar() {
@@ -184,20 +187,25 @@ public class Oferta {
 		return ofertaServicio.listarOfertas();
 	}
 
+	@Named("Precio Final ($)")
+	@Disabled
+	@MemberOrder(sequence = "11")
+	public double getPrecioFinal() {
+		// return precioFinal;
+		return ofertaServicio.calcularDescuento(this);
+	}
+
+	@Named("Precio Sin Descuento ($)")
+	@Disabled
+	@MemberOrder(sequence="10")
+	public double getPrecioSinDescuento(){
+		return ofertaServicio.calcularTotal(this);
+	}
+	
 	// {{ injected: DomainObjectContainer
+	@Inject
 	private DomainObjectContainer contenedor;
 
-	public DomainObjectContainer getContenedor() {
-		return contenedor;
-	}
-
-	public void setContenedor(DomainObjectContainer contenedor) {
-		this.contenedor = contenedor;
-	}
-
+	@Inject
 	private OfertaServicio ofertaServicio;
-
-	public void injectOfertaServicio(final OfertaServicio _ofertaServicio) {
-		ofertaServicio = _ofertaServicio;
-	}
 }
