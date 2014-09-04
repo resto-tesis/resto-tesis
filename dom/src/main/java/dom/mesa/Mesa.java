@@ -17,9 +17,9 @@
 
 package dom.mesa;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
@@ -144,21 +144,27 @@ public class Mesa {
 	}
 
 	// }}
-	
+
 	// {{ ListaComandas (Collection)
-	private List<Comanda> listacomandas = new ArrayList<Comanda>();
 
 	@Render(Type.EAGERLY)
-	@Persistent(mappedBy = "mesa")
-	@MemberOrder(sequence = "1")
+	//@Persistent(mappedBy = "mesa")
+	@MemberOrder(sequence = "6")
 	public List<Comanda> getListaComandas() {
-		return listacomandas;
+		return mesaServicio.comandasPertenecientes(this);
 	}
 
-	public void setListaComandas(final List<Comanda> listacomandas) {
-		this.listacomandas = listacomandas;
-	}
 	// }}
+
+	@MemberOrder(name = "listacomandas", sequence = "1")
+	public List<Comanda> traerPorDia() {
+		return mesaServicio.listarComandasPorDia();
+	}
+
+	@MemberOrder(name = "listacomandas", sequence = "2")
+	public List<Comanda> traerPorSemana() {
+		return mesaServicio.listarComandasPorSemana();
+	}
 
 	@Bulk
 	@MemberOrder(sequence = "1")
@@ -171,6 +177,7 @@ public class Mesa {
 	}
 
 	// {{ injected: DomainObjectContainer
+	@Inject
 	private DomainObjectContainer contenedor;
 
 	public DomainObjectContainer getContenedor() {
@@ -184,6 +191,7 @@ public class Mesa {
 	/*
 	 * Inyección del servicio
 	 */
+	@Inject
 	private MesaServicio mesaServicio;
 
 	public void injectarMesaServicio(final MesaServicio serviciomesa) {

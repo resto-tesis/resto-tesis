@@ -26,8 +26,6 @@ import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
-import javax.jdo.annotations.Queries;
-import javax.jdo.annotations.Query;
 import javax.jdo.annotations.Sequence;
 import javax.jdo.annotations.Extension;
 import javax.jdo.annotations.SequenceStrategy;
@@ -60,9 +58,6 @@ import dom.postre.Postre;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Sequence(name = "secuenciaNumeroComanda", strategy = SequenceStrategy.CONTIGUOUS)
-@Queries({
-		@Query(name = "comandasSeleccionadas", language = "JDOQL", value = "SELECT FROM dom.comanda.Comanda where estadoSeleccion == true"),
-		@Query(name = "comandasPorMesa", language = "JDOQL", value = "SELECT FROM dom.comanda.Comanda where mesa_Mesa_ID_OID == Mesa_ID"), })
 public class Comanda {
 
 	public Comanda() {
@@ -80,6 +75,7 @@ public class Comanda {
 	@Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT, sequence = "secuenciaNumeroComanda")
 	@Disabled
 	@TypicalLength(3)
+	@Title(prepend = "Comanda Nº ")
 	@Named("Número")
 	@Column(allowsNull = "false")
 	@MemberOrder(sequence = "1")

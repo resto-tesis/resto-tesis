@@ -26,6 +26,7 @@ import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
 import org.apache.isis.applib.annotation.ActionSemantics.Of;
+import org.apache.isis.applib.query.QueryDefault;
 
 import com.google.common.base.Predicate;
 
@@ -55,6 +56,7 @@ public class MesaServicio extends AbstractFactoryAndRepository {
 		persist(mesa);
 		return mesa;
 	}
+
 	@Hidden
 	public String validateCrearMesa(final int numero, final int capacidadMesa) {
 		if (capacidadMesa > 20 || capacidadMesa < 1) {
@@ -90,11 +92,18 @@ public class MesaServicio extends AbstractFactoryAndRepository {
 	public List<Mozo> listaDeMozos() {
 		return allInstances(Mozo.class);
 	}
-	
-/*	@Hidden
-	public List<Comanda> getListaComandas() {
-		return allMatches(new QueryDefault<Comanda>(Comanda.class,"comandasPorMesa"));
-	}*/
+
+	@Hidden
+	public List<Comanda> listarComandasPorDia() {
+		return allMatches(new QueryDefault<Comanda>(Comanda.class,
+				"comandasPorMesaPorDia"));
+	}
+
+	@Hidden
+	public List<Comanda> listarComandasPorSemana() {
+		return allMatches(new QueryDefault<Comanda>(Comanda.class,
+				"comandasPorMesaPorSemana"));
+	}
 
 	// Se verifica que el elemento por borrar no este relacionado con ninguna
 	// comanda
@@ -107,5 +116,18 @@ public class MesaServicio extends AbstractFactoryAndRepository {
 				return _comanda.getMesa().equals(_mesa);
 			}
 		}) != null ? false : true;
+	}
+
+	// Retorna la lista de comandas pertenecientes a la mesa en la que se está
+	// posicionado
+	@Hidden
+	public List<Comanda> comandasPertenecientes(final Mesa mesa) {
+		return allMatches(Comanda.class, new Predicate<Comanda>() {
+			@Override
+			public boolean apply(Comanda input) {
+				// TODO Auto-generated method stub
+				return (input.getMesa().equals(mesa)) ? true : false;
+			}
+		});
 	}
 }
