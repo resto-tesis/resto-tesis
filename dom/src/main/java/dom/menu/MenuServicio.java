@@ -70,6 +70,7 @@ public class MenuServicio extends AbstractFactoryAndRepository {
 		menu.setDescuento(_descuento);
 		menu.setNombre(_nombre.substring(0, 1).toUpperCase()
 				+ _nombre.substring(1));
+		menu.setEstadoLogico(EstadoLogico.Habilitado);
 		persist(menu);
 		return menu;
 	}

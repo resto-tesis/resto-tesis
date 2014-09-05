@@ -40,6 +40,7 @@ import com.google.common.base.Predicate;
 import dom.comanda.Comanda;
 import dom.menu.Menu;
 import dom.plato.CondicionDePlatoEnum;
+import dom.plato.EstadoLogico;
 import dom.plato.Plato;
 
 @DomainService
@@ -72,6 +73,7 @@ public class PlatoEntradaServicio extends AbstractFactoryAndRepository {
 					+ unaDescripcion.substring(1));
 		}
 		unPlato.setPrecio(unPrecio.doubleValue());
+		unPlato.setEstadoLogico(EstadoLogico.Habilitado);
 		persist(unPlato);
 		return unPlato;
 	}

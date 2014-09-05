@@ -67,6 +67,23 @@ public class Menu {
 	}
 
 	// }}
+	
+	// {{ EstadoLogico (property)
+	private EstadoLogico estadoLogico;
+
+	@Named("Estado de Alta")
+	@Column(allowsNull = "false")
+	@MemberOrder(sequence = "11")
+	public EstadoLogico getEstadoLogico() {
+		return estadoLogico;
+	}
+
+	public void setEstadoLogico(final EstadoLogico estadoLogico) {
+		this.estadoLogico = estadoLogico;
+	}
+	// }}
+
+
 
 	// {{ Nombre (property)
 	private String nombre;
@@ -211,6 +228,19 @@ public class Menu {
 	}
 
 	// }}
+	
+	public Menu deshabilitarMenu(){
+		
+		setEstadoLogico(EstadoLogico.Deshabilitado);
+		return this;
+		
+	}
+	
+	public Menu habilitarMenu() {
+		
+		setEstadoLogico(EstadoLogico.Habilitado);
+		return this;
+	}
 
 	@Named("Borrar")
 	@Bulk

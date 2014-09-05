@@ -129,5 +129,33 @@ public abstract class Plato {
 		this.precio = precioPlato;
 	}
 	// }}
+	
+	// {{ EstadoLogico (property)
+	private EstadoLogico estadoLogico;
+	@Named("Estado de Alta")
+	@Column(allowsNull = "false")
+	@MemberOrder(sequence = "7")
+	
+	public EstadoLogico getEstadoLogico() {
+		return estadoLogico;
+	}
+
+	public void setEstadoLogico(final EstadoLogico estadoLogico) {
+		this.estadoLogico = estadoLogico;
+	}
+	// }}
+
+	public Plato deshabilitarPlato(){
+		
+		setEstadoLogico(EstadoLogico.Deshabilitado);
+		return this;
+		
+	}
+	
+	public Plato habilitarPlato() {
+		
+		setEstadoLogico(EstadoLogico.Habilitado);
+		return this;
+	}
 
 }
