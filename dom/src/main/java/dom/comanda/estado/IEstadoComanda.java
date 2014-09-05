@@ -22,11 +22,34 @@ public interface IEstadoComanda {
 	String title();
 
 	void cambiarEstado();
-	
+
 	String Enviar();
-	
+
 	String Preparar();
 
 	String ComandaFinalizada();
+
+	String validarAgregarGuarnicion();
+
+	String validarAgregarPostre();
+
+	String validarAgregarBebida();
+
+	String validarAgregarPlatoPrincipal();
+
+	String validarAgregarPlatoEntrada();
+
+	String validarAgregarMenu();
 	
+	String validarQuitarGuarnicion();
+
+	String validarQuitarPostre();
+
+	String validarQuitarBebida();
+
+	String validarQuitarPlatoPrincipal();
+
+	String validarQuitarPlatoEntrada();
+
+	String validarQuitarMenu();
 }

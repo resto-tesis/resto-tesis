@@ -75,7 +75,6 @@ public class Comanda {
 	@Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT, sequence = "secuenciaNumeroComanda")
 	@Disabled
 	@TypicalLength(3)
-	@Title(prepend = "Comanda Nº ")
 	@Named("Número")
 	@Column(allowsNull = "false")
 	@MemberOrder(sequence = "1")
@@ -92,6 +91,7 @@ public class Comanda {
 	// {{ Estado (property)
 	private IEstadoComanda estado;
 
+	@Disabled
 	@Persistent(extensions = {
 			@Extension(vendorName = "datanucleus", key = "mapping-strategy", value = "per-implementation"),
 			@Extension(vendorName = "datanucleus", key = "implementation-classes", value = "dom.comanda.estado.NoConfirmada"
@@ -102,7 +102,7 @@ public class Comanda {
 			@Column(name = "idNoConfirmada"), @Column(name = "idEnEspera"),
 			@Column(name = "idEnPreparacion"), @Column(name = "idPreparada"),
 			@Column(name = "idFacturada") })
-	@MemberOrder(sequence = "1")
+	@MemberOrder(sequence = "2")
 	@Column(allowsNull = "false")
 	public IEstadoComanda getEstado() {
 		return estado;
@@ -288,6 +288,10 @@ public class Comanda {
 		return this;
 	}
 
+	public String validateAgregarGuarnicion(final Guarnicion _guarnicion) {
+		return getEstado().validarAgregarGuarnicion();
+	}
+
 	@MemberOrder(name = "guarniciones", sequence = "2")
 	public Comanda quitarGuarnicion(
 			@Named("Guarnición") final Guarnicion _guarnicion) {
@@ -297,6 +301,10 @@ public class Comanda {
 
 	public List<Guarnicion> choices0QuitarGuarnicion() {
 		return getGuarniciones();
+	}
+
+	public String validateQuitarGuarnicion(final Guarnicion _guarnicion) {
+		return getEstado().validarQuitarGuarnicion();
 	}
 
 	// {{ Bebidas (Collection)
@@ -319,6 +327,10 @@ public class Comanda {
 		return this;
 	}
 
+	public String validateAgregarBebida(final Bebida bebida) {
+		return getEstado().validarAgregarBebida();
+	}
+
 	@MemberOrder(name = "bebidas", sequence = "2")
 	public Comanda quitarBebida(final Bebida bebida) {
 		getBebidas().remove(bebida);
@@ -327,6 +339,10 @@ public class Comanda {
 
 	public List<Bebida> choices0QuitarBebida() {
 		return getBebidas();
+	}
+
+	public String validateQuitarBebida(final Bebida bebida) {
+		return getEstado().validarQuitarBebida();
 	}
 
 	// {{ Postres (Collection)
@@ -349,6 +365,10 @@ public class Comanda {
 		return this;
 	}
 
+	public String validateAgregarPostre(final Postre postre) {
+		return getEstado().validarAgregarPostre();
+	}
+
 	@MemberOrder(name = "postres", sequence = "2")
 	public Comanda quitarPostre(final Postre postre) {
 		getPostres().remove(postre);
@@ -357,6 +377,10 @@ public class Comanda {
 
 	public List<Postre> choices0QuitarPostre() {
 		return getPostres();
+	}
+
+	public String validateQuitarPostre(final Postre postre) {
+		return getEstado().validarQuitarPostre();
 	}
 
 	// {{ PlatosPrincipales (Collection)
@@ -380,6 +404,11 @@ public class Comanda {
 		return this;
 	}
 
+	public String validateAgregarPlatoPrincipal(
+			final PlatoPrincipal platoPrincipal) {
+		return getEstado().validarAgregarPlatoPrincipal();
+	}
+
 	@MemberOrder(name = "platosPrincipales", sequence = "2")
 	public Comanda quitarPlatoPrincipal(final PlatoPrincipal platoPrincipal) {
 		getPlatosPrincipales().remove(platoPrincipal);
@@ -388,6 +417,11 @@ public class Comanda {
 
 	public List<PlatoPrincipal> choices0QuitarPlatoPrincipal() {
 		return getPlatosPrincipales();
+	}
+
+	public String validateQuitarPlatoPrincipal(
+			final PlatoPrincipal platoPrincipal) {
+		return getEstado().validarQuitarPlatoPrincipal();
 	}
 
 	// {{ PlatosEntrada (Collection)
@@ -410,6 +444,10 @@ public class Comanda {
 		return this;
 	}
 
+	public String validateAgregarPlatoEntrada(final PlatoEntrada platoEntrada) {
+		return getEstado().validarAgregarPlatoEntrada();
+	}
+
 	@MemberOrder(name = "platosEntrada", sequence = "2")
 	public Comanda quitarPlatoEntrada(final PlatoEntrada platoEntrada) {
 		getPlatosEntrada().remove(platoEntrada);
@@ -418,6 +456,10 @@ public class Comanda {
 
 	public List<PlatoEntrada> choices0QuitarPlatoEntrada() {
 		return getPlatosEntrada();
+	}
+
+	public String validateQuitarPlatoEntrada(final PlatoEntrada platoEntrada) {
+		return getEstado().validarQuitarPlatoEntrada();
 	}
 
 	// {{ Menues (property)
@@ -440,6 +482,10 @@ public class Comanda {
 		return this;
 	}
 
+	public String validateAgregarMenu(final Menu menu) {
+		return getEstado().validarAgregarMenu();
+	}
+
 	@MemberOrder(name = "menues", sequence = "2")
 	public Comanda quitarMenu(final Menu menu) {
 		getMenues().remove(menu);
@@ -448,5 +494,9 @@ public class Comanda {
 
 	public List<Menu> choices0QuitarMenu() {
 		return getMenues();
+	}
+
+	public String validateQuitarMenu(final Menu menu) {
+		return getEstado().validarQuitarMenu();
 	}
 }

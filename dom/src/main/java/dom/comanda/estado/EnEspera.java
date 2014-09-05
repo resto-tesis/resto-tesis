@@ -28,8 +28,8 @@ import dom.comanda.Comanda;
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 public class EnEspera implements IEstadoComanda {
 
-	private String mensajeEstadoActual="Comanda en Espera";
-	
+	private String mensajeEstadoActual = "Comanda en Espera";
+
 	public EnEspera(Comanda _comanda) {
 		// TODO Auto-generated constructor stub
 		comanda = _comanda;
@@ -79,4 +79,75 @@ public class EnEspera implements IEstadoComanda {
 		return mensajeEstadoActual;
 	}
 
+	@Override
+	public String validarAgregarGuarnicion() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String validarAgregarPostre() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String validarAgregarBebida() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String validarAgregarPlatoPrincipal() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String validarAgregarPlatoEntrada() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String validarAgregarMenu() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String validarQuitarGuarnicion() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String validarQuitarPostre() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String validarQuitarBebida() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String validarQuitarPlatoPrincipal() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String validarQuitarPlatoEntrada() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String validarQuitarMenu() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

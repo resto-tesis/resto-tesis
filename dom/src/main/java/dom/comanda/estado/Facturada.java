@@ -28,8 +28,8 @@ import dom.comanda.Comanda;
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 public class Facturada implements IEstadoComanda {
 
-	private String mensajeEstadoActual="Comanda Facturada";
-	
+	private String mensajeEstadoActual = "Comanda Facturada";
+
 	public Facturada(Comanda _comanda) {
 		// TODO Auto-generated constructor stub
 		comanda = _comanda;
@@ -80,5 +80,75 @@ public class Facturada implements IEstadoComanda {
 		return mensajeEstadoActual;
 	}
 
+	@Override
+	public String validarAgregarGuarnicion() {
+		// TODO Auto-generated method stub
+		return mensajeEstadoActual;
+	}
 
+	@Override
+	public String validarAgregarPostre() {
+		// TODO Auto-generated method stub
+		return mensajeEstadoActual;
+	}
+
+	@Override
+	public String validarAgregarBebida() {
+		// TODO Auto-generated method stub
+		return mensajeEstadoActual;
+	}
+
+	@Override
+	public String validarAgregarPlatoPrincipal() {
+		// TODO Auto-generated method stub
+		return mensajeEstadoActual;
+	}
+
+	@Override
+	public String validarAgregarPlatoEntrada() {
+		// TODO Auto-generated method stub
+		return mensajeEstadoActual;
+	}
+
+	@Override
+	public String validarAgregarMenu() {
+		// TODO Auto-generated method stub
+		return mensajeEstadoActual;
+	}
+
+	@Override
+	public String validarQuitarGuarnicion() {
+		// TODO Auto-generated method stub
+		return mensajeEstadoActual;
+	}
+
+	@Override
+	public String validarQuitarPostre() {
+		// TODO Auto-generated method stub
+		return mensajeEstadoActual;
+	}
+
+	@Override
+	public String validarQuitarBebida() {
+		// TODO Auto-generated method stub
+		return mensajeEstadoActual;
+	}
+
+	@Override
+	public String validarQuitarPlatoPrincipal() {
+		// TODO Auto-generated method stub
+		return mensajeEstadoActual;
+	}
+
+	@Override
+	public String validarQuitarPlatoEntrada() {
+		// TODO Auto-generated method stub
+		return mensajeEstadoActual;
+	}
+
+	@Override
+	public String validarQuitarMenu() {
+		// TODO Auto-generated method stub
+		return mensajeEstadoActual;
+	}
 }
