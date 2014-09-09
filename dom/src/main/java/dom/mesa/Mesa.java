@@ -40,7 +40,7 @@ import org.apache.isis.applib.annotation.Render;
 import org.apache.isis.applib.annotation.Title;
 import org.apache.isis.applib.annotation.Render.Type;
 
-import dom.comanda.Comanda;
+import dom.comandaProducto.ComandaProducto;
 import dom.mozo.Mozo;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
@@ -150,19 +150,19 @@ public class Mesa {
 	@Render(Type.EAGERLY)
 	//@Persistent(mappedBy = "mesa")
 	@MemberOrder(sequence = "6")
-	public List<Comanda> getListaComandas() {
+	public List<ComandaProducto> getListaComandas() {
 		return mesaServicio.comandasPertenecientes(this);
 	}
 
 	// }}
 
 	@MemberOrder(name = "listacomandas", sequence = "1")
-	public List<Comanda> traerPorDia() {
+	public List<ComandaProducto> traerPorDia() {
 		return mesaServicio.listarComandasPorDia();
 	}
 
 	@MemberOrder(name = "listacomandas", sequence = "2")
-	public List<Comanda> traerPorSemana() {
+	public List<ComandaProducto> traerPorSemana() {
 		return mesaServicio.listarComandasPorSemana();
 	}
 

@@ -15,11 +15,11 @@
  * 
  */
 
-package dom.comanda;
+package dom.comandaProducto;
 
 public enum EstadoComandaEnum {
 	No_confirmada("No Confirmada"),En_Espera("En Espera"), En_Preparacion("En Preparación"), Preparada(
-			"Preparada"), Facturada("Facturada");
+			"Preparada");
 	
 
 	private final String nombre;

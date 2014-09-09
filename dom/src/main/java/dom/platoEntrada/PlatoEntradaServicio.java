@@ -37,7 +37,7 @@ import org.apache.isis.applib.query.QueryDefault;
 
 import com.google.common.base.Predicate;
 
-import dom.comanda.Comanda;
+import dom.comandaProducto.ComandaProducto;
 import dom.menu.Menu;
 import dom.plato.CondicionDePlatoEnum;
 import dom.plato.EstadoLogico;
@@ -102,10 +102,10 @@ public class PlatoEntradaServicio extends AbstractFactoryAndRepository {
 				// TODO Auto-generated method stub
 				return _menu.getPlatoEntrada().equals(_platoEntrada);
 			}
-		}) != null) ? false : (firstMatch(Comanda.class,
-				new Predicate<Comanda>() {
+		}) != null) ? false : (firstMatch(ComandaProducto.class,
+				new Predicate<ComandaProducto>() {
 					@Override
-					public boolean apply(Comanda _comanda) {
+					public boolean apply(ComandaProducto _comanda) {
 						// TODO Auto-generated method stub
 						for (PlatoEntrada platoEntrada : _comanda
 								.getPlatosEntrada())

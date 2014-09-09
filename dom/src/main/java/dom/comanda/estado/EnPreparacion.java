@@ -23,28 +23,28 @@ import javax.jdo.annotations.PersistenceCapable;
 
 import org.apache.isis.applib.annotation.MemberOrder;
 
-import dom.comanda.Comanda;
+import dom.comandaProducto.ComandaProducto;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 public class EnPreparacion implements IEstadoComanda {
 
 	private String mensajeEstadoActual = "Comanda en Preparación";
 
-	public EnPreparacion(Comanda _comanda) {
+	public EnPreparacion(ComandaProducto _comanda) {
 		// TODO Auto-generated constructor stub
 		comanda = _comanda;
 	}
 
 	// {{ Comanda (property)
-	private Comanda comanda;
+	private ComandaProducto comanda;
 
 	@MemberOrder(sequence = "1")
 	@Column(allowsNull = "true")
-	public Comanda getComanda() {
+	public ComandaProducto getComanda() {
 		return comanda;
 	}
 
-	public void setComanda(final Comanda comanda) {
+	public void setComanda(final ComandaProducto comanda) {
 		this.comanda = comanda;
 	}
 

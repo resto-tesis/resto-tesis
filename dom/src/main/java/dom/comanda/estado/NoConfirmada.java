@@ -23,28 +23,28 @@ import javax.jdo.annotations.PersistenceCapable;
 
 import org.apache.isis.applib.annotation.MemberOrder;
 
-import dom.comanda.Comanda;
+import dom.comandaProducto.ComandaProducto;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 public class NoConfirmada implements IEstadoComanda {
 
 	private String mensajeEstadoActual = "Comanda no Confirmada";
 
-	public NoConfirmada(Comanda _comanda) {
+	public NoConfirmada(ComandaProducto _comanda) {
 		// TODO Auto-generated constructor stub
 		comanda = _comanda;
 	}
 
 	// {{ Comanda (property)
-	private Comanda comanda;
+	private ComandaProducto comanda;
 
 	@MemberOrder(sequence = "1")
 	@Column(allowsNull = "true")
-	public Comanda getComanda() {
+	public ComandaProducto getComanda() {
 		return comanda;
 	}
 
-	public void setComanda(final Comanda comanda) {
+	public void setComanda(final ComandaProducto comanda) {
 		this.comanda = comanda;
 	}
 
@@ -65,8 +65,6 @@ public class NoConfirmada implements IEstadoComanda {
 	@Override
 	public String Enviar() {
 		// TODO Auto-generated method stub
-		if (!getComanda().getBebidas().isEmpty())
-			return null;
 		if (!getComanda().getPostres().isEmpty())
 			return null;
 		if (!getComanda().getGuarniciones().isEmpty())

@@ -15,14 +15,13 @@
  * 
  */
 
-package dom.comanda;
+package dom.comandaProducto;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.jdo.annotations.Column;
-import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
@@ -39,10 +38,9 @@ import org.apache.isis.applib.annotation.Named;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.Render;
 import org.apache.isis.applib.annotation.Title;
-import org.apache.isis.applib.annotation.TypicalLength;
 import org.apache.isis.applib.annotation.Render.Type;
 
-import dom.bebida.Bebida;
+import dom.absComanda.AbsComanda;
 import dom.comanda.estado.EnEspera;
 import dom.comanda.estado.EnPreparacion;
 import dom.comanda.estado.Facturada;
@@ -58,35 +56,15 @@ import dom.postre.Postre;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Sequence(name = "secuenciaNumeroComanda", strategy = SequenceStrategy.CONTIGUOUS)
-public class Comanda {
+public class ComandaProducto extends AbsComanda{
 
-	public Comanda() {
+	public ComandaProducto() {
 		noConfirmada = new NoConfirmada(this);
 		enEspera = new EnEspera(this);
 		enPreparacion = new EnPreparacion(this);
 		preparada = new Preparada(this);
-		facturada = new Facturada(this);
 		estado = noConfirmada;
 	}
-
-	// {{ Numero (property)
-	private int numero;
-
-	@Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT, sequence = "secuenciaNumeroComanda")
-	@Disabled
-	@TypicalLength(3)
-	@Named("Número")
-	@Column(allowsNull = "false")
-	@MemberOrder(sequence = "1")
-	public int getNumero() {
-		return numero;
-	}
-
-	public void setNumero(final int numero) {
-		this.numero = numero;
-	}
-
-	// }}
 
 	// {{ Estado (property)
 	private IEstadoComanda estado;
@@ -97,11 +75,9 @@ public class Comanda {
 			@Extension(vendorName = "datanucleus", key = "implementation-classes", value = "dom.comanda.estado.NoConfirmada"
 					+ ",dom.comanda.estado.EnEspera"
 					+ ",dom.comanda.estado.EnPreparacion"
-					+ ",dom.comanda.estado.Preparada"
-					+ ",dom.comanda.estado.Facturada") }, columns = {
+					+ ",dom.comanda.estado.Preparada") }, columns = {
 			@Column(name = "idNoConfirmada"), @Column(name = "idEnEspera"),
-			@Column(name = "idEnPreparacion"), @Column(name = "idPreparada"),
-			@Column(name = "idFacturada") })
+			@Column(name = "idEnPreparacion"), @Column(name = "idPreparada")})
 	@MemberOrder(sequence = "2")
 	@Column(allowsNull = "false")
 	public IEstadoComanda getEstado() {
@@ -219,14 +195,14 @@ public class Comanda {
 	 * Inyección del servicio
 	 */
 	@Inject
-	private ComandaServicio comandaServicio;
+	private ComandaServicioProducto comandaServicio;
 
 	// {{ injected: DomainObjectContainer
 	@Inject
 	private DomainObjectContainer contenedor;
 
 	@MemberOrder(sequence = "4")
-	public Comanda enviar() {
+	public ComandaProducto enviar() {
 		cambiarEstado();
 		return this;
 	}
@@ -236,7 +212,7 @@ public class Comanda {
 	}
 
 	@MemberOrder(sequence = "2")
-	public Comanda preparar() {
+	public ComandaProducto preparar() {
 		cambiarEstado();
 		return this;
 	}
@@ -246,7 +222,7 @@ public class Comanda {
 	}
 
 	@MemberOrder(sequence = "3")
-	public Comanda comandaLista() {
+	public ComandaProducto comandaLista() {
 		cambiarEstado();
 		return this;
 	}
@@ -262,7 +238,7 @@ public class Comanda {
 
 	@Bulk
 	@MemberOrder(sequence = "1")
-	public List<Comanda> borrar() {
+	public List<ComandaProducto> borrar() {
 		contenedor.removeIfNotAlready(this);
 		return comandaServicio.listarComanda();
 	}
@@ -282,7 +258,7 @@ public class Comanda {
 	// }}
 
 	@MemberOrder(name = "guarniciones", sequence = "1")
-	public Comanda agregarGuarnicion(
+	public ComandaProducto agregarGuarnicion(
 			@Named("Guarnición") final Guarnicion _guarnicion) {
 		getGuarniciones().add(_guarnicion);
 		return this;
@@ -293,7 +269,7 @@ public class Comanda {
 	}
 
 	@MemberOrder(name = "guarniciones", sequence = "2")
-	public Comanda quitarGuarnicion(
+	public ComandaProducto quitarGuarnicion(
 			@Named("Guarnición") final Guarnicion _guarnicion) {
 		getGuarniciones().remove(_guarnicion);
 		return this;
@@ -307,44 +283,7 @@ public class Comanda {
 		return getEstado().validarQuitarGuarnicion();
 	}
 
-	// {{ Bebidas (Collection)
-	private List<Bebida> bebidas = new ArrayList<Bebida>();
-
-	@Render(Type.EAGERLY)
-	public List<Bebida> getBebidas() {
-		return bebidas;
-	}
-
-	public void setBebidas(final List<Bebida> bebidas) {
-		this.bebidas = bebidas;
-	}
-
-	// }}
-
-	@MemberOrder(name = "bebidas", sequence = "1")
-	public Comanda agregarBebida(final Bebida bebida) {
-		getBebidas().add(bebida);
-		return this;
-	}
-
-	public String validateAgregarBebida(final Bebida bebida) {
-		return getEstado().validarAgregarBebida();
-	}
-
-	@MemberOrder(name = "bebidas", sequence = "2")
-	public Comanda quitarBebida(final Bebida bebida) {
-		getBebidas().remove(bebida);
-		return this;
-	}
-
-	public List<Bebida> choices0QuitarBebida() {
-		return getBebidas();
-	}
-
-	public String validateQuitarBebida(final Bebida bebida) {
-		return getEstado().validarQuitarBebida();
-	}
-
+	
 	// {{ Postres (Collection)
 	private List<Postre> postres = new ArrayList<Postre>();
 
@@ -360,7 +299,7 @@ public class Comanda {
 	// }}
 
 	@MemberOrder(name = "postres", sequence = "1")
-	public Comanda agregarPostre(final Postre postre) {
+	public ComandaProducto agregarPostre(final Postre postre) {
 		getPostres().add(postre);
 		return this;
 	}
@@ -370,7 +309,7 @@ public class Comanda {
 	}
 
 	@MemberOrder(name = "postres", sequence = "2")
-	public Comanda quitarPostre(final Postre postre) {
+	public ComandaProducto quitarPostre(final Postre postre) {
 		getPostres().remove(postre);
 		return this;
 	}
@@ -399,7 +338,7 @@ public class Comanda {
 	// }}
 
 	@MemberOrder(name = "platosPrincipales", sequence = "1")
-	public Comanda agregarPlatoPrincipal(final PlatoPrincipal platoPrincipal) {
+	public ComandaProducto agregarPlatoPrincipal(final PlatoPrincipal platoPrincipal) {
 		getPlatosPrincipales().add(platoPrincipal);
 		return this;
 	}
@@ -410,7 +349,7 @@ public class Comanda {
 	}
 
 	@MemberOrder(name = "platosPrincipales", sequence = "2")
-	public Comanda quitarPlatoPrincipal(final PlatoPrincipal platoPrincipal) {
+	public ComandaProducto quitarPlatoPrincipal(final PlatoPrincipal platoPrincipal) {
 		getPlatosPrincipales().remove(platoPrincipal);
 		return this;
 	}
@@ -439,7 +378,7 @@ public class Comanda {
 	// }}
 
 	@MemberOrder(name = "platosEntrada", sequence = "1")
-	public Comanda agregarPlatoEntrada(final PlatoEntrada platoEntrada) {
+	public ComandaProducto agregarPlatoEntrada(final PlatoEntrada platoEntrada) {
 		getPlatosEntrada().add(platoEntrada);
 		return this;
 	}
@@ -449,7 +388,7 @@ public class Comanda {
 	}
 
 	@MemberOrder(name = "platosEntrada", sequence = "2")
-	public Comanda quitarPlatoEntrada(final PlatoEntrada platoEntrada) {
+	public ComandaProducto quitarPlatoEntrada(final PlatoEntrada platoEntrada) {
 		getPlatosEntrada().remove(platoEntrada);
 		return this;
 	}
@@ -477,7 +416,7 @@ public class Comanda {
 	// }}
 
 	@MemberOrder(name = "menues", sequence = "1")
-	public Comanda agregarMenu(final Menu menu) {
+	public ComandaProducto agregarMenu(final Menu menu) {
 		getMenues().add(menu);
 		return this;
 	}
@@ -487,7 +426,7 @@ public class Comanda {
 	}
 
 	@MemberOrder(name = "menues", sequence = "2")
-	public Comanda quitarMenu(final Menu menu) {
+	public ComandaProducto quitarMenu(final Menu menu) {
 		getMenues().remove(menu);
 		return this;
 	}
@@ -499,4 +438,6 @@ public class Comanda {
 	public String validateQuitarMenu(final Menu menu) {
 		return getEstado().validarQuitarMenu();
 	}
+
+	
 }
