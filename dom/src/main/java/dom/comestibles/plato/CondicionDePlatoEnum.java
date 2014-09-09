@@ -15,17 +15,25 @@
  * 
  */
 
-package dom.barrademenu;
+package dom.comestibles.plato;
 
-import org.apache.isis.applib.annotation.DomainService;
-import org.apache.isis.applib.annotation.Named;
+public enum CondicionDePlatoEnum {
 
-@DomainService(menuOrder = "20")
-@Named("Listar")
-public class MenuBarListar {
+	Caliente("Caliente"), Frio("Frio");
 
-	public MenuBarListar() {
-		// TODO Auto-generated constructor stub
+	private final String nombre;
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	private CondicionDePlatoEnum(String _nombre) {
+		nombre = _nombre;
+	}
+
+	@Override
+	public String toString() {
+		return this.nombre;
 	}
 
 }

@@ -15,7 +15,7 @@
  * 
  */
 
-package dom.platoEntrada;
+package dom.comestibles.platoEntrada;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -38,31 +38,33 @@ import org.apache.isis.applib.query.QueryDefault;
 import com.google.common.base.Predicate;
 
 import dom.comanda.Comanda;
+import dom.comestibles.EstadoLogico;
+import dom.comestibles.plato.CondicionDePlatoEnum;
+import dom.comestibles.plato.Plato;
 import dom.menu.Menu;
-import dom.plato.CondicionDePlatoEnum;
-import dom.plato.EstadoLogico;
-import dom.plato.Plato;
 
 @DomainService
 public class PlatoEntradaServicio extends AbstractFactoryAndRepository {
 
 	@Named("Plato de Entrada")
-	@MemberOrder(name = "Crear",sequence = "1")
+	@MemberOrder(name = "Crear", sequence = "1")
 	public Plato crearPlatoEntrada(
 			/* Parametros de Entrada */
 			@RegEx(validation = "[0-9a-zA-ZáéíóúÁÉÍÓÚ\\s]*") @MaxLength(value = 30) @Named("Nombre") final String nombre,
 			@Named("Condición") final CondicionDePlatoEnum unaCondicion,
 			@Optional @MultiLine(numberOfLines = 3) @Named("Descripción") final String unaDescripcion,
-			@Named("Precio") @MaxLength(value = 6) @Digits(integer = 3, fraction = 2) final BigDecimal unPrecio) {
+			@Named("Precio") @MaxLength(value = 6) @Digits(integer = 3, fraction = 2) final BigDecimal unPrecio,
+			@Named("Habilitado") final EstadoLogico _estadoLogico) {
 		/* Empieza el metodo */
 		return crearUnPlatoEntrada(nombre, unaCondicion, unaDescripcion,
-				unPrecio);
+				unPrecio, _estadoLogico);
 	}
 
 	@Hidden
 	public PlatoEntrada crearUnPlatoEntrada(final String nombre,
 			final CondicionDePlatoEnum unaCondicion,
-			final String unaDescripcion, final BigDecimal unPrecio) {
+			final String unaDescripcion, final BigDecimal unPrecio,
+			final EstadoLogico _estadoLogico) {
 		/* Empieza el Metodo */
 		final PlatoEntrada unPlato = newTransientInstance(PlatoEntrada.class);
 		unPlato.setNombre(nombre.substring(0, 1).toUpperCase()
@@ -78,6 +80,11 @@ public class PlatoEntradaServicio extends AbstractFactoryAndRepository {
 		return unPlato;
 	}
 
+	public EstadoLogico default4CrearPlatoEntrada() {
+		// TODO Auto-generated method stub
+		return EstadoLogico.Habilitado;
+	}
+
 	@Hidden
 	public List<PlatoEntrada> completarPlatoEntrada(final String nombre) {
 		return allMatches(new QueryDefault<PlatoEntrada>(PlatoEntrada.class,
@@ -86,7 +93,7 @@ public class PlatoEntradaServicio extends AbstractFactoryAndRepository {
 
 	@Named("Platos de Entrada")
 	@ActionSemantics(Of.SAFE)
-	@MemberOrder(name="Listar",sequence = "2")
+	@MemberOrder(name = "Listar", sequence = "2")
 	public List<PlatoEntrada> listarPLatosEntrada() {
 		final List<PlatoEntrada> listaPlatos = allInstances(PlatoEntrada.class);
 		return listaPlatos;

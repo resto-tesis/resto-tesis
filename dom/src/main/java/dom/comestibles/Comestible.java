@@ -13,24 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * 
+ * 
  */
 
-package dom.guarnicion;
-
-import java.util.List;
+package dom.comestibles;
 
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
+import javax.jdo.annotations.Inheritance;
+import javax.jdo.annotations.InheritanceStrategy;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
-import javax.jdo.annotations.Query;
 import javax.jdo.annotations.Sequence;
 import javax.jdo.annotations.SequenceStrategy;
 
-import org.apache.isis.applib.DomainObjectContainer;
-import org.apache.isis.applib.annotation.AutoComplete;
-import org.apache.isis.applib.annotation.Bulk;
 import org.apache.isis.applib.annotation.Disabled;
 import org.apache.isis.applib.annotation.MaxLength;
 import org.apache.isis.applib.annotation.MemberOrder;
@@ -42,15 +39,18 @@ import org.apache.isis.applib.annotation.Title;
 import org.apache.isis.applib.annotation.TypicalLength;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
-@Sequence(name = "secuenciaNumeroGuarnicion", strategy = SequenceStrategy.CONTIGUOUS)
-@Query(name = "guarnicionesQueEmpiezan", language = "JDOQL", value = "SELECT FROM dom.guarnicion.Guarnicion WHERE nombre.matches(:nombre)")
-@AutoComplete(repository = GuarnicionServicio.class, action = "completarGuarniciones")
-public class Guarnicion {
+@Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
+@Sequence(name = "secuenciaNumeroComestible", strategy = SequenceStrategy.CONTIGUOUS)
+public abstract class Comestible {
+
+	public Comestible() {
+		// TODO Auto-generated constructor stub
+	}
 
 	// {{ Numero (property)
 	private int numero;
 
-	@Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT, sequence = "secuenciaNumeroGuarnicion")
+	@Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT, sequence = "secuenciaNumeroComestible")
 	@Named("Número")
 	@TypicalLength(3)
 	@Disabled
@@ -117,40 +117,32 @@ public class Guarnicion {
 
 	// }}
 
-	@Named("Borrar")
-	@Bulk
-	@MemberOrder(sequence = "1")
-	public List<Guarnicion> borrar() {
-		if (guarnicionServicio.validaBorrado(this))
-			contenedor.removeIfNotAlready(this);
-		else
-			contenedor.informUser("Existe un Menu o Comanda dependiente!!");
-		return guarnicionServicio.listarGuarniciones();
+	// {{ EstadoLogico (property)
+	private EstadoLogico estadoLogico;
+
+	@Named("Estado de Alta")
+	@Column(allowsNull = "false")
+	@MemberOrder(sequence = "7")
+	public EstadoLogico getEstadoLogico() {
+		return estadoLogico;
 	}
 
-	// {{ injected: DomainObjectContainer
-	private DomainObjectContainer contenedor;
-
-	public void injectDomainObjectContainer(
-			final DomainObjectContainer container) {
-		this.setContenedor(container);
+	public void setEstadoLogico(final EstadoLogico estadoLogico) {
+		this.estadoLogico = estadoLogico;
 	}
 
-	public DomainObjectContainer getContenedor() {
-		return contenedor;
+	// }}
+
+	public Comestible deshabilitarPlato() {
+
+		setEstadoLogico(EstadoLogico.Deshabilitado);
+		return this;
+
 	}
 
-	public void setContenedor(DomainObjectContainer contenedor) {
-		this.contenedor = contenedor;
-	}
+	public Comestible habilitarPlato() {
 
-	/*
-	 * Inyección del servicio
-	 */
-	private GuarnicionServicio guarnicionServicio;
-
-	public void injectarGuarnicionServicio(
-			final GuarnicionServicio servicioguarnicion) {
-		this.guarnicionServicio = servicioguarnicion;
+		setEstadoLogico(EstadoLogico.Habilitado);
+		return this;
 	}
 }

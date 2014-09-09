@@ -15,25 +15,17 @@
  * 
  */
 
-package dom.comanda;
+package dom.barraDeMenu;
 
-public enum EstadoComandaEnum {
-	No_confirmada("No Confirmada"),En_Espera("En Espera"), En_Preparacion("En Preparación"), Preparada(
-			"Preparada"), Facturada("Facturada");
-	
+import org.apache.isis.applib.annotation.DomainService;
+import org.apache.isis.applib.annotation.Named;
 
-	private final String nombre;
+@DomainService(menuOrder = "20")
+@Named("Listar")
+public class MenuBarListar {
 
-	public String getNombre() {
-		return nombre;
+	public MenuBarListar() {
+		// TODO Auto-generated constructor stub
 	}
 
-	private EstadoComandaEnum(String _nombre) {
-		nombre = _nombre;
-	}
-
-	@Override
-	public String toString() {
-		return this.nombre;
-	}
 }

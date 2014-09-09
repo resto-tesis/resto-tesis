@@ -15,7 +15,7 @@
  * 
  */
 
-package dom.postre;
+package dom.comestibles.postre;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -38,23 +38,27 @@ import org.apache.isis.applib.query.QueryDefault;
 import com.google.common.base.Predicate;
 
 import dom.comanda.Comanda;
+import dom.comestibles.EstadoLogico;
 import dom.menu.Menu;
 
 @DomainService
 public class PostreServicio extends AbstractFactoryAndRepository {
 
 	@Named("Postre")
-	@MemberOrder(name = "Crear",sequence = "1")
+	@MemberOrder(name = "Crear", sequence = "1")
 	public Postre crearPostre(
 			@Named("Nombre") @RegEx(validation = "[0-9a-zA-ZáéíóúÁÉÍÓÚ\\s]*") @MaxLength(value = 30) final String nombrePostre,
 			@Optional @MultiLine(numberOfLines = 3) @Named("Descripción") final String descripcionPostre,
-			@Named("Precio") @MaxLength(value = 5) @Digits(integer = 2, fraction = 2) final BigDecimal precioPostre) {
-		return crearPostreNuevo(nombrePostre, descripcionPostre, precioPostre);
+			@Named("Precio") @MaxLength(value = 5) @Digits(integer = 2, fraction = 2) final BigDecimal precioPostre,
+			@Named("Habilitado") final EstadoLogico _estadoLogico) {
+		return crearPostreNuevo(nombrePostre, descripcionPostre, precioPostre,
+				_estadoLogico);
 	}
 
 	@Hidden
 	public Postre crearPostreNuevo(final String nombrePostre,
-			final String descripcionPostre, final BigDecimal precioPostre) {
+			final String descripcionPostre, final BigDecimal precioPostre,
+			final EstadoLogico _estadoLogico) {
 		final Postre postre = newTransientInstance(Postre.class);
 		postre.setNombre(nombrePostre.substring(0, 1).toUpperCase()
 				+ nombrePostre.substring(1));
@@ -67,6 +71,11 @@ public class PostreServicio extends AbstractFactoryAndRepository {
 		return postre;
 	}
 
+	public EstadoLogico default3CrearPostre() {
+		// TODO Auto-generated method stub
+		return EstadoLogico.Habilitado;
+	}
+
 	@Hidden
 	public List<Postre> completarPostres(final String nombre) {
 		return allMatches(new QueryDefault<Postre>(Postre.class,
@@ -75,7 +84,7 @@ public class PostreServicio extends AbstractFactoryAndRepository {
 
 	@Named("Postres")
 	@ActionSemantics(Of.SAFE)
-	@MemberOrder(name="Listar",sequence = "2")
+	@MemberOrder(name = "Listar", sequence = "2")
 	public List<Postre> listarPostres() {
 		final List<Postre> listapostres = allInstances(Postre.class);
 		return listapostres;

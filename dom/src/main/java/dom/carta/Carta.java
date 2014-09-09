@@ -28,12 +28,12 @@ import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Render;
 import org.apache.isis.applib.annotation.Render.Type;
 
-import dom.bebida.Bebida;
-import dom.guarnicion.Guarnicion;
+import dom.comestibles.bebida.Bebida;
+import dom.comestibles.guarnicion.Guarnicion;
+import dom.comestibles.platoEntrada.PlatoEntrada;
+import dom.comestibles.platoPrincipal.PlatoPrincipal;
+import dom.comestibles.postre.Postre;
 import dom.menu.Menu;
-import dom.platoEntrada.PlatoEntrada;
-import dom.platoPrincipal.PlatoPrincipal;
-import dom.postre.Postre;
 
 @MemberGroupLayout(columnSpans = { 6, 0, 6 }, left = { "izquierda" }, right = { "derecha" })
 public class Carta extends AbstractViewModel {

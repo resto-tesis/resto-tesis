@@ -15,7 +15,7 @@
  * 
  */
 
-package dom.guarnicion;
+package dom.comestibles.guarnicion;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -38,6 +38,7 @@ import org.apache.isis.applib.query.QueryDefault;
 import com.google.common.base.Predicate;
 
 import dom.comanda.Comanda;
+import dom.comestibles.EstadoLogico;
 import dom.menu.Menu;
 
 @DomainService
@@ -48,15 +49,16 @@ public class GuarnicionServicio extends AbstractFactoryAndRepository {
 	public Guarnicion crearGuarnicion(
 			@Named("Nombre") @RegEx(validation = "[0-9a-zA-ZáéíóúÁÉÍÓÚ\\s]*") @MaxLength(value = 30) final String nombreGuarnicion,
 			@Named("Descripción") @Optional @MultiLine(numberOfLines = 3) final String descripcionGuarnicion,
-			@Named("Precio") @MaxLength(value = 5) @Digits(integer = 2, fraction = 2) final BigDecimal precioGuarnicion) {
+			@Named("Precio") @MaxLength(value = 5) @Digits(integer = 2, fraction = 2) final BigDecimal precioGuarnicion,
+			@Named("Habilitado") final EstadoLogico _estadoLogico) {
 		return crearGuarnicionNueva(nombreGuarnicion, descripcionGuarnicion,
-				precioGuarnicion);
+				precioGuarnicion, _estadoLogico);
 	}
 
 	@Hidden
 	public Guarnicion crearGuarnicionNueva(final String nombreGuarnicion,
 			final String descripcionGuarnicion,
-			final BigDecimal precioGuarnicion) {
+			final BigDecimal precioGuarnicion, final EstadoLogico _estadoLogico) {
 		final Guarnicion guarnicion = newTransientInstance(Guarnicion.class);
 		guarnicion.setNombre(nombreGuarnicion.substring(0, 1).toUpperCase()
 				+ nombreGuarnicion.substring(1));
@@ -64,6 +66,11 @@ public class GuarnicionServicio extends AbstractFactoryAndRepository {
 		guarnicion.setPrecio(precioGuarnicion.doubleValue());
 		persist(guarnicion);
 		return guarnicion;
+	}
+
+	public EstadoLogico default3CrearGuarnicion() {
+		// TODO Auto-generated method stub
+		return EstadoLogico.Habilitado;
 	}
 
 	@Hidden
@@ -74,7 +81,7 @@ public class GuarnicionServicio extends AbstractFactoryAndRepository {
 
 	@Named("Guarniciones")
 	@ActionSemantics(Of.SAFE)
-	@MemberOrder(name="Listar",sequence = "2")
+	@MemberOrder(name = "Listar", sequence = "2")
 	public List<Guarnicion> listarGuarniciones() {
 		final List<Guarnicion> listaguarniciones = allInstances(Guarnicion.class);
 		return listaguarniciones;

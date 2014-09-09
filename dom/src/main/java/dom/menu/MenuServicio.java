@@ -31,11 +31,11 @@ import org.apache.isis.applib.annotation.RegEx;
 import org.apache.isis.applib.annotation.Where;
 import org.apache.isis.applib.query.QueryDefault;
 
-import dom.bebida.Bebida;
-import dom.guarnicion.Guarnicion;
-import dom.platoEntrada.PlatoEntrada;
-import dom.platoPrincipal.PlatoPrincipal;
-import dom.postre.Postre;
+import dom.comestibles.bebida.Bebida;
+import dom.comestibles.guarnicion.Guarnicion;
+import dom.comestibles.platoEntrada.PlatoEntrada;
+import dom.comestibles.platoPrincipal.PlatoPrincipal;
+import dom.comestibles.postre.Postre;
 
 @DomainService
 @Named("Menu")

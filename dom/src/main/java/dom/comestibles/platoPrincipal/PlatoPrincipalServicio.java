@@ -15,7 +15,7 @@
  * 
  */
 
-package dom.platoPrincipal;
+package dom.comestibles.platoPrincipal;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -38,32 +38,34 @@ import org.apache.isis.applib.query.QueryDefault;
 import com.google.common.base.Predicate;
 
 import dom.comanda.Comanda;
+import dom.comestibles.EstadoLogico;
+import dom.comestibles.plato.CondicionDePlatoEnum;
+import dom.comestibles.plato.Plato;
+import dom.comestibles.platoPrincipal.PlatoPrincipal;
 import dom.menu.Menu;
-import dom.plato.CondicionDePlatoEnum;
-import dom.plato.EstadoLogico;
-import dom.plato.Plato;
-import dom.platoPrincipal.PlatoPrincipal;
 
 @DomainService
 public class PlatoPrincipalServicio extends AbstractFactoryAndRepository {
 
 	@Named("Plato Principal")
-	@MemberOrder(name = "Crear",sequence = "1")
+	@MemberOrder(name = "Crear", sequence = "1")
 	public Plato crearPlatoPrincipal(
 			/* Parametros de Entrada */
 			@RegEx(validation = "[0-9a-zA-ZáéíóúÁÉÍÓÚ\\s]*") @MaxLength(value = 30) @Named("Nombre") final String nombre,
 			@Named("Condición") final CondicionDePlatoEnum unaCondicion,
 			@Optional @MultiLine(numberOfLines = 3) @Named("Descripción") final String unaDescripcion,
-			@Named("Precio") @MaxLength(value = 6) @Digits(integer = 3, fraction = 2) final BigDecimal unPrecio) {
+			@Named("Precio") @MaxLength(value = 6) @Digits(integer = 3, fraction = 2) final BigDecimal unPrecio,
+			@Named("Habilitado") final EstadoLogico _estadoLogico) {
 		/* Empieza el metodo */
 		return crearUnPlatoPrincipal(nombre, unaCondicion, unaDescripcion,
-				unPrecio);
+				unPrecio, _estadoLogico);
 	}
 
 	@Hidden
 	public PlatoPrincipal crearUnPlatoPrincipal(final String nombre,
 			final CondicionDePlatoEnum unaCondicion,
-			final String unaDescripcion, final BigDecimal unPrecio) {
+			final String unaDescripcion, final BigDecimal unPrecio,
+			final EstadoLogico _estadoLogico) {
 		/* Empieza el Metodo */
 		final PlatoPrincipal unPlato = newTransientInstance(PlatoPrincipal.class);
 		unPlato.setNombre(nombre.substring(0, 1).toUpperCase()
@@ -79,6 +81,11 @@ public class PlatoPrincipalServicio extends AbstractFactoryAndRepository {
 		return unPlato;
 	}
 
+	public EstadoLogico default4CrearPlatoPrincipal() {
+		// TODO Auto-generated method stub
+		return EstadoLogico.Habilitado;
+	}
+
 	@Hidden
 	public List<PlatoPrincipal> completarPlatoPrincipal(final String nombre) {
 		return allMatches(new QueryDefault<PlatoPrincipal>(
@@ -88,7 +95,7 @@ public class PlatoPrincipalServicio extends AbstractFactoryAndRepository {
 
 	@Named("Platos Principales")
 	@ActionSemantics(Of.SAFE)
-	@MemberOrder(name="Listar",sequence = "2")
+	@MemberOrder(name = "Listar", sequence = "2")
 	public List<PlatoPrincipal> listarPLatosPrincipales() {
 		final List<PlatoPrincipal> listaPlatos = allInstances(PlatoPrincipal.class);
 		return listaPlatos;

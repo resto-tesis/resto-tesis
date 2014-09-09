@@ -15,7 +15,7 @@
  * 
  */
 
-package dom.bebida;
+package dom.comestibles.bebida;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -39,27 +39,30 @@ import org.apache.isis.applib.query.QueryDefault;
 import com.google.common.base.Predicate;
 
 import dom.comanda.Comanda;
+import dom.comestibles.EstadoLogico;
 import dom.menu.Menu;
 
 @DomainService
 public class BebidaServicio extends AbstractFactoryAndRepository {
 
 	@Named("Bebida")
-	@MemberOrder(name = "Crear",sequence = "1")
+	@MemberOrder(name = "Crear", sequence = "1")
 	public Bebida crearBebida(
 			@Named("Nombre") @RegEx(validation = "[0-9a-zA-ZáéíóúÁÉÍÓÚ\\s]*") @MaxLength(value = 30) final String _nombre,
 			@Named("Tipo de Bebida") @TypicalLength(10) final TipoBebidaEnum _tipo,
 			@Named("Volumen") @Optional @TypicalLength(15) final VolumenBebidaEnum _volumen,
 			@Named("Descripción") @Optional @MultiLine(numberOfLines = 3) final String _descripcion,
-			@Named("Precio") @MaxLength(value = 5) @Digits(integer = 2, fraction = 2) final BigDecimal _precio) {
+			@Named("Precio") @MaxLength(value = 5) @Digits(integer = 2, fraction = 2) final BigDecimal _precio,
+			@Named("Habilitado") final EstadoLogico _estadoLogico) {
 		return nuevaInstanciaBebida(_nombre, _tipo, _volumen, _descripcion,
-				_precio);
+				_precio, _estadoLogico);
 	}
 
 	@Hidden
 	public Bebida nuevaInstanciaBebida(final String _nombre,
 			final TipoBebidaEnum _tipo, final VolumenBebidaEnum _volumen,
-			final String _descripcion, final BigDecimal _precio) {
+			final String _descripcion, final BigDecimal _precio,
+			final EstadoLogico _estadoLogico) {
 		final Bebida nuevaBebida = new Bebida();
 		nuevaBebida.setNombre(_nombre.substring(0, 1).toUpperCase()
 				+ _nombre.substring(1));
@@ -71,18 +74,21 @@ public class BebidaServicio extends AbstractFactoryAndRepository {
 		return nuevaBebida;
 	}
 
+	public EstadoLogico default5CrearBebida() {
+		// TODO Auto-generated method stub
+		return EstadoLogico.Habilitado;
+	}
+
 	@Hidden
 	public List<Bebida> completarBebidas(final String nombre) {
 		return allMatches(new QueryDefault<Bebida>(Bebida.class,
 				"bebidasQueEmpiezan", "nombre", "(?i).*" + nombre + ".*"));
 	}
 
-	@Hidden
 	public TipoBebidaEnum default1CrearBebida() {
 		return TipoBebidaEnum.Gaseosa;
 	}
 
-	@Hidden
 	public VolumenBebidaEnum default2CrearBebida() {
 		return default1CrearBebida().volumen().get(0);
 	}
@@ -95,11 +101,11 @@ public class BebidaServicio extends AbstractFactoryAndRepository {
 	public String validateCrearBebida(final String _nombre,
 			final TipoBebidaEnum _tipoBebida,
 			final VolumenBebidaEnum _volumenBebida, final String _descripcion,
-			final BigDecimal _precio) {
+			final BigDecimal _precio, final EstadoLogico _estadoLogico) {
 		return VolumenBebidaEnum.validate(_tipoBebida, _volumenBebida);
 	}
 
-	@MemberOrder(name="Listar",sequence = "2")
+	@MemberOrder(name = "Listar", sequence = "2")
 	@ActionSemantics(Of.SAFE)
 	@Named("Bebidas")
 	public List<Bebida> listarBebidas() {

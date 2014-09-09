@@ -15,26 +15,17 @@
  * 
  */
 
-package dom.plato;
+package dom.barraDeMenu;
 
-public enum EstadoLogico {
+import org.apache.isis.applib.annotation.DomainService;
+import org.apache.isis.applib.annotation.Named;
 
-	Habilitado("Habilitado"), Deshabilitado("Deshabilitado");
+@DomainService(menuOrder = "30")
+@Named("Crear")
+public class MenuBarCrear {
 
-	private final String nombre;
-
-	public String getNombre() {
-		return nombre;
+	public MenuBarCrear() {
+		// TODO Auto-generated constructor stub
 	}
-
-	private EstadoLogico(String unNombre) {
-		nombre = unNombre;
-	}
-
-	@Override
-	public String toString() {
-		return this.nombre;
-	}
-
 
 }

@@ -42,19 +42,19 @@ import org.apache.isis.applib.annotation.Title;
 import org.apache.isis.applib.annotation.TypicalLength;
 import org.apache.isis.applib.annotation.Render.Type;
 
-import dom.bebida.Bebida;
 import dom.comanda.estado.EnEspera;
 import dom.comanda.estado.EnPreparacion;
 import dom.comanda.estado.Facturada;
 import dom.comanda.estado.IEstadoComanda;
 import dom.comanda.estado.NoConfirmada;
 import dom.comanda.estado.Preparada;
-import dom.guarnicion.Guarnicion;
+import dom.comestibles.bebida.Bebida;
+import dom.comestibles.guarnicion.Guarnicion;
+import dom.comestibles.platoEntrada.PlatoEntrada;
+import dom.comestibles.platoPrincipal.PlatoPrincipal;
+import dom.comestibles.postre.Postre;
 import dom.menu.Menu;
 import dom.mesa.Mesa;
-import dom.platoEntrada.PlatoEntrada;
-import dom.platoPrincipal.PlatoPrincipal;
-import dom.postre.Postre;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Sequence(name = "secuenciaNumeroComanda", strategy = SequenceStrategy.CONTIGUOUS)

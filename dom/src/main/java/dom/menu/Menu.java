@@ -39,11 +39,11 @@ import org.apache.isis.applib.annotation.Optional;
 import org.apache.isis.applib.annotation.Title;
 import org.apache.isis.applib.annotation.TypicalLength;
 
-import dom.bebida.Bebida;
-import dom.guarnicion.Guarnicion;
-import dom.platoEntrada.PlatoEntrada;
-import dom.platoPrincipal.PlatoPrincipal;
-import dom.postre.Postre;
+import dom.comestibles.bebida.Bebida;
+import dom.comestibles.guarnicion.Guarnicion;
+import dom.comestibles.platoEntrada.PlatoEntrada;
+import dom.comestibles.platoPrincipal.PlatoPrincipal;
+import dom.comestibles.postre.Postre;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Sequence(name = "secuenciaNumeroMenu", strategy = SequenceStrategy.CONTIGUOUS)

@@ -27,13 +27,13 @@ import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
 
-import dom.bebida.Bebida;
-import dom.guarnicion.Guarnicion;
+import dom.comestibles.bebida.Bebida;
+import dom.comestibles.guarnicion.Guarnicion;
+import dom.comestibles.platoEntrada.PlatoEntrada;
+import dom.comestibles.platoPrincipal.PlatoPrincipal;
+import dom.comestibles.postre.Postre;
 import dom.menu.Menu;
 import dom.mesa.Mesa;
-import dom.platoEntrada.PlatoEntrada;
-import dom.platoPrincipal.PlatoPrincipal;
-import dom.postre.Postre;
 
 @DomainService
 @Named("Comanda")
