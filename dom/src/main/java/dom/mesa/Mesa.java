@@ -148,7 +148,7 @@ public class Mesa {
 	// {{ ListaComandas (Collection)
 
 	@Render(Type.EAGERLY)
-	//@Persistent(mappedBy = "mesa")
+	// @Persistent(mappedBy = "mesa")
 	@MemberOrder(sequence = "6")
 	public List<ComandaProducto> getListaComandas() {
 		return mesaServicio.comandasPertenecientes(this);
@@ -227,9 +227,5 @@ public class Mesa {
 			return false;
 		return true;
 	}
-	
-	
 
-	
-	
 }

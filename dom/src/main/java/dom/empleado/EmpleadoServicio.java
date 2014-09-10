@@ -25,7 +25,7 @@ import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.Named;
 import org.joda.time.LocalDate;
 
-@DomainService(menuOrder="10")
+@DomainService(menuOrder = "10")
 @Named("Empleados")
 public class EmpleadoServicio extends AbstractFactoryAndRepository {
 

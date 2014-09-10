@@ -52,7 +52,7 @@ public class MozoServicio extends AbstractFactoryAndRepository implements
 	final LocalDate fecha_actual = LocalDate.now();
 
 	@Named("Nuevo Mozo")
-	@MemberOrder(name = "Empleados",sequence = "10.4")
+	@MemberOrder(name = "Empleados", sequence = "10.4")
 	public Mozo crear(
 			@Named("Apellido") @RegEx(validation = "[a-zA-ZáéíóúÁÉÍÓÚ\\s]*") @MaxLength(value = 20) final String _apellido,
 			@Named("Nombre") @RegEx(validation = "[a-zA-ZáéíóúÁÉÍÓÚ\\s]*") @MaxLength(value = 20) final String _nombre,
@@ -106,7 +106,7 @@ public class MozoServicio extends AbstractFactoryAndRepository implements
 
 	@Named("Mozos")
 	@ActionSemantics(Of.SAFE)
-	@MemberOrder(name = "Empleados",sequence = "10.1")
+	@MemberOrder(name = "Empleados", sequence = "10.1")
 	public List<Mozo> listarMozos() {
 		return allInstances(Mozo.class);
 	}

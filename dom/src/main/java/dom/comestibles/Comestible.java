@@ -190,6 +190,5 @@ public abstract class Comestible {
 			return false;
 		return true;
 	}
-	
-	
+
 }

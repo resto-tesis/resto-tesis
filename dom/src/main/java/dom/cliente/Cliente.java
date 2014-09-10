@@ -49,6 +49,7 @@ public class Cliente extends Persona {
 	public void setNumeroCliente(final long numeroCliente) {
 		this.numeroCliente = numeroCliente;
 	}
+
 	// }}
 
 	@Override
@@ -73,8 +74,5 @@ public class Cliente extends Persona {
 			return false;
 		return true;
 	}
-	
-	
-	 
 
 }

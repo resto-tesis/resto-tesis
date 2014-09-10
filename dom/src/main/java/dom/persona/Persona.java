@@ -155,6 +155,7 @@ public abstract class Persona {
 	public void setUsuario(final Usuario usuario) {
 		this.usuario = usuario;
 	}
+
 	// }}
 
 	@Override
@@ -217,6 +218,5 @@ public abstract class Persona {
 			return false;
 		return true;
 	}
-	
-	
+
 }

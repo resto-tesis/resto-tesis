@@ -130,6 +130,5 @@ public abstract class Empleado extends Persona {
 			return false;
 		return true;
 	}
-	
-	
+
 }

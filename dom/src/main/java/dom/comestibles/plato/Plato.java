@@ -72,7 +72,5 @@ public abstract class Plato extends Comestible {
 	}
 
 	// }}
-	
-	
 
 }

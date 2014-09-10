@@ -40,7 +40,7 @@ public interface IEstadoComanda {
 	String validarAgregarPlatoEntrada();
 
 	String validarAgregarMenu();
-	
+
 	String validarQuitarGuarnicion();
 
 	String validarQuitarPostre();

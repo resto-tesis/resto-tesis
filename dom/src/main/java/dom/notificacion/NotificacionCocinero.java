@@ -30,7 +30,7 @@ import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
-@Sequence(name = "secuenciaNumeroNotificCocinero", strategy = SequenceStrategy.CONTIGUOUS,initialValue=1000)
+@Sequence(name = "secuenciaNumeroNotificCocinero", strategy = SequenceStrategy.CONTIGUOUS, initialValue = 1000)
 public class NotificacionCocinero {
 
 	// {{ Numero (property)

@@ -164,7 +164,7 @@ public class Oferta {
 	}
 
 	// }}
-	
+
 	// {{ Descuento (property)
 	private int descuento;
 
@@ -178,6 +178,7 @@ public class Oferta {
 	public void setDescuento(final int descuento) {
 		this.descuento = descuento;
 	}
+
 	// }}
 
 	@Bulk
@@ -197,11 +198,11 @@ public class Oferta {
 
 	@Named("Precio Sin Descuento ($)")
 	@Disabled
-	@MemberOrder(sequence="10")
-	public double getPrecioSinDescuento(){
+	@MemberOrder(sequence = "10")
+	public double getPrecioSinDescuento() {
 		return ofertaServicio.calcularTotal(this);
 	}
-	
+
 	// {{ injected: DomainObjectContainer
 	@Inject
 	private DomainObjectContainer contenedor;
@@ -263,6 +264,5 @@ public class Oferta {
 			return false;
 		return true;
 	}
-	
-	
+
 }

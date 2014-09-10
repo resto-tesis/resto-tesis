@@ -70,6 +70,7 @@ public class Usuario {
 	public void setRol(final Rol rol) {
 		this.rol = rol;
 	}
+
 	// }}
 
 	@Override
@@ -103,7 +104,5 @@ public class Usuario {
 			return false;
 		return true;
 	}
-	
-	
 
 }

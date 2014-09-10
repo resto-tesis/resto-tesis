@@ -37,7 +37,6 @@ import dom.menu.Menu;
 import dom.mesa.Mesa;
 
 @DomainService
-
 public class ComandaServicioProducto extends AbstractFactoryAndRepository {
 
 	@Named("Comanda Producto")

@@ -87,13 +87,13 @@ public class ReservaServicio extends AbstractFactoryAndRepository {
 
 	public String validateCrearReserva(final int _comensales, final Mesa _mesa,
 			final Date _fecha, final String _hora) {
-//		se valida que la fecha ingresada sea posterior a la fecha actual.
+		// se valida que la fecha ingresada sea posterior a la fecha actual.
 		if (sumaFechaHora(_fecha, _hora).before(Calendar.getInstance()))
 			return "La fecha y hora debe ser posterior a hoy.";
 		for (Reserva _reserva : allMatches(Reserva.class,
-//				Se otienen todas las reservas de la fecha
-//				seleccionada correspondientes a la mesa 
-//				seleccionada.
+		// Se otienen todas las reservas de la fecha
+		// seleccionada correspondientes a la mesa
+		// seleccionada.
 				new Predicate<Reserva>() {
 					@Override
 					public boolean apply(Reserva input) {
@@ -102,19 +102,21 @@ public class ReservaServicio extends AbstractFactoryAndRepository {
 						calendarioInput.setTime(input.getFechaHora());
 						calendarioInput.set(Calendar.HOUR_OF_DAY, 0);
 						calendarioInput.set(Calendar.MINUTE, 0);
-						Calendar calendarioSeteado = sumaFechaHora(_fecha, _hora);
+						Calendar calendarioSeteado = sumaFechaHora(_fecha,
+								_hora);
 						calendarioSeteado.set(Calendar.HOUR_OF_DAY, 0);
 						calendarioSeteado.set(Calendar.MINUTE, 0);
-						if (input.getMesa().getNumero()==_mesa.getNumero())
+						if (input.getMesa().getNumero() == _mesa.getNumero())
 							if (calendarioInput.compareTo(calendarioSeteado) == 0)
 								return true;
 						return false;
 					}
 				})) {
-//			Se valida que el horario de reserva no interfiera con uno existente.
+			// Se valida que el horario de reserva no interfiera con uno
+			// existente.
 			Calendar calendarioReservado = Calendar.getInstance();
 			calendarioReservado.setTime(_reserva.getFechaHora());
-			Calendar calendarioSeteado=sumaFechaHora(_fecha, _hora);
+			Calendar calendarioSeteado = sumaFechaHora(_fecha, _hora);
 			if (calendarioSeteado.get(Calendar.HOUR_OF_DAY) == calendarioReservado
 					.get(Calendar.HOUR_OF_DAY))
 				return "Mesa Reservada.";
@@ -122,7 +124,7 @@ public class ReservaServicio extends AbstractFactoryAndRepository {
 			if (calendarioReservado.compareTo(calendarioSeteado) == 0)
 				return "Mesa Reservada.";
 			calendarioReservado.add(Calendar.MINUTE, -60);
-			if(calendarioReservado.compareTo(calendarioSeteado)==0)
+			if (calendarioReservado.compareTo(calendarioSeteado) == 0)
 				return "Mesa Reservada.";
 		}
 		return null;

@@ -36,5 +36,4 @@ public enum EstadoLogico {
 		return this.nombre;
 	}
 
-
 }

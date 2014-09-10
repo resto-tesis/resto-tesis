@@ -31,12 +31,10 @@ import dom.comestibles.platoPrincipal.PlatoPrincipal;
 import dom.comestibles.postre.Postre;
 import dom.menu.Menu;
 
-
 @DomainService
 @Named("Carta")
 public class CartaServicio extends AbstractFactoryAndRepository {
 
-	
 	@Named("Mostrar Carta")
 	public Carta mostrarCarta() {
 		return newViewModelInstance(Carta.class, "carta");
