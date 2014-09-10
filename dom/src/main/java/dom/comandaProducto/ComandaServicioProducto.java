@@ -37,11 +37,11 @@ import dom.menu.Menu;
 import dom.mesa.Mesa;
 
 @DomainService
-@Named("ComandaProducto")
+
 public class ComandaServicioProducto extends AbstractFactoryAndRepository {
 
-	@Named("Crear")
-	@MemberOrder(sequence = "1")
+	@Named("Comanda Producto")
+	@MemberOrder(name = "Crear", sequence = "7")
 	public ComandaProducto crear(final Mesa mesa) {
 		final ComandaProducto comanda = newTransientInstance(ComandaProducto.class);
 		comanda.setMesa(mesa);
@@ -50,8 +50,8 @@ public class ComandaServicioProducto extends AbstractFactoryAndRepository {
 		return comanda;
 	}
 
-	@Named("Listar")
-	@MemberOrder(sequence = "2")
+	@Named("Comanda Producto")
+	@MemberOrder(name = "Listar", sequence = "7")
 	@ActionSemantics(Of.SAFE)
 	public List<ComandaProducto> listarComanda() {
 		return allInstances(ComandaProducto.class);
