@@ -94,4 +94,32 @@ public class Bebida extends Comestible {
 	 */
 	@Inject
 	private BebidaServicio bebidaServicio;
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + ((tipo == null) ? 0 : tipo.hashCode());
+		result = prime * result + ((volumen == null) ? 0 : volumen.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Bebida other = (Bebida) obj;
+		if (tipo != other.tipo)
+			return false;
+		if (volumen != other.volumen)
+			return false;
+		return true;
+	}
+	
+	
+	
 }

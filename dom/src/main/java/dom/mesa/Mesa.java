@@ -198,4 +198,38 @@ public class Mesa {
 		this.mesaServicio = serviciomesa;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime
+				* result
+				+ ((estadoAsignacion == null) ? 0 : estadoAsignacion.hashCode());
+		result = prime
+				* result
+				+ ((estadoHabilitacion == null) ? 0 : estadoHabilitacion
+						.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Mesa other = (Mesa) obj;
+		if (estadoAsignacion != other.estadoAsignacion)
+			return false;
+		if (estadoHabilitacion != other.estadoHabilitacion)
+			return false;
+		return true;
+	}
+	
+	
+
+	
+	
 }

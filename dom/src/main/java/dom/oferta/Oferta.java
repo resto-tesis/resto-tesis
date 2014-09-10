@@ -208,4 +208,61 @@ public class Oferta {
 
 	@Inject
 	private OfertaServicio ofertaServicio;
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((caducidad == null) ? 0 : caducidad.hashCode());
+		result = prime * result + cantidadPersonas;
+		result = prime * result
+				+ ((descripcion == null) ? 0 : descripcion.hashCode());
+		result = prime * result + descuento;
+		result = prime * result
+				+ ((fechaInicio == null) ? 0 : fechaInicio.hashCode());
+		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
+		result = prime * result + numero;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Oferta other = (Oferta) obj;
+		if (caducidad == null) {
+			if (other.caducidad != null)
+				return false;
+		} else if (!caducidad.equals(other.caducidad))
+			return false;
+		if (cantidadPersonas != other.cantidadPersonas)
+			return false;
+		if (descripcion == null) {
+			if (other.descripcion != null)
+				return false;
+		} else if (!descripcion.equals(other.descripcion))
+			return false;
+		if (descuento != other.descuento)
+			return false;
+		if (fechaInicio == null) {
+			if (other.fechaInicio != null)
+				return false;
+		} else if (!fechaInicio.equals(other.fechaInicio))
+			return false;
+		if (nombre == null) {
+			if (other.nombre != null)
+				return false;
+		} else if (!nombre.equals(other.nombre))
+			return false;
+		if (numero != other.numero)
+			return false;
+		return true;
+	}
+	
+	
 }

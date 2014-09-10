@@ -45,6 +45,33 @@ public class Permiso {
 		this.permiso = permiso;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((permiso == null) ? 0 : permiso.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Permiso other = (Permiso) obj;
+		if (permiso == null) {
+			if (other.permiso != null)
+				return false;
+		} else if (!permiso.equals(other.permiso))
+			return false;
+		return true;
+	}
+
 	// }}
+	
+	
 
 }

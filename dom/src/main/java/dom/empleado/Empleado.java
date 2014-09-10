@@ -92,4 +92,44 @@ public abstract class Empleado extends Persona {
 
 	@Inject
 	private EmpleadoServicio empleadoServicio;
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result
+				+ ((fechaDeIngreso == null) ? 0 : fechaDeIngreso.hashCode());
+		result = prime
+				* result
+				+ ((fechaDeNacimiento == null) ? 0 : fechaDeNacimiento
+						.hashCode());
+		result = prime * result + (int) (legajo ^ (legajo >>> 32));
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Empleado other = (Empleado) obj;
+		if (fechaDeIngreso == null) {
+			if (other.fechaDeIngreso != null)
+				return false;
+		} else if (!fechaDeIngreso.equals(other.fechaDeIngreso))
+			return false;
+		if (fechaDeNacimiento == null) {
+			if (other.fechaDeNacimiento != null)
+				return false;
+		} else if (!fechaDeNacimiento.equals(other.fechaDeNacimiento))
+			return false;
+		if (legajo != other.legajo)
+			return false;
+		return true;
+	}
+	
+	
 }
