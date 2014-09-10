@@ -15,34 +15,27 @@
  * 
  */
 
-package dom.comanda;
+package dom.comandaBebida;
 
 import java.util.List;
-
 import org.apache.isis.applib.AbstractFactoryAndRepository;
 import org.apache.isis.applib.annotation.ActionSemantics;
-import org.apache.isis.applib.annotation.ActionSemantics.Of;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
-
+import org.apache.isis.applib.annotation.ActionSemantics.Of;
 import dom.comestibles.bebida.Bebida;
-import dom.comestibles.guarnicion.Guarnicion;
-import dom.comestibles.platoEntrada.PlatoEntrada;
-import dom.comestibles.platoPrincipal.PlatoPrincipal;
-import dom.comestibles.postre.Postre;
-import dom.menu.Menu;
 import dom.mesa.Mesa;
 
 @DomainService
-@Named("Comanda")
-public class ComandaServicio extends AbstractFactoryAndRepository {
-	
+@Named("ComandaBebida")
+public class ComandaBebidaServicio extends AbstractFactoryAndRepository {
+
 	@Named("Crear")
 	@MemberOrder(sequence = "1")
-	public Comanda crear(final Mesa mesa) {
-		final Comanda comanda = newTransientInstance(Comanda.class);
+	public ComandaBebida crear(final Mesa mesa) {
+		final ComandaBebida comanda = newTransientInstance(ComandaBebida.class);
 		comanda.setMesa(mesa);
 		persist(comanda);
 		return comanda;
@@ -51,8 +44,8 @@ public class ComandaServicio extends AbstractFactoryAndRepository {
 	@Named("Listar")
 	@MemberOrder(sequence = "2")
 	@ActionSemantics(Of.SAFE)
-	public List<Comanda> listarComanda() {
-		return allInstances(Comanda.class);
+	public List<ComandaBebida> listarBebida() {
+		return allInstances(ComandaBebida.class);
 	}
 
 	@Hidden
@@ -65,27 +58,4 @@ public class ComandaServicio extends AbstractFactoryAndRepository {
 		return allInstances(Bebida.class);
 	}
 
-	@Hidden
-	public List<Guarnicion> listaGuarnicion() {
-		return allInstances(Guarnicion.class);
-	}
-
-	@Hidden
-	public List<Postre> listarPostres() {
-		return allInstances(Postre.class);
-	}
-
-	@Hidden
-	public List<PlatoEntrada> listarPlatosEntrada() {
-		return allInstances(PlatoEntrada.class);
-	}
-	
-	@Hidden
-	public List<PlatoPrincipal> listarPlatosPrincipales() {
-		return allInstances(PlatoPrincipal.class);
-	}
-	@Hidden
-	public List<Menu> listarMenues() {
-		return allInstances(Menu.class);
-	}
 }

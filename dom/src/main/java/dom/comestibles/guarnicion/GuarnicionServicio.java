@@ -37,8 +37,8 @@ import org.apache.isis.applib.query.QueryDefault;
 
 import com.google.common.base.Predicate;
 
-import dom.comanda.Comanda;
 import dom.comestibles.EstadoLogico;
+import dom.comandaProducto.ComandaProducto;
 import dom.menu.Menu;
 
 @DomainService
@@ -64,6 +64,7 @@ public class GuarnicionServicio extends AbstractFactoryAndRepository {
 				+ nombreGuarnicion.substring(1));
 		guarnicion.setDescripcion(descripcionGuarnicion);
 		guarnicion.setPrecio(precioGuarnicion.doubleValue());
+		guarnicion.setEstadoLogico(_estadoLogico);
 		persist(guarnicion);
 		return guarnicion;
 	}
@@ -97,10 +98,10 @@ public class GuarnicionServicio extends AbstractFactoryAndRepository {
 				// TODO Auto-generated method stub
 				return _menu.getGuarnicion().equals(_guarnicion);
 			}
-		}) != null) ? false : (firstMatch(Comanda.class,
-				new Predicate<Comanda>() {
+		}) != null) ? false : (firstMatch(ComandaProducto.class,
+				new Predicate<ComandaProducto>() {
 					@Override
-					public boolean apply(Comanda _comanda) {
+					public boolean apply(ComandaProducto _comanda) {
 						// TODO Auto-generated method stub
 						for (Guarnicion guarnicion : _comanda.getGuarniciones())
 							return guarnicion.equals(_guarnicion);

@@ -37,10 +37,10 @@ import org.apache.isis.applib.query.QueryDefault;
 
 import com.google.common.base.Predicate;
 
-import dom.comanda.Comanda;
 import dom.comestibles.EstadoLogico;
 import dom.comestibles.plato.CondicionDePlatoEnum;
 import dom.comestibles.plato.Plato;
+import dom.comandaProducto.ComandaProducto;
 import dom.menu.Menu;
 
 @DomainService
@@ -75,7 +75,7 @@ public class PlatoEntradaServicio extends AbstractFactoryAndRepository {
 					+ unaDescripcion.substring(1));
 		}
 		unPlato.setPrecio(unPrecio.doubleValue());
-		unPlato.setEstadoLogico(EstadoLogico.Habilitado);
+		unPlato.setEstadoLogico(_estadoLogico);
 		persist(unPlato);
 		return unPlato;
 	}
@@ -109,10 +109,10 @@ public class PlatoEntradaServicio extends AbstractFactoryAndRepository {
 				// TODO Auto-generated method stub
 				return _menu.getPlatoEntrada().equals(_platoEntrada);
 			}
-		}) != null) ? false : (firstMatch(Comanda.class,
-				new Predicate<Comanda>() {
+		}) != null) ? false : (firstMatch(ComandaProducto.class,
+				new Predicate<ComandaProducto>() {
 					@Override
-					public boolean apply(Comanda _comanda) {
+					public boolean apply(ComandaProducto _comanda) {
 						// TODO Auto-generated method stub
 						for (PlatoEntrada platoEntrada : _comanda
 								.getPlatosEntrada())

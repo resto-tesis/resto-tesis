@@ -19,9 +19,7 @@ package dom.comestibles.bebida;
 
 import java.math.BigDecimal;
 import java.util.List;
-
 import javax.validation.constraints.Digits;
-
 import org.apache.isis.applib.AbstractFactoryAndRepository;
 import org.apache.isis.applib.annotation.ActionSemantics;
 import org.apache.isis.applib.annotation.DomainService;
@@ -35,11 +33,10 @@ import org.apache.isis.applib.annotation.RegEx;
 import org.apache.isis.applib.annotation.TypicalLength;
 import org.apache.isis.applib.annotation.ActionSemantics.Of;
 import org.apache.isis.applib.query.QueryDefault;
-
 import com.google.common.base.Predicate;
 
-import dom.comanda.Comanda;
 import dom.comestibles.EstadoLogico;
+import dom.comandaBebida.ComandaBebida;
 import dom.menu.Menu;
 
 @DomainService
@@ -70,6 +67,7 @@ public class BebidaServicio extends AbstractFactoryAndRepository {
 		nuevaBebida.setVolumen(_volumen);
 		nuevaBebida.setDescripcion(_descripcion);
 		nuevaBebida.setPrecio(_precio.doubleValue());
+		nuevaBebida.setEstadoLogico(_estadoLogico);
 		persist(nuevaBebida);
 		return nuevaBebida;
 	}
@@ -123,10 +121,10 @@ public class BebidaServicio extends AbstractFactoryAndRepository {
 				// TODO Auto-generated method stub
 				return _menu.getBebida().equals(_bebida);
 			}
-		}) != null) ? false : (firstMatch(Comanda.class,
-				new Predicate<Comanda>() {
+		}) != null) ? false : (firstMatch(ComandaBebida.class,
+				new Predicate<ComandaBebida>() {
 					@Override
-					public boolean apply(Comanda _comanda) {
+					public boolean apply(ComandaBebida _comanda) {
 						// TODO Auto-generated method stub
 						for (Bebida bebida : _comanda.getBebidas())
 							return bebida.equals(_bebida);

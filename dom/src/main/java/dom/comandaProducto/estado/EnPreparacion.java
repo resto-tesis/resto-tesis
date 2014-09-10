@@ -15,7 +15,7 @@
  * 
  */
 
-package dom.comanda.estado;
+package dom.comandaProducto.estado;
 
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdentityType;
@@ -23,28 +23,28 @@ import javax.jdo.annotations.PersistenceCapable;
 
 import org.apache.isis.applib.annotation.MemberOrder;
 
-import dom.comanda.Comanda;
+import dom.comandaProducto.ComandaProducto;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
-public class Preparada implements IEstadoComanda {
+public class EnPreparacion implements IEstadoComanda {
 
-	private String mensajeEstadoActual = "Comanda Preparada";
+	private String mensajeEstadoActual = "Comanda en Preparación";
 
-	public Preparada(Comanda _comanda) {
+	public EnPreparacion(ComandaProducto _comanda) {
 		// TODO Auto-generated constructor stub
 		comanda = _comanda;
 	}
 
 	// {{ Comanda (property)
-	private Comanda comanda;
+	private ComandaProducto comanda;
 
 	@MemberOrder(sequence = "1")
 	@Column(allowsNull = "true")
-	public Comanda getComanda() {
+	public ComandaProducto getComanda() {
 		return comanda;
 	}
 
-	public void setComanda(final Comanda comanda) {
+	public void setComanda(final ComandaProducto comanda) {
 		this.comanda = comanda;
 	}
 
@@ -53,13 +53,13 @@ public class Preparada implements IEstadoComanda {
 	@Override
 	public void cambiarEstado() {
 		// TODO Auto-generated method stub
-		getComanda().setEstado(getComanda().getFacturada());
+		getComanda().setEstado(getComanda().getPreparada());
 	}
 
 	@Override
 	public String title() {
 		// TODO Auto-generated method stub
-		return "Preparada";
+		return "En Preparación";
 	}
 
 	@Override
@@ -77,7 +77,7 @@ public class Preparada implements IEstadoComanda {
 	@Override
 	public String ComandaFinalizada() {
 		// TODO Auto-generated method stub
-		return mensajeEstadoActual;
+		return null;
 	}
 
 	@Override

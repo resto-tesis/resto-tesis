@@ -15,7 +15,7 @@
  * 
  */
 
-package dom.comanda.estado;
+package dom.comandaProducto.estado;
 
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdentityType;
@@ -23,59 +23,49 @@ import javax.jdo.annotations.PersistenceCapable;
 
 import org.apache.isis.applib.annotation.MemberOrder;
 
-import dom.comanda.Comanda;
+import dom.comandaProducto.ComandaProducto;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
-public class NoConfirmada implements IEstadoComanda {
+public class Facturada implements IEstadoComanda {
 
-	private String mensajeEstadoActual = "Comanda no Confirmada";
+	private String mensajeEstadoActual = "Comanda Facturada";
 
-	public NoConfirmada(Comanda _comanda) {
+	public Facturada(ComandaProducto _comanda) {
 		// TODO Auto-generated constructor stub
 		comanda = _comanda;
 	}
 
 	// {{ Comanda (property)
-	private Comanda comanda;
+	private ComandaProducto comanda;
 
 	@MemberOrder(sequence = "1")
 	@Column(allowsNull = "true")
-	public Comanda getComanda() {
+	public ComandaProducto getComanda() {
 		return comanda;
 	}
 
-	public void setComanda(final Comanda comanda) {
+	public void setComanda(final ComandaProducto comanda) {
 		this.comanda = comanda;
 	}
 
 	// }}
 
 	@Override
-	public String title() {
+	public void cambiarEstado() {
 		// TODO Auto-generated method stub
-		return "No Confirmada";
+
 	}
 
 	@Override
-	public void cambiarEstado() {
+	public String title() {
 		// TODO Auto-generated method stub
-		getComanda().setEstado(getComanda().getEnEspera());
+		return "Facturada";
 	}
 
 	@Override
 	public String Enviar() {
 		// TODO Auto-generated method stub
-		if (!getComanda().getBebidas().isEmpty())
-			return null;
-		if (!getComanda().getPostres().isEmpty())
-			return null;
-		if (!getComanda().getGuarniciones().isEmpty())
-			return null;
-		if (!getComanda().getPlatosEntrada().isEmpty())
-			return null;
-		if (!getComanda().getPlatosPrincipales().isEmpty())
-			return null;
-		return "Comanda vacia";
+		return mensajeEstadoActual;
 	}
 
 	@Override
@@ -93,72 +83,72 @@ public class NoConfirmada implements IEstadoComanda {
 	@Override
 	public String validarAgregarGuarnicion() {
 		// TODO Auto-generated method stub
-		return null;
+		return mensajeEstadoActual;
 	}
 
 	@Override
 	public String validarAgregarPostre() {
 		// TODO Auto-generated method stub
-		return null;
+		return mensajeEstadoActual;
 	}
 
 	@Override
 	public String validarAgregarBebida() {
 		// TODO Auto-generated method stub
-		return null;
+		return mensajeEstadoActual;
 	}
 
 	@Override
 	public String validarAgregarPlatoPrincipal() {
 		// TODO Auto-generated method stub
-		return null;
+		return mensajeEstadoActual;
 	}
 
 	@Override
 	public String validarAgregarPlatoEntrada() {
 		// TODO Auto-generated method stub
-		return null;
+		return mensajeEstadoActual;
 	}
 
 	@Override
 	public String validarAgregarMenu() {
 		// TODO Auto-generated method stub
-		return null;
+		return mensajeEstadoActual;
 	}
 
 	@Override
 	public String validarQuitarGuarnicion() {
 		// TODO Auto-generated method stub
-		return null;
+		return mensajeEstadoActual;
 	}
 
 	@Override
 	public String validarQuitarPostre() {
 		// TODO Auto-generated method stub
-		return null;
+		return mensajeEstadoActual;
 	}
 
 	@Override
 	public String validarQuitarBebida() {
 		// TODO Auto-generated method stub
-		return null;
+		return mensajeEstadoActual;
 	}
 
 	@Override
 	public String validarQuitarPlatoPrincipal() {
 		// TODO Auto-generated method stub
-		return null;
+		return mensajeEstadoActual;
 	}
 
 	@Override
 	public String validarQuitarPlatoEntrada() {
 		// TODO Auto-generated method stub
-		return null;
+		return mensajeEstadoActual;
 	}
 
 	@Override
 	public String validarQuitarMenu() {
 		// TODO Auto-generated method stub
-		return null;
+		return mensajeEstadoActual;
 	}
 }

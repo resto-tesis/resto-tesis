@@ -15,7 +15,7 @@
  * 
  */
 
-package dom.comanda.estado;
+package dom.comandaProducto.estado;
 
 public interface IEstadoComanda {
 
