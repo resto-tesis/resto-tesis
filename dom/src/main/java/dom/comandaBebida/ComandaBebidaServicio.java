@@ -17,7 +17,9 @@
 
 package dom.comandaBebida;
 
+import java.util.Date;
 import java.util.List;
+
 import org.apache.isis.applib.AbstractFactoryAndRepository;
 import org.apache.isis.applib.annotation.ActionSemantics;
 import org.apache.isis.applib.annotation.DomainService;
@@ -25,23 +27,26 @@ import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
 import org.apache.isis.applib.annotation.ActionSemantics.Of;
+
 import dom.comestibles.bebida.Bebida;
 import dom.mesa.Mesa;
 
 @DomainService
 public class ComandaBebidaServicio extends AbstractFactoryAndRepository {
 
-	@Named("Comanda Bebida")
-	@MemberOrder(name = "Crear", sequence = "6")
+	@Named("Tomar Bebidas")
+	@MemberOrder(name = "Comanda", sequence = "6")
 	public ComandaBebida crear(final Mesa mesa) {
 		final ComandaBebida comanda = newTransientInstance(ComandaBebida.class);
 		comanda.setMesa(mesa);
+		comanda.setFechaDePedido(new Date());
+		comanda.setMozo(getUser().getName());
 		persist(comanda);
 		return comanda;
 	}
 
-	@Named("Comanda Bebida")
-	@MemberOrder(name = "Listar", sequence = "6")
+	@Named("Listar Bebidas")
+	@MemberOrder(name = "Comanda", sequence = "6")
 	@ActionSemantics(Of.SAFE)
 	public List<ComandaBebida> listarBebida() {
 		return allInstances(ComandaBebida.class);

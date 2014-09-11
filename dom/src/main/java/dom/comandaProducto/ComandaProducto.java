@@ -195,7 +195,7 @@ public class ComandaProducto extends AbsComanda {
 	 * Inyección del servicio
 	 */
 	@Inject
-	private ComandaServicioProducto comandaServicio;
+	private ComandaProductoServicio comandaServicio;
 
 	// {{ injected: DomainObjectContainer
 	@Inject

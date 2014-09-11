@@ -79,26 +79,26 @@ public abstract class AbsComanda {
 	// }}
 
 	// {{ Mozo (property)
-	/*
-	 * private Mozo mozo;
-	 * 
-	 * @Disabled
-	 * 
-	 * @Title(prepend = "Comanda ")
-	 * 
-	 * @MemberOrder(sequence = "2")
-	 * 
-	 * @Column(allowsNull = "false") public Mozo getMozo() { return mozo; }
-	 * 
-	 * public void setMozo(final Mozo mozo) { this.mozo = mozo; }
-	 */
+	private String mozo;
+
+	@MemberOrder(sequence = "1")
+	@Column(allowsNull = "false")
+	public String getMozo() {
+		return mozo;
+	}
+
+	public void setMozo(final String mozo) {
+		this.mozo = mozo;
+	}
+
 	// }}
 
 	// {{ FechaDePedido (property)
 	private Date fechaDePedido;
 
+	@Named("Fecha y Hora")
 	@MemberOrder(sequence = "1")
-	@Column(allowsNull = "true")
+	@Column(allowsNull = "false")
 	public Date getFechaDePedido() {
 		return fechaDePedido;
 	}
