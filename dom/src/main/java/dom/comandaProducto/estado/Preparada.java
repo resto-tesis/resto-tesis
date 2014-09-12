@@ -53,7 +53,7 @@ public class Preparada implements IEstadoComanda {
 	@Override
 	public void cambiarEstado() {
 		// TODO Auto-generated method stub
-		getComanda().setEstado(getComanda().getFacturada());
+		//getComanda().setEstado(getComanda().getFacturada());
 	}
 
 	@Override

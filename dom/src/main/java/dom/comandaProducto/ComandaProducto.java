@@ -43,7 +43,6 @@ import org.apache.isis.applib.annotation.Render.Type;
 import dom.absComanda.AbsComanda;
 import dom.comandaProducto.estado.EnEspera;
 import dom.comandaProducto.estado.EnPreparacion;
-import dom.comandaProducto.estado.Facturada;
 import dom.comandaProducto.estado.IEstadoComanda;
 import dom.comandaProducto.estado.NoConfirmada;
 import dom.comandaProducto.estado.Preparada;
@@ -152,22 +151,6 @@ public class ComandaProducto extends AbsComanda {
 
 	public void setPreparada(final Preparada preparada) {
 		this.preparada = preparada;
-	}
-
-	// }}
-
-	// {{ Facturada (property)
-	private Facturada facturada;
-
-	@Hidden
-	@MemberOrder(sequence = "1")
-	@Column(allowsNull = "false")
-	public Facturada getFacturada() {
-		return facturada;
-	}
-
-	public void setFacturada(final Facturada facturada) {
-		this.facturada = facturada;
 	}
 
 	// }}

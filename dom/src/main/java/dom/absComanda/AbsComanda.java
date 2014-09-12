@@ -20,6 +20,7 @@ package dom.absComanda;
 import java.util.Date;
 
 import javax.jdo.annotations.Column;
+import javax.jdo.annotations.Extension;
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.Inheritance;
@@ -28,13 +29,15 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.Sequence;
 import javax.jdo.annotations.SequenceStrategy;
-
 import org.apache.isis.applib.annotation.Disabled;
+import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
 import org.apache.isis.applib.annotation.Title;
 import org.apache.isis.applib.annotation.TypicalLength;
-
+import dom.comandaEstadoFactura.Facturada;
+import dom.comandaEstadoFactura.IEstadoFactura;
+import dom.comandaEstadoFactura.NoFacturada;
 import dom.mesa.Mesa;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
@@ -108,5 +111,57 @@ public abstract class AbsComanda {
 	}
 
 	// }}
+
+	// {{ Estado (property)
+	private IEstadoFactura estadoFactura;
+
+	@Disabled
+	@Persistent(extensions = {
+			@Extension(vendorName = "datanucleus", key = "mapping-strategy", value = "per-implementation"),
+			@Extension(vendorName = "datanucleus", key = "implementation-classes", value = "dom.comandaEstadoFactura.Facturada"
+					+ ",dom.comandaEstadoFactura.NoFacturada") }, columns = {
+			@Column(name = "idFacturada"), @Column(name = "idNoFacturada") })
+	@MemberOrder(sequence = "2")
+	@Column(allowsNull = "false")
+	public IEstadoFactura getEstadoFactura() {
+		return estadoFactura;
+	}
+
+	public void setEstadoFactura(final IEstadoFactura estado) {
+		this.estadoFactura = estado;
+
+	}
+
+	// {{ Facturada (property)
+	private Facturada facturada;
+
+	@Hidden
+	@MemberOrder(sequence = "1")
+	@Column(allowsNull = "false")
+	public Facturada getFacturada() {
+		return facturada;
+	}
+
+	public void setFacturada(final Facturada facturada) {
+		this.facturada = facturada;
+	}
+
+	// }}
+	
+	
+// {{ Nofactura (property)
+private NoFacturada noFacturada;
+
+@MemberOrder(sequence = "1")
+public NoFacturada getNofactura() {
+	return noFacturada;
+}
+
+public void setNofactura(final NoFacturada noFacturada) {
+	this.noFacturada = noFacturada;
+}
+// }}
+
+
 
 }
