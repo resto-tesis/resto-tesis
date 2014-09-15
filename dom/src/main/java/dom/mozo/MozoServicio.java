@@ -38,6 +38,7 @@ import org.joda.time.LocalDate;
 
 import dom.empleado.Empleado;
 import dom.empleado.IValidacionEmpleado;
+import dom.mesa.EstadoAsignacionMesaEnum;
 import dom.mesa.Mesa;
 import dom.usuario.Rol;
 import dom.usuario.Usuario;
@@ -179,5 +180,16 @@ public class MozoServicio extends AbstractFactoryAndRepository implements
 		// TODO Auto-generated method stub
 		Days meses = Days.daysBetween(fechadeNacimiento, fecha_actual);
 		return meses.getDays();
+	}
+
+	@Hidden
+	public Mozo asignarMesas(Mozo _mozo) {
+		for (Mesa _mesa : listaMesasSeleccionadas()) {
+			_mozo.getListamesas().add(_mesa);
+			_mesa.setEstadoAsignacion(EstadoAsignacionMesaEnum.Asignada);
+			_mesa.setEstadoSeleccion(false);
+		}
+		getContainer().informUser("Mesas asignadas.");
+		return _mozo;
 	}
 }

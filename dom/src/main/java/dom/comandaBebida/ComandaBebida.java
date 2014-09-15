@@ -36,6 +36,10 @@ import dom.comestibles.bebida.Bebida;
 @Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
 public class ComandaBebida extends AbsComanda {
 
+	public ComandaBebida() {
+
+	}
+
 	// {{ Bebidas (Collection)
 	private List<Bebida> bebidas = new ArrayList<Bebida>();
 

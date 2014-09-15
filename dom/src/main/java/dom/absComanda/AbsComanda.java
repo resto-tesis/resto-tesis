@@ -45,6 +45,12 @@ import dom.mesa.Mesa;
 @Sequence(name = "secuenciaNumeroComanda", strategy = SequenceStrategy.CONTIGUOUS)
 public abstract class AbsComanda {
 
+	public AbsComanda() {
+		facturada = new Facturada(this);
+		noFacturada = new NoFacturada(this);
+		estadoFactura = noFacturada;
+	}
+
 	// {{ Numero (property)
 	private int numero;
 
@@ -147,21 +153,20 @@ public abstract class AbsComanda {
 	}
 
 	// }}
-	
-	
-// {{ Nofactura (property)
-private NoFacturada noFacturada;
 
-@MemberOrder(sequence = "1")
-public NoFacturada getNofactura() {
-	return noFacturada;
-}
+	// {{ Nofactura (property)
+	private NoFacturada noFacturada;
 
-public void setNofactura(final NoFacturada noFacturada) {
-	this.noFacturada = noFacturada;
-}
-// }}
+	@Hidden
+	@Column(allowsNull = "false")
+	@MemberOrder(sequence = "1")
+	public NoFacturada getNofactura() {
+		return noFacturada;
+	}
 
-
+	public void setNofactura(final NoFacturada noFacturada) {
+		this.noFacturada = noFacturada;
+	}
+	// }}
 
 }

@@ -1,4 +1,3 @@
-
 /*
  * Copyright 2014 resto-tesis
  * 
@@ -21,6 +20,6 @@ package dom.comandaEstadoFactura;
 public interface IEstadoFactura {
 
 	void cambiarEstado();
-	
-	String Enviar();
+
+	String title();
 }

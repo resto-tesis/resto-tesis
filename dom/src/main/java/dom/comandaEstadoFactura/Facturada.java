@@ -17,22 +17,25 @@
 
 package dom.comandaEstadoFactura;
 
+import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
+
 import org.apache.isis.applib.annotation.MemberOrder;
+
 import dom.absComanda.AbsComanda;
 
-
-
-
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
-public class Facturada implements IEstadoFactura{
-	
-	private String mensajeEstado = "Facturada";
-	
+public class Facturada implements IEstadoFactura {
+
+	public Facturada(AbsComanda _comanda) {
+		comanda = _comanda;
+	}
+
 	// {{ AbsComanda (property)
 	private AbsComanda comanda;
 
+	@Column(allowsNull = "true")
 	@MemberOrder(sequence = "1")
 	public AbsComanda getAbsComanda() {
 		return comanda;
@@ -41,21 +44,19 @@ public class Facturada implements IEstadoFactura{
 	public void setAbsComanda(final AbsComanda comanda) {
 		this.comanda = comanda;
 	}
+
 	// }}
 
 	@Override
 	public void cambiarEstado() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
-	public String Enviar() {
+	public String title() {
 		// TODO Auto-generated method stub
-		return mensajeEstado;
+		return "Facturada";
 	}
 
-
-	
-	
 }

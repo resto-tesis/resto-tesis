@@ -20,6 +20,7 @@ package dom.mozo;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.Inheritance;
 import javax.jdo.annotations.InheritanceStrategy;
@@ -56,54 +57,58 @@ public class Mozo extends Empleado {
 
 	// }}
 
-	@MemberOrder(name = "listaMesas", sequence = "1")
-	public Mozo agregarMesa(@Named("Mesa") final Mesa unaMesa) {
-		unaMesa.setEstadoAsignacion(EstadoAsignacionMesaEnum.Asignada);
-		getListamesas().add(unaMesa);
-		return this;
-	}
-
-	@MemberOrder(name = "listaMesas", sequence = "2")
-	public Mozo quitarMesa(@Named("Mesa") final Mesa unaMesa) {
-		unaMesa.setEstadoAsignacion(EstadoAsignacionMesaEnum.No_Asignada);
-		getListamesas().remove(unaMesa);
-		return this;
-	}
-
-	public List<Mesa> choices0AgregarMesa() {
-		return mozoServicio.listarMesaSinAsignar();
-	}
-
-	public List<Mesa> choices0QuitarMesa() {
-		return getListamesas();
-	}
-
 	// {{ injected: DomainObjectContainer
+	@Inject
 	private DomainObjectContainer contenedor;
-
-	public DomainObjectContainer getContainer() {
-		return contenedor;
-	}
-
-	public void setContainer(DomainObjectContainer container) {
-		this.contenedor = container;
-	}
-
 	/*
 	 * Inyección del servicio
 	 */
 
+	@Inject
 	private MozoServicio mozoServicio;
-
-	public void injectarMozoServicio(final MozoServicio serviciomozo) {
-		this.mozoServicio = serviciomozo;
-	}
 
 	@Bulk
 	@MemberOrder(sequence = "1")
 	public List<Mozo> borrar() {
 		contenedor.removeIfNotAlready(this);
 		return mozoServicio.listarMozos();
+	}
+
+	@MemberOrder(sequence = "2")
+	public List<Mesa> seleccionarMesas() {
+		for (Mesa _mesa : contenedor.allInstances(Mesa.class))
+			_mesa.setEstadoSeleccion(false);
+		return mozoServicio.listarMesaSinAsignar();
+	}
+
+	public String disableSeleccionarMesas() {
+		return mozoServicio.listaMesas().isEmpty() ? "No Existen Mesas" : null;
+	}
+
+	@MemberOrder(sequence = "3")
+	public Mozo asignar() {
+		return mozoServicio.asignarMesas(this);
+	}
+
+	public String disableAsignar() {
+		return mozoServicio.listaMesasSeleccionadas().isEmpty() ? "No Hay Mesas Seleccionadas"
+				: null;
+	}
+
+	@Named("Quitar")
+	@MemberOrder(sequence = "4")
+	public Mozo desasignarMesa(final Mesa _mesa) {
+		listaMesas.remove(_mesa);
+		_mesa.setEstadoAsignacion(EstadoAsignacionMesaEnum.No_Asignada);
+		return this;
+	}
+
+	public String disableDesasignarMesa(final Mesa _mesa) {
+		return listaMesas.isEmpty() ? "No Existen Mesas Asignadas" : null;
+	}
+
+	public List<Mesa> choices0DesasignarMesa() {
+		return getListamesas();
 	}
 
 }
