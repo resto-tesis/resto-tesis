@@ -68,7 +68,9 @@ public class ComandaProducto extends Comanda {
 		preparada = new Preparada(this);
 		estado = noConfirmada;
 	}
-
+	public String title(){
+		return this.getClass().getSimpleName();
+	}
 	// {{ Estado (property)
 	private IEstadoComanda estado;
 

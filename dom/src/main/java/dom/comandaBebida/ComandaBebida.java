@@ -41,6 +41,10 @@ public class ComandaBebida extends Comanda {
 	public ComandaBebida() {
 
 	}
+	
+	public String title(){
+		return this.getClass().getSimpleName();
+	}
 
 	// {{ Bebidas (Collection)
 	private List<Bebida> bebidas = new ArrayList<Bebida>();

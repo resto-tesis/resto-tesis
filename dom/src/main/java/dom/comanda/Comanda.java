@@ -70,23 +70,6 @@ public abstract class Comanda {
 
 	// }}
 
-	// // {{ Mesa (property)
-	// private Mesa mesa;
-	//
-	// @Disabled
-	// @Title(prepend = "Comanda ")
-	// @MemberOrder(sequence = "3")
-	// @Column(allowsNull = "false")
-	// public Mesa getMesa() {
-	// return mesa;
-	// }
-	//
-	// public void setMesa(final Mesa mesa) {
-	// this.mesa = mesa;
-	// }
-	//
-	// // }}
-
 	// {{ Mozo (property)
 	private String mozo;
 
