@@ -23,6 +23,8 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdentityType;
+import javax.jdo.annotations.Inheritance;
+import javax.jdo.annotations.InheritanceStrategy;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.Sequence;
@@ -35,12 +37,13 @@ import org.apache.isis.applib.annotation.Disabled;
 import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
+import org.apache.isis.applib.annotation.ObjectType;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.Render;
 import org.apache.isis.applib.annotation.Title;
 import org.apache.isis.applib.annotation.Render.Type;
 
-import dom.absComanda.AbsComanda;
+import dom.comanda.Comanda;
 import dom.comandaProducto.estado.EnEspera;
 import dom.comandaProducto.estado.EnPreparacion;
 import dom.comandaProducto.estado.IEstadoComanda;
@@ -54,8 +57,9 @@ import dom.menu.Menu;
 import dom.mesa.Mesa;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
-@Sequence(name = "secuenciaNumeroComanda", strategy = SequenceStrategy.CONTIGUOUS)
-public class ComandaProducto extends AbsComanda {
+@Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
+@ObjectType("ComandaProducto")
+public class ComandaProducto extends Comanda {
 
 	public ComandaProducto() {
 		noConfirmada = new NoConfirmada(this);
@@ -156,21 +160,6 @@ public class ComandaProducto extends AbsComanda {
 	// }}
 
 	// ////////////////////////////////////////////Estados//////////////////////////////////////////////
-
-	// {{ Mesa (property)
-	private Mesa mesa;
-
-	@Disabled
-	@Title(prepend = "Comanda ")
-	@MemberOrder(sequence = "3")
-	@Column(allowsNull = "false")
-	public Mesa getMesa() {
-		return mesa;
-	}
-
-	public void setMesa(final Mesa mesa) {
-		this.mesa = mesa;
-	}
 
 	// }}
 
@@ -385,42 +374,6 @@ public class ComandaProducto extends AbsComanda {
 		return getEstado().validarQuitarPlatoEntrada();
 	}
 
-	// {{ Menues (property)
-	private List<Menu> menues;
-
-	@Render(Type.EAGERLY)
-	public List<Menu> getMenues() {
-		return menues;
-	}
-
-	public void setMenues(final List<Menu> menues) {
-		this.menues = menues;
-	}
-
 	// }}
-
-	@MemberOrder(name = "menues", sequence = "1")
-	public ComandaProducto agregarMenu(final Menu menu) {
-		getMenues().add(menu);
-		return this;
-	}
-
-	public String validateAgregarMenu(final Menu menu) {
-		return getEstado().validarAgregarMenu();
-	}
-
-	@MemberOrder(name = "menues", sequence = "2")
-	public ComandaProducto quitarMenu(final Menu menu) {
-		getMenues().remove(menu);
-		return this;
-	}
-
-	public List<Menu> choices0QuitarMenu() {
-		return getMenues();
-	}
-
-	public String validateQuitarMenu(final Menu menu) {
-		return getEstado().validarQuitarMenu();
-	}
 
 }

@@ -43,10 +43,10 @@ public class ComandaProductoServicio extends AbstractFactoryAndRepository {
 	@MemberOrder(name = "Comanda", sequence = "7")
 	public ComandaProducto crear(final Mesa mesa) {
 		final ComandaProducto comanda = newTransientInstance(ComandaProducto.class);
-		comanda.setMesa(mesa);
 		comanda.setFechaDePedido(new Date());
 		comanda.setMozo(getUser().getName());
 		persist(comanda);
+		mesa.addToComandas(comanda);
 		return comanda;
 	}
 

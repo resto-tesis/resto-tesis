@@ -17,12 +17,17 @@
 
 package dom.mesa;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import javax.inject.Inject;
 import javax.jdo.annotations.Column;
+import javax.jdo.annotations.Element;
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
+import javax.jdo.annotations.Join;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.Queries;
@@ -40,6 +45,7 @@ import org.apache.isis.applib.annotation.Render;
 import org.apache.isis.applib.annotation.Title;
 import org.apache.isis.applib.annotation.Render.Type;
 
+import dom.comanda.Comanda;
 import dom.comandaProducto.ComandaProducto;
 import dom.mozo.Mozo;
 
@@ -145,34 +151,57 @@ public class Mesa {
 
 	// }}
 
-	// {{ ListaComandas (Collection)
+	// {{ Comandas (Collection)
+
+	private List<Comanda> comandas = new ArrayList<Comanda>();
 
 	@Render(Type.EAGERLY)
-	// @Persistent(mappedBy = "mesa")
-	@MemberOrder(sequence = "6")
-	public List<ComandaProducto> getListaComandas() {
-		return mesaServicio.comandasPertenecientes(this);
+	@MemberOrder(sequence = "1")
+	public List<Comanda> getComandas() {
+		return comandas;
+	}
+
+	public void setComandas(final List<Comanda> comandas) {
+		this.comandas = comandas;
 	}
 
 	// }}
 
-	@MemberOrder(name = "listacomandas", sequence = "1")
-	public List<ComandaProducto> traerPorDia() {
-		return mesaServicio.listarComandasPorDia();
+	public void addToComandas(final Comanda unaComanda) {
+		// check for no-op
+		if (unaComanda == null || getComandas().contains(unaComanda)) {
+			return;
+		}
+		// associate new
+		getComandas().add(unaComanda);
+		// additional business logic
+		onAddToComandas(unaComanda);
 	}
 
-	@MemberOrder(name = "listacomandas", sequence = "2")
-	public List<ComandaProducto> traerPorSemana() {
-		return mesaServicio.listarComandasPorSemana();
+	public void removeFromComandas(final Comanda unaComanda) {
+		// check for no-op
+		if (unaComanda == null || !getComandas().contains(unaComanda)) {
+			return;
+		}
+		// dissociate existing
+		getComandas().remove(unaComanda);
+		// additional business logic
+		onRemoveFromComandas(unaComanda);
+	}
+
+	protected void onAddToComandas(final Comanda unaComanda) {
+	}
+
+	protected void onRemoveFromComandas(final Comanda unaComanda) {
 	}
 
 	@Bulk
 	@MemberOrder(sequence = "1")
 	public List<Mesa> borrar() {
-		if (mesaServicio.validaBorrado(this))
+		if (comandas.isEmpty())
 			contenedor.removeIfNotAlready(this);
 		else
-			contenedor.informUser("Existe una Comanda dependiente!!");
+			contenedor.informUser("Existen una Comanda/s dependiente!!");
 		return mesaServicio.listarMesas();
 	}
 

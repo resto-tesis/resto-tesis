@@ -23,25 +23,25 @@ import javax.jdo.annotations.PersistenceCapable;
 
 import org.apache.isis.applib.annotation.MemberOrder;
 
-import dom.absComanda.AbsComanda;
+import dom.comanda.Comanda;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 public class NoFacturada implements IEstadoFactura {
 
-	public NoFacturada(AbsComanda _comanda) {
+	public NoFacturada(Comanda _comanda) {
 		comanda = _comanda;
 	}
 
 	// {{ AbsComanda (property)
-	private AbsComanda comanda;
+	private Comanda comanda;
 
 	@Column(allowsNull = "true")
 	@MemberOrder(sequence = "1")
-	public AbsComanda getAbsComanda() {
+	public Comanda getAbsComanda() {
 		return comanda;
 	}
 
-	public void setAbsComanda(final AbsComanda comanda) {
+	public void setAbsComanda(final Comanda comanda) {
 		this.comanda = comanda;
 	}
 

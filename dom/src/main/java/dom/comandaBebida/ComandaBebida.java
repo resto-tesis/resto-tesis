@@ -26,15 +26,17 @@ import javax.jdo.annotations.InheritanceStrategy;
 import javax.jdo.annotations.PersistenceCapable;
 
 import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.annotation.ObjectType;
 import org.apache.isis.applib.annotation.Render;
 import org.apache.isis.applib.annotation.Render.Type;
 
-import dom.absComanda.AbsComanda;
+import dom.comanda.Comanda;
 import dom.comestibles.bebida.Bebida;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
-public class ComandaBebida extends AbsComanda {
+@ObjectType("ComandaBebida")
+public class ComandaBebida extends Comanda {
 
 	public ComandaBebida() {
 

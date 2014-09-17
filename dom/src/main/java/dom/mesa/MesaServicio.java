@@ -95,39 +95,41 @@ public class MesaServicio extends AbstractFactoryAndRepository {
 
 	@Hidden
 	public List<ComandaProducto> listarComandasPorDia() {
-		return allMatches(new QueryDefault<ComandaProducto>(ComandaProducto.class,
-				"comandasPorMesaPorDia"));
+		return allMatches(new QueryDefault<ComandaProducto>(
+				ComandaProducto.class, "comandasPorMesaPorDia"));
 	}
 
 	@Hidden
 	public List<ComandaProducto> listarComandasPorSemana() {
-		return allMatches(new QueryDefault<ComandaProducto>(ComandaProducto.class,
-				"comandasPorMesaPorSemana"));
+		return allMatches(new QueryDefault<ComandaProducto>(
+				ComandaProducto.class, "comandasPorMesaPorSemana"));
 	}
 
 	// Se verifica que el elemento por borrar no este relacionado con ninguna
 	// comanda
-	@Hidden
-	public boolean validaBorrado(final Mesa _mesa) {
-		return firstMatch(ComandaProducto.class, new Predicate<ComandaProducto>() {
-			@Override
-			public boolean apply(ComandaProducto _comanda) {
-				// TODO Auto-generated method stub
-				return _comanda.getMesa().equals(_mesa);
-			}
-		}) != null ? false : true;
-	}
+	// @Hidden
+	// public boolean validaBorrado(final Mesa _mesa) {
+	// return firstMatch(ComandaProducto.class, new Predicate<ComandaProducto>()
+	// {
+	// @Override
+	// public boolean apply(ComandaProducto _comanda) {
+	// // TODO Auto-generated method stub
+	// return _comanda.getMesa().equals(_mesa);
+	// }
+	// }) != null ? false : true;
+	// }
 
 	// Retorna la lista de comandas pertenecientes a la mesa en la que se está
 	// posicionado
-	@Hidden
-	public List<ComandaProducto> comandasPertenecientes(final Mesa mesa) {
-		return allMatches(ComandaProducto.class, new Predicate<ComandaProducto>() {
-			@Override
-			public boolean apply(ComandaProducto input) {
-				// TODO Auto-generated method stub
-				return (input.getMesa().equals(mesa)) ? true : false;
-			}
-		});
-	}
+	// @Hidden
+	// public List<ComandaProducto> comandasPertenecientes(final Mesa mesa) {
+	// return allMatches(ComandaProducto.class, new Predicate<ComandaProducto>()
+	// {
+	// @Override
+	// public boolean apply(ComandaProducto input) {
+	// // TODO Auto-generated method stub
+	// return (input.getMesa().equals(mesa)) ? true : false;
+	// }
+	// });
+	// }
 }

@@ -15,7 +15,7 @@
  * 
  */
 
-package dom.absComanda;
+package dom.comanda;
 
 import java.util.Date;
 
@@ -43,9 +43,9 @@ import dom.mesa.Mesa;
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
 @Sequence(name = "secuenciaNumeroComanda", strategy = SequenceStrategy.CONTIGUOUS)
-public abstract class AbsComanda {
+public abstract class Comanda {
 
-	public AbsComanda() {
+	public Comanda() {
 		facturada = new Facturada(this);
 		noFacturada = new NoFacturada(this);
 		estadoFactura = noFacturada;
@@ -70,22 +70,22 @@ public abstract class AbsComanda {
 
 	// }}
 
-	// {{ Mesa (property)
-	private Mesa mesa;
-
-	@Disabled
-	@Title(prepend = "Comanda ")
-	@MemberOrder(sequence = "3")
-	@Column(allowsNull = "false")
-	public Mesa getMesa() {
-		return mesa;
-	}
-
-	public void setMesa(final Mesa mesa) {
-		this.mesa = mesa;
-	}
-
-	// }}
+	// // {{ Mesa (property)
+	// private Mesa mesa;
+	//
+	// @Disabled
+	// @Title(prepend = "Comanda ")
+	// @MemberOrder(sequence = "3")
+	// @Column(allowsNull = "false")
+	// public Mesa getMesa() {
+	// return mesa;
+	// }
+	//
+	// public void setMesa(final Mesa mesa) {
+	// this.mesa = mesa;
+	// }
+	//
+	// // }}
 
 	// {{ Mozo (property)
 	private String mozo;
