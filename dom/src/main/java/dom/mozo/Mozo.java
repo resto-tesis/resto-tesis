@@ -74,7 +74,7 @@ public class Mozo extends Empleado {
 		return mozoServicio.listarMozos();
 	}
 
-	@MemberOrder(sequence = "2")
+	@MemberOrder(name = "listaMesas", sequence = "1")
 	public List<Mesa> seleccionarMesas() {
 		for (Mesa _mesa : contenedor.allInstances(Mesa.class))
 			_mesa.setEstadoSeleccion(false);
@@ -85,7 +85,7 @@ public class Mozo extends Empleado {
 		return mozoServicio.listaMesas().isEmpty() ? "No Existen Mesas" : null;
 	}
 
-	@MemberOrder(sequence = "3")
+	@MemberOrder(name = "listaMesas", sequence = "2")
 	public Mozo asignar() {
 		return mozoServicio.asignarMesas(this);
 	}
@@ -96,7 +96,7 @@ public class Mozo extends Empleado {
 	}
 
 	@Named("Quitar")
-	@MemberOrder(sequence = "4")
+	@MemberOrder(name = "listaMesas", sequence = "3")
 	public Mozo desasignarMesa(final Mesa _mesa) {
 		listaMesas.remove(_mesa);
 		_mesa.setEstadoAsignacion(EstadoAsignacionMesaEnum.No_Asignada);

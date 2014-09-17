@@ -15,17 +15,11 @@
  * 
  */
 
-package dom.barraDeMenu;
+package dom.comanda.estadoFactura;
 
-import org.apache.isis.applib.annotation.DomainService;
-import org.apache.isis.applib.annotation.Named;
+public interface IEstadoFactura {
 
-@DomainService
-@Named("Comanda")
-public class MenuBarComanda {
+	void cambiarEstado();
 
-	public MenuBarComanda() {
-		// TODO Auto-generated constructor stub
-	}
-
+	String title();
 }

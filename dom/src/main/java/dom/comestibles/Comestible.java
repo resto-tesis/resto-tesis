@@ -133,14 +133,14 @@ public abstract class Comestible {
 
 	// }}
 
-	public Comestible deshabilitarPlato() {
+	public Comestible deshabilitar() {
 
 		setEstadoLogico(EstadoLogico.Deshabilitado);
 		return this;
 
 	}
 
-	public Comestible habilitarPlato() {
+	public Comestible habilitar() {
 
 		setEstadoLogico(EstadoLogico.Habilitado);
 		return this;

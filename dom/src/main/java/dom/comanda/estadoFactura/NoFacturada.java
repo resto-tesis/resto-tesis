@@ -15,7 +15,7 @@
  * 
  */
 
-package dom.comandaEstadoFactura;
+package dom.comanda.estadoFactura;
 
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdentityType;
@@ -26,9 +26,9 @@ import org.apache.isis.applib.annotation.MemberOrder;
 import dom.comanda.Comanda;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
-public class Facturada implements IEstadoFactura {
+public class NoFacturada implements IEstadoFactura {
 
-	public Facturada(Comanda _comanda) {
+	public NoFacturada(Comanda _comanda) {
 		comanda = _comanda;
 	}
 
@@ -56,7 +56,7 @@ public class Facturada implements IEstadoFactura {
 	@Override
 	public String title() {
 		// TODO Auto-generated method stub
-		return "Facturada";
+		return "No facturada";
 	}
 
 }

@@ -29,16 +29,14 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.Sequence;
 import javax.jdo.annotations.SequenceStrategy;
+
 import org.apache.isis.applib.annotation.Disabled;
 import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
-import org.apache.isis.applib.annotation.Title;
 import org.apache.isis.applib.annotation.TypicalLength;
-import dom.comandaEstadoFactura.Facturada;
-import dom.comandaEstadoFactura.IEstadoFactura;
-import dom.comandaEstadoFactura.NoFacturada;
-import dom.mesa.Mesa;
+
+import dom.comanda.estadoFactura.*;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
@@ -107,8 +105,8 @@ public abstract class Comanda {
 	@Disabled
 	@Persistent(extensions = {
 			@Extension(vendorName = "datanucleus", key = "mapping-strategy", value = "per-implementation"),
-			@Extension(vendorName = "datanucleus", key = "implementation-classes", value = "dom.comandaEstadoFactura.Facturada"
-					+ ",dom.comandaEstadoFactura.NoFacturada") }, columns = {
+			@Extension(vendorName = "datanucleus", key = "implementation-classes", value = "dom.comanda.estadoFactura.Facturada"
+					+ ",dom.comanda.estadoFactura.NoFacturada") }, columns = {
 			@Column(name = "idFacturada"), @Column(name = "idNoFacturada") })
 	@MemberOrder(sequence = "2")
 	@Column(allowsNull = "false")

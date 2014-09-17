@@ -27,9 +27,7 @@ import javax.jdo.annotations.Inheritance;
 import javax.jdo.annotations.InheritanceStrategy;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
-import javax.jdo.annotations.Sequence;
 import javax.jdo.annotations.Extension;
-import javax.jdo.annotations.SequenceStrategy;
 
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.Bulk;
@@ -40,21 +38,14 @@ import org.apache.isis.applib.annotation.Named;
 import org.apache.isis.applib.annotation.ObjectType;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.Render;
-import org.apache.isis.applib.annotation.Title;
 import org.apache.isis.applib.annotation.Render.Type;
 
 import dom.comanda.Comanda;
-import dom.comandaProducto.estado.EnEspera;
-import dom.comandaProducto.estado.EnPreparacion;
-import dom.comandaProducto.estado.IEstadoComanda;
-import dom.comandaProducto.estado.NoConfirmada;
-import dom.comandaProducto.estado.Preparada;
+import dom.comandaProducto.estado.*;
 import dom.comestibles.guarnicion.Guarnicion;
 import dom.comestibles.platoEntrada.PlatoEntrada;
 import dom.comestibles.platoPrincipal.PlatoPrincipal;
 import dom.comestibles.postre.Postre;
-import dom.menu.Menu;
-import dom.mesa.Mesa;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
@@ -68,9 +59,11 @@ public class ComandaProducto extends Comanda {
 		preparada = new Preparada(this);
 		estado = noConfirmada;
 	}
-	public String title(){
+
+	public String title() {
 		return this.getClass().getSimpleName();
 	}
+
 	// {{ Estado (property)
 	private IEstadoComanda estado;
 
@@ -214,7 +207,7 @@ public class ComandaProducto extends Comanda {
 	@MemberOrder(sequence = "1")
 	public List<ComandaProducto> borrar() {
 		contenedor.removeIfNotAlready(this);
-		return comandaServicio.listarComanda();
+		return comandaServicio.listarComandaProducto();
 	}
 
 	// {{ Guarniciones (Collection)

@@ -82,7 +82,6 @@ public class Reserva {
 
 	// }}
 
-	
 	// {{ Mesa (property)
 	private Mesa mesa;
 

@@ -28,8 +28,6 @@ import org.apache.isis.applib.annotation.Named;
 import org.apache.isis.applib.annotation.ActionSemantics.Of;
 import org.apache.isis.applib.query.QueryDefault;
 
-import com.google.common.base.Predicate;
-
 import dom.comandaProducto.ComandaProducto;
 import dom.mozo.Mozo;
 
@@ -104,5 +102,4 @@ public class MesaServicio extends AbstractFactoryAndRepository {
 		return allMatches(new QueryDefault<ComandaProducto>(
 				ComandaProducto.class, "comandasPorMesaPorSemana"));
 	}
-
 }

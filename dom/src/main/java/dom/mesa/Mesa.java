@@ -19,15 +19,11 @@ package dom.mesa;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.SortedSet;
-import java.util.TreeSet;
 
 import javax.inject.Inject;
 import javax.jdo.annotations.Column;
-import javax.jdo.annotations.Element;
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
-import javax.jdo.annotations.Join;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.Queries;
@@ -46,7 +42,10 @@ import org.apache.isis.applib.annotation.Title;
 import org.apache.isis.applib.annotation.Render.Type;
 
 import dom.comanda.Comanda;
+import dom.comandaBebida.ComandaBebida;
+import dom.comandaBebida.ComandaBebidaServicio;
 import dom.comandaProducto.ComandaProducto;
+import dom.comandaProducto.ComandaProductoServicio;
 import dom.mozo.Mozo;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
@@ -152,7 +151,6 @@ public class Mesa {
 	// }}
 
 	// {{ Comandas (Collection)
-
 	private List<Comanda> comandas = new ArrayList<Comanda>();
 
 	@Render(Type.EAGERLY)
@@ -174,8 +172,6 @@ public class Mesa {
 		}
 		// associate new
 		getComandas().add(unaComanda);
-		// additional business logic
-		onAddToComandas(unaComanda);
 	}
 
 	public void removeFromComandas(final Comanda unaComanda) {
@@ -185,14 +181,27 @@ public class Mesa {
 		}
 		// dissociate existing
 		getComandas().remove(unaComanda);
-		// additional business logic
-		onRemoveFromComandas(unaComanda);
 	}
 
-	protected void onAddToComandas(final Comanda unaComanda) {
+	@MemberOrder(name = "comandas", sequence = "1")
+	public ComandaBebida tomarBebidas() {
+		return comandaBebidaServicio.crearComandaBebida(this);
 	}
 
-	protected void onRemoveFromComandas(final Comanda unaComanda) {
+	@MemberOrder(name = "comandas", sequence = "2")
+	public ComandaProducto tomarPlatos() {
+		return comandaProductoServicio.crearComandaProducto(this);
+	}
+
+	@Named("Eliminar...")
+	@MemberOrder(name = "comandas", sequence = "3")
+	public Mesa eliminarComanda(Comanda _comanda) {
+		removeFromComandas(_comanda);
+		return this;
+	}
+
+	public List<Comanda> choices0EliminarComanda() {
+		return getComandas();
 	}
 
 	@Bulk
@@ -201,7 +210,7 @@ public class Mesa {
 		if (comandas.isEmpty())
 			contenedor.removeIfNotAlready(this);
 		else
-			contenedor.informUser("Existen una Comanda/s dependiente!!");
+			contenedor.informUser("Existe Comanda/s dependiente/s!!");
 		return mesaServicio.listarMesas();
 	}
 
@@ -209,23 +218,17 @@ public class Mesa {
 	@Inject
 	private DomainObjectContainer contenedor;
 
-	public DomainObjectContainer getContenedor() {
-		return contenedor;
-	}
-
-	public void setContenedor(DomainObjectContainer contenedor) {
-		this.contenedor = contenedor;
-	}
-
 	/*
 	 * Inyección del servicio
 	 */
 	@Inject
 	private MesaServicio mesaServicio;
 
-	public void injectarMesaServicio(final MesaServicio serviciomesa) {
-		this.mesaServicio = serviciomesa;
-	}
+	@Inject
+	private ComandaBebidaServicio comandaBebidaServicio;
+
+	@Inject
+	private ComandaProductoServicio comandaProductoServicio;
 
 	@Override
 	public int hashCode() {

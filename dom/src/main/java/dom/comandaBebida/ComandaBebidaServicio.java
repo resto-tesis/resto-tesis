@@ -24,9 +24,8 @@ import org.apache.isis.applib.AbstractFactoryAndRepository;
 import org.apache.isis.applib.annotation.ActionSemantics;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.Hidden;
-import org.apache.isis.applib.annotation.MemberOrder;
-import org.apache.isis.applib.annotation.Named;
 import org.apache.isis.applib.annotation.ActionSemantics.Of;
+import org.apache.isis.applib.annotation.Programmatic;
 
 import dom.comestibles.bebida.Bebida;
 import dom.mesa.Mesa;
@@ -34,28 +33,27 @@ import dom.mesa.Mesa;
 @DomainService
 public class ComandaBebidaServicio extends AbstractFactoryAndRepository {
 
-	@Named("Tomar Bebidas")
-	@MemberOrder(name = "Comanda", sequence = "6")
-	public ComandaBebida crear(final Mesa mesa) {
+	@Programmatic
+	public ComandaBebida crearComandaBebida(final Mesa _mesa) {
 		final ComandaBebida comanda = newTransientInstance(ComandaBebida.class);
 		comanda.setFechaDePedido(new Date());
 		comanda.setMozo(getUser().getName());
 		persist(comanda);
-		mesa.addToComandas(comanda);
+		_mesa.addToComandas(comanda);
 		return comanda;
 	}
 
-	@Named("Listar Bebidas")
-	@MemberOrder(name = "Comanda", sequence = "6")
+	// @Named("Listar Bebidas")
+	@Hidden
 	@ActionSemantics(Of.SAFE)
-	public List<ComandaBebida> listarBebida() {
+	public List<ComandaBebida> listarComandaBebida() {
 		return allInstances(ComandaBebida.class);
 	}
 
-	@Hidden
-	public List<Mesa> choices0Crear() {
-		return allInstances(Mesa.class);
-	}
+	// @Hidden
+	// public List<Mesa> choices0Crear() {
+	// return allInstances(Mesa.class);
+	// }
 
 	@Hidden
 	public List<Bebida> listaBebidas() {
