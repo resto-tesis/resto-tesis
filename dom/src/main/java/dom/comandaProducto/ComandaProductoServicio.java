@@ -43,6 +43,7 @@ public class ComandaProductoServicio extends AbstractFactoryAndRepository {
 		final ComandaProducto comanda = newTransientInstance(ComandaProducto.class);
 		comanda.setFechaDePedido(new Date());
 		comanda.setMozo(getUser().getName());
+		comanda.setDescuento(0);
 		persist(comanda);
 		_mesa.addToComandas(comanda);
 		return comanda;

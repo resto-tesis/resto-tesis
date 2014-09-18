@@ -46,6 +46,7 @@ import dom.comandaBebida.ComandaBebida;
 import dom.comandaBebida.ComandaBebidaServicio;
 import dom.comandaProducto.ComandaProducto;
 import dom.comandaProducto.ComandaProductoServicio;
+import dom.menu.Menu;
 import dom.mozo.Mozo;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
@@ -185,12 +186,12 @@ public class Mesa {
 
 	@MemberOrder(name = "comandas", sequence = "1")
 	public ComandaBebida tomarBebidas() {
-		return comandaBebidaServicio.crearComandaBebida(this);
+		return mesaServicio.crearComandaBebida(this);
 	}
 
 	@MemberOrder(name = "comandas", sequence = "2")
 	public ComandaProducto tomarPlatos() {
-		return comandaProductoServicio.crearComandaProducto(this);
+		return mesaServicio.crearComandaProducto(this);
 	}
 
 	@Named("Eliminar...")
@@ -202,6 +203,11 @@ public class Mesa {
 
 	public List<Comanda> choices0EliminarComanda() {
 		return getComandas();
+	}
+
+	public Mesa tomarMenu(final Menu _menu) {
+		mesaServicio.crearComandasMenu(this, _menu);
+		return this;
 	}
 
 	@Bulk
@@ -223,12 +229,6 @@ public class Mesa {
 	 */
 	@Inject
 	private MesaServicio mesaServicio;
-
-	@Inject
-	private ComandaBebidaServicio comandaBebidaServicio;
-
-	@Inject
-	private ComandaProductoServicio comandaProductoServicio;
 
 	@Override
 	public int hashCode() {

@@ -148,6 +148,21 @@ public abstract class Comanda {
 	public void setNofactura(final NoFacturada noFacturada) {
 		this.noFacturada = noFacturada;
 	}
+
 	// }}
 
+	// {{ Descuento (property)
+	private int descuento;
+
+	@MemberOrder(sequence = "1")
+	@Column(allowsNull = "false")
+	public int getDescuento() {
+		return descuento;
+	}
+
+	public void setDescuento(final int descuento) {
+		this.descuento = descuento;
+	}
+
+	// }}
 }

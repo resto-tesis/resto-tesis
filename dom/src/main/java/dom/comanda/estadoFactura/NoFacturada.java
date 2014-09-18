@@ -56,7 +56,7 @@ public class NoFacturada implements IEstadoFactura {
 	@Override
 	public String title() {
 		// TODO Auto-generated method stub
-		return "No facturada";
+		return "No Facturada";
 	}
 
 }

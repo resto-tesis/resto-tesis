@@ -38,6 +38,7 @@ public class ComandaBebidaServicio extends AbstractFactoryAndRepository {
 		final ComandaBebida comanda = newTransientInstance(ComandaBebida.class);
 		comanda.setFechaDePedido(new Date());
 		comanda.setMozo(getUser().getName());
+		comanda.setDescuento(0);
 		persist(comanda);
 		_mesa.addToComandas(comanda);
 		return comanda;

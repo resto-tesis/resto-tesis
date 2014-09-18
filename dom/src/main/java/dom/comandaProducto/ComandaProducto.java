@@ -31,7 +31,6 @@ import javax.jdo.annotations.Extension;
 
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.Bulk;
-import org.apache.isis.applib.annotation.Disabled;
 import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
@@ -39,6 +38,7 @@ import org.apache.isis.applib.annotation.ObjectType;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.Render;
 import org.apache.isis.applib.annotation.Render.Type;
+import org.apache.isis.applib.annotation.Title;
 
 import dom.comanda.Comanda;
 import dom.comandaProducto.estado.*;
@@ -60,14 +60,11 @@ public class ComandaProducto extends Comanda {
 		estado = noConfirmada;
 	}
 
-	public String title() {
-		return this.getClass().getSimpleName();
-	}
-
 	// {{ Estado (property)
 	private IEstadoComanda estado;
 
-	@Disabled
+	@Hidden
+	@Title(prepend="Comanda ")
 	@Persistent(extensions = {
 			@Extension(vendorName = "datanucleus", key = "mapping-strategy", value = "per-implementation"),
 			@Extension(vendorName = "datanucleus", key = "implementation-classes", value = "dom.comandaProducto.estado.NoConfirmada"

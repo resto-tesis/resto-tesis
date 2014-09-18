@@ -43,7 +43,7 @@ public class ComandaBebida extends Comanda {
 	}
 	
 	public String title(){
-		return this.getClass().getSimpleName();
+		return "Comanda Bebida";
 	}
 
 	// {{ Bebidas (Collection)
