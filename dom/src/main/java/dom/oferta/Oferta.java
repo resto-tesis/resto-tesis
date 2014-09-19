@@ -18,6 +18,7 @@
 package dom.oferta;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -35,21 +36,25 @@ import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.AutoComplete;
 import org.apache.isis.applib.annotation.Bulk;
 import org.apache.isis.applib.annotation.Disabled;
+import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.MultiLine;
 import org.apache.isis.applib.annotation.Named;
 import org.apache.isis.applib.annotation.Optional;
 import org.apache.isis.applib.annotation.RegEx;
+import org.apache.isis.applib.annotation.Render;
 import org.apache.isis.applib.annotation.Title;
 import org.apache.isis.applib.annotation.TypicalLength;
+import org.apache.isis.applib.annotation.Render.Type;
 
+import dom.cliente.Cliente;
 import dom.menu.Menu;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Sequence(name = "secuenciaNumeroOferta", strategy = SequenceStrategy.CONTIGUOUS)
 @Query(name = "ofertasQueEmpiezan", language = "JDOQL", value = "SELECT FROM dom.oferta.Oferta WHERE nombre.matches(:nombre)")
 @AutoComplete(repository = OfertaServicio.class, action = "completarOfertas")
-public class Oferta {
+public class Oferta extends Observado{
 
 	// {{ Numero (property)
 	private int numero;
@@ -264,5 +269,71 @@ public class Oferta {
 			return false;
 		return true;
 	}
+		
+	// {{ ListaClientes (Collection)
+	private List<Cliente> listaClientes = new ArrayList<Cliente>();
 
+	@Render(Type.EAGERLY)
+	public List<Cliente> getListaClientes() {
+		return contenedor.allInstances(Cliente.class);
+	}
+
+	public void setListaClientes(final List<Cliente> listaClientes) {
+		this.listaClientes = listaClientes;
+	}
+
+	// }}
+
+	@MemberOrder(name = "listaClientes", sequence = "2")
+	public Oferta quitarCliente(final Cliente cliente) {
+		getListaClientes().remove(cliente);
+		return this;
+	}
+
+	@Hidden
+	@Override
+	public void registrarCliente(Cliente _cliente) {
+		// TODO Auto-generated method stub
+		listaClientes.add(_cliente);
+	}
+
+	@Hidden
+	@Override
+	public void removerCliente(Cliente _cliente) {
+		// TODO Auto-generated method stub
+		int i = listaClientes.indexOf(_cliente);
+		if (i >= 0) {
+			listaClientes.remove(i);
+		}
+	}
+
+	@Override
+	public void notificarClientes() {
+		// TODO Auto-generated method stub
+		listaClientes = this.getListaClientes();
+		for (Cliente _cliente : listaClientes){
+			_cliente.actualizar(this);
+		}
+		contenedor.informUser("Se ha notificado a todos los Clientes");
+	}
+
+	@Hidden
+	public void datosModificados(){
+		notificarClientes();
+	}
+	
+	@Hidden
+	public void setDatos(String _nombre, int _cantidad_personas, String _descripcion,
+			Menu _menu, Date _fechaInicio, Date _caducidad, int _descuento){
+		this.nombre = _nombre;
+		this.cantidadPersonas = _cantidad_personas;
+		this.descripcion = _descripcion;
+		this.menu = _menu;
+		this.fechaInicio = _fechaInicio;
+		this.caducidad = _caducidad;
+		this.descuento = _descuento;
+		datosModificados();
+	}
+	
+	
 }

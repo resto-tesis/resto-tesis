@@ -27,14 +27,17 @@ import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.Sequence;
 import javax.jdo.annotations.SequenceStrategy;
 
+import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.annotation.Optional;
 
+import dom.oferta.Oferta;
 import dom.persona.Persona;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Sequence(name = "secuenciaNumeroCliente", strategy = SequenceStrategy.CONTIGUOUS)
 @Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
-public class Cliente extends Persona {
+public class Cliente extends Persona implements IObservador{
 
 	// {{ NumeroCliente (property)
 	private long numeroCliente;
@@ -75,4 +78,25 @@ public class Cliente extends Persona {
 		return true;
 	}
 
+	// {{ Oferta (property)
+	private Oferta oferta;
+
+	@Optional
+	@MemberOrder(sequence = "1")
+	public Oferta getOferta() {
+		return oferta;
+	}
+
+	public void setOferta(final Oferta oferta) {
+		this.oferta = oferta;
+	}
+	// }}
+	
+	@Hidden
+	@Override
+	public void actualizar(Oferta _oferta) {
+		// TODO Auto-generated method stub
+		this.setOferta(_oferta);
+	}
+	
 }

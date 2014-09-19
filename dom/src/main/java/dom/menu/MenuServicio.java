@@ -129,7 +129,6 @@ public class MenuServicio extends AbstractFactoryAndRepository {
 	@ActionSemantics(Of.SAFE)
 	@MemberOrder(sequence = "2")
 	public List<Menu> listarMenues() {
-		final List<Menu> listaMenues = allInstances(Menu.class);
-		return listaMenues;
+		return allInstances(Menu.class);
 	}
 }
