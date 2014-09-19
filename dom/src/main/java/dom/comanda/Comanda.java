@@ -154,6 +154,7 @@ public abstract class Comanda {
 	// {{ Descuento (property)
 	private int descuento;
 
+	@Named("Descuento (%)")
 	@MemberOrder(sequence = "1")
 	@Column(allowsNull = "false")
 	public int getDescuento() {

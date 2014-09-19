@@ -20,7 +20,6 @@ package dom.mesa;
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.swing.MenuSelectionManager;
 
 import org.apache.isis.applib.AbstractFactoryAndRepository;
 import org.apache.isis.applib.annotation.ActionSemantics;
@@ -36,9 +35,7 @@ import dom.comandaBebida.ComandaBebida;
 import dom.comandaBebida.ComandaBebidaServicio;
 import dom.comandaProducto.ComandaProducto;
 import dom.comandaProducto.ComandaProductoServicio;
-import dom.comestibles.Comestible;
 import dom.menu.Menu;
-import dom.menu.MenuServicio;
 import dom.mozo.Mozo;
 
 @DomainService
@@ -125,12 +122,16 @@ public class MesaServicio extends AbstractFactoryAndRepository {
 
 	@Programmatic
 	public void crearComandasMenu(Mesa _mesa, Menu _menu) {
-		comandaBebidaServicio.crearComandaBebida(_mesa).agregarBebida(_menu.getBebida());
-		final ComandaProducto comandaProducto=comandaProductoServicio.crearComandaProducto(_mesa);
+		comandaBebidaServicio.crearComandaBebida(_mesa).agregarBebida(
+				_menu.getBebida());
+		final ComandaProducto comandaProducto = comandaProductoServicio
+				.crearComandaProducto(_mesa);
 		comandaProducto.agregarGuarnicion(_menu.getGuarnicion());
 		comandaProducto.agregarPlatoEntrada(_menu.getPlatoEntrada());
 		comandaProducto.agregarPlatoPrincipal(_menu.getPlatoPrincipal());
 		comandaProducto.agregarPostre(_menu.getPostre());
+		comandaProducto.setDescuento(_menu.getDescuento());
+		comandaProducto.cambiarEstado();
 	}
 
 	@Inject
