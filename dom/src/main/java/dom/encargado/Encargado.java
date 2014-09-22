@@ -19,6 +19,7 @@ package dom.encargado;
 
 import java.util.List;
 
+import javax.inject.Inject;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.Inheritance;
 import javax.jdo.annotations.InheritanceStrategy;
@@ -29,6 +30,7 @@ import org.apache.isis.applib.annotation.Bulk;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
 
+import servicio.correo.CorreoServicio;
 import dom.empleado.Empleado;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
@@ -69,4 +71,5 @@ public class Encargado extends Empleado {
 			final EncargadoServicio servicioencargado) {
 		this.encargadoServicio = servicioencargado;
 	}
+
 }

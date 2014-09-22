@@ -34,6 +34,7 @@ import org.apache.isis.applib.annotation.ActionSemantics.Of;
 import org.apache.isis.applib.query.QueryDefault;
 import org.apache.isis.applib.value.Password;
 
+import dom.mesa.Mesa;
 import dom.oferta.Oferta;
 import dom.usuario.Rol;
 import dom.usuario.Usuario;
@@ -95,6 +96,7 @@ public class ClienteServicio extends AbstractFactoryAndRepository {
 	@ActionSemantics(Of.SAFE)
 	@MemberOrder(sequence = "2")
 	public List<Cliente> listarClientes() {
-		return allInstances(Cliente.class);
+		final List<Cliente> listaDeClientes = allInstances(Cliente.class);
+		return listaDeClientes;
 	}
 }

@@ -17,6 +17,7 @@
 
 package dom.cliente;
 
+import javax.inject.Inject;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
@@ -27,10 +28,12 @@ import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.Sequence;
 import javax.jdo.annotations.SequenceStrategy;
 
+import org.apache.isis.applib.annotation.Bulk;
 import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Optional;
 
+import servicio.correo.CorreoServicio;
 import dom.oferta.Oferta;
 import dom.persona.Persona;
 
@@ -91,12 +94,20 @@ public class Cliente extends Persona implements IObservador{
 		this.oferta = oferta;
 	}
 	// }}
+	@Inject
+	private CorreoServicio correo;
 	
 	@Hidden
 	@Override
 	public void actualizar(Oferta _oferta) {
 		// TODO Auto-generated method stub
 		this.setOferta(_oferta);
+	}
+	
+	@Bulk
+	@MemberOrder(sequence = "1")
+	public void enviarOfertas(){
+		correo.send(this);		
 	}
 	
 }
