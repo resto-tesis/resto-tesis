@@ -15,7 +15,7 @@
  * 
  */
 
-package dom.comestibles.guarnicion;
+package dom.comestible.postre;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -30,81 +30,84 @@ import org.apache.isis.applib.annotation.MaxLength;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.MultiLine;
 import org.apache.isis.applib.annotation.Named;
+import org.apache.isis.applib.annotation.Optional;
 import org.apache.isis.applib.annotation.RegEx;
 import org.apache.isis.applib.annotation.ActionSemantics.Of;
-import org.apache.isis.applib.annotation.Optional;
 import org.apache.isis.applib.query.QueryDefault;
 
 import com.google.common.base.Predicate;
 
-import dom.comestibles.EstadoLogico;
+import dom.comestible.EstadoLogico;
 import dom.comandaProducto.ComandaProducto;
 import dom.menu.Menu;
 
 @DomainService
-public class GuarnicionServicio extends AbstractFactoryAndRepository {
+public class PostreServicio extends AbstractFactoryAndRepository {
 
-	@Named("Guarnición")
+	@Named("Postre")
 	@MemberOrder(name = "Crear", sequence = "1")
-	public Guarnicion crearGuarnicion(
-			@Named("Nombre") @RegEx(validation = "[0-9a-zA-ZáéíóúÁÉÍÓÚ\\s]*") @MaxLength(value = 30) final String nombreGuarnicion,
-			@Named("Descripción") @Optional @MultiLine(numberOfLines = 3) final String descripcionGuarnicion,
-			@Named("Precio") @MaxLength(value = 5) @Digits(integer = 2, fraction = 2) final BigDecimal precioGuarnicion,
+	public Postre crearPostre(
+			@Named("Nombre") @RegEx(validation = "[0-9a-zA-ZáéíóúÁÉÍÓÚ\\s]*") @MaxLength(value = 30) final String nombrePostre,
+			@Optional @MultiLine(numberOfLines = 3) @Named("Descripción") final String descripcionPostre,
+			@Named("Precio") @MaxLength(value = 5) @Digits(integer = 2, fraction = 2) final BigDecimal precioPostre,
 			@Named("Habilitado") final EstadoLogico _estadoLogico) {
-		return crearGuarnicionNueva(nombreGuarnicion, descripcionGuarnicion,
-				precioGuarnicion, _estadoLogico);
+		return crearPostreNuevo(nombrePostre, descripcionPostre, precioPostre,
+				_estadoLogico);
 	}
 
 	@Hidden
-	public Guarnicion crearGuarnicionNueva(final String nombreGuarnicion,
-			final String descripcionGuarnicion,
-			final BigDecimal precioGuarnicion, final EstadoLogico _estadoLogico) {
-		final Guarnicion guarnicion = newTransientInstance(Guarnicion.class);
-		guarnicion.setNombre(nombreGuarnicion.substring(0, 1).toUpperCase()
-				+ nombreGuarnicion.substring(1));
-		guarnicion.setDescripcion(descripcionGuarnicion);
-		guarnicion.setPrecio(precioGuarnicion.doubleValue());
-		guarnicion.setEstadoLogico(_estadoLogico);
-		persist(guarnicion);
-		return guarnicion;
+	public Postre crearPostreNuevo(final String nombrePostre,
+			final String descripcionPostre, final BigDecimal precioPostre,
+			final EstadoLogico _estadoLogico) {
+		final Postre postre = newTransientInstance(Postre.class);
+		postre.setNombre(nombrePostre.substring(0, 1).toUpperCase()
+				+ nombrePostre.substring(1));
+		if (descripcionPostre != null) {
+			postre.setDescripcion(descripcionPostre.substring(0, 1)
+					.toUpperCase() + descripcionPostre.substring(1));
+		}
+		postre.setPrecio(precioPostre.doubleValue());
+		postre.setEstadoLogico(_estadoLogico);
+		persist(postre);
+		return postre;
 	}
 
-	public EstadoLogico default3CrearGuarnicion() {
+	public EstadoLogico default3CrearPostre() {
 		// TODO Auto-generated method stub
 		return EstadoLogico.Habilitado;
 	}
 
 	@Hidden
-	public List<Guarnicion> completarGuarniciones(final String nombre) {
-		return allMatches(new QueryDefault<Guarnicion>(Guarnicion.class,
-				"guarnicionesQueEmpiezan", "nombre", "(?i).*" + nombre + ".*"));
+	public List<Postre> completarPostres(final String nombre) {
+		return allMatches(new QueryDefault<Postre>(Postre.class,
+				"postresQueEmpiezan", "nombre", "(?i).*" + nombre + ".*"));
 	}
 
-	@Named("Guarniciones")
+	@Named("Postres")
 	@ActionSemantics(Of.SAFE)
 	@MemberOrder(name = "Listar", sequence = "2")
-	public List<Guarnicion> listarGuarniciones() {
-		final List<Guarnicion> listaguarniciones = allInstances(Guarnicion.class);
-		return listaguarniciones;
+	public List<Postre> listarPostres() {
+		final List<Postre> listapostres = allInstances(Postre.class);
+		return listapostres;
 	}
 
 	// Se verifica que el elemento por borrar no este relacionado con ninguna
 	// comanda o menu
 	@Hidden
-	public boolean validaBorrado(final Guarnicion _guarnicion) {
+	public boolean validaBorrado(final Postre _postre) {
 		return (firstMatch(Menu.class, new Predicate<Menu>() {
 			@Override
 			public boolean apply(Menu _menu) {
 				// TODO Auto-generated method stub
-				return _menu.getGuarnicion().equals(_guarnicion);
+				return _menu.getPostre().equals(_postre);
 			}
 		}) != null) ? false : (firstMatch(ComandaProducto.class,
 				new Predicate<ComandaProducto>() {
 					@Override
 					public boolean apply(ComandaProducto _comanda) {
 						// TODO Auto-generated method stub
-						for (Guarnicion guarnicion : _comanda.getGuarniciones())
-							return guarnicion.equals(_guarnicion);
+						for (Postre postre : _comanda.getPostres())
+							return postre.equals(_postre);
 						return false;
 					}
 				}) != null) ? false : true;

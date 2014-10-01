@@ -15,20 +15,20 @@
  * 
  */
 
-package dom.carta;
+package dom.vista.carta;
 
 import java.util.List;
 
 import org.apache.isis.applib.AbstractFactoryAndRepository;
 import org.apache.isis.applib.annotation.DomainService;
-import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.Named;
+import org.apache.isis.applib.annotation.Programmatic;
 
-import dom.comestibles.bebida.Bebida;
-import dom.comestibles.guarnicion.Guarnicion;
-import dom.comestibles.platoEntrada.PlatoEntrada;
-import dom.comestibles.platoPrincipal.PlatoPrincipal;
-import dom.comestibles.postre.Postre;
+import dom.comestible.bebida.Bebida;
+import dom.comestible.guarnicion.Guarnicion;
+import dom.comestible.platoEntrada.PlatoEntrada;
+import dom.comestible.platoPrincipal.PlatoPrincipal;
+import dom.comestible.postre.Postre;
 import dom.menu.Menu;
 
 @DomainService
@@ -40,32 +40,32 @@ public class CartaServicio extends AbstractFactoryAndRepository {
 		return newViewModelInstance(Carta.class, "carta");
 	}
 
-	@Hidden
+	@Programmatic
 	public List<Bebida> listarBebidas() {
 		return allInstances(Bebida.class);
 	}
 
-	@Hidden
+	@Programmatic
 	public List<Guarnicion> listarGuarnicion() {
 		return allInstances(Guarnicion.class);
 	}
 
-	@Hidden
+	@Programmatic
 	public List<Menu> listarMenu() {
 		return allInstances(Menu.class);
 	}
 
-	@Hidden
+	@Programmatic
 	public List<PlatoEntrada> listarPlatosEntradas() {
 		return allInstances(PlatoEntrada.class);
 	}
 
-	@Hidden
+	@Programmatic
 	public List<PlatoPrincipal> listarPlatosPricipales() {
 		return allInstances(PlatoPrincipal.class);
 	}
 
-	@Hidden
+	@Programmatic
 	public List<Postre> listarPostres() {
 		return allInstances(Postre.class);
 	}

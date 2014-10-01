@@ -31,7 +31,7 @@ import org.apache.isis.applib.annotation.Render;
 import org.apache.isis.applib.annotation.Render.Type;
 
 import dom.comanda.Comanda;
-import dom.comestibles.bebida.Bebida;
+import dom.comestible.bebida.Bebida;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Inheritance(strategy = InheritanceStrategy.NEW_TABLE)

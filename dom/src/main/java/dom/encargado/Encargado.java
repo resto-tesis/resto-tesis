@@ -30,7 +30,6 @@ import org.apache.isis.applib.annotation.Bulk;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
 
-import servicio.correo.CorreoServicio;
 import dom.empleado.Empleado;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
@@ -46,30 +45,13 @@ public class Encargado extends Empleado {
 	}
 
 	// {{ injected: DomainObjectContainer
+	@Inject
 	private DomainObjectContainer contenedor;
-
-	public void injectDomainObjectContainer(
-			final DomainObjectContainer container) {
-		this.setContainer(container);
-	}
-
-	public DomainObjectContainer getContainer() {
-		return contenedor;
-	}
-
-	public void setContainer(DomainObjectContainer container) {
-		this.contenedor = container;
-	}
 
 	/*
 	 * Inyección del servicio
 	 */
-
+	@Inject
 	private EncargadoServicio encargadoServicio;
-
-	public void injectarEncargadoServicio(
-			final EncargadoServicio servicioencargado) {
-		this.encargadoServicio = servicioencargado;
-	}
 
 }

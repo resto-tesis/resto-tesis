@@ -15,7 +15,7 @@
  * 
  */
 
-package dom.comestibles.postre;
+package dom.comestible.postre;
 
 import java.util.List;
 
@@ -32,9 +32,9 @@ import org.apache.isis.applib.annotation.Bulk;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
 
-import dom.comestibles.Comestible;
-import dom.comestibles.postre.Postre;
-import dom.comestibles.postre.PostreServicio;
+import dom.comestible.Comestible;
+import dom.comestible.postre.Postre;
+import dom.comestible.postre.PostreServicio;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Inheritance(strategy = InheritanceStrategy.NEW_TABLE)

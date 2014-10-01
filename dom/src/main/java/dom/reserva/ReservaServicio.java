@@ -25,7 +25,7 @@ import org.apache.isis.applib.AbstractFactoryAndRepository;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.Named;
-import org.apache.isis.applib.annotation.PublishedAction;
+import org.apache.isis.applib.annotation.Where;
 
 import com.google.common.base.Predicate;
 
@@ -40,7 +40,7 @@ public class ReservaServicio extends AbstractFactoryAndRepository {
 	}
 
 	@Named("Crear")
-	@PublishedAction
+	@Hidden(where=Where.OBJECT_FORMS)
 	public Reserva crearReserva(@Named("Comensales") final int _comensales,
 			@Named("Mesa") final Mesa _mesa, @Named("Fecha") final Date _fecha,
 			@Named("Hora") final String _hora) {

@@ -15,7 +15,7 @@
  * 
  */
 
-package dom.comestibles.guarnicion;
+package dom.comestible.guarnicion;
 
 import java.util.List;
 
@@ -32,7 +32,7 @@ import org.apache.isis.applib.annotation.Bulk;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
 
-import dom.comestibles.Comestible;
+import dom.comestible.Comestible;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Inheritance(strategy = InheritanceStrategy.NEW_TABLE)

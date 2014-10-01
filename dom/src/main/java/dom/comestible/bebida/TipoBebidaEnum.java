@@ -15,7 +15,7 @@
  * 
  */
 
-package dom.comestibles.bebida;
+package dom.comestible.bebida;
 
 import java.util.Arrays;
 import java.util.List;

@@ -16,7 +16,7 @@
  * 
  */
 
-package dom.comestibles.plato;
+package dom.comestible.plato;
 
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdentityType;
@@ -27,7 +27,7 @@ import javax.jdo.annotations.PersistenceCapable;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
 
-import dom.comestibles.Comestible;
+import dom.comestible.Comestible;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Inheritance(strategy = InheritanceStrategy.NEW_TABLE)

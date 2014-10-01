@@ -15,7 +15,7 @@
  * 
  */
 
-package dom.comestibles.platoEntrada;
+package dom.comestible.platoEntrada;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -37,9 +37,9 @@ import org.apache.isis.applib.query.QueryDefault;
 
 import com.google.common.base.Predicate;
 
-import dom.comestibles.EstadoLogico;
-import dom.comestibles.plato.CondicionDePlatoEnum;
-import dom.comestibles.plato.Plato;
+import dom.comestible.EstadoLogico;
+import dom.comestible.plato.CondicionDePlatoEnum;
+import dom.comestible.plato.Plato;
 import dom.comandaProducto.ComandaProducto;
 import dom.menu.Menu;
 

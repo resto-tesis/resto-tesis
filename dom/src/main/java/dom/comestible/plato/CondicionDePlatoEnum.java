@@ -15,11 +15,11 @@
  * 
  */
 
-package dom.comestibles;
+package dom.comestible.plato;
 
-public enum EstadoLogico {
+public enum CondicionDePlatoEnum {
 
-	Habilitado("Habilitado"), Deshabilitado("Deshabilitado");
+	Caliente("Caliente"), Frio("Frio");
 
 	private final String nombre;
 
@@ -27,8 +27,8 @@ public enum EstadoLogico {
 		return nombre;
 	}
 
-	private EstadoLogico(String unNombre) {
-		nombre = unNombre;
+	private CondicionDePlatoEnum(String _nombre) {
+		nombre = _nombre;
 	}
 
 	@Override

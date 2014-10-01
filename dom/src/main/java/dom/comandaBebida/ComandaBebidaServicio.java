@@ -27,7 +27,7 @@ import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.ActionSemantics.Of;
 import org.apache.isis.applib.annotation.Programmatic;
 
-import dom.comestibles.bebida.Bebida;
+import dom.comestible.bebida.Bebida;
 import dom.mesa.Mesa;
 
 @DomainService

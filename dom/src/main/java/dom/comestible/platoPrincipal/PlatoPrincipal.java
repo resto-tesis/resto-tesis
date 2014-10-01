@@ -15,7 +15,7 @@
  * 
  */
 
-package dom.comestibles.platoEntrada;
+package dom.comestible.platoPrincipal;
 
 import java.util.List;
 
@@ -32,27 +32,27 @@ import org.apache.isis.applib.annotation.Bulk;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
 
-import dom.comestibles.plato.Plato;
+import dom.comestible.plato.Plato;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
-@Query(name = "platoEntradaQueEmpiezan", language = "JDOQL", value = "SELECT FROM dom.platoEntrada.PlatoEntrada WHERE nombre.matches(:nombre)")
-@AutoComplete(repository = PlatoEntradaServicio.class, action = "completarPlatoEntrada")
-public class PlatoEntrada extends Plato {
+@Query(name = "platoPrincipalQueEmpiezan", language = "JDOQL", value = "SELECT FROM dom.platoPrincipal.PlatoPrincipal WHERE nombre.matches(:nombre)")
+@AutoComplete(repository = PlatoPrincipalServicio.class, action = "completarPlatoPrincipal")
+public class PlatoPrincipal extends Plato {
 
-	public PlatoEntrada() {
+	public PlatoPrincipal() {
 		// TODO Auto-generated constructor stub
 	}
 
 	@Named("Borrar")
 	@Bulk
 	@MemberOrder(sequence = "1")
-	public List<PlatoEntrada> borrar() {
-		if (platoEntradaServicio.validaBorrado(this))
+	public List<PlatoPrincipal> borrar() {
+		if (platoPrincipalServicio.validaBorrado(this))
 			contenedor.removeIfNotAlready(this);
 		else
 			contenedor.informUser("Existe un Menu o Comanda dependiente!!");
-		return platoEntradaServicio.listarPLatosEntrada();
+		return platoPrincipalServicio.listarPLatosPrincipales();
 	}
 
 	// {{ injected: DomainObjectContainer
@@ -60,5 +60,5 @@ public class PlatoEntrada extends Plato {
 	private DomainObjectContainer contenedor;
 
 	@Inject
-	private PlatoEntradaServicio platoEntradaServicio;
+	private PlatoPrincipalServicio platoPrincipalServicio;
 }

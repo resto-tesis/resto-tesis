@@ -27,11 +27,11 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.Programmatic;
 
-import dom.comestibles.bebida.Bebida;
-import dom.comestibles.guarnicion.Guarnicion;
-import dom.comestibles.platoEntrada.PlatoEntrada;
-import dom.comestibles.platoPrincipal.PlatoPrincipal;
-import dom.comestibles.postre.Postre;
+import dom.comestible.bebida.Bebida;
+import dom.comestible.guarnicion.Guarnicion;
+import dom.comestible.platoEntrada.PlatoEntrada;
+import dom.comestible.platoPrincipal.PlatoPrincipal;
+import dom.comestible.postre.Postre;
 import dom.menu.Menu;
 import dom.mesa.Mesa;
 
@@ -49,17 +49,11 @@ public class ComandaProductoServicio extends AbstractFactoryAndRepository {
 		return comanda;
 	}
 
-	// @Named("Listar Platos")
 	@Hidden
 	@ActionSemantics(Of.SAFE)
 	public List<ComandaProducto> listarComandaProducto() {
 		return allInstances(ComandaProducto.class);
 	}
-
-	// @Hidden
-	// public List<Mesa> choices0Crear() {
-	// return allInstances(Mesa.class);
-	// }
 
 	@Hidden
 	public List<Bebida> listaBebidas() {

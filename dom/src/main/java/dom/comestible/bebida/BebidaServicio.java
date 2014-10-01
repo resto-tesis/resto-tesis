@@ -15,11 +15,13 @@
  * 
  */
 
-package dom.comestibles.bebida;
+package dom.comestible.bebida;
 
 import java.math.BigDecimal;
 import java.util.List;
+
 import javax.validation.constraints.Digits;
+
 import org.apache.isis.applib.AbstractFactoryAndRepository;
 import org.apache.isis.applib.annotation.ActionSemantics;
 import org.apache.isis.applib.annotation.DomainService;
@@ -33,9 +35,10 @@ import org.apache.isis.applib.annotation.RegEx;
 import org.apache.isis.applib.annotation.TypicalLength;
 import org.apache.isis.applib.annotation.ActionSemantics.Of;
 import org.apache.isis.applib.query.QueryDefault;
+
 import com.google.common.base.Predicate;
 
-import dom.comestibles.EstadoLogico;
+import dom.comestible.EstadoLogico;
 import dom.comandaBebida.ComandaBebida;
 import dom.menu.Menu;
 

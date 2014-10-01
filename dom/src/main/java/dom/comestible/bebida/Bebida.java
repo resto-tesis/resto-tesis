@@ -15,7 +15,7 @@
  * 
  */
 
-package dom.comestibles.bebida;
+package dom.comestible.bebida;
 
 import java.util.List;
 
@@ -34,7 +34,7 @@ import org.apache.isis.applib.annotation.Named;
 import org.apache.isis.applib.annotation.Optional;
 import org.apache.isis.applib.annotation.TypicalLength;
 
-import dom.comestibles.Comestible;
+import dom.comestible.Comestible;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Inheritance(strategy = InheritanceStrategy.NEW_TABLE)

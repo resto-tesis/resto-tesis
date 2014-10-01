@@ -15,7 +15,7 @@
  * 
  */
 
-package dom.comestibles.postre;
+package dom.comestible.platoPrincipal;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -37,77 +37,88 @@ import org.apache.isis.applib.query.QueryDefault;
 
 import com.google.common.base.Predicate;
 
-import dom.comestibles.EstadoLogico;
+import dom.comestible.EstadoLogico;
+import dom.comestible.plato.CondicionDePlatoEnum;
+import dom.comestible.plato.Plato;
+import dom.comestible.platoPrincipal.PlatoPrincipal;
 import dom.comandaProducto.ComandaProducto;
 import dom.menu.Menu;
 
 @DomainService
-public class PostreServicio extends AbstractFactoryAndRepository {
+public class PlatoPrincipalServicio extends AbstractFactoryAndRepository {
 
-	@Named("Postre")
+	@Named("Plato Principal")
 	@MemberOrder(name = "Crear", sequence = "1")
-	public Postre crearPostre(
-			@Named("Nombre") @RegEx(validation = "[0-9a-zA-ZáéíóúÁÉÍÓÚ\\s]*") @MaxLength(value = 30) final String nombrePostre,
-			@Optional @MultiLine(numberOfLines = 3) @Named("Descripción") final String descripcionPostre,
-			@Named("Precio") @MaxLength(value = 5) @Digits(integer = 2, fraction = 2) final BigDecimal precioPostre,
+	public Plato crearPlatoPrincipal(
+			/* Parametros de Entrada */
+			@RegEx(validation = "[0-9a-zA-ZáéíóúÁÉÍÓÚ\\s]*") @MaxLength(value = 30) @Named("Nombre") final String nombre,
+			@Named("Condición") final CondicionDePlatoEnum unaCondicion,
+			@Optional @MultiLine(numberOfLines = 3) @Named("Descripción") final String unaDescripcion,
+			@Named("Precio") @MaxLength(value = 6) @Digits(integer = 3, fraction = 2) final BigDecimal unPrecio,
 			@Named("Habilitado") final EstadoLogico _estadoLogico) {
-		return crearPostreNuevo(nombrePostre, descripcionPostre, precioPostre,
-				_estadoLogico);
+		/* Empieza el metodo */
+		return crearUnPlatoPrincipal(nombre, unaCondicion, unaDescripcion,
+				unPrecio, _estadoLogico);
 	}
 
 	@Hidden
-	public Postre crearPostreNuevo(final String nombrePostre,
-			final String descripcionPostre, final BigDecimal precioPostre,
+	public PlatoPrincipal crearUnPlatoPrincipal(final String nombre,
+			final CondicionDePlatoEnum unaCondicion,
+			final String unaDescripcion, final BigDecimal unPrecio,
 			final EstadoLogico _estadoLogico) {
-		final Postre postre = newTransientInstance(Postre.class);
-		postre.setNombre(nombrePostre.substring(0, 1).toUpperCase()
-				+ nombrePostre.substring(1));
-		if (descripcionPostre != null) {
-			postre.setDescripcion(descripcionPostre.substring(0, 1)
-					.toUpperCase() + descripcionPostre.substring(1));
+		/* Empieza el Metodo */
+		final PlatoPrincipal unPlato = newTransientInstance(PlatoPrincipal.class);
+		unPlato.setNombre(nombre.substring(0, 1).toUpperCase()
+				+ nombre.substring(1));
+		unPlato.setCondicionDePlato(unaCondicion);
+		if (unaDescripcion != null) {
+			unPlato.setDescripcion(unaDescripcion.substring(0, 1).toUpperCase()
+					+ unaDescripcion.substring(1));
 		}
-		postre.setPrecio(precioPostre.doubleValue());
-		postre.setEstadoLogico(_estadoLogico);
-		persist(postre);
-		return postre;
+		unPlato.setPrecio(unPrecio.doubleValue());
+		unPlato.setEstadoLogico(_estadoLogico);
+		persist(unPlato);
+		return unPlato;
 	}
 
-	public EstadoLogico default3CrearPostre() {
+	public EstadoLogico default4CrearPlatoPrincipal() {
 		// TODO Auto-generated method stub
 		return EstadoLogico.Habilitado;
 	}
 
 	@Hidden
-	public List<Postre> completarPostres(final String nombre) {
-		return allMatches(new QueryDefault<Postre>(Postre.class,
-				"postresQueEmpiezan", "nombre", "(?i).*" + nombre + ".*"));
+	public List<PlatoPrincipal> completarPlatoPrincipal(final String nombre) {
+		return allMatches(new QueryDefault<PlatoPrincipal>(
+				PlatoPrincipal.class, "platoPrincipalQueEmpiezan", "nombre",
+				"(?i).*" + nombre + ".*"));
 	}
 
-	@Named("Postres")
+	@Named("Platos Principales")
 	@ActionSemantics(Of.SAFE)
 	@MemberOrder(name = "Listar", sequence = "2")
-	public List<Postre> listarPostres() {
-		final List<Postre> listapostres = allInstances(Postre.class);
-		return listapostres;
+	public List<PlatoPrincipal> listarPLatosPrincipales() {
+		final List<PlatoPrincipal> listaPlatos = allInstances(PlatoPrincipal.class);
+		return listaPlatos;
 	}
 
 	// Se verifica que el elemento por borrar no este relacionado con ninguna
 	// comanda o menu
 	@Hidden
-	public boolean validaBorrado(final Postre _postre) {
+	public boolean validaBorrado(final PlatoPrincipal _platoPrincipal) {
 		return (firstMatch(Menu.class, new Predicate<Menu>() {
 			@Override
 			public boolean apply(Menu _menu) {
 				// TODO Auto-generated method stub
-				return _menu.getPostre().equals(_postre);
+				return _menu.getPlatoPrincipal().equals(_platoPrincipal);
 			}
 		}) != null) ? false : (firstMatch(ComandaProducto.class,
 				new Predicate<ComandaProducto>() {
 					@Override
 					public boolean apply(ComandaProducto _comanda) {
 						// TODO Auto-generated method stub
-						for (Postre postre : _comanda.getPostres())
-							return postre.equals(_postre);
+						for (PlatoPrincipal platoPrincipal : _comanda
+								.getPlatosPrincipales())
+							return platoPrincipal.equals(_platoPrincipal);
 						return false;
 					}
 				}) != null) ? false : true;

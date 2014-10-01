@@ -75,6 +75,11 @@ public class Mesa {
 		return mesaServicio.listaDeMozos();
 	}
 
+	public String disableSeleccionar() {
+		return (estadoAsignacion == EstadoAsignacionMesaEnum.Asignada) ? "Mesa Ya Asignada."
+				: null;
+	}
+
 	// {{ Numero (property)
 	private int numero;
 
@@ -187,7 +192,7 @@ public class Mesa {
 	}
 
 	@Named("Eliminar...")
-	@MemberOrder(name = "comandas", sequence = "3")
+	@MemberOrder(name = "comandas", sequence = "4")
 	public Mesa eliminarComanda(Comanda _comanda) {
 		removeFromComandas(_comanda);
 		return this;
@@ -197,6 +202,8 @@ public class Mesa {
 		return getComandas();
 	}
 
+	@MemberOrder(name = "comandas", sequence = "3")
+	@Named("Tomar Menú")
 	public Mesa tomarMenu(final Menu _menu) {
 		mesaServicio.crearComandasMenu(this, _menu);
 		return this;

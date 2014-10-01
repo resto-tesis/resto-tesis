@@ -34,7 +34,6 @@ import org.apache.isis.applib.annotation.ActionSemantics.Of;
 import org.apache.isis.applib.query.QueryDefault;
 import org.apache.isis.applib.value.Password;
 
-import dom.mesa.Mesa;
 import dom.oferta.Oferta;
 import dom.usuario.Rol;
 import dom.usuario.Usuario;

@@ -16,7 +16,7 @@
  * 
  */
 
-package dom.comestibles;
+package dom.comestible;
 
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdGeneratorStrategy;
