@@ -42,7 +42,7 @@ import dom.usuario.Usuario;
 @Named("Cliente")
 public class ClienteServicio extends AbstractFactoryAndRepository {
 	
-	@Named("Registrarme")
+	@Named("Registrar")
 	@MemberOrder(sequence = "1")
 	public Cliente cargarCliente(
 			@Optional final Oferta _oferta,

@@ -54,7 +54,7 @@ import dom.menu.Menu;
 @Sequence(name = "secuenciaNumeroOferta", strategy = SequenceStrategy.CONTIGUOUS)
 @Query(name = "ofertasQueEmpiezan", language = "JDOQL", value = "SELECT FROM dom.oferta.Oferta WHERE nombre.matches(:nombre)")
 @AutoComplete(repository = OfertaServicio.class, action = "completarOfertas")
-public class Oferta extends Observado{
+public class Oferta extends Observado {
 
 	// {{ Numero (property)
 	private int numero;
@@ -269,7 +269,7 @@ public class Oferta extends Observado{
 			return false;
 		return true;
 	}
-		
+
 	// {{ ListaClientes (Collection)
 	private List<Cliente> listaClientes = new ArrayList<Cliente>();
 
@@ -311,20 +311,21 @@ public class Oferta extends Observado{
 	public void notificarClientes() {
 		// TODO Auto-generated method stub
 		listaClientes = this.getListaClientes();
-		for (Cliente _cliente : listaClientes){
+		for (Cliente _cliente : listaClientes) {
 			_cliente.actualizar(this);
 		}
 		contenedor.informUser("Se ha notificado a todos los Clientes");
 	}
 
 	@Hidden
-	public void datosModificados(){
+	public void datosModificados() {
 		notificarClientes();
 	}
-	
+
 	@Hidden
-	public void setDatos(String _nombre, int _cantidad_personas, String _descripcion,
-			Menu _menu, Date _fechaInicio, Date _caducidad, int _descuento){
+	public void setDatos(String _nombre, int _cantidad_personas,
+			String _descripcion, Menu _menu, Date _fechaInicio,
+			Date _caducidad, int _descuento) {
 		this.nombre = _nombre;
 		this.cantidadPersonas = _cantidad_personas;
 		this.descripcion = _descripcion;
@@ -334,6 +335,5 @@ public class Oferta extends Observado{
 		this.descuento = _descuento;
 		datosModificados();
 	}
-	
-	
+
 }

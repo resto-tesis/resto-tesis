@@ -22,12 +22,12 @@ import java.util.List;
 
 import javax.inject.Inject;
 import javax.jdo.annotations.Column;
+import javax.jdo.annotations.Extension;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.Inheritance;
 import javax.jdo.annotations.InheritanceStrategy;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
-import javax.jdo.annotations.Extension;
 
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.Bulk;
@@ -41,7 +41,11 @@ import org.apache.isis.applib.annotation.Render.Type;
 import org.apache.isis.applib.annotation.Title;
 
 import dom.comanda.Comanda;
-import dom.comandaProducto.estado.*;
+import dom.comandaProducto.estado.EnEspera;
+import dom.comandaProducto.estado.EnPreparacion;
+import dom.comandaProducto.estado.IEstadoComanda;
+import dom.comandaProducto.estado.NoConfirmada;
+import dom.comandaProducto.estado.Preparada;
 import dom.comestible.guarnicion.Guarnicion;
 import dom.comestible.platoEntrada.PlatoEntrada;
 import dom.comestible.platoPrincipal.PlatoPrincipal;
