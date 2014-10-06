@@ -284,6 +284,7 @@ public class Oferta extends Observado {
 
 	// }}
 
+	@Hidden
 	@MemberOrder(name = "listaClientes", sequence = "2")
 	public Oferta quitarCliente(final Cliente cliente) {
 		getListaClientes().remove(cliente);
