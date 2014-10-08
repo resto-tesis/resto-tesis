@@ -31,11 +31,11 @@ import org.apache.isis.applib.annotation.RegEx;
 import org.apache.isis.applib.annotation.Where;
 import org.apache.isis.applib.query.QueryDefault;
 
-import dom.comestible.bebida.Bebida;
-import dom.comestible.guarnicion.Guarnicion;
-import dom.comestible.platoEntrada.PlatoEntrada;
-import dom.comestible.platoPrincipal.PlatoPrincipal;
-import dom.comestible.postre.Postre;
+import dom.producto.bebida.Bebida;
+import dom.producto.guarnicion.Guarnicion;
+import dom.producto.platoEntrada.PlatoEntrada;
+import dom.producto.platoPrincipal.PlatoPrincipal;
+import dom.producto.postre.Postre;
 
 @DomainService
 @Named("Menu")
@@ -47,22 +47,20 @@ public class MenuServicio extends AbstractFactoryAndRepository {
 	public Menu crearMenu(
 			@Named("Nombre") @RegEx(validation = "[0-9a-zA-ZáéíóúÁÉÍÓÚ\\s]*") String _nombre,
 			@Named("Plato Principal") final PlatoPrincipal _platoPrincipal,
-			@Named("Bebida") final Bebida _bebida,
 			@Named("Plato de Entrada") @Optional final PlatoEntrada _platoEntrada,
 			@Named("Guarnición") @Optional final Guarnicion _guarnicion,
 			@Named("Postre") @Optional final Postre _postre,
 			@Named("Descuento (%)") final int _descuento) {
-		return nuevoMenu(_nombre, _platoPrincipal, _bebida, _platoEntrada,
-				_guarnicion, _postre, _descuento);
+		return nuevoMenu(_nombre, _platoPrincipal, _platoEntrada, _guarnicion,
+				_postre, _descuento);
 	}
 
 	@Hidden
 	public Menu nuevoMenu(final String _nombre,
-			final PlatoPrincipal _platoPrincipal, final Bebida _bebida,
+			final PlatoPrincipal _platoPrincipal,
 			final PlatoEntrada _platoEntrada, final Guarnicion _guarnicion,
 			final Postre _postre, final int _descuento) {
 		final Menu menu = newTransientInstance(Menu.class);
-		menu.setBebida(_bebida);
 		menu.setGuarnicion(_guarnicion);
 		menu.setPlatoEntrada(_platoEntrada);
 		menu.setPlatoPrincipal(_platoPrincipal);
@@ -83,8 +81,7 @@ public class MenuServicio extends AbstractFactoryAndRepository {
 
 	@Hidden
 	public double calcularTotal(Menu _menu) {
-		double total = _menu.getBebida().getPrecio()
-				+ _menu.getPlatoPrincipal().getPrecio();
+		double total = _menu.getPlatoPrincipal().getPrecio();
 		total += (_menu.getGuarnicion() == null) ? 0 : _menu.getGuarnicion()
 				.getPrecio();
 		total += (_menu.getPlatoEntrada() == null) ? 0 : _menu
@@ -100,22 +97,17 @@ public class MenuServicio extends AbstractFactoryAndRepository {
 	}
 
 	@Hidden
-	public List<Bebida> choices2CrearMenu() {
-		return allInstances(Bebida.class);
-	}
-
-	@Hidden
-	public List<PlatoEntrada> choices3CrearMenu() {
+	public List<PlatoEntrada> choices2CrearMenu() {
 		return allInstances(PlatoEntrada.class);
 	}
 
 	@Hidden
-	public List<Guarnicion> choices4CrearMenu() {
+	public List<Guarnicion> choices3CrearMenu() {
 		return allInstances(Guarnicion.class);
 	}
 
 	@Hidden
-	public List<Postre> choices5CrearMenu() {
+	public List<Postre> choices4CrearMenu() {
 		return allInstances(Postre.class);
 	}
 

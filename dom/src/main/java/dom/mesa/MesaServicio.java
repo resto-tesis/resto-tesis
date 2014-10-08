@@ -29,14 +29,13 @@ import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.ActionSemantics.Of;
-import org.apache.isis.applib.query.QueryDefault;
 
-import dom.comandaBebida.ComandaBebida;
-import dom.comandaBebida.ComandaBebidaServicio;
-import dom.comandaProducto.ComandaProducto;
-import dom.comandaProducto.ComandaProductoServicio;
+import dom.comanda.Comanda;
+import dom.comanda.ComandaServicio;
 import dom.menu.Menu;
 import dom.mozo.Mozo;
+import dom.pedido.Pedido;
+import dom.pedido.PedidoServicio;
 
 @DomainService
 @Named("Mesa")
@@ -93,50 +92,28 @@ public class MesaServicio extends AbstractFactoryAndRepository {
 		return listamesas;
 	}
 
-	@Hidden
+	@Programmatic
+	public Pedido tomarPedido(Mesa _mesa) {
+		final Pedido pedido = pedidoServicio.crearPedido();
+		_mesa.addToPedidos(pedido);
+		return pedido;
+	}
+
+	@Programmatic
 	public List<Mozo> listaDeMozos() {
 		return allInstances(Mozo.class);
 	}
 
-	@Hidden
-	public List<ComandaProducto> listarComandasPorDia() {
-		return allMatches(new QueryDefault<ComandaProducto>(
-				ComandaProducto.class, "comandasPorMesaPorDia"));
-	}
-
-	@Hidden
-	public List<ComandaProducto> listarComandasPorSemana() {
-		return allMatches(new QueryDefault<ComandaProducto>(
-				ComandaProducto.class, "comandasPorMesaPorSemana"));
-	}
-
 	@Programmatic
-	public ComandaBebida crearComandaBebida(Mesa _mesa) {
-		return comandaBebidaServicio.crearComandaBebida(_mesa);
+	public Comanda crearComanda(Mesa _mesa) {
+		return comandaServicio.crearComanda();
 	}
 
-	@Programmatic
-	public ComandaProducto crearComandaProducto(Mesa _mesa) {
-		return comandaProductoServicio.crearComandaProducto(_mesa);
-	}
-
-	@Programmatic
-	public void crearComandasMenu(Mesa _mesa, Menu _menu) {
-		comandaBebidaServicio.crearComandaBebida(_mesa).agregarBebida(
-				_menu.getBebida());
-		final ComandaProducto comandaProducto = comandaProductoServicio
-				.crearComandaProducto(_mesa);
-		comandaProducto.agregarGuarnicion(_menu.getGuarnicion());
-		comandaProducto.agregarPlatoEntrada(_menu.getPlatoEntrada());
-		comandaProducto.agregarPlatoPrincipal(_menu.getPlatoPrincipal());
-		comandaProducto.agregarPostre(_menu.getPostre());
-		comandaProducto.setDescuento(_menu.getDescuento());
-		comandaProducto.cambiarEstado();
-	}
 
 	@Inject
-	private ComandaBebidaServicio comandaBebidaServicio;
+	private PedidoServicio pedidoServicio;
 
 	@Inject
-	private ComandaProductoServicio comandaProductoServicio;
+	private ComandaServicio comandaServicio;
+
 }

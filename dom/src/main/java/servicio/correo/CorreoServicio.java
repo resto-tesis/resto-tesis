@@ -25,11 +25,9 @@ import org.apache.isis.applib.annotation.Named;
 import org.apache.isis.applib.annotation.NotInServiceMenu;
 
 import dom.cliente.Cliente;
-import dom.cliente.ClienteServicio;
-
 
 @DomainService
-public class CorreoServicio extends AbstractFactoryAndRepository {	
+public class CorreoServicio extends AbstractFactoryAndRepository {
 	@NotInServiceMenu
 	@Named("Enviar Correo")
 	public String send(final Cliente unCliente) {
@@ -49,8 +47,4 @@ public class CorreoServicio extends AbstractFactoryAndRepository {
 			throw new servicio.correo.CorreoException(e.getMessage(), e);
 		}
 	}
-
-	@javax.inject.Inject
-	private ClienteServicio clienteServicio;
-
 }

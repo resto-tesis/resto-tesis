@@ -24,12 +24,12 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.Named;
 import org.apache.isis.applib.annotation.Programmatic;
 
-import dom.comestible.bebida.Bebida;
-import dom.comestible.guarnicion.Guarnicion;
-import dom.comestible.platoEntrada.PlatoEntrada;
-import dom.comestible.platoPrincipal.PlatoPrincipal;
-import dom.comestible.postre.Postre;
 import dom.menu.Menu;
+import dom.producto.bebida.Bebida;
+import dom.producto.guarnicion.Guarnicion;
+import dom.producto.platoEntrada.PlatoEntrada;
+import dom.producto.platoPrincipal.PlatoPrincipal;
+import dom.producto.postre.Postre;
 
 @DomainService
 @Named("Carta")

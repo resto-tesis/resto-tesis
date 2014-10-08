@@ -17,36 +17,43 @@
 
 package dom.comanda;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.jdo.annotations.Column;
-import javax.jdo.annotations.Extension;
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
-import javax.jdo.annotations.Inheritance;
-import javax.jdo.annotations.InheritanceStrategy;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.Sequence;
 import javax.jdo.annotations.SequenceStrategy;
+import javax.jdo.annotations.Extension;
 
 import org.apache.isis.applib.annotation.Disabled;
 import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
+import org.apache.isis.applib.annotation.Programmatic;
+import org.apache.isis.applib.annotation.Render;
+import org.apache.isis.applib.annotation.Render.Type;
+import org.apache.isis.applib.annotation.Title;
 import org.apache.isis.applib.annotation.TypicalLength;
 
-import dom.comanda.estadoFactura.*;
+import dom.comanda.estado.*;
+import dom.menu.Menu;
+import dom.producto.Producto;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
-@Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
 @Sequence(name = "secuenciaNumeroComanda", strategy = SequenceStrategy.CONTIGUOUS)
-public abstract class Comanda {
+public class Comanda {
 
 	public Comanda() {
-		facturada = new Facturada(this);
-		noFacturada = new NoFacturada(this);
-		estadoFactura = noFacturada;
+		enEspera = new EnEspera(this);
+		enPreparacion = new EnPreparacion(this);
+		noConfirmada = new NoConfirmada(this);
+		preparada = new Preparada(this);
+		setEstado(noConfirmada);
 	}
 
 	// {{ Numero (property)
@@ -71,7 +78,7 @@ public abstract class Comanda {
 	// {{ Mozo (property)
 	private String mozo;
 
-	@MemberOrder(sequence = "1")
+	@MemberOrder(sequence = "3")
 	@Column(allowsNull = "false")
 	public String getMozo() {
 		return mozo;
@@ -87,7 +94,7 @@ public abstract class Comanda {
 	private Date fechaDePedido;
 
 	@Named("Fecha y Hora")
-	@MemberOrder(sequence = "1")
+	@MemberOrder(sequence = "2")
 	@Column(allowsNull = "false")
 	public Date getFechaDePedido() {
 		return fechaDePedido;
@@ -99,72 +106,182 @@ public abstract class Comanda {
 
 	// }}
 
-	// {{ Estado (property)
-	private IEstadoFactura estadoFactura;
+	// {{ Productos (Collection)
+	private List<Producto> productos = new ArrayList<Producto>();
 
-	@Disabled
+	@Render(Type.EAGERLY)
+	@MemberOrder(sequence = "1")
+	public List<Producto> getProductos() {
+		return productos;
+	}
+
+	public void setProductos(final List<Producto> productos) {
+		this.productos = productos;
+	}
+
+	// }}
+
+	public void addToProductos(final Producto _producto) {
+		productos.add(_producto);
+	}
+
+	public void removeFromProductos(final Producto _producto) {
+		productos.remove(_producto);
+	}
+
+	// {{ Menues (Collection)
+	private List<Menu> menues = new ArrayList<Menu>();
+
+	@Render(Type.EAGERLY)
+	@MemberOrder(sequence = "2")
+	public List<Menu> getMenues() {
+		return menues;
+	}
+
+	public void setMenues(final List<Menu> menues) {
+		this.menues = menues;
+	}
+
+	// }}
+
+	public void addToMenues(final Menu _menu) {
+		menues.add(_menu);
+	}
+
+	public void removeFromMenues(final Menu _menu) {
+		menues.remove(_menu);
+	}
+
+	// {{ Estado (property)
+	private IEstadoComanda estado;
+
+	@Hidden
+	@Title(prepend = "Comanda ")
 	@Persistent(extensions = {
 			@Extension(vendorName = "datanucleus", key = "mapping-strategy", value = "per-implementation"),
-			@Extension(vendorName = "datanucleus", key = "implementation-classes", value = "dom.comanda.estadoFactura.Facturada"
-					+ ",dom.comanda.estadoFactura.NoFacturada") }, columns = {
-			@Column(name = "idFacturada"), @Column(name = "idNoFacturada") })
+			@Extension(vendorName = "datanucleus", key = "implementation-classes", value = "dom.comanda.estado.NoConfirmada"
+					+ ",dom.comanda.estado.EnEspera"
+					+ ",dom.comanda.estado.EnPreparacion"
+					+ ",dom.comanda.estado.Preparada") }, columns = {
+			@Column(name = "idNoConfirmada"), @Column(name = "idEnEspera"),
+			@Column(name = "idEnPreparacion"), @Column(name = "idPreparada") })
 	@MemberOrder(sequence = "2")
 	@Column(allowsNull = "false")
-	public IEstadoFactura getEstadoFactura() {
-		return estadoFactura;
+	public IEstadoComanda getEstado() {
+		return estado;
 	}
 
-	public void setEstadoFactura(final IEstadoFactura estado) {
-		this.estadoFactura = estado;
-
+	public void setEstado(final IEstadoComanda estado) {
+		this.estado = estado;
 	}
 
-	// {{ Facturada (property)
-	private Facturada facturada;
+	// }}
+
+	// ////////////////////////////////////////////Estados//////////////////////////////////////////////
+
+	// {{ NoConfirmada (property)
+	private NoConfirmada noConfirmada;
 
 	@Hidden
 	@MemberOrder(sequence = "1")
 	@Column(allowsNull = "false")
-	public Facturada getFacturada() {
-		return facturada;
+	public NoConfirmada getNoConfirmada() {
+		return noConfirmada;
 	}
 
-	public void setFacturada(final Facturada facturada) {
-		this.facturada = facturada;
+	public void setNoConfirmada(final NoConfirmada noConfirmada) {
+		this.noConfirmada = noConfirmada;
 	}
 
 	// }}
 
-	// {{ Nofactura (property)
-	private NoFacturada noFacturada;
+	// {{ EnEspera (property)
+	private EnEspera enEspera;
 
 	@Hidden
-	@Column(allowsNull = "false")
 	@MemberOrder(sequence = "1")
-	public NoFacturada getNofactura() {
-		return noFacturada;
+	@Column(allowsNull = "false")
+	public EnEspera getEnEspera() {
+		return enEspera;
 	}
 
-	public void setNofactura(final NoFacturada noFacturada) {
-		this.noFacturada = noFacturada;
+	public void setEnEspera(final EnEspera enEspera) {
+		this.enEspera = enEspera;
 	}
 
 	// }}
 
-	// {{ Descuento (property)
-	private int descuento;
+	// {{ EnPreparacion (property)
+	private EnPreparacion enPreparacion;
 
-	@Named("Descuento (%)")
+	@Hidden
 	@MemberOrder(sequence = "1")
 	@Column(allowsNull = "false")
-	public int getDescuento() {
-		return descuento;
+	public EnPreparacion getEnPreparacion() {
+		return enPreparacion;
 	}
 
-	public void setDescuento(final int descuento) {
-		this.descuento = descuento;
+	public void setEnPreparacion(final EnPreparacion enPreparacion) {
+		this.enPreparacion = enPreparacion;
 	}
 
 	// }}
+
+	// {{ Preparada (property)
+	private Preparada preparada;
+
+	@Hidden
+	@MemberOrder(sequence = "1")
+	@Column(allowsNull = "false")
+	public Preparada getPreparada() {
+		return preparada;
+	}
+
+	public void setPreparada(final Preparada preparada) {
+		this.preparada = preparada;
+	}
+
+	// }}
+
+	// ////////////////////////////////////////////Estados//////////////////////////////////////////////
+
+	// /////////////////////////////////////////////////////--Acciones//Comanda--///////////////////////////////////////////////////////
+
+	@MemberOrder(sequence = "4")
+	public Comanda enviar() {
+		cambiarEstado();
+		return this;
+	}
+
+	public String disableEnviar() {
+		return estado.Enviar();
+	}
+
+	@MemberOrder(sequence = "2")
+	public Comanda preparar() {
+		cambiarEstado();
+		return this;
+	}
+
+	public String disablePreparar() {
+		return estado.Preparar();
+	}
+
+	@MemberOrder(sequence = "3")
+	public Comanda comandaLista() {
+		cambiarEstado();
+		return this;
+	}
+
+	public String disableComandaLista() {
+		return estado.ComandaLista();
+	}
+
+	@Programmatic
+	public void cambiarEstado() {
+		getEstado().cambiarEstado();
+	}
+
+	// /////////////////////////////////////////////////////--Acciones//Comanda--///////////////////////////////////////////////////////
 
 }

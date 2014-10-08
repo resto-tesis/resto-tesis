@@ -33,15 +33,13 @@ import org.apache.isis.applib.annotation.Disabled;
 import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
+import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.Render;
-import org.apache.isis.applib.annotation.Title;
 import org.apache.isis.applib.annotation.Render.Type;
+import org.apache.isis.applib.annotation.Title;
 
-import dom.comanda.Comanda;
-import dom.comandaBebida.ComandaBebida;
-import dom.comandaProducto.ComandaProducto;
-import dom.menu.Menu;
 import dom.mozo.Mozo;
+import dom.pedido.Pedido;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Queries({
@@ -148,75 +146,34 @@ public class Mesa {
 
 	// }}
 
-	// {{ Comandas (Collection)
-	private List<Comanda> comandas = new ArrayList<Comanda>();
+	// {{ Pedidos (Collection)
+	private List<Pedido> pedidos = new ArrayList<Pedido>();
 
 	@Render(Type.EAGERLY)
 	@MemberOrder(sequence = "1")
-	public List<Comanda> getComandas() {
-		return comandas;
+	public List<Pedido> getPedidos() {
+		return pedidos;
 	}
 
-	public void setComandas(final List<Comanda> comandas) {
-		this.comandas = comandas;
+	public void setPedidos(final List<Pedido> pedidos) {
+		this.pedidos = pedidos;
 	}
 
 	// }}
 
-	public void addToComandas(final Comanda unaComanda) {
-		// check for no-op
-		if (unaComanda == null || getComandas().contains(unaComanda)) {
-			return;
-		}
-		// associate new
-		getComandas().add(unaComanda);
+	@Programmatic
+	public void addToPedidos(final Pedido _pedido) {
+		pedidos.add(_pedido);
 	}
 
-	public void removeFromComandas(final Comanda unaComanda) {
-		// check for no-op
-		if (unaComanda == null || !getComandas().contains(unaComanda)) {
-			return;
-		}
-		// dissociate existing
-		getComandas().remove(unaComanda);
+	@Programmatic
+	public void removeFromPedidos(final Pedido _pedido) {
+		pedidos.remove(_pedido);
 	}
 
-	@MemberOrder(name = "comandas", sequence = "1")
-	public ComandaBebida tomarBebidas() {
-		return mesaServicio.crearComandaBebida(this);
-	}
-
-	@MemberOrder(name = "comandas", sequence = "2")
-	public ComandaProducto tomarPlatos() {
-		return mesaServicio.crearComandaProducto(this);
-	}
-
-	@Named("Eliminar...")
-	@MemberOrder(name = "comandas", sequence = "4")
-	public Mesa eliminarComanda(Comanda _comanda) {
-		removeFromComandas(_comanda);
-		return this;
-	}
-
-	public List<Comanda> choices0EliminarComanda() {
-		return getComandas();
-	}
-
-	@MemberOrder(name = "comandas", sequence = "3")
-	@Named("Tomar Menú")
-	public Mesa tomarMenu(final Menu _menu) {
-		mesaServicio.crearComandasMenu(this, _menu);
-		return this;
-	}
-
-	@Bulk
-	@MemberOrder(sequence = "1")
-	public List<Mesa> borrar() {
-		if (comandas.isEmpty())
-			contenedor.removeIfNotAlready(this);
-		else
-			contenedor.informUser("Existe Comanda/s dependiente/s!!");
-		return mesaServicio.listarMesas();
+	@MemberOrder(name = "pedidos", sequence = "1")
+	public Pedido tomarPedido() {
+		return mesaServicio.tomarPedido(this);
 	}
 
 	// {{ injected: DomainObjectContainer

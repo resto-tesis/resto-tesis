@@ -33,17 +33,19 @@ import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.AutoComplete;
 import org.apache.isis.applib.annotation.Bulk;
 import org.apache.isis.applib.annotation.Disabled;
+import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
 import org.apache.isis.applib.annotation.Optional;
 import org.apache.isis.applib.annotation.Title;
 import org.apache.isis.applib.annotation.TypicalLength;
+import org.apache.isis.applib.annotation.Where;
 
-import dom.comestible.bebida.Bebida;
-import dom.comestible.guarnicion.Guarnicion;
-import dom.comestible.platoEntrada.PlatoEntrada;
-import dom.comestible.platoPrincipal.PlatoPrincipal;
-import dom.comestible.postre.Postre;
+import dom.producto.bebida.Bebida;
+import dom.producto.guarnicion.Guarnicion;
+import dom.producto.platoEntrada.PlatoEntrada;
+import dom.producto.platoPrincipal.PlatoPrincipal;
+import dom.producto.postre.Postre;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Sequence(name = "secuenciaNumeroMenu", strategy = SequenceStrategy.CONTIGUOUS)
@@ -53,6 +55,7 @@ public class Menu {
 	// {{ Numero (property)
 	private int numero;
 
+	@Hidden(where = Where.ALL_TABLES)
 	@Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT, sequence = "secuenciaNumeroMenu")
 	@TypicalLength(3)
 	@Disabled
@@ -67,10 +70,11 @@ public class Menu {
 	}
 
 	// }}
-	
+
 	// {{ EstadoLogico (property)
 	private EstadoLogico estadoLogico;
 
+	@Hidden(where = Where.ALL_TABLES)
 	@Named("Estado de Alta")
 	@Column(allowsNull = "false")
 	@MemberOrder(sequence = "11")
@@ -81,13 +85,13 @@ public class Menu {
 	public void setEstadoLogico(final EstadoLogico estadoLogico) {
 		this.estadoLogico = estadoLogico;
 	}
+
 	// }}
-
-
 
 	// {{ Nombre (property)
 	private String nombre;
 
+	@Hidden(where = Where.ALL_TABLES)
 	@MemberOrder(sequence = "2")
 	@Column(allowsNull = "false")
 	@Title
@@ -104,6 +108,7 @@ public class Menu {
 	// {{ PlatoPrincipal (property)
 	private PlatoPrincipal platoPrincipal;
 
+	@Hidden(where = Where.ALL_TABLES)
 	@MemberOrder(sequence = "3")
 	@Column(allowsNull = "false")
 	public PlatoPrincipal getPlatoPrincipal() {
@@ -116,24 +121,10 @@ public class Menu {
 
 	// }}
 
-	// {{ Bebida (property)
-	private Bebida bebida;
-
-	@MemberOrder(sequence = "4")
-	@Column(allowsNull = "false")
-	public Bebida getBebida() {
-		return bebida;
-	}
-
-	public void setBebida(final Bebida bebida) {
-		this.bebida = bebida;
-	}
-
-	// }}
-
 	// {{ Guarnicion (property)
 	private Guarnicion guarnicion;
 
+	@Hidden(where = Where.ALL_TABLES)
 	@Optional
 	@MemberOrder(sequence = "5")
 	public Guarnicion getGuarnicion() {
@@ -149,6 +140,7 @@ public class Menu {
 	// {{ PlatoEntrada (property)
 	private PlatoEntrada platoEntrada;
 
+	@Hidden(where = Where.ALL_TABLES)
 	@Optional
 	@MemberOrder(sequence = "6")
 	public PlatoEntrada getPlatoEntrada() {
@@ -164,6 +156,7 @@ public class Menu {
 	// {{ Postre (property)
 	private Postre postre;
 
+	@Hidden(where = Where.ALL_TABLES)
 	@Optional
 	@MemberOrder(sequence = "7")
 	public Postre getPostre() {
@@ -193,23 +186,19 @@ public class Menu {
 	// }}
 
 	public List<PlatoEntrada> choicesPlatoEntrada() {
-		return menuServicio.choices3CrearMenu();
+		return menuServicio.choices2CrearMenu();
 	}
 
 	public List<PlatoPrincipal> choicesPlatoPrincipal() {
 		return menuServicio.choices1CrearMenu();
 	}
 
-	public List<Bebida> choicesBebida() {
-		return menuServicio.choices2CrearMenu();
-	}
-
 	public List<Postre> choicesPostre() {
-		return menuServicio.choices5CrearMenu();
+		return menuServicio.choices4CrearMenu();
 	}
 
 	public List<Guarnicion> choicesGuarnicion() {
-		return menuServicio.choices4CrearMenu();
+		return menuServicio.choices3CrearMenu();
 	}
 
 	@Named("Precio Final ($)")
@@ -219,25 +208,22 @@ public class Menu {
 		// return precioFinal;
 		return menuServicio.calcularDescuento(this);
 	}
-	
+
 	@Named("Precio Sin Descuento ($)")
 	@Disabled
-	@MemberOrder(sequence="10")
-	public double getPrecioSinDescuento(){
+	@MemberOrder(sequence = "10")
+	public double getPrecioSinDescuento() {
 		return menuServicio.calcularTotal(this);
 	}
 
 	// }}
-	
-	public Menu deshabilitarMenu(){
-		
+
+	public Menu deshabilitarMenu() {
 		setEstadoLogico(EstadoLogico.Deshabilitado);
 		return this;
-		
 	}
-	
+
 	public Menu habilitarMenu() {
-		
 		setEstadoLogico(EstadoLogico.Habilitado);
 		return this;
 	}
@@ -291,6 +277,5 @@ public class Menu {
 			return false;
 		return true;
 	}
-	
-	
+
 }
