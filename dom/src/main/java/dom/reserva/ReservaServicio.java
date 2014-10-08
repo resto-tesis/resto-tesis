@@ -40,7 +40,7 @@ public class ReservaServicio extends AbstractFactoryAndRepository {
 	}
 
 	@Named("Crear")
-	@Hidden(where=Where.OBJECT_FORMS)
+	@Hidden(where = Where.OBJECT_FORMS)
 	public Reserva crearReserva(@Named("Comensales") final int _comensales,
 			@Named("Mesa") final Mesa _mesa, @Named("Fecha") final Date _fecha,
 			@Named("Hora") final String _hora) {
@@ -48,14 +48,13 @@ public class ReservaServicio extends AbstractFactoryAndRepository {
 	}
 
 	public String[] choices3CrearReserva() {
-		return new String[] { "12:00", "12:30", "13:00", "13:30", "14:00",
-				"14:30", "20:00", "20:30", "21:00", "21:30", "22:00", "22:30",
-				"23:00", "23:30" };
+		return new String[] { "11:30", "12:00", "12:30", "13:00", "13:30",
+				"14:00", "14:30", "15:00", "20:00", "20:30", "21:00", "21:30",
+				"22:00", "22:30", "23:00", "23:30", "24:00", "24:30" };
 	}
 
 	public List<Mesa> choices1CrearReserva(final int _comensales) {
 		return allMatches(Mesa.class, new Predicate<Mesa>() {
-
 			@Override
 			public boolean apply(Mesa input) {
 				// TODO Auto-generated method stub
@@ -91,9 +90,9 @@ public class ReservaServicio extends AbstractFactoryAndRepository {
 			final Date _fecha, final String _hora) {
 		// se valida que la fecha ingresada sea posterior a la fecha actual.
 		if (sumaFechaHora(_fecha, _hora).before(Calendar.getInstance()))
-			return "La fecha y hora debe ser posterior a hoy.";
+			return "La fecha y hora debe ser posterior a hoy";
 		for (Reserva _reserva : allMatches(Reserva.class,
-		// Se otienen todas las reservas de la fecha
+		// Se obtienen todas las reservas de la fecha
 		// seleccionada correspondientes a la mesa
 		// seleccionada.
 				new Predicate<Reserva>() {
@@ -121,13 +120,19 @@ public class ReservaServicio extends AbstractFactoryAndRepository {
 			Calendar calendarioSeteado = sumaFechaHora(_fecha, _hora);
 			if (calendarioSeteado.get(Calendar.HOUR_OF_DAY) == calendarioReservado
 					.get(Calendar.HOUR_OF_DAY))
-				return "Mesa Reservada.";
+				return "Mesa Reservada";
 			calendarioReservado.add(Calendar.MINUTE, 30);
 			if (calendarioReservado.compareTo(calendarioSeteado) == 0)
-				return "Mesa Reservada.";
+				return "Mesa Reservada";
 			calendarioReservado.add(Calendar.MINUTE, -60);
 			if (calendarioReservado.compareTo(calendarioSeteado) == 0)
-				return "Mesa Reservada.";
+				return "Mesa Reservada";
+			calendarioReservado.add(Calendar.MINUTE, 90);
+			if (calendarioReservado.compareTo(calendarioSeteado) == 0)
+				return "Mesa Reservada";
+			calendarioReservado.add(Calendar.MINUTE, -120);
+			if (calendarioReservado.compareTo(calendarioSeteado) == 0)
+				return "Mesa Reservada";
 		}
 		return null;
 	}

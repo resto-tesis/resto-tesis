@@ -29,7 +29,6 @@ import javax.jdo.annotations.Sequence;
 import javax.jdo.annotations.SequenceStrategy;
 
 import org.apache.isis.applib.annotation.Bulk;
-import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Optional;
 
@@ -97,7 +96,7 @@ public class Cliente extends Persona implements IObservador{
 	@Inject
 	private CorreoServicio correo;
 	
-	@Hidden
+	
 	@Override
 	public void actualizar(Oferta _oferta) {
 		// TODO Auto-generated method stub
