@@ -41,7 +41,6 @@ import org.apache.isis.applib.annotation.Title;
 import org.apache.isis.applib.annotation.TypicalLength;
 import org.apache.isis.applib.annotation.Where;
 
-import dom.producto.bebida.Bebida;
 import dom.producto.guarnicion.Guarnicion;
 import dom.producto.platoEntrada.PlatoEntrada;
 import dom.producto.platoPrincipal.PlatoPrincipal;

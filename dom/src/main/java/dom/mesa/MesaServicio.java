@@ -19,7 +19,6 @@ package dom.mesa;
 
 import java.util.List;
 
-import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 
 import org.apache.isis.applib.AbstractFactoryAndRepository;
@@ -35,7 +34,6 @@ import dom.comanda.Comanda;
 import dom.comanda.ComandaServicio;
 import dom.factura.Factura;
 import dom.factura.FacturaServicio;
-import dom.menu.Menu;
 import dom.mozo.Mozo;
 import dom.pedido.Pedido;
 import dom.pedido.PedidoServicio;

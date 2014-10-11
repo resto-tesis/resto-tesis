@@ -77,7 +77,7 @@ public class EncargadoServicio extends AbstractFactoryAndRepository implements
 		usuario.setPassword(_password.getPassword());
 		usuario.setRol(uniqueMatch(new QueryDefault<Rol>(Rol.class,
 				"encargado-role")));
-		persistIfNotAlready(usuario);
+		persist(usuario);
 		return usuario;
 	}
 

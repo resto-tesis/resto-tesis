@@ -23,6 +23,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdentityType;
+import javax.jdo.annotations.Join;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Queries;
 import javax.jdo.annotations.Query;
@@ -150,6 +151,7 @@ public class Mesa {
 	// {{ Pedidos (Collection)
 	private List<Pedido> pedidos = new ArrayList<Pedido>();
 
+	@Join
 	@Render(Type.EAGERLY)
 	@MemberOrder(sequence = "1")
 	public List<Pedido> getPedidos() {
@@ -164,12 +166,12 @@ public class Mesa {
 
 	@Programmatic
 	public void addToPedidos(final Pedido _pedido) {
-		pedidos.add(_pedido);
+		getPedidos().add(_pedido);
 	}
 
 	@Programmatic
 	public void removeFromPedidos(final Pedido _pedido) {
-		pedidos.remove(_pedido);
+		getPedidos().remove(_pedido);
 	}
 
 	@MemberOrder(name = "pedidos", sequence = "1")
