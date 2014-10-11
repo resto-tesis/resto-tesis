@@ -164,7 +164,7 @@ public class Comanda {
 					+ ",dom.comanda.estado.EnPreparacion"
 					+ ",dom.comanda.estado.Preparada") }, columns = {
 			@Column(name = "idNoConfirmada"), @Column(name = "idEnEspera"),
-			@Column(name = "idEnPreparacion"), @Column(name = "idPreparada") })
+			@Column(name = "idEnPreparacion"), @Column(name = "idPreparada") }, dependent = "true")
 	@MemberOrder(sequence = "2")
 	@Column(allowsNull = "false")
 	public IEstadoComanda getEstado() {
@@ -182,6 +182,7 @@ public class Comanda {
 	// {{ NoConfirmada (property)
 	private NoConfirmada noConfirmada;
 
+	@Persistent(dependent="true")
 	@Hidden
 	@MemberOrder(sequence = "1")
 	@Column(allowsNull = "false")
@@ -198,6 +199,7 @@ public class Comanda {
 	// {{ EnEspera (property)
 	private EnEspera enEspera;
 
+	@Persistent(dependent="true")
 	@Hidden
 	@MemberOrder(sequence = "1")
 	@Column(allowsNull = "false")
@@ -214,6 +216,7 @@ public class Comanda {
 	// {{ EnPreparacion (property)
 	private EnPreparacion enPreparacion;
 
+	@Persistent(dependent="true")
 	@Hidden
 	@MemberOrder(sequence = "1")
 	@Column(allowsNull = "false")
@@ -230,6 +233,7 @@ public class Comanda {
 	// {{ Preparada (property)
 	private Preparada preparada;
 
+	@Persistent(dependent="true")
 	@Hidden
 	@MemberOrder(sequence = "1")
 	@Column(allowsNull = "false")

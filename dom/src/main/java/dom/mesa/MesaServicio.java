@@ -19,6 +19,7 @@ package dom.mesa;
 
 import java.util.List;
 
+import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 
 import org.apache.isis.applib.AbstractFactoryAndRepository;
@@ -32,6 +33,8 @@ import org.apache.isis.applib.annotation.ActionSemantics.Of;
 
 import dom.comanda.Comanda;
 import dom.comanda.ComandaServicio;
+import dom.factura.Factura;
+import dom.factura.FacturaServicio;
 import dom.menu.Menu;
 import dom.mozo.Mozo;
 import dom.pedido.Pedido;
@@ -109,6 +112,23 @@ public class MesaServicio extends AbstractFactoryAndRepository {
 		return comandaServicio.crearComanda();
 	}
 
+	@Programmatic
+	public Factura facturar(final List<Pedido> _pedidos) {
+		final Factura factura = facturaServicio.crearFactura(_pedidos);
+		limpiarMesa(_pedidos);
+		return factura;
+	}
+
+	@Programmatic
+	public void limpiarMesa(List<Pedido> _pedidos) {
+		for (Pedido _pedido : _pedidos) {
+			remove(_pedido.getComanda());
+			remove(_pedido);
+		}
+	}
+
+	@Inject
+	private FacturaServicio facturaServicio;
 
 	@Inject
 	private PedidoServicio pedidoServicio;

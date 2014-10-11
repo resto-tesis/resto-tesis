@@ -38,6 +38,7 @@ import org.apache.isis.applib.annotation.Render;
 import org.apache.isis.applib.annotation.Render.Type;
 import org.apache.isis.applib.annotation.Title;
 
+import dom.factura.Factura;
 import dom.mozo.Mozo;
 import dom.pedido.Pedido;
 
@@ -174,6 +175,24 @@ public class Mesa {
 	@MemberOrder(name = "pedidos", sequence = "1")
 	public Pedido tomarPedido() {
 		return mesaServicio.tomarPedido(this);
+	}
+
+	public Factura facturar() {
+		return mesaServicio.facturar(getPedidos());
+	}
+
+	public String disableFacturar() {
+		if (getPedidos().isEmpty())
+			return "Mesa sin Pedidos";
+		for (Pedido _pedido : getPedidos()) {
+			if (_pedido.getBebidas().isEmpty()
+					&& (_pedido.getComanda().getMenues().isEmpty() && _pedido
+							.getComanda().getProductos().isEmpty())) {
+				return "Existe Pedido vacío!";
+
+			}
+		}
+		return null;
 	}
 
 	// {{ injected: DomainObjectContainer
