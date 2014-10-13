@@ -337,4 +337,14 @@ public class Oferta extends Observado {
 		datosModificados();
 	}
 
+	@Override
+	public String toString() {
+		return "Oferta [nombre=" + nombre + ", cantidadPersonas="
+				+ cantidadPersonas + ", descripcion=" + descripcion + ", menu="
+				+ menu + ", fechaInicio=" + fechaInicio + ", caducidad="
+				+ caducidad + ", descuento=" + descuento + ", ofertaServicio="
+				+ ofertaServicio + "]";
+	}
+	
+
 }
