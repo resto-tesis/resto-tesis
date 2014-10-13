@@ -24,6 +24,7 @@ import java.util.List;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
+import javax.jdo.annotations.Join;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.Sequence;
@@ -109,6 +110,7 @@ public class Comanda {
 	// {{ Productos (Collection)
 	private List<Producto> productos = new ArrayList<Producto>();
 
+	@Join
 	@Render(Type.EAGERLY)
 	@MemberOrder(sequence = "1")
 	public List<Producto> getProductos() {
@@ -122,16 +124,17 @@ public class Comanda {
 	// }}
 
 	public void addToProductos(final Producto _producto) {
-		productos.add(_producto);
+		getProductos().add(_producto);
 	}
 
 	public void removeFromProductos(final Producto _producto) {
-		productos.remove(_producto);
+		getProductos().remove(_producto);
 	}
 
 	// {{ Menues (Collection)
 	private List<Menu> menues = new ArrayList<Menu>();
 
+	@Join
 	@Render(Type.EAGERLY)
 	@MemberOrder(sequence = "2")
 	public List<Menu> getMenues() {
@@ -145,17 +148,17 @@ public class Comanda {
 	// }}
 
 	public void addToMenues(final Menu _menu) {
-		menues.add(_menu);
+		getMenues().add(_menu);
 	}
 
 	public void removeFromMenues(final Menu _menu) {
-		menues.remove(_menu);
+		getMenues().remove(_menu);
 	}
 
 	// {{ Estado (property)
 	private IEstadoComanda estado;
 
-	@Hidden
+//	@Hidden
 	@Title(prepend = "Comanda ")
 	@Persistent(extensions = {
 			@Extension(vendorName = "datanucleus", key = "mapping-strategy", value = "per-implementation"),
@@ -164,7 +167,7 @@ public class Comanda {
 					+ ",dom.comanda.estado.EnPreparacion"
 					+ ",dom.comanda.estado.Preparada") }, columns = {
 			@Column(name = "idNoConfirmada"), @Column(name = "idEnEspera"),
-			@Column(name = "idEnPreparacion"), @Column(name = "idPreparada") })
+			@Column(name = "idEnPreparacion"), @Column(name = "idPreparada") }, dependent = "true")
 	@MemberOrder(sequence = "2")
 	@Column(allowsNull = "false")
 	public IEstadoComanda getEstado() {
@@ -182,6 +185,7 @@ public class Comanda {
 	// {{ NoConfirmada (property)
 	private NoConfirmada noConfirmada;
 
+	@Persistent(dependent = "true")
 	@Hidden
 	@MemberOrder(sequence = "1")
 	@Column(allowsNull = "false")
@@ -198,6 +202,7 @@ public class Comanda {
 	// {{ EnEspera (property)
 	private EnEspera enEspera;
 
+	@Persistent(dependent = "true")
 	@Hidden
 	@MemberOrder(sequence = "1")
 	@Column(allowsNull = "false")
@@ -214,6 +219,7 @@ public class Comanda {
 	// {{ EnPreparacion (property)
 	private EnPreparacion enPreparacion;
 
+	@Persistent(dependent = "true")
 	@Hidden
 	@MemberOrder(sequence = "1")
 	@Column(allowsNull = "false")
@@ -230,6 +236,7 @@ public class Comanda {
 	// {{ Preparada (property)
 	private Preparada preparada;
 
+	@Persistent(dependent = "true")
 	@Hidden
 	@MemberOrder(sequence = "1")
 	@Column(allowsNull = "false")

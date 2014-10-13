@@ -32,6 +32,8 @@ import org.apache.isis.applib.annotation.ActionSemantics.Of;
 import org.apache.isis.applib.query.QueryDefault;
 import dom.comanda.Comanda;
 import dom.comanda.ComandaServicio;
+import dom.factura.Factura;
+import dom.factura.FacturaServicio;
 import dom.mozo.Mozo;
 import dom.pedido.Pedido;
 import dom.pedido.PedidoServicio;
@@ -114,6 +116,23 @@ public class MesaServicio extends AbstractFactoryAndRepository {
 		return comandaServicio.crearComanda();
 	}
 
+	@Programmatic
+	public Factura facturar(final List<Pedido> _pedidos) {
+		final Factura factura = facturaServicio.crearFactura(_pedidos);
+		limpiarMesa(_pedidos);
+		return factura;
+	}
+
+	@Programmatic
+	public void limpiarMesa(List<Pedido> _pedidos) {
+		for (Pedido _pedido : _pedidos) {
+			remove(_pedido.getComanda());
+			remove(_pedido);
+		}
+	}
+
+	@Inject
+	private FacturaServicio facturaServicio;
 
 	@Inject
 	private PedidoServicio pedidoServicio;

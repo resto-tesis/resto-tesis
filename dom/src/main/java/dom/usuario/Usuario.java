@@ -17,12 +17,20 @@
 
 package dom.usuario;
 
+import javax.inject.Inject;
 import javax.jdo.annotations.Column;
+import javax.jdo.annotations.DatastoreIdentity;
+import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Sequence;
+import javax.jdo.annotations.SequenceStrategy;
 
+import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.Hidden;
 
+@Sequence(name = "secuenciaUsuario", strategy = SequenceStrategy.CONTIGUOUS, datastoreSequence = "secuenciaUsuarios")
+@DatastoreIdentity(strategy = IdGeneratorStrategy.INCREMENT, sequence = "secuenciaUsuario")
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 public class Usuario {
 
@@ -72,6 +80,9 @@ public class Usuario {
 	}
 
 	// }}
+
+	@Inject
+	private DomainObjectContainer contenedor;
 
 	@Override
 	public int hashCode() {

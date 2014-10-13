@@ -8,7 +8,6 @@ import org.apache.isis.applib.AbstractFactoryAndRepository;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.Programmatic;
 
-import dom.comanda.Comanda;
 import dom.comanda.ComandaServicio;
 import dom.menu.Menu;
 import dom.producto.Producto;

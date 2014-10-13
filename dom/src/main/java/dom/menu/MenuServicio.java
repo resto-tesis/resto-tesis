@@ -31,7 +31,6 @@ import org.apache.isis.applib.annotation.RegEx;
 import org.apache.isis.applib.annotation.Where;
 import org.apache.isis.applib.query.QueryDefault;
 
-import dom.producto.bebida.Bebida;
 import dom.producto.guarnicion.Guarnicion;
 import dom.producto.platoEntrada.PlatoEntrada;
 import dom.producto.platoPrincipal.PlatoPrincipal;

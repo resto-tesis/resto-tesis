@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
+import javax.jdo.annotations.Join;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.Sequence;
@@ -116,6 +117,7 @@ public class Pedido {
 	// {{ Productos (Collection)
 	private List<Bebida> bebidas = new ArrayList<Bebida>();
 
+	@Join
 	@Render(Type.EAGERLY)
 	@MemberOrder(sequence = "1")
 	public List<Bebida> getBebidas() {

@@ -23,6 +23,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdentityType;
+import javax.jdo.annotations.Join;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Queries;
 import javax.jdo.annotations.Query;
@@ -38,6 +39,7 @@ import org.apache.isis.applib.annotation.Render;
 import org.apache.isis.applib.annotation.Render.Type;
 import org.apache.isis.applib.annotation.Title;
 
+import dom.factura.Factura;
 import dom.mozo.Mozo;
 import dom.pedido.Pedido;
 
@@ -149,6 +151,7 @@ public class Mesa {
 	// {{ Pedidos (Collection)
 	private List<Pedido> pedidos = new ArrayList<Pedido>();
 
+	@Join
 	@Render(Type.EAGERLY)
 	@MemberOrder(sequence = "1")
 	public List<Pedido> getPedidos() {
@@ -163,17 +166,35 @@ public class Mesa {
 
 	@Programmatic
 	public void addToPedidos(final Pedido _pedido) {
-		pedidos.add(_pedido);
+		getPedidos().add(_pedido);
 	}
 
 	@Programmatic
 	public void removeFromPedidos(final Pedido _pedido) {
-		pedidos.remove(_pedido);
+		getPedidos().remove(_pedido);
 	}
 
 	@MemberOrder(name = "pedidos", sequence = "1")
 	public Pedido tomarPedido() {
 		return mesaServicio.tomarPedido(this);
+	}
+
+	public Factura facturar() {
+		return mesaServicio.facturar(getPedidos());
+	}
+
+	public String disableFacturar() {
+		if (getPedidos().isEmpty())
+			return "Mesa sin Pedidos";
+		for (Pedido _pedido : getPedidos()) {
+			if (_pedido.getBebidas().isEmpty()
+					&& (_pedido.getComanda().getMenues().isEmpty() && _pedido
+							.getComanda().getProductos().isEmpty())) {
+				return "Existe Pedido vacío!";
+
+			}
+		}
+		return null;
 	}
 
 	// {{ injected: DomainObjectContainer

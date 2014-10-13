@@ -78,7 +78,7 @@ public class MozoServicio extends AbstractFactoryAndRepository implements
 		usuario.setNombre(_nombreUsuario);
 		usuario.setPassword(_password.getPassword());
 		usuario.setRol(uniqueMatch(new QueryDefault<Rol>(Rol.class, "mozo-role")));
-		persistIfNotAlready(usuario);
+		persist(usuario);
 		return usuario;
 	}
 
