@@ -52,7 +52,7 @@ public abstract class Producto {
 	// {{ Numero (property)
 	private int numero;
 
-	@Hidden(where=Where.ALL_TABLES)
+	@Hidden(where = Where.ALL_TABLES)
 	@Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT, sequence = "secuenciaNumeroProducto")
 	@Named("Número")
 	@TypicalLength(3)
@@ -72,7 +72,7 @@ public abstract class Producto {
 	// {{ Nombre (property)
 	private String nombre;
 
-	@Hidden(where=Where.ALL_TABLES)
+	@Hidden(where = Where.ALL_TABLES)
 	@RegEx(validation = "[0-9a-zA-ZáéíóúÁÉÍÓÚ\\s]*")
 	@MaxLength(value = 30)
 	@Title
@@ -124,7 +124,7 @@ public abstract class Producto {
 	// {{ EstadoLogico (property)
 	private EstadoLogico estadoLogico;
 
-	@Hidden(where=Where.ALL_TABLES)
+	@Hidden(where = Where.ALL_TABLES)
 	@Named("Estado de Alta")
 	@Column(allowsNull = "false")
 	@MemberOrder(sequence = "7")

@@ -50,6 +50,21 @@ public class ItemFactura {
 
 	// }}
 
+	// {{ Cantidad (property)
+	private int cantidad;
+
+	@MemberOrder(sequence = "1")
+	@Column(allowsNull = "false")
+	public int getCantidad() {
+		return cantidad;
+	}
+
+	public void setCantidad(final int cantidad) {
+		this.cantidad = cantidad;
+	}
+
+	// }}
+
 	// {{ Descuento (property)
 	private int descuento;
 
@@ -69,7 +84,7 @@ public class ItemFactura {
 	@Named("Precio Final ($)")
 	@MemberOrder(sequence = "5")
 	public double getPrecioFinal() {
-		return precio - (precio / 100 * descuento);
+		return (precio - (precio / 100 * descuento)) * cantidad;
 	}
 
 }

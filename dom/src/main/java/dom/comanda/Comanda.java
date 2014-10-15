@@ -22,6 +22,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.jdo.annotations.Column;
+import javax.jdo.annotations.ForeignKeyAction;
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.Join;
@@ -42,8 +43,8 @@ import org.apache.isis.applib.annotation.Title;
 import org.apache.isis.applib.annotation.TypicalLength;
 
 import dom.comanda.estado.*;
-import dom.menu.Menu;
-import dom.producto.Producto;
+import dom.objetosValor.ValueMenu;
+import dom.objetosValor.ValueProductoElaborado;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Sequence(name = "secuenciaNumeroComanda", strategy = SequenceStrategy.CONTIGUOUS)
@@ -79,6 +80,7 @@ public class Comanda {
 	// {{ Mozo (property)
 	private String mozo;
 
+	@Disabled
 	@MemberOrder(sequence = "3")
 	@Column(allowsNull = "false")
 	public String getMozo() {
@@ -94,6 +96,7 @@ public class Comanda {
 	// {{ FechaDePedido (property)
 	private Date fechaDePedido;
 
+	@Disabled
 	@Named("Fecha y Hora")
 	@MemberOrder(sequence = "2")
 	@Column(allowsNull = "false")
@@ -108,57 +111,59 @@ public class Comanda {
 	// }}
 
 	// {{ Productos (Collection)
-	private List<Producto> productos = new ArrayList<Producto>();
+	private List<ValueProductoElaborado> productos = new ArrayList<ValueProductoElaborado>();
 
-	@Join
+	@Persistent(dependentElement = "true")
+	@Join(deleteAction = ForeignKeyAction.CASCADE)
 	@Render(Type.EAGERLY)
 	@MemberOrder(sequence = "1")
-	public List<Producto> getProductos() {
+	public List<ValueProductoElaborado> getProductos() {
 		return productos;
 	}
 
-	public void setProductos(final List<Producto> productos) {
+	public void setProductos(final List<ValueProductoElaborado> productos) {
 		this.productos = productos;
 	}
 
 	// }}
 
-	public void addToProductos(final Producto _producto) {
+	public void addToProductos(final ValueProductoElaborado _producto) {
 		getProductos().add(_producto);
 	}
 
-	public void removeFromProductos(final Producto _producto) {
+	public void removeFromProductos(final ValueProductoElaborado _producto) {
 		getProductos().remove(_producto);
 	}
 
 	// {{ Menues (Collection)
-	private List<Menu> menues = new ArrayList<Menu>();
+	private List<ValueMenu> menues = new ArrayList<ValueMenu>();
 
-	@Join
+	@Persistent(dependentElement = "true")
+	@Join(deleteAction = ForeignKeyAction.CASCADE)
 	@Render(Type.EAGERLY)
 	@MemberOrder(sequence = "2")
-	public List<Menu> getMenues() {
+	public List<ValueMenu> getMenues() {
 		return menues;
 	}
 
-	public void setMenues(final List<Menu> menues) {
+	public void setMenues(final List<ValueMenu> menues) {
 		this.menues = menues;
 	}
 
 	// }}
 
-	public void addToMenues(final Menu _menu) {
+	public void addToMenues(final ValueMenu _menu) {
 		getMenues().add(_menu);
 	}
 
-	public void removeFromMenues(final Menu _menu) {
+	public void removeFromMenues(final ValueMenu _menu) {
 		getMenues().remove(_menu);
 	}
 
 	// {{ Estado (property)
 	private IEstadoComanda estado;
 
-//	@Hidden
+	// @Hidden
 	@Title(prepend = "Comanda ")
 	@Persistent(extensions = {
 			@Extension(vendorName = "datanucleus", key = "mapping-strategy", value = "per-implementation"),

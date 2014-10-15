@@ -32,7 +32,7 @@ import org.apache.isis.applib.annotation.Bulk;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
 
-import dom.producto.Producto;
+import dom.producto.ProductoElaborado;
 import dom.producto.postre.Postre;
 import dom.producto.postre.PostreServicio;
 
@@ -40,16 +40,16 @@ import dom.producto.postre.PostreServicio;
 @Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
 @Query(name = "postresQueEmpiezan", language = "JDOQL", value = "SELECT FROM dom.postre.Postre WHERE nombre.matches(:nombre)")
 @AutoComplete(repository = PostreServicio.class, action = "completarPostres")
-public class Postre extends Producto {
+public class Postre extends ProductoElaborado {
 
 	@Named("Borrar")
 	@Bulk
 	@MemberOrder(sequence = "1")
 	public List<Postre> borrar() {
-//		if (postreServicio.validaBorrado(this))
-			contenedor.removeIfNotAlready(this);
-//		else
-			contenedor.informUser("Existe un Menu o Comanda dependiente!!");
+		// if (postreServicio.validaBorrado(this))
+		contenedor.removeIfNotAlready(this);
+		// else
+		contenedor.informUser("Existe un Menu o Comanda dependiente!!");
 		return postreServicio.listarPostres();
 	}
 

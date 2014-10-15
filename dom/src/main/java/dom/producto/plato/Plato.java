@@ -27,11 +27,11 @@ import javax.jdo.annotations.PersistenceCapable;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
 
-import dom.producto.Producto;
+import dom.producto.ProductoElaborado;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
-public abstract class Plato extends Producto {
+public abstract class Plato extends ProductoElaborado {
 
 	// {{ CondicionDePlato (property)
 	private CondicionDePlatoEnum condicionDePlato;

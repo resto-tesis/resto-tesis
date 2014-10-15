@@ -32,13 +32,13 @@ import org.apache.isis.applib.annotation.Bulk;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
 
-import dom.producto.Producto;
+import dom.producto.ProductoElaborado;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
 @Query(name = "guarnicionesQueEmpiezan", language = "JDOQL", value = "SELECT FROM dom.guarnicion.Guarnicion WHERE nombre.matches(:nombre)")
 @AutoComplete(repository = GuarnicionServicio.class, action = "completarGuarniciones")
-public class Guarnicion extends Producto {
+public class Guarnicion extends ProductoElaborado {
 
 	// }}
 
@@ -46,10 +46,10 @@ public class Guarnicion extends Producto {
 	@Bulk
 	@MemberOrder(sequence = "1")
 	public List<Guarnicion> borrar() {
-//		if (guarnicionServicio.validaBorrado(this))
-			contenedor.removeIfNotAlready(this);
-//		else
-			contenedor.informUser("Existe un Menu o Comanda dependiente!!");
+		// if (guarnicionServicio.validaBorrado(this))
+		contenedor.removeIfNotAlready(this);
+		// else
+		contenedor.informUser("Existe un Menu o Comanda dependiente!!");
 		return guarnicionServicio.listarGuarniciones();
 	}
 

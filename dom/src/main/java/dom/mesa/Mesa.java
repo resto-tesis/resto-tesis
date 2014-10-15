@@ -23,7 +23,6 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdentityType;
-import javax.jdo.annotations.Join;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Queries;
 import javax.jdo.annotations.Query;
@@ -151,7 +150,7 @@ public class Mesa {
 	// {{ Pedidos (Collection)
 	private List<Pedido> pedidos = new ArrayList<Pedido>();
 
-	@Join
+	// @Join(deleteAction = ForeignKeyAction.CASCADE)
 	@Render(Type.EAGERLY)
 	@MemberOrder(sequence = "1")
 	public List<Pedido> getPedidos() {
@@ -180,7 +179,7 @@ public class Mesa {
 	}
 
 	public Factura facturar() {
-		return mesaServicio.facturar(getPedidos());
+		return mesaServicio.facturar(this);
 	}
 
 	public String disableFacturar() {

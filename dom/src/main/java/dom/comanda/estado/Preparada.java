@@ -28,7 +28,7 @@ import dom.comanda.Comanda;
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 public class Preparada implements IEstadoComanda {
 
-	private String mensajeEstadoActual = "Comanda Preparada";
+	private String mensajeEstadoActual = "Comanda Ya Preparada!!";
 
 	public Preparada(Comanda _comanda) {
 		// TODO Auto-generated constructor stub
@@ -81,73 +81,7 @@ public class Preparada implements IEstadoComanda {
 	}
 
 	@Override
-	public String validarAgregarGuarnicion() {
-		// TODO Auto-generated method stub
-		return mensajeEstadoActual;
-	}
-
-	@Override
-	public String validarAgregarPostre() {
-		// TODO Auto-generated method stub
-		return mensajeEstadoActual;
-	}
-
-	@Override
-	public String validarAgregarBebida() {
-		// TODO Auto-generated method stub
-		return mensajeEstadoActual;
-	}
-
-	@Override
-	public String validarAgregarPlatoPrincipal() {
-		// TODO Auto-generated method stub
-		return mensajeEstadoActual;
-	}
-
-	@Override
-	public String validarAgregarPlatoEntrada() {
-		// TODO Auto-generated method stub
-		return mensajeEstadoActual;
-	}
-
-	@Override
-	public String validarAgregarMenu() {
-		// TODO Auto-generated method stub
-		return mensajeEstadoActual;
-	}
-
-	@Override
-	public String validarQuitarGuarnicion() {
-		// TODO Auto-generated method stub
-		return mensajeEstadoActual;
-	}
-
-	@Override
-	public String validarQuitarPostre() {
-		// TODO Auto-generated method stub
-		return mensajeEstadoActual;
-	}
-
-	@Override
-	public String validarQuitarBebida() {
-		// TODO Auto-generated method stub
-		return mensajeEstadoActual;
-	}
-
-	@Override
-	public String validarQuitarPlatoPrincipal() {
-		// TODO Auto-generated method stub
-		return mensajeEstadoActual;
-	}
-
-	@Override
-	public String validarQuitarPlatoEntrada() {
-		// TODO Auto-generated method stub
-		return mensajeEstadoActual;
-	}
-
-	@Override
-	public String validarQuitarMenu() {
+	public String validarModificacion() {
 		// TODO Auto-generated method stub
 		return mensajeEstadoActual;
 	}

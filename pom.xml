@@ -68,10 +68,10 @@
 							<id>source</id>
 							<phase>compile</phase>
 						</execution>
-<!-- 						<execution> -->
-<!-- 							<id>test</id> -->
-<!-- 							<phase>test-compile</phase> -->
-<!-- 						</execution> -->
+						<!-- <execution> -->
+						<!-- <id>test</id> -->
+						<!-- <phase>test-compile</phase> -->
+						<!-- </execution> -->
 					</executions>
 				</plugin>
 
@@ -80,6 +80,7 @@
 					<artifactId>maven-surefire-plugin</artifactId>
 					<version>2.16</version>
 					<configuration>
+						<skipTests>true</skipTests>
 						<includes>
 							<include>**/*.java</include>
 						</includes>
@@ -109,11 +110,11 @@
 						</excludes>
 						<showSuccess>false</showSuccess>
 					</configuration>
-<!-- 					<executions> -->
-<!-- 						<execution> -->
-<!-- 							<phase>test</phase> -->
-<!-- 						</execution> -->
-<!-- 					</executions> -->
+					<!-- <executions> -->
+					<!-- <execution> -->
+					<!-- <phase>test</phase> -->
+					<!-- </execution> -->
+					<!-- </executions> -->
 				</plugin>
 
 				<plugin>
@@ -321,11 +322,11 @@
 				<artifactId>resto-dom</artifactId>
 				<version>1.0-SNAPSHOT</version>
 			</dependency>
-<!-- 			<dependency> -->
-<!-- 				<groupId>${project.groupId}</groupId> -->
-<!-- 				<artifactId>resto-fixture</artifactId> -->
-<!-- 				<version>1.0-SNAPSHOT</version> -->
-<!-- 			</dependency> -->
+			<!-- <dependency> -->
+			<!-- <groupId>${project.groupId}</groupId> -->
+			<!-- <artifactId>resto-fixture</artifactId> -->
+			<!-- <version>1.0-SNAPSHOT</version> -->
+			<!-- </dependency> -->
 			<dependency>
 				<groupId>${project.groupId}</groupId>
 				<artifactId>resto-webapp</artifactId>
@@ -336,16 +337,16 @@
 
 			<!-- quartz scheduler integration -->
 
-<!-- 			<dependency> -->
-<!-- 				<groupId>org.quartz-scheduler</groupId> -->
-<!-- 				<artifactId>quartz</artifactId> -->
-<!-- 				<version>${quartz-scheduler.version}</version> -->
-<!-- 			</dependency> -->
-<!-- 			<dependency> -->
-<!-- 				<groupId>org.quartz-scheduler</groupId> -->
-<!-- 				<artifactId>quartz-jobs</artifactId> -->
-<!-- 				<version>${quartz-scheduler.version}</version> -->
-<!-- 			</dependency> -->
+			<!-- <dependency> -->
+			<!-- <groupId>org.quartz-scheduler</groupId> -->
+			<!-- <artifactId>quartz</artifactId> -->
+			<!-- <version>${quartz-scheduler.version}</version> -->
+			<!-- </dependency> -->
+			<!-- <dependency> -->
+			<!-- <groupId>org.quartz-scheduler</groupId> -->
+			<!-- <artifactId>quartz-jobs</artifactId> -->
+			<!-- <version>${quartz-scheduler.version}</version> -->
+			<!-- </dependency> -->
 
 		</dependencies>
 	</dependencyManagement>

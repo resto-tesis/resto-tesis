@@ -22,13 +22,14 @@ import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
 
 import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.annotation.Programmatic;
 
 import dom.comanda.Comanda;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 public class EnPreparacion implements IEstadoComanda {
 
-	private String mensajeEstadoActual = "Comanda en Preparación";
+	private String mensajeEstadoActual = "Comanda en Preparación!!";
 
 	public EnPreparacion(Comanda _comanda) {
 		// TODO Auto-generated constructor stub
@@ -51,6 +52,7 @@ public class EnPreparacion implements IEstadoComanda {
 	// }}
 
 	@Override
+	@Programmatic
 	public void cambiarEstado() {
 		// TODO Auto-generated method stub
 		getComanda().setEstado(getComanda().getPreparada());
@@ -63,91 +65,29 @@ public class EnPreparacion implements IEstadoComanda {
 	}
 
 	@Override
+	@Programmatic
 	public String Enviar() {
 		// TODO Auto-generated method stub
 		return mensajeEstadoActual;
 	}
 
 	@Override
+	@Programmatic
 	public String Preparar() {
 		// TODO Auto-generated method stub
 		return mensajeEstadoActual;
 	}
 
 	@Override
+	@Programmatic
 	public String ComandaLista() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String validarAgregarGuarnicion() {
-		// TODO Auto-generated method stub
-		return mensajeEstadoActual;
-	}
-
-	@Override
-	public String validarAgregarPostre() {
-		// TODO Auto-generated method stub
-		return mensajeEstadoActual;
-	}
-
-	@Override
-	public String validarAgregarBebida() {
-		// TODO Auto-generated method stub
-		return mensajeEstadoActual;
-	}
-
-	@Override
-	public String validarAgregarPlatoPrincipal() {
-		// TODO Auto-generated method stub
-		return mensajeEstadoActual;
-	}
-
-	@Override
-	public String validarAgregarPlatoEntrada() {
-		// TODO Auto-generated method stub
-		return mensajeEstadoActual;
-	}
-
-	@Override
-	public String validarAgregarMenu() {
-		// TODO Auto-generated method stub
-		return mensajeEstadoActual;
-	}
-
-	@Override
-	public String validarQuitarGuarnicion() {
-		// TODO Auto-generated method stub
-		return mensajeEstadoActual;
-	}
-
-	@Override
-	public String validarQuitarPostre() {
-		// TODO Auto-generated method stub
-		return mensajeEstadoActual;
-	}
-
-	@Override
-	public String validarQuitarBebida() {
-		// TODO Auto-generated method stub
-		return mensajeEstadoActual;
-	}
-
-	@Override
-	public String validarQuitarPlatoPrincipal() {
-		// TODO Auto-generated method stub
-		return mensajeEstadoActual;
-	}
-
-	@Override
-	public String validarQuitarPlatoEntrada() {
-		// TODO Auto-generated method stub
-		return mensajeEstadoActual;
-	}
-
-	@Override
-	public String validarQuitarMenu() {
+	@Programmatic
+	public String validarModificacion() {
 		// TODO Auto-generated method stub
 		return mensajeEstadoActual;
 	}

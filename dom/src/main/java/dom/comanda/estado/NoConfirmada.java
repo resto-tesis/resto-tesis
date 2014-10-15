@@ -22,6 +22,7 @@ import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
 
 import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.annotation.Programmatic;
 
 import dom.comanda.Comanda;
 
@@ -57,99 +58,39 @@ public class NoConfirmada implements IEstadoComanda {
 	}
 
 	@Override
+	@Programmatic
 	public void cambiarEstado() {
 		// TODO Auto-generated method stub
 		getComanda().setEstado(getComanda().getEnEspera());
 	}
 
 	@Override
+	@Programmatic
 	public String Enviar() {
 		// TODO Auto-generated method stub
-		if (!getComanda().getProductos().isEmpty())
-			return null;
-		return "Comanda vacia";
+		if (getComanda().getProductos().isEmpty()
+				&& getComanda().getMenues().isEmpty())
+			return "Comanda vacia";
+		return null;
 	}
 
 	@Override
+	@Programmatic
 	public String Preparar() {
 		// TODO Auto-generated method stub
 		return mensajeEstadoActual;
 	}
 
 	@Override
+	@Programmatic
 	public String ComandaLista() {
 		// TODO Auto-generated method stub
 		return mensajeEstadoActual;
 	}
 
 	@Override
-	public String validarAgregarGuarnicion() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String validarAgregarPostre() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String validarAgregarBebida() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String validarAgregarPlatoPrincipal() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String validarAgregarPlatoEntrada() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String validarAgregarMenu() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String validarQuitarGuarnicion() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String validarQuitarPostre() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String validarQuitarBebida() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String validarQuitarPlatoPrincipal() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String validarQuitarPlatoEntrada() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String validarQuitarMenu() {
+	@Programmatic
+	public String validarModificacion() {
 		// TODO Auto-generated method stub
 		return null;
 	}

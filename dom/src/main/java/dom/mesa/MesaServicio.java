@@ -30,7 +30,6 @@ import org.apache.isis.applib.annotation.Named;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.ActionSemantics.Of;
 
-import dom.comanda.Comanda;
 import dom.comanda.ComandaServicio;
 import dom.factura.Factura;
 import dom.factura.FacturaServicio;
@@ -106,20 +105,16 @@ public class MesaServicio extends AbstractFactoryAndRepository {
 	}
 
 	@Programmatic
-	public Comanda crearComanda(Mesa _mesa) {
-		return comandaServicio.crearComanda();
-	}
-
-	@Programmatic
-	public Factura facturar(final List<Pedido> _pedidos) {
-		final Factura factura = facturaServicio.crearFactura(_pedidos);
-		limpiarMesa(_pedidos);
+	public Factura facturar(Mesa _mesa) {
+		final Factura factura = facturaServicio
+				.crearFactura(_mesa.getPedidos());
+		limpiarMesa(_mesa);
 		return factura;
 	}
 
 	@Programmatic
-	public void limpiarMesa(List<Pedido> _pedidos) {
-		for (Pedido _pedido : _pedidos) {
+	public void limpiarMesa(Mesa _mesa) {
+		for (Pedido _pedido : _mesa.getPedidos()) {
 			remove(_pedido.getComanda());
 			remove(_pedido);
 		}

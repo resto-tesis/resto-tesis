@@ -34,13 +34,13 @@ import org.apache.isis.applib.annotation.Named;
 import org.apache.isis.applib.annotation.Optional;
 import org.apache.isis.applib.annotation.TypicalLength;
 
-import dom.producto.Producto;
+import dom.producto.ProductoNoElaborado;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
 @Query(name = "bebidasQueEmpiezan", language = "JDOQL", value = "SELECT FROM dom.bebida.Bebida WHERE nombre.matches(:nombre)")
 @AutoComplete(repository = BebidaServicio.class, action = "completarBebidas")
-public class Bebida extends Producto {
+public class Bebida extends ProductoNoElaborado {
 
 	// {{ Tipo (property)
 	private TipoBebidaEnum tipoBebida;
@@ -78,10 +78,10 @@ public class Bebida extends Producto {
 	@Bulk
 	@MemberOrder(sequence = "1")
 	public List<Bebida> borrarBebida() {
-//		if (bebidaServicio.validaBorrado(this))
-			contenedor.removeIfNotAlready(this);
-//		else
-			contenedor.informUser("Existe un Menu o Comanda dependiente!!");
+		// if (bebidaServicio.validaBorrado(this))
+		contenedor.removeIfNotAlready(this);
+		// else
+		contenedor.informUser("Existe un Menu o Comanda dependiente!!");
 		return bebidaServicio.listarBebidas();
 	}
 
@@ -99,7 +99,8 @@ public class Bebida extends Producto {
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
-		result = prime * result + ((tipoBebida == null) ? 0 : tipoBebida.hashCode());
+		result = prime * result
+				+ ((tipoBebida == null) ? 0 : tipoBebida.hashCode());
 		result = prime * result + ((volumen == null) ? 0 : volumen.hashCode());
 		return result;
 	}

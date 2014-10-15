@@ -29,27 +29,5 @@ public interface IEstadoComanda {
 
 	String ComandaLista();
 
-	String validarAgregarGuarnicion();
-
-	String validarAgregarPostre();
-
-	String validarAgregarBebida();
-
-	String validarAgregarPlatoPrincipal();
-
-	String validarAgregarPlatoEntrada();
-
-	String validarAgregarMenu();
-
-	String validarQuitarGuarnicion();
-
-	String validarQuitarPostre();
-
-	String validarQuitarBebida();
-
-	String validarQuitarPlatoPrincipal();
-
-	String validarQuitarPlatoEntrada();
-
-	String validarQuitarMenu();
+	String validarModificacion();
 }

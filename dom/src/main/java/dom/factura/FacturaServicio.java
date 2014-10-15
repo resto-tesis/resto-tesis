@@ -6,10 +6,10 @@ import org.apache.isis.applib.AbstractFactoryAndRepository;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.Programmatic;
 
-import dom.menu.Menu;
+import dom.objetosValor.ValueMenu;
+import dom.objetosValor.ValueProductoElaborado;
+import dom.objetosValor.ValueProductoNoElaborado;
 import dom.pedido.Pedido;
-import dom.producto.Producto;
-import dom.producto.bebida.Bebida;
 
 @DomainService
 public class FacturaServicio extends AbstractFactoryAndRepository {
@@ -23,64 +23,78 @@ public class FacturaServicio extends AbstractFactoryAndRepository {
 		double precioTotal = 0;
 		final Factura factura = newTransientInstance(Factura.class);
 		for (Pedido pedido : _pedidos) {
-			for (Bebida bebida : pedido.getBebidas()) {
+			for (ValueProductoNoElaborado bebida : pedido.getBebidas()) {
 				final ItemFactura item = newTransientInstance(ItemFactura.class);
-				item.setNombre(bebida.getNombre());
+				item.setNombre(bebida.getProducto().getNombre());
+				item.setCantidad(bebida.getCantidad());
 				item.setDescuento(0);
-				item.setPrecio(bebida.getPrecio());
+				item.setPrecio(bebida.getProducto().getPrecio());
 				persist(item);
 				precioTotal += item.getPrecioFinal();
 				factura.addToItems(item);
 			}
 			if (!pedido.getComanda().getProductos().isEmpty()) {
-				for (Producto producto : pedido.getComanda().getProductos()) {
+				for (ValueProductoElaborado producto : pedido.getComanda()
+						.getProductos()) {
 					final ItemFactura itemProducto = newTransientInstance(ItemFactura.class);
-					itemProducto.setNombre(producto.getNombre());
+					itemProducto.setNombre(producto.getProducto().getNombre());
+					itemProducto.setCantidad(producto.getCantidad());
 					itemProducto.setDescuento(0);
-					itemProducto.setPrecio(producto.getPrecio());
+					itemProducto.setPrecio(producto.getProducto().getPrecio());
 					persist(itemProducto);
 					precioTotal += itemProducto.getPrecioFinal();
 					factura.addToItems(itemProducto);
 				}
 			}
 			if (!pedido.getComanda().getMenues().isEmpty()) {
-				for (Menu menu : pedido.getComanda().getMenues()) {
+				for (ValueMenu menu : pedido.getComanda().getMenues()) {
 					ItemFactura itemMenu = newTransientInstance(ItemFactura.class);
-					itemMenu.setNombre(menu.getNombre().toUpperCase());
-					itemMenu.setDescuento(menu.getDescuento());
-					itemMenu.setPrecio(menu.getPrecioSinDescuento());
+					itemMenu.setNombre(menu.getMenu().getNombre().toUpperCase());
+					itemMenu.setCantidad(menu.getCantidad());
+					itemMenu.setDescuento(menu.getMenu().getDescuento());
+					itemMenu.setPrecio(menu.getMenu().getPrecioSinDescuento());
 					persist(itemMenu);
 					precioTotal += itemMenu.getPrecioFinal();
 					factura.addToItems(itemMenu);
 
 					ItemFactura item1 = newTransientInstance(ItemFactura.class);
-					item1.setNombre("--" + menu.getPlatoPrincipal().getNombre());
-					item1.setDescuento(menu.getDescuento());
-					item1.setPrecio(menu.getPlatoPrincipal().getPrecio());
+					item1.setNombre("--"
+							+ menu.getMenu().getPlatoPrincipal().getNombre());
+					item1.setCantidad(menu.getCantidad());
+					item1.setDescuento(menu.getMenu().getDescuento());
+					item1.setPrecio(menu.getMenu().getPlatoPrincipal()
+							.getPrecio());
 					persist(item1);
 					factura.addToItems(item1);
-					if (menu.getPlatoEntrada() != null) {
+					if (menu.getMenu().getPlatoEntrada() != null) {
 						ItemFactura item2 = newTransientInstance(ItemFactura.class);
 						item2.setNombre("--"
-								+ menu.getPlatoEntrada().getNombre());
-						item2.setDescuento(menu.getDescuento());
-						item2.setPrecio(menu.getPlatoEntrada().getPrecio());
+								+ menu.getMenu().getPlatoEntrada().getNombre());
+						item2.setCantidad(menu.getCantidad());
+						item2.setDescuento(menu.getMenu().getDescuento());
+						item2.setPrecio(menu.getMenu().getPlatoEntrada()
+								.getPrecio());
 						persist(item2);
 						factura.addToItems(item2);
 					}
-					if (menu.getPostre() != null) {
+					if (menu.getMenu().getPostre() != null) {
 						ItemFactura item3 = newTransientInstance(ItemFactura.class);
-						item3.setNombre("--" + menu.getPostre().getNombre());
-						item3.setDescuento(menu.getDescuento());
-						item3.setPrecio(menu.getPostre().getPrecio());
+						item3.setNombre("--"
+								+ menu.getMenu().getPostre().getNombre());
+						item3.setCantidad(menu.getCantidad());
+						item3.setDescuento(menu.getMenu().getDescuento());
+						item3.setPrecio(menu.getMenu().getPostre().getPrecio());
 						persist(item3);
 						factura.addToItems(item3);
 					}
-					if (menu.getGuarnicion() != null) {
+					if (menu.getMenu().getGuarnicion() != null) {
 						ItemFactura item4 = newTransientInstance(ItemFactura.class);
-						item4.setNombre("--" + menu.getGuarnicion().getNombre());
-						item4.setDescuento(menu.getDescuento());
-						item4.setPrecio(menu.getGuarnicion().getPrecio());
+						item4.setNombre("--"
+								+ menu.getMenu().getGuarnicion().getNombre());
+						item4.setCantidad(menu.getCantidad());
+						item4.setDescuento(menu.getMenu().getDescuento());
+						item4.setPrecio(menu.getMenu().getGuarnicion()
+								.getPrecio());
 						persist(item4);
 						factura.addToItems(item4);
 					}
