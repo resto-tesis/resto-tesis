@@ -29,13 +29,15 @@ import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.ActionSemantics.Of;
-
+import org.apache.isis.applib.query.QueryDefault;
+import dom.comanda.Comanda;
 import dom.comanda.ComandaServicio;
 import dom.factura.Factura;
 import dom.factura.FacturaServicio;
 import dom.mozo.Mozo;
 import dom.pedido.Pedido;
 import dom.pedido.PedidoServicio;
+import dom.usuario.Usuario;
 
 @DomainService
 @Named("Mesa")
@@ -88,8 +90,15 @@ public class MesaServicio extends AbstractFactoryAndRepository {
 	@ActionSemantics(Of.SAFE)
 	@MemberOrder(sequence = "2")
 	public List<Mesa> listarMesas() {
-		final List<Mesa> listamesas = allInstances(Mesa.class);
-		return listamesas;
+		if (Usuario.class.equals("Mozo-role") == getContainer().getUser()
+				.hasRole("Mozo-role")) {
+			final List<Mesa> lmasignadas = allMatches(new QueryDefault<Mesa>(
+					Mesa.class, "mesasAsignadas"));
+			return lmasignadas;
+		} else {
+			final List<Mesa> listamesas = allInstances(Mesa.class);
+			return listamesas;
+		}
 	}
 
 	@Programmatic

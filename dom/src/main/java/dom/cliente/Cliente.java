@@ -100,13 +100,9 @@ public class Cliente extends Persona implements IObservador{
 	@Override
 	public void actualizar(Oferta _oferta) {
 		// TODO Auto-generated method stub
-		this.setOferta(_oferta);
+		//this.setOferta(_oferta);
+		correo.send(this, _oferta);
 	}
-	
-	@Bulk
-	@MemberOrder(sequence = "1")
-	public void enviarOfertas(){
-		correo.send(this);		
-	}
+		
 	
 }

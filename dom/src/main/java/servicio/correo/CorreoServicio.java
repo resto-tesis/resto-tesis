@@ -16,6 +16,8 @@
  */
 package servicio.correo;
 
+import javax.inject.Inject;
+
 import org.apache.commons.mail.Email;
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.SimpleEmail;
@@ -24,13 +26,20 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.Named;
 import org.apache.isis.applib.annotation.NotInServiceMenu;
 
+import servicio.ofertaPrint.OfertaPrinting;
 import dom.cliente.Cliente;
+import dom.oferta.Oferta;
 
 @DomainService
 public class CorreoServicio extends AbstractFactoryAndRepository {
+	
+	@Inject
+	private OfertaPrinting printing;
+	
+	
 	@NotInServiceMenu
 	@Named("Enviar Correo")
-	public String send(final Cliente unCliente) {
+	public String send(final Cliente unCliente, final Oferta unaOferta) {
 
 		try {
 			Email email = new SimpleEmail();
@@ -40,7 +49,7 @@ public class CorreoServicio extends AbstractFactoryAndRepository {
 			email.setSSLOnConnect(true);
 			email.setFrom("resto.tesis@gmail.com", "Resto Tesis");
 			email.setSubject("Ofertas para esta Semana!");
-			email.setMsg("Exito !!!!... :-)");
+			email.setMsg(printing.ofertaToText(unaOferta));			
 			email.addTo(unCliente.getCorreo());
 			return email.send();
 		} catch (EmailException e) {
