@@ -91,9 +91,9 @@ public class Pedido {
 
 	@MemberOrder(name = "productosComanda", sequence = "10")
 	@Named("Eliminar...")
-	public Pedido removeFromComanda(final ValueProductoElaborado _producto) {
+	public Pedido removeFromComanda(
+			@Named("Producto") final ValueProductoElaborado _producto) {
 		getComanda().removeFromProductos(_producto);
-		contenedor.remove(_producto);
 		return this;
 	}
 
@@ -115,9 +115,8 @@ public class Pedido {
 
 	@Named("Eliminar...")
 	@MemberOrder(name = "menuesComanda", sequence = "20")
-	public Pedido removeFromMenues(final ValueMenu _menu) {
+	public Pedido removeFromMenues(@Named("Menu") final ValueMenu _menu) {
 		getComanda().removeFromMenues(_menu);
-		contenedor.remove(_menu);
 		return this;
 	}
 
@@ -152,9 +151,9 @@ public class Pedido {
 
 	@MemberOrder(name = "bebidas", sequence = "2")
 	@Named("Eliminar...")
-	public Pedido removeFromBebidas(final ValueProductoNoElaborado _bebida) {
+	public Pedido removeFromBebidas(
+			@Named("Bebida") final ValueProductoNoElaborado _bebida) {
 		getBebidas().remove(_bebida);
-		contenedor.remove(_bebida);
 		return this;
 	}
 

@@ -38,6 +38,7 @@ import org.apache.isis.applib.query.QueryDefault;
 import dom.producto.EstadoLogico;
 
 @DomainService
+@Named("Guarnición")
 public class GuarnicionServicio extends AbstractFactoryAndRepository {
 
 	@Named("Guarnición")
@@ -45,30 +46,23 @@ public class GuarnicionServicio extends AbstractFactoryAndRepository {
 	public Guarnicion crearGuarnicion(
 			@Named("Nombre") @RegEx(validation = "[0-9a-zA-ZáéíóúÁÉÍÓÚ\\s]*") @MaxLength(value = 30) final String nombreGuarnicion,
 			@Named("Descripción") @Optional @MultiLine(numberOfLines = 3) final String descripcionGuarnicion,
-			@Named("Precio") @MaxLength(value = 5) @Digits(integer = 2, fraction = 2) final BigDecimal precioGuarnicion,
-			@Named("Habilitado") final EstadoLogico _estadoLogico) {
+			@Named("Precio") @MaxLength(value = 5) @Digits(integer = 2, fraction = 2) final BigDecimal precioGuarnicion) {
 		return crearGuarnicionNueva(nombreGuarnicion, descripcionGuarnicion,
-				precioGuarnicion, _estadoLogico);
+				precioGuarnicion);
 	}
 
 	@Hidden
 	public Guarnicion crearGuarnicionNueva(final String nombreGuarnicion,
 			final String descripcionGuarnicion,
-			final BigDecimal precioGuarnicion,
-			final EstadoLogico _estadoLogico) {
+			final BigDecimal precioGuarnicion) {
 		final Guarnicion guarnicion = newTransientInstance(Guarnicion.class);
 		guarnicion.setNombre(nombreGuarnicion.substring(0, 1).toUpperCase()
 				+ nombreGuarnicion.substring(1));
 		guarnicion.setDescripcion(descripcionGuarnicion);
 		guarnicion.setPrecio(precioGuarnicion.doubleValue());
-		guarnicion.setEstadoLogico(_estadoLogico);
+		guarnicion.setEstadoLogico(EstadoLogico.Habilitado);
 		persist(guarnicion);
 		return guarnicion;
-	}
-
-	public EstadoLogico default3CrearGuarnicion() {
-		// TODO Auto-generated method stub
-		return EstadoLogico.Habilitado;
 	}
 
 	@Hidden

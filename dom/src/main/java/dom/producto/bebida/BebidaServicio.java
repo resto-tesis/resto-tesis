@@ -39,6 +39,7 @@ import org.apache.isis.applib.query.QueryDefault;
 import dom.producto.EstadoLogico;
 
 @DomainService
+@Named("Bebida")
 public class BebidaServicio extends AbstractFactoryAndRepository {
 
 	@Named("Bebida")
@@ -48,17 +49,15 @@ public class BebidaServicio extends AbstractFactoryAndRepository {
 			@Named("Tipo de Bebida") @TypicalLength(10) final TipoBebidaEnum _tipo,
 			@Named("Volumen") @Optional @TypicalLength(15) final VolumenBebidaEnum _volumen,
 			@Named("Descripción") @Optional @MultiLine(numberOfLines = 3) final String _descripcion,
-			@Named("Precio") @MaxLength(value = 5) @Digits(integer = 2, fraction = 2) final BigDecimal _precio,
-			@Named("Habilitado") final EstadoLogico _estadoLogico) {
+			@Named("Precio") @MaxLength(value = 5) @Digits(integer = 2, fraction = 2) final BigDecimal _precio) {
 		return nuevaInstanciaBebida(_nombre, _tipo, _volumen, _descripcion,
-				_precio, _estadoLogico);
+				_precio);
 	}
 
 	@Hidden
 	public Bebida nuevaInstanciaBebida(final String _nombre,
 			final TipoBebidaEnum _tipo, final VolumenBebidaEnum _volumen,
-			final String _descripcion, final BigDecimal _precio,
-			final EstadoLogico _estadoLogico) {
+			final String _descripcion, final BigDecimal _precio) {
 		final Bebida nuevaBebida = new Bebida();
 		nuevaBebida.setNombre(_nombre.substring(0, 1).toUpperCase()
 				+ _nombre.substring(1));
@@ -66,14 +65,9 @@ public class BebidaServicio extends AbstractFactoryAndRepository {
 		nuevaBebida.setVolumen(_volumen);
 		nuevaBebida.setDescripcion(_descripcion);
 		nuevaBebida.setPrecio(_precio.doubleValue());
-		nuevaBebida.setEstadoLogico(_estadoLogico);
+		nuevaBebida.setEstadoLogico(EstadoLogico.Habilitado);
 		persist(nuevaBebida);
 		return nuevaBebida;
-	}
-
-	public EstadoLogico default5CrearBebida() {
-		// TODO Auto-generated method stub
-		return EstadoLogico.Habilitado;
 	}
 
 	@Hidden
@@ -98,7 +92,7 @@ public class BebidaServicio extends AbstractFactoryAndRepository {
 	public String validateCrearBebida(final String _nombre,
 			final TipoBebidaEnum _tipoBebida,
 			final VolumenBebidaEnum _volumenBebida, final String _descripcion,
-			final BigDecimal _precio, final EstadoLogico _estadoLogico) {
+			final BigDecimal _precio) {
 		return VolumenBebidaEnum.validate(_tipoBebida, _volumenBebida);
 	}
 

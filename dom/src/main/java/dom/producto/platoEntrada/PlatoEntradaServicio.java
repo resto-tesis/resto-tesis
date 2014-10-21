@@ -40,6 +40,7 @@ import dom.producto.plato.CondicionDePlatoEnum;
 import dom.producto.plato.Plato;
 
 @DomainService
+@Named("Plato de Entrada")
 public class PlatoEntradaServicio extends AbstractFactoryAndRepository {
 
 	@Named("Plato de Entrada")
@@ -50,18 +51,16 @@ public class PlatoEntradaServicio extends AbstractFactoryAndRepository {
 			@Named("Condición") final CondicionDePlatoEnum unaCondicion,
 			@Optional @MultiLine(numberOfLines = 3) @Named("Descripción") final String unaDescripcion,
 			@Named("Precio") @MaxLength(value = 6) @Digits(integer = 3, fraction = 2) final BigDecimal unPrecio,
-			@Named("Habilitado") final EstadoLogico _estadoLogico,
 			@Named("Eleaboración") final boolean _elaboracion) {
 		/* Empieza el metodo */
 		return crearUnPlatoEntrada(nombre, unaCondicion, unaDescripcion,
-				unPrecio, _estadoLogico);
+				unPrecio);
 	}
 
 	@Hidden
 	public PlatoEntrada crearUnPlatoEntrada(final String nombre,
 			final CondicionDePlatoEnum unaCondicion,
-			final String unaDescripcion, final BigDecimal unPrecio,
-			final EstadoLogico _estadoLogico) {
+			final String unaDescripcion, final BigDecimal unPrecio) {
 		/* Empieza el Metodo */
 		final PlatoEntrada unPlato = newTransientInstance(PlatoEntrada.class);
 		unPlato.setNombre(nombre.substring(0, 1).toUpperCase()
@@ -72,14 +71,9 @@ public class PlatoEntradaServicio extends AbstractFactoryAndRepository {
 					+ unaDescripcion.substring(1));
 		}
 		unPlato.setPrecio(unPrecio.doubleValue());
-		unPlato.setEstadoLogico(_estadoLogico);
+		unPlato.setEstadoLogico(EstadoLogico.Habilitado);
 		persist(unPlato);
 		return unPlato;
-	}
-
-	public EstadoLogico default4CrearPlatoEntrada() {
-		// TODO Auto-generated method stub
-		return EstadoLogico.Habilitado;
 	}
 
 	@Hidden

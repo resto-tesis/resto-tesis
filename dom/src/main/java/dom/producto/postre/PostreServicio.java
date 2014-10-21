@@ -38,6 +38,7 @@ import org.apache.isis.applib.query.QueryDefault;
 import dom.producto.EstadoLogico;
 
 @DomainService
+@Named("Postre")
 public class PostreServicio extends AbstractFactoryAndRepository {
 
 	@Named("Postre")
@@ -45,16 +46,13 @@ public class PostreServicio extends AbstractFactoryAndRepository {
 	public Postre crearPostre(
 			@Named("Nombre") @RegEx(validation = "[0-9a-zA-ZáéíóúÁÉÍÓÚ\\s]*") @MaxLength(value = 30) final String nombrePostre,
 			@Optional @MultiLine(numberOfLines = 3) @Named("Descripción") final String descripcionPostre,
-			@Named("Precio") @MaxLength(value = 5) @Digits(integer = 2, fraction = 2) final BigDecimal precioPostre,
-			@Named("Habilitado") final EstadoLogico _estadoLogico) {
-		return crearPostreNuevo(nombrePostre, descripcionPostre, precioPostre,
-				_estadoLogico);
+			@Named("Precio") @MaxLength(value = 5) @Digits(integer = 2, fraction = 2) final BigDecimal precioPostre) {
+		return crearPostreNuevo(nombrePostre, descripcionPostre, precioPostre);
 	}
 
 	@Hidden
 	public Postre crearPostreNuevo(final String nombrePostre,
-			final String descripcionPostre, final BigDecimal precioPostre,
-			final EstadoLogico _estadoLogico) {
+			final String descripcionPostre, final BigDecimal precioPostre) {
 		final Postre postre = newTransientInstance(Postre.class);
 		postre.setNombre(nombrePostre.substring(0, 1).toUpperCase()
 				+ nombrePostre.substring(1));
@@ -63,14 +61,9 @@ public class PostreServicio extends AbstractFactoryAndRepository {
 					.toUpperCase() + descripcionPostre.substring(1));
 		}
 		postre.setPrecio(precioPostre.doubleValue());
-		postre.setEstadoLogico(_estadoLogico);
+		postre.setEstadoLogico(EstadoLogico.Habilitado);
 		persist(postre);
 		return postre;
-	}
-
-	public EstadoLogico default3CrearPostre() {
-		// TODO Auto-generated method stub
-		return EstadoLogico.Habilitado;
 	}
 
 	@Hidden

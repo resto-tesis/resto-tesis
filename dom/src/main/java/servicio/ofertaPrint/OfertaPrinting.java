@@ -19,12 +19,14 @@ package servicio.ofertaPrint;
 
 import org.apache.isis.applib.AbstractFactoryAndRepository;
 import org.apache.isis.applib.annotation.DomainService;
+import org.apache.isis.applib.annotation.NotInServiceMenu;
 
 import dom.oferta.Oferta;
 
 @DomainService
 public class OfertaPrinting extends AbstractFactoryAndRepository {
 
+	@NotInServiceMenu
 	public String ofertaToText(Oferta unaOferta) {
 		String encabezado = "##############################Ofertas##############################\n\nNombre: ";
 		encabezado += unaOferta.getNombre() + "\n";

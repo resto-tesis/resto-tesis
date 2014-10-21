@@ -41,6 +41,7 @@ import dom.producto.plato.Plato;
 import dom.producto.platoPrincipal.PlatoPrincipal;
 
 @DomainService
+@Named("Plato Principal")
 public class PlatoPrincipalServicio extends AbstractFactoryAndRepository {
 
 	@Named("Plato Principal")
@@ -50,18 +51,16 @@ public class PlatoPrincipalServicio extends AbstractFactoryAndRepository {
 			@RegEx(validation = "[0-9a-zA-ZáéíóúÁÉÍÓÚ\\s]*") @MaxLength(value = 30) @Named("Nombre") final String nombre,
 			@Named("Condición") final CondicionDePlatoEnum unaCondicion,
 			@Optional @MultiLine(numberOfLines = 3) @Named("Descripción") final String unaDescripcion,
-			@Named("Precio") @MaxLength(value = 6) @Digits(integer = 3, fraction = 2) final BigDecimal unPrecio,
-			@Named("Habilitado") final EstadoLogico _estadoLogico) {
+			@Named("Precio") @MaxLength(value = 6) @Digits(integer = 3, fraction = 2) final BigDecimal unPrecio) {
 		/* Empieza el metodo */
 		return crearUnPlatoPrincipal(nombre, unaCondicion, unaDescripcion,
-				unPrecio, _estadoLogico);
+				unPrecio);
 	}
 
 	@Hidden
 	public PlatoPrincipal crearUnPlatoPrincipal(final String nombre,
 			final CondicionDePlatoEnum unaCondicion,
-			final String unaDescripcion, final BigDecimal unPrecio,
-			final EstadoLogico _estadoLogico) {
+			final String unaDescripcion, final BigDecimal unPrecio) {
 		/* Empieza el Metodo */
 		final PlatoPrincipal unPlato = newTransientInstance(PlatoPrincipal.class);
 		unPlato.setNombre(nombre.substring(0, 1).toUpperCase()
@@ -72,14 +71,9 @@ public class PlatoPrincipalServicio extends AbstractFactoryAndRepository {
 					+ unaDescripcion.substring(1));
 		}
 		unPlato.setPrecio(unPrecio.doubleValue());
-		unPlato.setEstadoLogico(_estadoLogico);
+		unPlato.setEstadoLogico(EstadoLogico.Habilitado);
 		persist(unPlato);
 		return unPlato;
-	}
-
-	public EstadoLogico default4CrearPlatoPrincipal() {
-		// TODO Auto-generated method stub
-		return EstadoLogico.Habilitado;
 	}
 
 	@Hidden
