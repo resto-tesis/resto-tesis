@@ -115,6 +115,7 @@ public class Mesa {
 	// {{ EstadoHabilitacion (property)
 	private EstadoHabilitacionMesaEnum estadoHabilitacion;
 
+	@Disabled
 	@Named("Ocupación")
 	@Column(allowsNull = "false")
 	@MemberOrder(sequence = "4")
@@ -150,7 +151,6 @@ public class Mesa {
 	// {{ Pedidos (Collection)
 	private List<Pedido> pedidos = new ArrayList<Pedido>();
 
-	// @Join(deleteAction = ForeignKeyAction.CASCADE)
 	@Render(Type.EAGERLY)
 	@MemberOrder(sequence = "1")
 	public List<Pedido> getPedidos() {
@@ -178,6 +178,31 @@ public class Mesa {
 		return mesaServicio.tomarPedido(this);
 	}
 
+	public String disableTomarPedido() {
+		return (getEstadoAsignacion() == EstadoAsignacionMesaEnum.Asignada) ? null
+				: "Mesa sin Asignar!";
+	}
+
+	@MemberOrder(name = "pedidos", sequence = "2")
+	public Mesa borrarPedido(@Named("Pedido") Pedido _pedido) {
+		if (!_pedido.getBebidas().isEmpty()
+				|| !_pedido.getComanda().getMenues().isEmpty()
+				|| !_pedido.getComanda().getProductos().isEmpty()) {
+			contenedor.informUser("El Pedido seleccionado no está vacío!");
+		} else {
+			removeFromPedidos(_pedido);
+		}
+		return this;
+	}
+
+	public List<Pedido> choices0BorrarPedido() {
+		return getPedidos();
+	}
+
+	public String disableBorrarPedido(Pedido _pedido) {
+		return getPedidos().isEmpty() ? "No Existen Pedidos" : null;
+	}
+
 	public Factura facturar() {
 		return mesaServicio.facturar(this);
 	}
@@ -190,7 +215,6 @@ public class Mesa {
 					&& (_pedido.getComanda().getMenues().isEmpty() && _pedido
 							.getComanda().getProductos().isEmpty())) {
 				return "Existe Pedido vacío!";
-
 			}
 		}
 		return null;

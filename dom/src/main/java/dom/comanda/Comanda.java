@@ -163,7 +163,7 @@ public class Comanda {
 	// {{ Estado (property)
 	private IEstadoComanda estado;
 
-	// @Hidden
+	@Hidden
 	@Title(prepend = "Comanda ")
 	@Persistent(extensions = {
 			@Extension(vendorName = "datanucleus", key = "mapping-strategy", value = "per-implementation"),
@@ -258,16 +258,6 @@ public class Comanda {
 	// ////////////////////////////////////////////Estados//////////////////////////////////////////////
 
 	// /////////////////////////////////////////////////////--Acciones//Comanda--///////////////////////////////////////////////////////
-
-	@MemberOrder(sequence = "4")
-	public Comanda enviar() {
-		cambiarEstado();
-		return this;
-	}
-
-	public String disableEnviar() {
-		return estado.Enviar();
-	}
 
 	@MemberOrder(sequence = "2")
 	public Comanda preparar() {

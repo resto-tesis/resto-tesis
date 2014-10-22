@@ -24,14 +24,11 @@ import javax.inject.Inject;
 import org.apache.isis.applib.AbstractFactoryAndRepository;
 import org.apache.isis.applib.annotation.ActionSemantics;
 import org.apache.isis.applib.annotation.DomainService;
-import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.ActionSemantics.Of;
 import org.apache.isis.applib.query.QueryDefault;
-import dom.comanda.Comanda;
-import dom.comanda.ComandaServicio;
 import dom.factura.Factura;
 import dom.factura.FacturaServicio;
 import dom.mozo.Mozo;
@@ -50,8 +47,7 @@ public class MesaServicio extends AbstractFactoryAndRepository {
 		return crearMesaNueva(numero, capacidadMesa);
 	}
 
-	// }}
-	@Hidden
+	@Programmatic
 	public Mesa crearMesaNueva(final int numero, final int capacidadMesa) {
 		final Mesa mesa = newTransientInstance(Mesa.class);
 		mesa.setCapacidad(capacidadMesa);
@@ -63,7 +59,7 @@ public class MesaServicio extends AbstractFactoryAndRepository {
 		return mesa;
 	}
 
-	@Hidden
+	@Programmatic
 	public String validateCrearMesa(final int numero, final int capacidadMesa) {
 		if (capacidadMesa > 20 || capacidadMesa < 1) {
 			return "La capacidad debe ser menor o igual a 20 y mayor a 0.";
@@ -71,12 +67,12 @@ public class MesaServicio extends AbstractFactoryAndRepository {
 		if (numero > 99 || numero < 1) {
 			return "El número de Mesa debe ser mayor a 0 y menor a 100.";
 		} else {
-			return existeMesa(numero) ? "Ya existe la mesa."
+			return existeMesa(numero) ? "Ya existe la mesa "
 					+ Integer.toString(numero) : null;
 		}
 	}
 
-	@Hidden
+	@Programmatic
 	public boolean existeMesa(int numero) {
 		for (Mesa _mesa : allInstances(Mesa.class)) {
 			if (_mesa.getNumero() == numero) {
@@ -105,6 +101,7 @@ public class MesaServicio extends AbstractFactoryAndRepository {
 	public Pedido tomarPedido(Mesa _mesa) {
 		final Pedido pedido = pedidoServicio.crearPedido();
 		_mesa.addToPedidos(pedido);
+		_mesa.setEstadoHabilitacion(EstadoHabilitacionMesaEnum.Ocupada);
 		return pedido;
 	}
 
@@ -127,6 +124,7 @@ public class MesaServicio extends AbstractFactoryAndRepository {
 			remove(_pedido.getComanda());
 			remove(_pedido);
 		}
+		_mesa.setEstadoHabilitacion(EstadoHabilitacionMesaEnum.Desocupada);
 	}
 
 	@Inject
@@ -134,8 +132,5 @@ public class MesaServicio extends AbstractFactoryAndRepository {
 
 	@Inject
 	private PedidoServicio pedidoServicio;
-
-	@Inject
-	private ComandaServicio comandaServicio;
 
 }

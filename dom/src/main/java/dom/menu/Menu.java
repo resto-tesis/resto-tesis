@@ -31,7 +31,6 @@ import javax.jdo.annotations.SequenceStrategy;
 
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.AutoComplete;
-import org.apache.isis.applib.annotation.Bulk;
 import org.apache.isis.applib.annotation.Disabled;
 import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.MemberOrder;
@@ -51,6 +50,7 @@ import dom.producto.postre.Postre;
 @Query(name = "menuQueEmpiezan", language = "JDOQL", value = "SELECT FROM dom.menu.Menu WHERE nombre.matches(:nombre)")
 @AutoComplete(repository = MenuServicio.class, action = "completarMenu")
 public class Menu {
+
 	// {{ Numero (property)
 	private int numero;
 
@@ -217,21 +217,9 @@ public class Menu {
 
 	// }}
 
-	public Menu deshabilitarMenu() {
-		setEstadoLogico(EstadoLogico.Deshabilitado);
-		return this;
-	}
-
-	public Menu habilitarMenu() {
-		setEstadoLogico(EstadoLogico.Habilitado);
-		return this;
-	}
-
 	@Named("Borrar")
-	@Bulk
-	@MemberOrder(sequence = "1")
 	public List<Menu> borrar() {
-		contenedor.removeIfNotAlready(this);
+		setEstadoLogico(EstadoLogico.Deshabilitado);
 		return menuServicio.listarMenues();
 	}
 

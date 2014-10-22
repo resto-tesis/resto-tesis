@@ -27,6 +27,7 @@ import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
 import org.apache.isis.applib.annotation.Optional;
+import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.RegEx;
 import org.apache.isis.applib.annotation.Where;
 import org.apache.isis.applib.query.QueryDefault;
@@ -54,7 +55,7 @@ public class MenuServicio extends AbstractFactoryAndRepository {
 				_postre, _descuento);
 	}
 
-	@Hidden
+	@Programmatic
 	public Menu nuevoMenu(final String _nombre,
 			final PlatoPrincipal _platoPrincipal,
 			final PlatoEntrada _platoEntrada, final Guarnicion _guarnicion,
@@ -72,13 +73,13 @@ public class MenuServicio extends AbstractFactoryAndRepository {
 		return menu;
 	}
 
-	@Hidden
+	@Programmatic
 	public double calcularDescuento(Menu _menu) {
 		final double total = calcularTotal(_menu);
 		return (total - ((total / 100) * _menu.getDescuento()));
 	}
 
-	@Hidden
+	@Programmatic
 	public double calcularTotal(Menu _menu) {
 		double total = _menu.getPlatoPrincipal().getPrecio();
 		total += (_menu.getGuarnicion() == null) ? 0 : _menu.getGuarnicion()
@@ -90,27 +91,27 @@ public class MenuServicio extends AbstractFactoryAndRepository {
 		return total;
 	}
 
-	@Hidden
+	@Programmatic
 	public List<PlatoPrincipal> choices1CrearMenu() {
 		return allInstances(PlatoPrincipal.class);
 	}
 
-	@Hidden
+	@Programmatic
 	public List<PlatoEntrada> choices2CrearMenu() {
 		return allInstances(PlatoEntrada.class);
 	}
 
-	@Hidden
+	@Programmatic
 	public List<Guarnicion> choices3CrearMenu() {
 		return allInstances(Guarnicion.class);
 	}
 
-	@Hidden
+	@Programmatic
 	public List<Postre> choices4CrearMenu() {
 		return allInstances(Postre.class);
 	}
 
-	@Hidden
+	@Programmatic
 	public List<Menu> completarMenu(final String nombre) {
 		return allMatches(new QueryDefault<Menu>(Menu.class, "menuQueEmpiezan",
 				"nombre", "(?i).*" + nombre + ".*"));

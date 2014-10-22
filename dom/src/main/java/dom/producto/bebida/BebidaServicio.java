@@ -31,6 +31,7 @@ import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.MultiLine;
 import org.apache.isis.applib.annotation.Named;
 import org.apache.isis.applib.annotation.Optional;
+import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.RegEx;
 import org.apache.isis.applib.annotation.TypicalLength;
 import org.apache.isis.applib.annotation.ActionSemantics.Of;
@@ -54,7 +55,7 @@ public class BebidaServicio extends AbstractFactoryAndRepository {
 				_precio);
 	}
 
-	@Hidden
+	@Programmatic
 	public Bebida nuevaInstanciaBebida(final String _nombre,
 			final TipoBebidaEnum _tipo, final VolumenBebidaEnum _volumen,
 			final String _descripcion, final BigDecimal _precio) {
@@ -70,7 +71,7 @@ public class BebidaServicio extends AbstractFactoryAndRepository {
 		return nuevaBebida;
 	}
 
-	@Hidden
+	@Programmatic
 	public List<Bebida> completarBebidas(final String nombre) {
 		return allMatches(new QueryDefault<Bebida>(Bebida.class,
 				"bebidasQueEmpiezan", "nombre", "(?i).*" + nombre + ".*"));
@@ -104,25 +105,4 @@ public class BebidaServicio extends AbstractFactoryAndRepository {
 		return lista_bebidas;
 	}
 
-	// // Se verifica que el elemento por borrar no este relacionado con ninguna
-	// // comanda o menu
-	// @Hidden
-	// public boolean validaBorrado(final Bebida _bebida) {
-	// return (firstMatch(Menu.class, new Predicate<Menu>() {
-	// @Override
-	// public boolean apply(Menu _menu) {
-	// // TODO Auto-generated method stub
-	// return _menu.getBebida().equals(_bebida);
-	// }
-	// }) != null) ? false : (firstMatch(ComandaBebida.class,
-	// new Predicate<ComandaBebida>() {
-	// @Override
-	// public boolean apply(ComandaBebida _comanda) {
-	// // TODO Auto-generated method stub
-	// for (Bebida bebida : _comanda.getBebidas())
-	// return bebida.equals(_bebida);
-	// return false;
-	// }
-	// }) != null) ? false : true;
-	// }
 }

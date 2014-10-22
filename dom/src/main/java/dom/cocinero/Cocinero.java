@@ -17,16 +17,10 @@
 
 package dom.cocinero;
 
-import java.util.List;
-
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.Inheritance;
 import javax.jdo.annotations.InheritanceStrategy;
 import javax.jdo.annotations.PersistenceCapable;
-
-import org.apache.isis.applib.DomainObjectContainer;
-import org.apache.isis.applib.annotation.Bulk;
-import org.apache.isis.applib.annotation.MemberOrder;
 
 import dom.empleado.Empleado;
 
@@ -34,32 +28,4 @@ import dom.empleado.Empleado;
 @Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
 public class Cocinero extends Empleado {
 
-	// {{ Contenedor (property)
-	private DomainObjectContainer contenedor;
-
-	public void injectDomainObjectContainer(
-			final DomainObjectContainer _contenedor) {
-		contenedor = _contenedor;
-	}
-
-	public DomainObjectContainer getContenedor() {
-		return contenedor;
-	}
-
-	public void setContainer(DomainObjectContainer container) {
-		contenedor = container;
-	}
-
-	private CocineroServicio servicioCocinero;
-
-	public void injectarCocineroServicio(CocineroServicio _servicioCocinero) {
-		servicioCocinero = _servicioCocinero;
-	}
-
-	@Bulk
-	@MemberOrder(sequence = "1")
-	public List<Cocinero> borrar() {
-		contenedor.removeIfNotAlready(this);
-		return servicioCocinero.listarCocineros();
-	}
 }

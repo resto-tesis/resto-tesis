@@ -50,8 +50,7 @@ public class PlatoEntradaServicio extends AbstractFactoryAndRepository {
 			@RegEx(validation = "[0-9a-zA-ZáéíóúÁÉÍÓÚ\\s]*") @MaxLength(value = 30) @Named("Nombre") final String nombre,
 			@Named("Condición") final CondicionDePlatoEnum unaCondicion,
 			@Optional @MultiLine(numberOfLines = 3) @Named("Descripción") final String unaDescripcion,
-			@Named("Precio") @MaxLength(value = 6) @Digits(integer = 3, fraction = 2) final BigDecimal unPrecio,
-			@Named("Eleaboración") final boolean _elaboracion) {
+			@Named("Precio") @MaxLength(value = 6) @Digits(integer = 3, fraction = 2) final BigDecimal unPrecio) {
 		/* Empieza el metodo */
 		return crearUnPlatoEntrada(nombre, unaCondicion, unaDescripcion,
 				unPrecio);

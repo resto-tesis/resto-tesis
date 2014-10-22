@@ -27,7 +27,6 @@ import javax.jdo.annotations.InheritanceStrategy;
 import javax.jdo.annotations.PersistenceCapable;
 
 import org.apache.isis.applib.DomainObjectContainer;
-import org.apache.isis.applib.annotation.Bulk;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
 import org.apache.isis.applib.annotation.Render;
@@ -57,32 +56,16 @@ public class Mozo extends Empleado {
 
 	// }}
 
-	// {{ injected: DomainObjectContainer
-	@Inject
-	private DomainObjectContainer contenedor;
-	/*
-	 * Inyección del servicio
-	 */
-
-	@Inject
-	private MozoServicio mozoServicio;
-
-	@Bulk
-	@MemberOrder(sequence = "1")
-	public List<Mozo> borrar() {
-		contenedor.removeIfNotAlready(this);
-		return mozoServicio.listarMozos();
-	}
-
 	@MemberOrder(name = "listaMesas", sequence = "1")
 	public List<Mesa> seleccionarMesas() {
 		for (Mesa _mesa : contenedor.allInstances(Mesa.class))
 			_mesa.setEstadoSeleccion(false);
-		return mozoServicio.listarMesaSinAsignar();
+		return mozoServicio.listarMesasSinAsignar();
 	}
 
 	public String disableSeleccionarMesas() {
-		return mozoServicio.listaMesas().isEmpty() ? "No Existen Mesas" : null;
+		return mozoServicio.listarMesasSinAsignar().isEmpty() ? "No Existen Mesas Sin Asignar"
+				: null;
 	}
 
 	@MemberOrder(name = "listaMesas", sequence = "2")
@@ -98,6 +81,10 @@ public class Mozo extends Empleado {
 	@Named("Quitar")
 	@MemberOrder(name = "listaMesas", sequence = "3")
 	public Mozo desasignarMesa(final Mesa _mesa) {
+		if (!_mesa.getPedidos().isEmpty()) {
+			contenedor.informUser("Mesa con Pedidos");
+			return this;
+		}
 		listaMesas.remove(_mesa);
 		_mesa.setEstadoAsignacion(EstadoAsignacionMesaEnum.No_Asignada);
 		return this;
@@ -110,5 +97,15 @@ public class Mozo extends Empleado {
 	public List<Mesa> choices0DesasignarMesa() {
 		return getListamesas();
 	}
+
+	// {{ injected: DomainObjectContainer
+	@Inject
+	private DomainObjectContainer contenedor;
+
+	/*
+	 * Inyección del servicio
+	 */
+	@Inject
+	private MozoServicio mozoServicio;
 
 }

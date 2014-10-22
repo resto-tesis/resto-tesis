@@ -21,12 +21,10 @@ import java.util.List;
 
 import org.apache.isis.applib.AbstractFactoryAndRepository;
 import org.apache.isis.applib.annotation.DomainService;
-import org.apache.isis.applib.annotation.Hidden;
-import org.apache.isis.applib.annotation.Named;
+import org.apache.isis.applib.annotation.Programmatic;
 import org.joda.time.LocalDate;
 
 @DomainService(menuOrder = "10")
-@Named("Empleados")
 public class EmpleadoServicio extends AbstractFactoryAndRepository {
 
 	public EmpleadoServicio() {
@@ -35,7 +33,7 @@ public class EmpleadoServicio extends AbstractFactoryAndRepository {
 
 	final LocalDate fecha_actual = LocalDate.now();
 
-	@Hidden
+	@Programmatic
 	public String validarDocumento(final long _dni) {
 		for (Empleado _empleado : listarEmpleados())
 			return _dni == _empleado.getDocumento() ? "Ya existe el número de documento ingresado."
@@ -43,7 +41,7 @@ public class EmpleadoServicio extends AbstractFactoryAndRepository {
 		return null;
 	}
 
-	@Hidden
+	@Programmatic
 	public List<Empleado> listarEmpleados() {
 		return allInstances(Empleado.class);
 	}

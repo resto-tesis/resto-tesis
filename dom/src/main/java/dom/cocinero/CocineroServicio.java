@@ -22,13 +22,13 @@ import java.util.List;
 import org.apache.isis.applib.AbstractFactoryAndRepository;
 import org.apache.isis.applib.annotation.ActionSemantics;
 import org.apache.isis.applib.annotation.DomainService;
-import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.MaxLength;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.MinLength;
 import org.apache.isis.applib.annotation.MultiLine;
 import org.apache.isis.applib.annotation.Named;
 import org.apache.isis.applib.annotation.Optional;
+import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.RegEx;
 import org.apache.isis.applib.annotation.ActionSemantics.Of;
 import org.apache.isis.applib.query.QueryDefault;
@@ -41,6 +41,7 @@ import dom.empleado.IValidacionEmpleado;
 import dom.usuario.Rol;
 import dom.usuario.Usuario;
 
+@Named("Cocinero")
 @DomainService()
 public class CocineroServicio extends AbstractFactoryAndRepository implements
 		IValidacionEmpleado {
@@ -69,7 +70,7 @@ public class CocineroServicio extends AbstractFactoryAndRepository implements
 				_correo, fechadeNacimiento, fechadeIngreso);
 	}
 
-	@Hidden
+	@Programmatic
 	public Usuario crearUsuario(final String _nombreUsuario,
 			final Password _password) {
 		final Usuario usuario = newTransientInstance(Usuario.class);
@@ -81,7 +82,7 @@ public class CocineroServicio extends AbstractFactoryAndRepository implements
 		return usuario;
 	}
 
-	@Hidden
+	@Programmatic
 	public Cocinero crearNuevoCocinero(final Usuario _usuario,
 			final String _nombre, final String _apellido, final long _dni,
 			final String _direccion, final String _telefono,
@@ -112,7 +113,7 @@ public class CocineroServicio extends AbstractFactoryAndRepository implements
 		return listaCocinero;
 	}
 
-	@Hidden
+	@Programmatic
 	public List<Empleado> listarEmpleados() {
 		return allInstances(Empleado.class);
 	}
@@ -145,7 +146,7 @@ public class CocineroServicio extends AbstractFactoryAndRepository implements
 	 * cantidad de dias que tiene una persona de 18 años
 	 */
 	@Override
-	@Hidden
+	@Programmatic
 	public boolean validaMayorEdad(LocalDate fechadeNacimiento) {
 		// TODO Auto-generated method stub
 		if (getDiasNacimiento_Hoy(fechadeNacimiento) >= 6575) {
@@ -159,7 +160,7 @@ public class CocineroServicio extends AbstractFactoryAndRepository implements
 	 * actual
 	 */
 	@Override
-	@Hidden
+	@Programmatic
 	public int getDiasNacimiento_Hoy(LocalDate fechadeNacimiento) {
 		// TODO Auto-generated method stub
 		Days meses = Days.daysBetween(fechadeNacimiento, fecha_actual);

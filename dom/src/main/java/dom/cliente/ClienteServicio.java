@@ -22,13 +22,13 @@ import java.util.List;
 import org.apache.isis.applib.AbstractFactoryAndRepository;
 import org.apache.isis.applib.annotation.ActionSemantics;
 import org.apache.isis.applib.annotation.DomainService;
-import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.MaxLength;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.MinLength;
 import org.apache.isis.applib.annotation.MultiLine;
 import org.apache.isis.applib.annotation.Named;
 import org.apache.isis.applib.annotation.Optional;
+import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.RegEx;
 import org.apache.isis.applib.annotation.ActionSemantics.Of;
 import org.apache.isis.applib.query.QueryDefault;
@@ -41,7 +41,7 @@ import dom.usuario.Usuario;
 @DomainService(menuOrder = "11")
 @Named("Cliente")
 public class ClienteServicio extends AbstractFactoryAndRepository {
-	
+
 	@Named("Registrar")
 	@MemberOrder(sequence = "1")
 	public Cliente cargarCliente(
@@ -55,11 +55,12 @@ public class ClienteServicio extends AbstractFactoryAndRepository {
 			@Named("Usuario") final String _nombreUsuario,
 			@Named("Contraseña") final Password _password) {
 		Oferta _oferta = null;
-		return nuevoCliente(_oferta, _apellido, _nombre, _dni, _direccion, _telefono,
-				_celular, _correo, crearUsuario(_nombreUsuario, _password));
+		return nuevoCliente(_oferta, _apellido, _nombre, _dni, _direccion,
+				_telefono, _celular, _correo,
+				crearUsuario(_nombreUsuario, _password));
 	}
 
-	@Hidden
+	@Programmatic
 	public Usuario crearUsuario(final String _nombreUsuario,
 			final Password _password) {
 		final Usuario usuario = newTransientInstance(Usuario.class);
@@ -71,10 +72,11 @@ public class ClienteServicio extends AbstractFactoryAndRepository {
 		return usuario;
 	}
 
-	@Hidden
-	public Cliente nuevoCliente(Oferta _oferta, final String _apellido, final String _nombre,
-			final long _dni, final String _direccion, final String _telefono,
-			final String _celular, final String _correo, final Usuario _usuario) {
+	@Programmatic
+	public Cliente nuevoCliente(Oferta _oferta, final String _apellido,
+			final String _nombre, final long _dni, final String _direccion,
+			final String _telefono, final String _celular,
+			final String _correo, final Usuario _usuario) {
 		final Cliente clienteNuevo = newTransientInstance(Cliente.class);
 		clienteNuevo.setApellido(_apellido.substring(0, 1).toUpperCase()
 				+ _apellido.substring(1));
@@ -90,7 +92,7 @@ public class ClienteServicio extends AbstractFactoryAndRepository {
 		persist(clienteNuevo);
 		return clienteNuevo;
 	}
-	
+
 	@Named("Listar")
 	@ActionSemantics(Of.SAFE)
 	@MemberOrder(sequence = "2")
