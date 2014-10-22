@@ -39,16 +39,17 @@ example: uncomment to hide the icon
 }
 */
 
-/*
-example: uncomment to hide the sliding bookmark panel
+.zeroClipboardPanel {
+	display: none;
+}
+.breadcrumbPanel {
+	display: none;
+}
+.bookmarkedPagesPanel {
+	display: none;
+}
 
-#bookmarkedPagesSlidingDiv {
-	display: none;
-}
-.showPanelTab {
-	display: none;
-}
-*/
+
 
 /*
 example: uncomment to hide the text for the 'notes' field
@@ -56,6 +57,13 @@ div.ToDoItem-notes span.scalarValue {
     display: none;
 }
 */
+/*
+#header {
+width: 73%;
+float: left;
+height: 60px;
+background: transparent url("../images/logo.png") left center no-repeat;
+}*/
 
 
 .entityActions .cssMenuPanel .menuh li.x-caution a,
@@ -76,5 +84,4 @@ li.x-highlight a {
 
 div.x-key span.scalarName {
 	color: red;
-}
 }
