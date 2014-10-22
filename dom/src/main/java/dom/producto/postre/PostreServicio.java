@@ -25,12 +25,12 @@ import javax.validation.constraints.Digits;
 import org.apache.isis.applib.AbstractFactoryAndRepository;
 import org.apache.isis.applib.annotation.ActionSemantics;
 import org.apache.isis.applib.annotation.DomainService;
-import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.MaxLength;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.MultiLine;
 import org.apache.isis.applib.annotation.Named;
 import org.apache.isis.applib.annotation.Optional;
+import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.RegEx;
 import org.apache.isis.applib.annotation.ActionSemantics.Of;
 import org.apache.isis.applib.query.QueryDefault;
@@ -50,7 +50,7 @@ public class PostreServicio extends AbstractFactoryAndRepository {
 		return crearPostreNuevo(nombrePostre, descripcionPostre, precioPostre);
 	}
 
-	@Hidden
+	@Programmatic
 	public Postre crearPostreNuevo(final String nombrePostre,
 			final String descripcionPostre, final BigDecimal precioPostre) {
 		final Postre postre = newTransientInstance(Postre.class);
@@ -66,7 +66,7 @@ public class PostreServicio extends AbstractFactoryAndRepository {
 		return postre;
 	}
 
-	@Hidden
+	@Programmatic
 	public List<Postre> completarPostres(final String nombre) {
 		return allMatches(new QueryDefault<Postre>(Postre.class,
 				"postresQueEmpiezan", "nombre", "(?i).*" + nombre + ".*"));

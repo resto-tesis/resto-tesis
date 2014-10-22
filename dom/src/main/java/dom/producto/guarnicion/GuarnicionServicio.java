@@ -25,11 +25,11 @@ import javax.validation.constraints.Digits;
 import org.apache.isis.applib.AbstractFactoryAndRepository;
 import org.apache.isis.applib.annotation.ActionSemantics;
 import org.apache.isis.applib.annotation.DomainService;
-import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.MaxLength;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.MultiLine;
 import org.apache.isis.applib.annotation.Named;
+import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.RegEx;
 import org.apache.isis.applib.annotation.ActionSemantics.Of;
 import org.apache.isis.applib.annotation.Optional;
@@ -51,7 +51,7 @@ public class GuarnicionServicio extends AbstractFactoryAndRepository {
 				precioGuarnicion);
 	}
 
-	@Hidden
+	@Programmatic
 	public Guarnicion crearGuarnicionNueva(final String nombreGuarnicion,
 			final String descripcionGuarnicion,
 			final BigDecimal precioGuarnicion) {
@@ -65,7 +65,7 @@ public class GuarnicionServicio extends AbstractFactoryAndRepository {
 		return guarnicion;
 	}
 
-	@Hidden
+	@Programmatic
 	public List<Guarnicion> completarGuarniciones(final String nombre) {
 		return allMatches(new QueryDefault<Guarnicion>(Guarnicion.class,
 				"guarnicionesQueEmpiezan", "nombre", "(?i).*" + nombre + ".*"));

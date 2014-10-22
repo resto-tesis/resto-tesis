@@ -40,7 +40,6 @@ import org.apache.isis.applib.annotation.Optional;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.Render;
 import org.apache.isis.applib.annotation.Render.Type;
-import org.apache.isis.applib.annotation.Title;
 import org.apache.isis.applib.annotation.TypicalLength;
 import org.apache.isis.applib.annotation.Where;
 
@@ -63,11 +62,18 @@ public class Pedido {
 		// TODO Auto-generated constructor stub
 	}
 
+	public String title() {
+		if (getBebidas().isEmpty()
+				&& (getComanda().getProductos().isEmpty() && getComanda()
+						.getMenues().isEmpty()))
+			return "Pedido " + getNumero() + " (Vacío)";
+		return "Pedido " + getNumero();
+	}
+
 	// {{ Numero (property)
 	private int numero;
 
 	@Hidden(where = Where.ALL_TABLES)
-	@Title(prepend = "Pedido ")
 	@Named("Número")
 	@TypicalLength(3)
 	@Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT, sequence = "secuenciaNumeroPedido")

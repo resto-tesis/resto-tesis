@@ -136,15 +136,8 @@ public class Reserva {
 		return reservaServicio.listarReservas();
 	}
 
+	@Inject
 	private DomainObjectContainer contenedor;
-
-	public DomainObjectContainer getContenedor() {
-		return contenedor;
-	}
-
-	public void setContenedor(DomainObjectContainer _contenedor) {
-		contenedor = _contenedor;
-	}
 
 	@Inject
 	private ReservaServicio reservaServicio;

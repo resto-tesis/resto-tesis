@@ -17,8 +17,6 @@
 
 package dom.producto.platoPrincipal;
 
-import java.util.List;
-
 import javax.inject.Inject;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.Inheritance;
@@ -28,9 +26,6 @@ import javax.jdo.annotations.Query;
 
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.AutoComplete;
-import org.apache.isis.applib.annotation.Bulk;
-import org.apache.isis.applib.annotation.MemberOrder;
-import org.apache.isis.applib.annotation.Named;
 
 import dom.producto.plato.Plato;
 
@@ -44,21 +39,8 @@ public class PlatoPrincipal extends Plato {
 		// TODO Auto-generated constructor stub
 	}
 
-	@Named("Borrar")
-	@Bulk
-	@MemberOrder(sequence = "1")
-	public List<PlatoPrincipal> borrar() {
-//		if (platoPrincipalServicio.validaBorrado(this))
-			contenedor.removeIfNotAlready(this);
-//		else
-			contenedor.informUser("Existe un Menu o Comanda dependiente!!");
-		return platoPrincipalServicio.listarPLatosPrincipales();
-	}
-
 	// {{ injected: DomainObjectContainer
 	@Inject
 	private DomainObjectContainer contenedor;
 
-	@Inject
-	private PlatoPrincipalServicio platoPrincipalServicio;
 }

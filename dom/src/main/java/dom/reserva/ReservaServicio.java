@@ -25,6 +25,7 @@ import org.apache.isis.applib.AbstractFactoryAndRepository;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.Named;
+import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.Where;
 
 import com.google.common.base.Predicate;
@@ -64,7 +65,7 @@ public class ReservaServicio extends AbstractFactoryAndRepository {
 		});
 	}
 
-	@Hidden
+	@Programmatic
 	public Reserva nuevaReserva(final int _comensales, final Mesa _mesa,
 			final Date _fecha, final String _hora) {
 		final Reserva reserva = newTransientInstance(Reserva.class);
@@ -76,7 +77,7 @@ public class ReservaServicio extends AbstractFactoryAndRepository {
 		return reserva;
 	}
 
-	@Hidden
+	@Programmatic
 	public Calendar sumaFechaHora(Date _fecha, String _hora) {
 		Calendar fechaHora = Calendar.getInstance();
 		fechaHora.setTime(_fecha);

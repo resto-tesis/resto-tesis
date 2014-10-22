@@ -17,8 +17,6 @@
 
 package dom.producto.postre;
 
-import java.util.List;
-
 import javax.inject.Inject;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.Inheritance;
@@ -28,9 +26,6 @@ import javax.jdo.annotations.Query;
 
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.AutoComplete;
-import org.apache.isis.applib.annotation.Bulk;
-import org.apache.isis.applib.annotation.MemberOrder;
-import org.apache.isis.applib.annotation.Named;
 
 import dom.producto.ProductoElaborado;
 import dom.producto.postre.Postre;
@@ -42,25 +37,8 @@ import dom.producto.postre.PostreServicio;
 @AutoComplete(repository = PostreServicio.class, action = "completarPostres")
 public class Postre extends ProductoElaborado {
 
-	@Named("Borrar")
-	@Bulk
-	@MemberOrder(sequence = "1")
-	public List<Postre> borrar() {
-		// if (postreServicio.validaBorrado(this))
-		contenedor.removeIfNotAlready(this);
-		// else
-		contenedor.informUser("Existe un Menu o Comanda dependiente!!");
-		return postreServicio.listarPostres();
-	}
-
 	// {{ injected: DomainObjectContainer
 	@Inject
 	private DomainObjectContainer contenedor;
-
-	/*
-	 * Inyección del servicio
-	 */
-	@Inject
-	private PostreServicio postreServicio;
 
 }

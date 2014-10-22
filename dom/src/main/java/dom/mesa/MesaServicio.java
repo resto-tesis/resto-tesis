@@ -86,15 +86,7 @@ public class MesaServicio extends AbstractFactoryAndRepository {
 	@ActionSemantics(Of.SAFE)
 	@MemberOrder(sequence = "2")
 	public List<Mesa> listarMesas() {
-		if (Usuario.class.equals("Mozo-role") == getContainer().getUser()
-				.hasRole("Mozo-role")) {
-			final List<Mesa> lmasignadas = allMatches(new QueryDefault<Mesa>(
-					Mesa.class, "mesasAsignadas"));
-			return lmasignadas;
-		} else {
-			final List<Mesa> listamesas = allInstances(Mesa.class);
-			return listamesas;
-		}
+		return allInstances(Mesa.class);
 	}
 
 	@Programmatic

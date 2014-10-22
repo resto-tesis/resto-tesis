@@ -17,8 +17,6 @@
 
 package dom.producto.bebida;
 
-import java.util.List;
-
 import javax.inject.Inject;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.Inheritance;
@@ -28,9 +26,7 @@ import javax.jdo.annotations.Query;
 
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.AutoComplete;
-import org.apache.isis.applib.annotation.Bulk;
 import org.apache.isis.applib.annotation.MemberOrder;
-import org.apache.isis.applib.annotation.Named;
 import org.apache.isis.applib.annotation.Optional;
 import org.apache.isis.applib.annotation.TypicalLength;
 
@@ -74,26 +70,9 @@ public class Bebida extends ProductoNoElaborado {
 
 	// }}
 
-	@Named("Borrar")
-	@Bulk
-	@MemberOrder(sequence = "1")
-	public List<Bebida> borrarBebida() {
-		// if (bebidaServicio.validaBorrado(this))
-		contenedor.removeIfNotAlready(this);
-		// else
-		contenedor.informUser("Existe un Menu o Comanda dependiente!!");
-		return bebidaServicio.listarBebidas();
-	}
-
 	// {{ injected: DomainObjectContainer
 	@Inject
 	private DomainObjectContainer contenedor;
-
-	/*
-	 * Inyección del servicio
-	 */
-	@Inject
-	private BebidaServicio bebidaServicio;
 
 	@Override
 	public int hashCode() {

@@ -28,6 +28,7 @@ import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.MultiLine;
 import org.apache.isis.applib.annotation.Named;
 import org.apache.isis.applib.annotation.Optional;
+import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.RegEx;
 import org.apache.isis.applib.annotation.TypicalLength;
 import org.apache.isis.applib.annotation.Where;
@@ -56,7 +57,7 @@ public class OfertaServicio extends AbstractFactoryAndRepository {
 				_fecha_inicio, _caducidad, _descuento);
 	}
 
-	@Hidden
+	@Programmatic
 	public Oferta nuevaOferta(final String _nombre,
 			final int _cantidad_personas, final String _descripcion,
 			final Menu _menu, final Date _fecha_inicio, final Date _caducidad,
@@ -74,14 +75,14 @@ public class OfertaServicio extends AbstractFactoryAndRepository {
 		return oferta;
 	}
 
-	@Hidden
+	@Programmatic
 	public List<Menu> choices3CrearOferta() {
 		return allInstances(Menu.class);
 	}
 
 	final LocalDate fecha_actual = LocalDate.now();
 
-	@Hidden
+	@Programmatic
 	public String validateCrearOferta(String _nombre, int _cantidad_personas,
 			String _descripcion, Menu _menu, Date _fecha_inicio,
 			Date _caducidad, int _descuento) {
@@ -92,19 +93,19 @@ public class OfertaServicio extends AbstractFactoryAndRepository {
 		return null;
 	}
 
-	@Hidden
+	@Programmatic
 	public double calcularDescuento(Oferta _oferta) {
 		final double total = calcularTotal(_oferta);
 		return (total - ((total / 100) * _oferta.getDescuento()));
 	}
 
-	@Hidden
+	@Programmatic
 	public double calcularTotal(Oferta _oferta) {
 		return (_oferta.getMenu().getPrecioSinDescuento())
 				* _oferta.getCantidadPersonas();
 	}
 
-	@Hidden
+	@Programmatic
 	public List<Oferta> completarOferta(final String nombre) {
 		return allMatches(new QueryDefault<Oferta>(Oferta.class,
 				"ofertasQueEmpiezan", "nombre", "(?i).*" + nombre + ".*"));

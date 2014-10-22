@@ -139,7 +139,6 @@ public abstract class Producto {
 	// }}
 
 	public Producto deshabilitar() {
-
 		setEstadoLogico(EstadoLogico.Deshabilitado);
 		return this;
 
