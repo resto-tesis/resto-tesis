@@ -28,13 +28,14 @@ import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.ActionSemantics.Of;
-import org.apache.isis.applib.query.QueryDefault;
+
+import com.google.common.base.Predicate;
+
 import dom.factura.Factura;
 import dom.factura.FacturaServicio;
 import dom.mozo.Mozo;
 import dom.pedido.Pedido;
 import dom.pedido.PedidoServicio;
-import dom.usuario.Usuario;
 
 @DomainService
 @Named("Mesa")
@@ -85,6 +86,19 @@ public class MesaServicio extends AbstractFactoryAndRepository {
 	@Named("Listar")
 	@ActionSemantics(Of.SAFE)
 	@MemberOrder(sequence = "2")
+	public List<Mesa> listarMesasAsignadas() {
+		final Mozo mozo = uniqueMatch(Mozo.class, new Predicate<Mozo>() {
+			@Override
+			public boolean apply(Mozo _mozo) {
+				// TODO Auto-generated method stub
+				return _mozo.getUsuario().getNombre()
+						.equals(getUser().getName());
+			}
+
+		});
+		return (mozo == null) ? null : mozo.getListamesas();
+	}
+
 	public List<Mesa> listarMesas() {
 		return allInstances(Mesa.class);
 	}

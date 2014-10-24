@@ -48,6 +48,9 @@ example: uncomment to hide the icon
 .bookmarkedPagesPanel {
 	display: none;
 }
+#footer {
+display:none;
+}
 
 
 

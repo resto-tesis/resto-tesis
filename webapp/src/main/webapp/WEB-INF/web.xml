@@ -187,10 +187,10 @@
 
     <context-param>
         <param-name>configuration</param-name>
-        <!-- 
+        
         <param-value>deployment</param-value>
-         -->
-        <param-value>development</param-value>
+         <!-- 
+        <param-value>development</param-value>-->
     </context-param>
     
    
