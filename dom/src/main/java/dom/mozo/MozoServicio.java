@@ -36,10 +36,13 @@ import org.apache.isis.applib.value.Password;
 import org.joda.time.Days;
 import org.joda.time.LocalDate;
 
+import com.google.common.base.Predicate;
+
 import dom.empleado.Empleado;
 import dom.empleado.IValidacionEmpleado;
 import dom.mesa.EstadoAsignacionMesaEnum;
 import dom.mesa.Mesa;
+import dom.persona.Persona;
 import dom.usuario.Rol;
 import dom.usuario.Usuario;
 
@@ -138,14 +141,22 @@ public class MozoServicio extends AbstractFactoryAndRepository implements
 	 * Validacion del ingreso de fechas por el UI
 	 */
 	@Override
-	public String validateCrear(String _nombre, String _apellido, long _dni,
-			String _direccion, String _telefono, String _celular,
-			String _correo, LocalDate fechadeNacimiento,
-			LocalDate fechadeIngreso, String _nombreUsuario, Password _password) {
+	public String validateCrear(String _nombre, String _apellido,
+			final long _dni, String _direccion, String _telefono,
+			String _celular, String _correo, LocalDate fechadeNacimiento,
+			LocalDate fechadeIngreso, final String _nombreUsuario,
+			Password _password) {
 		// TODO Auto-generated method stub
-		for (Empleado _empleado : listarEmpleados())
-			if (_dni == _empleado.getDocumento())
-				return "Ya existe el número de documento ingresado.";
+		if (firstMatch(Empleado.class, new Predicate<Empleado>() {
+
+			@Override
+			public boolean apply(Empleado _empleado) {
+				// TODO Auto-generated method stub
+				return _empleado.getDocumento() == _dni ? true : false;
+			}
+		}) != null) {
+			return "Ya existe el número de documento ingresado.";
+		}
 		if (fechadeNacimiento.isAfter(fechadeIngreso)
 				|| fechadeNacimiento.isEqual(fechadeIngreso))
 			return "La fecha de nacimiento no debe ser mayor o igual a la fecha de ingreso de los empleados";
@@ -153,8 +164,14 @@ public class MozoServicio extends AbstractFactoryAndRepository implements
 			return "La fecha de ingreso debe ser menor o igual a la fecha actual";
 		if (validaMayorEdad(fechadeNacimiento) == false)
 			return "El empleado es menor de edad";
-		else
-			return null;
+		return firstMatch(Persona.class, new Predicate<Persona>() {
+
+			@Override
+			public boolean apply(Persona _persona) {
+				// TODO Auto-generated method stub
+				return _persona.getUsuario().getNombre().equals(_nombreUsuario);
+			}
+		}) != null ? "Ya existe el usuario!" : null;
 	}
 
 	/*

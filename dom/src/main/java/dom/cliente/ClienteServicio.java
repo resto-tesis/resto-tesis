@@ -34,7 +34,10 @@ import org.apache.isis.applib.annotation.ActionSemantics.Of;
 import org.apache.isis.applib.query.QueryDefault;
 import org.apache.isis.applib.value.Password;
 
+import com.google.common.base.Predicate;
+
 import dom.oferta.Oferta;
+import dom.persona.Persona;
 import dom.usuario.Rol;
 import dom.usuario.Usuario;
 
@@ -58,6 +61,31 @@ public class ClienteServicio extends AbstractFactoryAndRepository {
 		return nuevoCliente(_oferta, _apellido, _nombre, _dni, _direccion,
 				_telefono, _celular, _correo,
 				crearUsuario(_nombreUsuario, _password));
+	}
+
+	public String validateCargarCliente(final String _apellido,
+			final String _nombre, final long _dni, final String _direccion,
+			final String _telefono, final String _celular,
+			final String _correo, final String _nombreUsuario,
+			final Password _password) {
+		if (firstMatch(Cliente.class, new Predicate<Cliente>() {
+
+			@Override
+			public boolean apply(Cliente _cliente) {
+				// TODO Auto-generated method stub
+				return (_cliente.getDocumento() == _dni) ? true : false;
+			}
+		}) != null) {
+			return "Ya existe un cliente con el dni ingresado!";
+		}
+		return firstMatch(Persona.class, new Predicate<Persona>() {
+
+			@Override
+			public boolean apply(Persona _persona) {
+				// TODO Auto-generated method stub
+				return _persona.getUsuario().getNombre().equals(_nombreUsuario);
+			}
+		}) != null ? "Ya existe el usuario!" : null;
 	}
 
 	@Programmatic
