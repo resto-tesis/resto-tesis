@@ -49,7 +49,52 @@ example: uncomment to hide the icon
 	display: none;
 }
 #footer {
-display:none;
+display:none
+}
+
+.headerContainer{
+  background:transparent url("../images/barra.png") ;
+}
+
+.entityCollectionsPanel{
+max-height:650px;
+min-height:20;
+  overflow-y:scroll;
+} 
+
+#applicationActions .cssMenuPanel .menuh li p{
+  color:black;
+}
+
+.resto-tesis{
+  background:#ABABAB;
+  min-width:1150px;
+  height:auto;
+  padding-bottom:40px;
+}
+
+body{
+
+  height:auto;
+}
+html{
+  background:#ABABAB;
+  height:auto;
+}
+.container-fluid:after{
+
+  clear:both;
+}
+
+#container{
+  background:#ABABAB;
+  height:auto;
+  padding-bottom:40px;
+  padding-right:0px;
+  padding-left:0px;
+}
+
+#body{
 }
 
 
@@ -60,31 +105,13 @@ div.ToDoItem-notes span.scalarValue {
     display: none;
 }
 */
-/*
+
 #header {
 width: 73%;
 float: left;
 height: 60px;
 background: transparent url("../images/logo.png") left center no-repeat;
-}*/
-
-
-.entityActions .cssMenuPanel .menuh li.x-caution a,
-li.x-caution a {
-    background-color: #C94316;
+background-position:25px;
 }
-.entityCombined .entityActions .cssMenuPanel .menuh li.x-caution a:hover {
-    background-color:#20B5C2;
-}	
 
-.entityActions .cssMenuPanel .menuh li.x-highlight a,
-li.x-highlight a {
-    background-color: #51A95C;
-}
-.entityCombined .entityActions .cssMenuPanel .menuh li.x-highlight a:hover {
-    background-color:#20B5C2;
-}   
 
-div.x-key span.scalarName {
-	color: red;
-}
