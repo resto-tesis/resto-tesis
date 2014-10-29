@@ -50,8 +50,8 @@ public class ReservaServicio extends AbstractFactoryAndRepository {
 
 	public String[] choices3CrearReserva() {
 		return new String[] { "11:30", "12:00", "12:30", "13:00", "13:30",
-				"14:00", "14:30", "15:00", "20:00", "20:30", "21:00", "21:30",
-				"22:00", "22:30", "23:00", "23:30", "24:00", "24:30" };
+				"14:00", "14:30", "20:00", "20:30", "21:00", "21:30",
+				"22:00", "22:30", "23:00", "23:30" };
 	}
 
 	public List<Mesa> choices1CrearReserva(final int _comensales) {
