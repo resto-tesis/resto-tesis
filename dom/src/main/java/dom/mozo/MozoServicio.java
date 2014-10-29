@@ -105,6 +105,7 @@ public class MozoServicio extends AbstractFactoryAndRepository implements
 		mozo.setFechaDeIngreso(fechadeIngreso.toDate());
 		mozo.setFechaDeNacimiento(fechadeNacimiento.toDate());
 		mozo.setUsuario(_usuario);
+		mozo.setBaja(false);
 		persist(mozo);
 		return mozo;
 	}

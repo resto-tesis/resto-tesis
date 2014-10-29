@@ -104,6 +104,7 @@ public class CocineroServicio extends AbstractFactoryAndRepository implements
 		cocineroNuevo.setNombre(_nombre.substring(0, 1).toUpperCase()
 				+ _nombre.substring(1));
 		cocineroNuevo.setUsuario(_usuario);
+		cocineroNuevo.setBaja(false);
 		persist(cocineroNuevo);
 		return cocineroNuevo;
 	}

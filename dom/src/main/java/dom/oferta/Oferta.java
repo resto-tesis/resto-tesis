@@ -34,7 +34,6 @@ import javax.jdo.annotations.SequenceStrategy;
 
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.AutoComplete;
-import org.apache.isis.applib.annotation.Bulk;
 import org.apache.isis.applib.annotation.Disabled;
 import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.MemberOrder;
@@ -186,13 +185,6 @@ public class Oferta extends Observado {
 
 	// }}
 
-	@Bulk
-	@MemberOrder(sequence = "1")
-	public List<Oferta> borrar() {
-		contenedor.removeIfNotAlready(this);
-		return ofertaServicio.listarOfertas();
-	}
-
 	@Named("Precio Final ($)")
 	@Disabled
 	@MemberOrder(sequence = "11")
@@ -206,6 +198,41 @@ public class Oferta extends Observado {
 	@MemberOrder(sequence = "10")
 	public double getPrecioSinDescuento() {
 		return ofertaServicio.calcularTotal(this);
+	}
+
+	// {{ Baja (property)
+	private boolean baja;
+
+	@Hidden
+	@Disabled
+	@MemberOrder(sequence = "1")
+	@Column(allowsNull = "false")
+	public boolean getBaja() {
+		return baja;
+	}
+
+	public void setBaja(final boolean baja) {
+		this.baja = baja;
+	}
+
+	// }}
+
+	public Oferta baja() {
+		setBaja(true);
+		return this;
+	}
+
+	public Oferta alta() {
+		setBaja(false);
+		return this;
+	}
+	
+	public String disableBaja() {
+		return getBaja() ? "Oferta dada de Baja!" : null;
+	}
+	
+	public String disableAlta() {
+		return getBaja() ? null : "Oferta dada de Alta!";
 	}
 
 	// {{ injected: DomainObjectContainer
@@ -345,6 +372,5 @@ public class Oferta extends Observado {
 				+ caducidad + ", descuento=" + descuento + ", ofertaServicio="
 				+ ofertaServicio + "]";
 	}
-	
 
 }

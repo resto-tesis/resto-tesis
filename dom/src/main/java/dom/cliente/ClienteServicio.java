@@ -117,6 +117,7 @@ public class ClienteServicio extends AbstractFactoryAndRepository {
 		clienteNuevo.setCorreo(_correo);
 		clienteNuevo.setUsuario(_usuario);
 		clienteNuevo.setOferta(_oferta);
+		clienteNuevo.setBaja(false);
 		persist(clienteNuevo);
 		return clienteNuevo;
 	}

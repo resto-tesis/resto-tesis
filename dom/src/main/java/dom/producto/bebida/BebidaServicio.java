@@ -36,8 +36,6 @@ import org.apache.isis.applib.annotation.TypicalLength;
 import org.apache.isis.applib.annotation.ActionSemantics.Of;
 import org.apache.isis.applib.query.QueryDefault;
 
-import dom.producto.EstadoLogico;
-
 @DomainService
 @Named("Bebida")
 public class BebidaServicio extends AbstractFactoryAndRepository {
@@ -65,7 +63,7 @@ public class BebidaServicio extends AbstractFactoryAndRepository {
 		nuevaBebida.setVolumen(_volumen);
 		nuevaBebida.setDescripcion(_descripcion);
 		nuevaBebida.setPrecio(_precio.doubleValue());
-		nuevaBebida.setEstadoLogico(EstadoLogico.Habilitado);
+		nuevaBebida.setBaja(false);
 		persist(nuevaBebida);
 		return nuevaBebida;
 	}

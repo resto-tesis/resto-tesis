@@ -24,6 +24,7 @@ import javax.jdo.annotations.InheritanceStrategy;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 
+import org.apache.isis.applib.annotation.Disabled;
 import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
@@ -159,6 +160,41 @@ public abstract class Persona {
 	}
 
 	// }}
+
+	// {{ Baja (property)
+	private boolean baja;
+
+	@Hidden
+	@Disabled
+	@MemberOrder(sequence = "1")
+	@Column(allowsNull = "false")
+	public boolean getBaja() {
+		return baja;
+	}
+
+	public void setBaja(final boolean baja) {
+		this.baja = baja;
+	}
+
+	// }}
+
+	public Persona alta() {
+		setBaja(false);
+		return this;
+	}
+
+	public String disableAlta() {
+		return getBaja() ? null : "Ya dado de Alta!";
+	}
+
+	public Persona baja() {
+		setBaja(true);
+		return this;
+	}
+
+	public String disableBaja() {
+		return getBaja() ? "Ya dado de Baja!" : null;
+	}
 
 	@Override
 	public int hashCode() {

@@ -59,7 +59,7 @@ display:none
 .entityCollectionsPanel{
 max-height:650px;
 min-height:20;
-  overflow-y:scroll;
+  overflow-y:auto;
 } 
 
 #applicationActions .cssMenuPanel .menuh li p{

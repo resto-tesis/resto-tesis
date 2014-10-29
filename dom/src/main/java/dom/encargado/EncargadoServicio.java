@@ -104,6 +104,7 @@ public class EncargadoServicio extends AbstractFactoryAndRepository implements
 		encargado.setFechaDeNacimiento(fechadeNacimiento.toDate());
 		encargado.setFechaDeIngreso(fechadeIngreso.toDate());
 		encargado.setUsuario(_usuario);
+		encargado.setBaja(false);
 		persist(encargado);
 		return encargado;
 	}

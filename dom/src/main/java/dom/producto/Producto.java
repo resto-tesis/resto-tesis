@@ -121,42 +121,48 @@ public abstract class Producto {
 
 	// }}
 
-	// {{ EstadoLogico (property)
-	private EstadoLogico estadoLogico;
+	// {{ Baja (property)
+	private boolean baja;
 
-	@Hidden(where = Where.ALL_TABLES)
-	@Named("Estado de Alta")
+	@Disabled
+	@Hidden
+	@MemberOrder(sequence = "1")
 	@Column(allowsNull = "false")
-	@MemberOrder(sequence = "7")
-	public EstadoLogico getEstadoLogico() {
-		return estadoLogico;
+	public boolean getBaja() {
+		return baja;
 	}
 
-	public void setEstadoLogico(final EstadoLogico estadoLogico) {
-		this.estadoLogico = estadoLogico;
+	public void setBaja(final boolean baja) {
+		this.baja = baja;
 	}
 
 	// }}
 
-	public Producto deshabilitar() {
-		setEstadoLogico(EstadoLogico.Deshabilitado);
+	public Producto Baja() {
+		setBaja(true);
 		return this;
-
 	}
 
-	public Producto habilitar() {
-		setEstadoLogico(EstadoLogico.Habilitado);
+	public String disableBaja() {
+		return getBaja() ? "Producto dado de Baja!" : null;
+	}
+
+	public Producto Alta() {
+		setBaja(false);
 		return this;
+	}
+
+	public String disableAlta() {
+		return getBaja() ? null : "Producto dado de Alta!";
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + (baja ? 1231 : 1237);
 		result = prime * result
 				+ ((descripcion == null) ? 0 : descripcion.hashCode());
-		result = prime * result
-				+ ((estadoLogico == null) ? 0 : estadoLogico.hashCode());
 		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
 		result = prime * result + numero;
 		long temp;
@@ -174,12 +180,12 @@ public abstract class Producto {
 		if (getClass() != obj.getClass())
 			return false;
 		Producto other = (Producto) obj;
+		if (baja != other.baja)
+			return false;
 		if (descripcion == null) {
 			if (other.descripcion != null)
 				return false;
 		} else if (!descripcion.equals(other.descripcion))
-			return false;
-		if (estadoLogico != other.estadoLogico)
 			return false;
 		if (nombre == null) {
 			if (other.nombre != null)
@@ -193,4 +199,5 @@ public abstract class Producto {
 			return false;
 		return true;
 	}
+
 }

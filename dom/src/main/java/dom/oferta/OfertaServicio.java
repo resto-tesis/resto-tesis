@@ -71,6 +71,7 @@ public class OfertaServicio extends AbstractFactoryAndRepository {
 		oferta.setFechaInicio(_fecha_inicio);
 		oferta.setCaducidad(_caducidad);
 		oferta.setDescuento(_descuento);
+		oferta.setBaja(false);
 		persist(oferta);
 		return oferta;
 	}

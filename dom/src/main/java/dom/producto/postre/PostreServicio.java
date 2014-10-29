@@ -35,8 +35,6 @@ import org.apache.isis.applib.annotation.RegEx;
 import org.apache.isis.applib.annotation.ActionSemantics.Of;
 import org.apache.isis.applib.query.QueryDefault;
 
-import dom.producto.EstadoLogico;
-
 @DomainService
 @Named("Postre")
 public class PostreServicio extends AbstractFactoryAndRepository {
@@ -61,7 +59,7 @@ public class PostreServicio extends AbstractFactoryAndRepository {
 					.toUpperCase() + descripcionPostre.substring(1));
 		}
 		postre.setPrecio(precioPostre.doubleValue());
-		postre.setEstadoLogico(EstadoLogico.Habilitado);
+		postre.setBaja(false);
 		persist(postre);
 		return postre;
 	}

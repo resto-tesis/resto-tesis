@@ -35,7 +35,6 @@ import org.apache.isis.applib.annotation.RegEx;
 import org.apache.isis.applib.annotation.ActionSemantics.Of;
 import org.apache.isis.applib.query.QueryDefault;
 
-import dom.producto.EstadoLogico;
 import dom.producto.plato.CondicionDePlatoEnum;
 import dom.producto.plato.Plato;
 
@@ -70,7 +69,7 @@ public class PlatoEntradaServicio extends AbstractFactoryAndRepository {
 					+ unaDescripcion.substring(1));
 		}
 		unPlato.setPrecio(unPrecio.doubleValue());
-		unPlato.setEstadoLogico(EstadoLogico.Habilitado);
+		unPlato.setBaja(false);
 		persist(unPlato);
 		return unPlato;
 	}

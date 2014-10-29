@@ -70,23 +70,6 @@ public class Menu {
 
 	// }}
 
-	// {{ EstadoLogico (property)
-	private EstadoLogico estadoLogico;
-
-	@Hidden(where = Where.ALL_TABLES)
-	@Named("Estado de Alta")
-	@Column(allowsNull = "false")
-	@MemberOrder(sequence = "11")
-	public EstadoLogico getEstadoLogico() {
-		return estadoLogico;
-	}
-
-	public void setEstadoLogico(final EstadoLogico estadoLogico) {
-		this.estadoLogico = estadoLogico;
-	}
-
-	// }}
-
 	// {{ Nombre (property)
 	private String nombre;
 
@@ -217,10 +200,39 @@ public class Menu {
 
 	// }}
 
-	@Named("Borrar")
-	public List<Menu> borrar() {
-		setEstadoLogico(EstadoLogico.Deshabilitado);
-		return menuServicio.listarMenues();
+	// {{ Baja (property)
+	private boolean baja;
+
+	@Hidden
+	@Disabled
+	@MemberOrder(sequence = "1")
+	@Column(allowsNull = "false")
+	public boolean getBaja() {
+		return baja;
+	}
+
+	public void setBaja(final boolean baja) {
+		this.baja = baja;
+	}
+
+	// }}
+
+	public Menu baja() {
+		setBaja(true);
+		return this;
+	}
+
+	public Menu alta() {
+		setBaja(false);
+		return this;
+	}
+
+	public String disableBaja() {
+		return getBaja() ? "Menu dado de Baja!" : null;
+	}
+
+	public String disableAlta() {
+		return getBaja() ? null : "Menu dado de Alta!";
 	}
 
 	// {{ injected: DomainObjectContainer
@@ -234,11 +246,21 @@ public class Menu {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + (baja ? 1231 : 1237);
+		result = prime * result
+				+ ((contenedor == null) ? 0 : contenedor.hashCode());
 		result = prime * result + descuento;
 		result = prime * result
-				+ ((estadoLogico == null) ? 0 : estadoLogico.hashCode());
+				+ ((guarnicion == null) ? 0 : guarnicion.hashCode());
+		result = prime * result
+				+ ((menuServicio == null) ? 0 : menuServicio.hashCode());
 		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
 		result = prime * result + numero;
+		result = prime * result
+				+ ((platoEntrada == null) ? 0 : platoEntrada.hashCode());
+		result = prime * result
+				+ ((platoPrincipal == null) ? 0 : platoPrincipal.hashCode());
+		result = prime * result + ((postre == null) ? 0 : postre.hashCode());
 		return result;
 	}
 
@@ -251,9 +273,24 @@ public class Menu {
 		if (getClass() != obj.getClass())
 			return false;
 		Menu other = (Menu) obj;
+		if (baja != other.baja)
+			return false;
+		if (contenedor == null) {
+			if (other.contenedor != null)
+				return false;
+		} else if (!contenedor.equals(other.contenedor))
+			return false;
 		if (descuento != other.descuento)
 			return false;
-		if (estadoLogico != other.estadoLogico)
+		if (guarnicion == null) {
+			if (other.guarnicion != null)
+				return false;
+		} else if (!guarnicion.equals(other.guarnicion))
+			return false;
+		if (menuServicio == null) {
+			if (other.menuServicio != null)
+				return false;
+		} else if (!menuServicio.equals(other.menuServicio))
 			return false;
 		if (nombre == null) {
 			if (other.nombre != null)
@@ -261,6 +298,21 @@ public class Menu {
 		} else if (!nombre.equals(other.nombre))
 			return false;
 		if (numero != other.numero)
+			return false;
+		if (platoEntrada == null) {
+			if (other.platoEntrada != null)
+				return false;
+		} else if (!platoEntrada.equals(other.platoEntrada))
+			return false;
+		if (platoPrincipal == null) {
+			if (other.platoPrincipal != null)
+				return false;
+		} else if (!platoPrincipal.equals(other.platoPrincipal))
+			return false;
+		if (postre == null) {
+			if (other.postre != null)
+				return false;
+		} else if (!postre.equals(other.postre))
 			return false;
 		return true;
 	}

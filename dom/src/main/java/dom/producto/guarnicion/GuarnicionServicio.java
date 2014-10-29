@@ -35,8 +35,6 @@ import org.apache.isis.applib.annotation.ActionSemantics.Of;
 import org.apache.isis.applib.annotation.Optional;
 import org.apache.isis.applib.query.QueryDefault;
 
-import dom.producto.EstadoLogico;
-
 @DomainService
 @Named("Guarnición")
 public class GuarnicionServicio extends AbstractFactoryAndRepository {
@@ -60,7 +58,7 @@ public class GuarnicionServicio extends AbstractFactoryAndRepository {
 				+ nombreGuarnicion.substring(1));
 		guarnicion.setDescripcion(descripcionGuarnicion);
 		guarnicion.setPrecio(precioGuarnicion.doubleValue());
-		guarnicion.setEstadoLogico(EstadoLogico.Habilitado);
+		guarnicion.setBaja(false);
 		persist(guarnicion);
 		return guarnicion;
 	}

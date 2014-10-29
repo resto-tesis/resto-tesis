@@ -20,15 +20,20 @@ package dom.factura;
 import java.util.List;
 
 import org.apache.isis.applib.AbstractFactoryAndRepository;
+import org.apache.isis.applib.annotation.ActionSemantics;
 import org.apache.isis.applib.annotation.DomainService;
+import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.annotation.Named;
 import org.apache.isis.applib.annotation.Programmatic;
+import org.apache.isis.applib.annotation.ActionSemantics.Of;
 
 import dom.objetosValor.ValueMenu;
 import dom.objetosValor.ValueProductoElaborado;
 import dom.objetosValor.ValueProductoNoElaborado;
 import dom.pedido.Pedido;
 
-@DomainService
+@DomainService(menuOrder = "90")
+@Named("Facturas")
 public class FacturaServicio extends AbstractFactoryAndRepository {
 
 	public FacturaServicio() {
@@ -121,5 +126,13 @@ public class FacturaServicio extends AbstractFactoryAndRepository {
 		factura.setTotal(precioTotal);
 		persist(factura);
 		return factura;
+	}
+
+	@Named("Listar")
+	@ActionSemantics(Of.SAFE)
+	@MemberOrder(sequence = "60")
+	public List<Factura> listar() {
+		final List<Factura> lista = allInstances(Factura.class);
+		return lista;
 	}
 }
