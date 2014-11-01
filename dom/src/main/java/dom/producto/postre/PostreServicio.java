@@ -35,6 +35,8 @@ import org.apache.isis.applib.annotation.RegEx;
 import org.apache.isis.applib.annotation.ActionSemantics.Of;
 import org.apache.isis.applib.query.QueryDefault;
 
+import com.google.common.base.Predicate;
+
 @DomainService
 @Named("Postre")
 public class PostreServicio extends AbstractFactoryAndRepository {
@@ -73,30 +75,22 @@ public class PostreServicio extends AbstractFactoryAndRepository {
 	@Named("Postres")
 	@ActionSemantics(Of.SAFE)
 	@MemberOrder(name = "Listar", sequence = "2")
-	public List<Postre> listarPostres() {
+	public List<Postre> listarPostresAlta() {
+		return allMatches(Postre.class, new Predicate<Postre>() {
+
+			@Override
+			public boolean apply(Postre input) {
+				// TODO Auto-generated method stub
+				return input.getBaja() ? false : true;
+			}
+		});
+	}
+
+	@Named("Postres")
+	@ActionSemantics(Of.SAFE)
+	@MemberOrder(name = "Listar", sequence = "2")
+	public List<Postre> listarPostresTodos() {
 		final List<Postre> listapostres = allInstances(Postre.class);
 		return listapostres;
 	}
-
-	// // Se verifica que el elemento por borrar no este relacionado con ninguna
-	// // comanda o menu
-	// @Hidden
-	// public boolean validaBorrado(final Postre _postre) {
-	// return (firstMatch(Menu.class, new Predicate<Menu>() {
-	// @Override
-	// public boolean apply(Menu _menu) {
-	// // TODO Auto-generated method stub
-	// return _menu.getPostre().equals(_postre);
-	// }
-	// }) != null) ? false : (firstMatch(ComandaProducto.class,
-	// new Predicate<ComandaProducto>() {
-	// @Override
-	// public boolean apply(ComandaProducto _comanda) {
-	// // TODO Auto-generated method stub
-	// for (Postre postre : _comanda.getPostres())
-	// return postre.equals(_postre);
-	// return false;
-	// }
-	// }) != null) ? false : true;
-	// }
 }

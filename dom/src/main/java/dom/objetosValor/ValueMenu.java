@@ -14,6 +14,10 @@ import dom.menu.Menu;
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 public class ValueMenu {
 
+	public String iconName(){
+		return getMenu().iconName();
+	}
+	
 	public ValueMenu() {
 		// TODO Auto-generated constructor stub
 	}

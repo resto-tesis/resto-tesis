@@ -19,6 +19,8 @@ package dom.cocinero;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import org.apache.isis.applib.AbstractFactoryAndRepository;
 import org.apache.isis.applib.annotation.ActionSemantics;
 import org.apache.isis.applib.annotation.DomainService;
@@ -39,6 +41,7 @@ import org.joda.time.LocalDate;
 import com.google.common.base.Predicate;
 
 import dom.empleado.Empleado;
+import dom.empleado.EmpleadoServicio;
 import dom.empleado.IValidacionEmpleado;
 import dom.persona.Persona;
 import dom.usuario.Rol;
@@ -112,14 +115,23 @@ public class CocineroServicio extends AbstractFactoryAndRepository implements
 	@Named("Cocineros")
 	@MemberOrder(name = "Empleados", sequence = "10.2")
 	@ActionSemantics(Of.SAFE)
-	public List<Cocinero> listarCocineros() {
-		final List<Cocinero> listaCocinero = allInstances(Cocinero.class);
-		return listaCocinero;
+	public List<Cocinero> listarCocinerosAlta() {
+		return allMatches(Cocinero.class, new Predicate<Cocinero>() {
+
+			@Override
+			public boolean apply(Cocinero input) {
+				// TODO Auto-generated method stub
+				return input.getBaja() ? false : true;
+			}
+		});
 	}
 
-	@Programmatic
-	public List<Empleado> listarEmpleados() {
-		return allInstances(Empleado.class);
+	@Named("Cocineros")
+	@MemberOrder(name = "Empleados", sequence = "10.2")
+	@ActionSemantics(Of.SAFE)
+	public List<Cocinero> listarCocinerosTodos() {
+		final List<Cocinero> listaCocinero = allInstances(Cocinero.class);
+		return listaCocinero;
 	}
 
 	/*

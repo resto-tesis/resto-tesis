@@ -34,6 +34,7 @@ import com.google.common.base.Predicate;
 import dom.factura.Factura;
 import dom.factura.FacturaServicio;
 import dom.mozo.Mozo;
+import dom.mozo.MozoServicio;
 import dom.pedido.Pedido;
 import dom.pedido.PedidoServicio;
 
@@ -75,12 +76,17 @@ public class MesaServicio extends AbstractFactoryAndRepository {
 
 	@Programmatic
 	public boolean existeMesa(int numero) {
-		for (Mesa _mesa : allInstances(Mesa.class)) {
+		for (Mesa _mesa : listarMesasTodas()) {
 			if (_mesa.getNumero() == numero) {
 				return true;
 			}
 		}
 		return false;
+	}
+
+	@Programmatic
+	public List<Mozo> listarMozos() {
+		return mozoServicio.listarMozosAlta();
 	}
 
 	@Named("Listar")
@@ -96,10 +102,42 @@ public class MesaServicio extends AbstractFactoryAndRepository {
 			}
 
 		});
-		return (mozo == null) ? null : mozo.getListamesas();
+		if (mozo == null) {
+			informUser("No tiene mesas asignadas.");
+			return null;
+		}
+		return mozo.getListamesas();
 	}
 
-	public List<Mesa> listarMesas() {
+	@Programmatic
+	public List<Mesa> listarMesasSinAsignar() {
+		return allMatches(Mesa.class, new Predicate<Mesa>() {
+
+			@Override
+			public boolean apply(Mesa input) {
+				// TODO Auto-generated method stub
+				return input.getEstadoAsignacion() == EstadoAsignacionMesaEnum.No_Asignada ? true
+						: false;
+			}
+		});
+	}
+
+	@Programmatic
+	public List<Mesa> listarMesasSeleccionadas() {
+		return allMatches(Mesa.class, new Predicate<Mesa>() {
+
+			@Override
+			public boolean apply(Mesa input) {
+				// TODO Auto-generated method stub
+				return input.getEstadoSeleccion() ? true : false;
+			}
+		});
+	}
+
+	@Named("Listar")
+	@ActionSemantics(Of.SAFE)
+	@MemberOrder(sequence = "2")
+	public List<Mesa> listarMesasTodas() {
 		return allInstances(Mesa.class);
 	}
 
@@ -109,11 +147,6 @@ public class MesaServicio extends AbstractFactoryAndRepository {
 		_mesa.addToPedidos(pedido);
 		_mesa.setEstadoHabilitacion(EstadoHabilitacionMesaEnum.Ocupada);
 		return pedido;
-	}
-
-	@Programmatic
-	public List<Mozo> listaDeMozos() {
-		return allInstances(Mozo.class);
 	}
 
 	@Programmatic
@@ -132,6 +165,9 @@ public class MesaServicio extends AbstractFactoryAndRepository {
 		}
 		_mesa.setEstadoHabilitacion(EstadoHabilitacionMesaEnum.Desocupada);
 	}
+
+	@Inject
+	private MozoServicio mozoServicio;
 
 	@Inject
 	private FacturaServicio facturaServicio;

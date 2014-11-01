@@ -40,6 +40,10 @@ import dom.persona.Persona;
 @Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
 public class Cliente extends Persona implements IObservador {
 
+	public String iconName(){
+		return getBaja()?"ClienteDes":"Cliente";
+	}
+	
 	// {{ NumeroCliente (property)
 	private long numeroCliente;
 

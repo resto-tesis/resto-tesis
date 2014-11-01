@@ -35,6 +35,10 @@ import dom.producto.plato.Plato;
 @AutoComplete(repository = PlatoEntradaServicio.class, action = "completarPlatoEntrada")
 public class PlatoEntrada extends Plato {
 
+	public String iconName() {
+		return getBaja() ? "PlatoEntradaDes" : "PlatoEntrada";
+	}
+
 	public PlatoEntrada() {
 		// TODO Auto-generated constructor stub
 	}

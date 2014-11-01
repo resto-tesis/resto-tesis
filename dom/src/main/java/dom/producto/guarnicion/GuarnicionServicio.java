@@ -35,6 +35,8 @@ import org.apache.isis.applib.annotation.ActionSemantics.Of;
 import org.apache.isis.applib.annotation.Optional;
 import org.apache.isis.applib.query.QueryDefault;
 
+import com.google.common.base.Predicate;
+
 @DomainService
 @Named("Guarnición")
 public class GuarnicionServicio extends AbstractFactoryAndRepository {
@@ -72,30 +74,23 @@ public class GuarnicionServicio extends AbstractFactoryAndRepository {
 	@Named("Guarniciones")
 	@ActionSemantics(Of.SAFE)
 	@MemberOrder(name = "Listar", sequence = "2")
-	public List<Guarnicion> listarGuarniciones() {
+	public List<Guarnicion> listarGuarnicionesAlta() {
+		return allMatches(Guarnicion.class, new Predicate<Guarnicion>() {
+
+			@Override
+			public boolean apply(Guarnicion input) {
+				// TODO Auto-generated method stub
+				return input.getBaja() ? false : true;
+			}
+		});
+	}
+
+	@Named("Guarniciones")
+	@ActionSemantics(Of.SAFE)
+	@MemberOrder(name = "Listar", sequence = "2")
+	public List<Guarnicion> listarGuarnicionesTodas() {
 		final List<Guarnicion> listaguarniciones = allInstances(Guarnicion.class);
 		return listaguarniciones;
 	}
 
-	// // Se verifica que el elemento por borrar no este relacionado con ninguna
-	// // comanda o menu
-	// @Hidden
-	// public boolean validaBorrado(final Guarnicion _guarnicion) {
-	// return (firstMatch(Menu.class, new Predicate<Menu>() {
-	// @Override
-	// public boolean apply(Menu _menu) {
-	// // TODO Auto-generated method stub
-	// return _menu.getGuarnicion().equals(_guarnicion);
-	// }
-	// }) != null) ? false : (firstMatch(ComandaProducto.class,
-	// new Predicate<ComandaProducto>() {
-	// @Override
-	// public boolean apply(ComandaProducto _comanda) {
-	// // TODO Auto-generated method stub
-	// for (Guarnicion guarnicion : _comanda.getGuarniciones())
-	// return guarnicion.equals(_guarnicion);
-	// return false;
-	// }
-	// }) != null) ? false : true;
-	// }
 }

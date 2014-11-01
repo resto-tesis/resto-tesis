@@ -51,6 +51,10 @@ import dom.producto.postre.Postre;
 @AutoComplete(repository = MenuServicio.class, action = "completarMenu")
 public class Menu {
 
+	public String iconName() {
+		return getBaja() ? "MenuDes" : "Menu";
+	}
+
 	// {{ Numero (property)
 	private int numero;
 

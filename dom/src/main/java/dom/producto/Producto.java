@@ -45,6 +45,8 @@ import org.apache.isis.applib.annotation.Where;
 @Sequence(name = "secuenciaNumeroProducto", strategy = SequenceStrategy.CONTIGUOUS)
 public abstract class Producto {
 
+	public abstract String iconName();
+	
 	public Producto() {
 		// TODO Auto-generated constructor stub
 	}

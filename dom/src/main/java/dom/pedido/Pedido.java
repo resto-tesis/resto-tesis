@@ -58,14 +58,21 @@ import dom.producto.postre.Postre;
 @Sequence(name = "secuenciaNumeroPedido", strategy = SequenceStrategy.CONTIGUOUS)
 public class Pedido {
 
+	public String iconName() {
+		if (pedidoServicio.soloBebidas(this)) {
+			if (getBebidas().isEmpty())
+				return "PedidoVacio";
+			return "Pedido";
+		}
+		return getComanda().iconName();
+	}
+
 	public Pedido() {
 		// TODO Auto-generated constructor stub
 	}
 
 	public String title() {
-		if (getBebidas().isEmpty()
-				&& (getComanda().getProductos().isEmpty() && getComanda()
-						.getMenues().isEmpty()))
+		if (pedidoServicio.soloBebidas(this) && getBebidas().isEmpty())
 			return "Pedido " + getNumero() + " (Vacío)";
 		return "Pedido " + getNumero();
 	}

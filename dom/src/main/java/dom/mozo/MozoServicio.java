@@ -19,6 +19,8 @@ package dom.mozo;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import org.apache.isis.applib.AbstractFactoryAndRepository;
 import org.apache.isis.applib.annotation.ActionSemantics;
 import org.apache.isis.applib.annotation.DomainService;
@@ -42,6 +44,7 @@ import dom.empleado.Empleado;
 import dom.empleado.IValidacionEmpleado;
 import dom.mesa.EstadoAsignacionMesaEnum;
 import dom.mesa.Mesa;
+import dom.mesa.MesaServicio;
 import dom.persona.Persona;
 import dom.usuario.Rol;
 import dom.usuario.Usuario;
@@ -113,29 +116,32 @@ public class MozoServicio extends AbstractFactoryAndRepository implements
 	@Named("Mozos")
 	@ActionSemantics(Of.SAFE)
 	@MemberOrder(name = "Empleados", sequence = "10.1")
-	public List<Mozo> listarMozos() {
+	public List<Mozo> listarMozosAlta() {
+		return allMatches(Mozo.class, new Predicate<Mozo>() {
+
+			@Override
+			public boolean apply(Mozo input) {
+				// TODO Auto-generated method stub
+				return input.getBaja() ? false : true;
+			}
+		});
+	}
+
+	@Named("Mozos")
+	@ActionSemantics(Of.SAFE)
+	@MemberOrder(name = "Empleados", sequence = "10.1")
+	public List<Mozo> listarMozosTodos() {
 		return allInstances(Mozo.class);
 	}
 
 	@Programmatic
-	public List<Empleado> listarEmpleados() {
-		return allInstances(Empleado.class);
-	}
-
-	@Programmatic
 	public List<Mesa> listarMesasSinAsignar() {
-		return allMatches(new QueryDefault<Mesa>(Mesa.class, "mesasSinAsignar"));
+		return mesaServicio.listarMesasSinAsignar();
 	}
 
 	@Programmatic
 	public List<Mesa> listaMesasSeleccionadas() {
-		return allMatches(new QueryDefault<Mesa>(Mesa.class,
-				"mesasSeleccionadas"));
-	}
-
-	@Programmatic
-	public List<Mesa> listaMesas() {
-		return allInstances(Mesa.class);
+		return mesaServicio.listarMesasSeleccionadas();
 	}
 
 	/*
@@ -211,4 +217,7 @@ public class MozoServicio extends AbstractFactoryAndRepository implements
 		getContainer().informUser("Mesas asignadas.");
 		return _mozo;
 	}
+
+	@Inject
+	private MesaServicio mesaServicio;
 }

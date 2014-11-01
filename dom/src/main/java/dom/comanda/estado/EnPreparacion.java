@@ -36,6 +36,10 @@ public class EnPreparacion implements IEstadoComanda {
 		comanda = _comanda;
 	}
 
+	public String iconName(){
+		return "PedidoEnPrep";
+	}
+	
 	// {{ Comanda (property)
 	private Comanda comanda;
 

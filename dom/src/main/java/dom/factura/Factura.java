@@ -43,6 +43,10 @@ import org.apache.isis.applib.annotation.TypicalLength;
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 public class Factura {
 
+	public String iconName(){
+		return "Factura";
+	}
+	
 	public Factura() {
 		// TODO Auto-generated constructor stub
 	}

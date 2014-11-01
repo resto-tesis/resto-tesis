@@ -38,6 +38,10 @@ import dom.producto.ProductoNoElaborado;
 @AutoComplete(repository = BebidaServicio.class, action = "completarBebidas")
 public class Bebida extends ProductoNoElaborado {
 
+	public String iconName() {
+		return getBaja() ? "BebidaFriaDes" : "BebidaFria";
+	}
+
 	// {{ Tipo (property)
 	private TipoBebidaEnum tipoBebida;
 

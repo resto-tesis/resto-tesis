@@ -19,6 +19,8 @@ package dom.menu;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import org.apache.isis.applib.AbstractFactoryAndRepository;
 import org.apache.isis.applib.annotation.ActionSemantics;
 import org.apache.isis.applib.annotation.ActionSemantics.Of;
@@ -32,10 +34,16 @@ import org.apache.isis.applib.annotation.RegEx;
 import org.apache.isis.applib.annotation.Where;
 import org.apache.isis.applib.query.QueryDefault;
 
+import com.google.common.base.Predicate;
+
 import dom.producto.guarnicion.Guarnicion;
+import dom.producto.guarnicion.GuarnicionServicio;
 import dom.producto.platoEntrada.PlatoEntrada;
+import dom.producto.platoEntrada.PlatoEntradaServicio;
 import dom.producto.platoPrincipal.PlatoPrincipal;
+import dom.producto.platoPrincipal.PlatoPrincipalServicio;
 import dom.producto.postre.Postre;
+import dom.producto.postre.PostreServicio;
 
 @DomainService
 @Named("Menu")
@@ -93,23 +101,35 @@ public class MenuServicio extends AbstractFactoryAndRepository {
 
 	@Programmatic
 	public List<PlatoPrincipal> choices1CrearMenu() {
-		return allInstances(PlatoPrincipal.class);
+		return platoPrincipalServicio.listarPLatosPrincipalesAlta();
 	}
 
 	@Programmatic
 	public List<PlatoEntrada> choices2CrearMenu() {
-		return allInstances(PlatoEntrada.class);
+		return platoEntradaServicio.listarPLatosEntradaAlta();
 	}
 
 	@Programmatic
 	public List<Guarnicion> choices3CrearMenu() {
-		return allInstances(Guarnicion.class);
+		return guarnicionServicio.listarGuarnicionesAlta();
 	}
 
 	@Programmatic
 	public List<Postre> choices4CrearMenu() {
-		return allInstances(Postre.class);
+		return postreServicio.listarPostresAlta();
 	}
+
+	@Inject
+	private PlatoEntradaServicio platoEntradaServicio;
+
+	@Inject
+	private PlatoPrincipalServicio platoPrincipalServicio;
+
+	@Inject
+	private PostreServicio postreServicio;
+
+	@Inject
+	private GuarnicionServicio guarnicionServicio;
 
 	@Programmatic
 	public List<Menu> completarMenu(final String nombre) {
@@ -120,7 +140,21 @@ public class MenuServicio extends AbstractFactoryAndRepository {
 	@Named("Listar")
 	@ActionSemantics(Of.SAFE)
 	@MemberOrder(sequence = "2")
-	public List<Menu> listarMenues() {
+	public List<Menu> listarMenuesAlta() {
+		return allMatches(Menu.class, new Predicate<Menu>() {
+
+			@Override
+			public boolean apply(Menu input) {
+				// TODO Auto-generated method stub
+				return input.getBaja() ? false : true;
+			}
+		});
+	}
+
+	@Named("Listar")
+	@ActionSemantics(Of.SAFE)
+	@MemberOrder(sequence = "2")
+	public List<Menu> listarMenuesTodos() {
 		return allInstances(Menu.class);
 	}
 }

@@ -36,6 +36,8 @@ import org.apache.isis.applib.annotation.TypicalLength;
 import org.apache.isis.applib.annotation.ActionSemantics.Of;
 import org.apache.isis.applib.query.QueryDefault;
 
+import com.google.common.base.Predicate;
+
 @DomainService
 @Named("Bebida")
 public class BebidaServicio extends AbstractFactoryAndRepository {
@@ -97,9 +99,22 @@ public class BebidaServicio extends AbstractFactoryAndRepository {
 	@MemberOrder(name = "Listar", sequence = "2")
 	@ActionSemantics(Of.SAFE)
 	@Named("Bebidas")
-	public List<Bebida> listarBebidas() {
+	public List<Bebida> listarBebidasTodas() {
 		final List<Bebida> lista_bebidas = allInstances(Bebida.class);
 		return lista_bebidas;
 	}
 
+	@MemberOrder(name = "Listar", sequence = "2")
+	@ActionSemantics(Of.SAFE)
+	@Named("Bebidas")
+	public List<Bebida> listarBebidasAlta() {
+		return allMatches(Bebida.class, new Predicate<Bebida>() {
+
+			@Override
+			public boolean apply(Bebida input) {
+				// TODO Auto-generated method stub
+				return input.getBaja() ? false : true;
+			}
+		});
+	}
 }

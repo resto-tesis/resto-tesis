@@ -43,11 +43,15 @@ import dom.mozo.Mozo;
 import dom.pedido.Pedido;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
-@Queries({
-		@Query(name = "mesasSeleccionadas", language = "JDOQL", value = "SELECT FROM dom.mesa.Mesa where estadoSeleccion == true"),
-		@Query(name = "mesasSinAsignar", language = "JDOQL", value = "SELECT FROM dom.mesa.Mesa where estadoAsignacion == 'No_Asignada'"),
-		@Query(name = "mesasAsignadas", language = "JDOQL", value = "SELECT FROM dom.mesa.Mesa where estadoAsignacion == 'Asignada'") })
 public class Mesa {
+
+	public String iconName() {
+		if (getEstadoAsignacion() == EstadoAsignacionMesaEnum.No_Asignada)
+			return "MesaNoAsig";
+		if (getEstadoHabilitacion() == EstadoHabilitacionMesaEnum.Ocupada)
+			return "MesaOcupada";
+		return "Mesa";
+	}
 
 	// {{ EstadoSeleccion (property)
 	private boolean estadoSeleccion;
@@ -71,7 +75,7 @@ public class Mesa {
 	public List<Mozo> seleccionar() {
 		if (estadoAsignacion == EstadoAsignacionMesaEnum.No_Asignada)
 			setEstadoSeleccion(true);
-		return mesaServicio.listaDeMozos();
+		return mesaServicio.listarMozos();
 	}
 
 	public String disableSeleccionar() {

@@ -112,14 +112,23 @@ public class EncargadoServicio extends AbstractFactoryAndRepository implements
 	@Named("Encargados")
 	@ActionSemantics(Of.SAFE)
 	@MemberOrder(name = "Empleados", sequence = "10.3")
-	public List<Encargado> listarEncargados() {
-		final List<Encargado> listaencargados = allInstances(Encargado.class);
-		return listaencargados;
+	public List<Encargado> listarEncargadosAlta() {
+		return allMatches(Encargado.class, new Predicate<Encargado>() {
+
+			@Override
+			public boolean apply(Encargado input) {
+				// TODO Auto-generated method stub
+				return input.getBaja() ? false : true;
+			}
+		});
 	}
 
-	@Programmatic
-	public List<Empleado> listarEmpleados() {
-		return allInstances(Empleado.class);
+	@Named("Encargados")
+	@ActionSemantics(Of.SAFE)
+	@MemberOrder(name = "Empleados", sequence = "10.3")
+	public List<Encargado> listarEncargadosTodos() {
+		final List<Encargado> listaencargados = allInstances(Encargado.class);
+		return listaencargados;
 	}
 
 	/*

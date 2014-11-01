@@ -35,6 +35,10 @@ public class Preparada implements IEstadoComanda {
 		comanda = _comanda;
 	}
 
+	public String iconName(){
+		return "PedidoPreparado";
+	}
+	
 	// {{ Comanda (property)
 	private Comanda comanda;
 

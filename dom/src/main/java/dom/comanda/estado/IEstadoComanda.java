@@ -20,6 +20,8 @@ package dom.comanda.estado;
 public interface IEstadoComanda {
 
 	String title();
+	
+	String iconName();
 
 	void cambiarEstado();
 

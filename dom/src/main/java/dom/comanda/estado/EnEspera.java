@@ -36,6 +36,10 @@ public class EnEspera implements IEstadoComanda {
 		comanda = _comanda;
 	}
 
+	public String iconName(){
+		return "PedidoEnEspera2";
+	}
+	
 	// {{ Comanda (property)
 	private Comanda comanda;
 

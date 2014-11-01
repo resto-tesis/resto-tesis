@@ -35,6 +35,10 @@ import dom.producto.ProductoElaborado;
 @AutoComplete(repository = GuarnicionServicio.class, action = "completarGuarniciones")
 public class Guarnicion extends ProductoElaborado {
 
+	public String iconName() {
+		return getBaja() ? "GuarnicionDes" : "Guarnicion";
+	}
+	
 	// {{ injected: DomainObjectContainer
 	@Inject
 	private DomainObjectContainer contenedor;

@@ -50,6 +50,10 @@ import dom.objetosValor.ValueProductoElaborado;
 @Sequence(name = "secuenciaNumeroComanda", strategy = SequenceStrategy.CONTIGUOUS)
 public class Comanda {
 
+	public String iconName(){
+		return getEstado().iconName();
+	}
+	
 	public Comanda() {
 		enEspera = new EnEspera(this);
 		enPreparacion = new EnPreparacion(this);

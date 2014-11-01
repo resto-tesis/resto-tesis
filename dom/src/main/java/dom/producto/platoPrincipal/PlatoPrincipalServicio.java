@@ -35,6 +35,8 @@ import org.apache.isis.applib.annotation.RegEx;
 import org.apache.isis.applib.annotation.ActionSemantics.Of;
 import org.apache.isis.applib.query.QueryDefault;
 
+import com.google.common.base.Predicate;
+
 import dom.producto.plato.CondicionDePlatoEnum;
 import dom.producto.plato.Plato;
 import dom.producto.platoPrincipal.PlatoPrincipal;
@@ -85,31 +87,23 @@ public class PlatoPrincipalServicio extends AbstractFactoryAndRepository {
 	@Named("Platos Principales")
 	@ActionSemantics(Of.SAFE)
 	@MemberOrder(name = "Listar", sequence = "2")
-	public List<PlatoPrincipal> listarPLatosPrincipales() {
+	public List<PlatoPrincipal> listarPLatosPrincipalesAlta() {
+		return allMatches(PlatoPrincipal.class,
+				new Predicate<PlatoPrincipal>() {
+
+					@Override
+					public boolean apply(PlatoPrincipal input) {
+						// TODO Auto-generated method stub
+						return input.getBaja() ? false : true;
+					}
+				});
+	}
+
+	@Named("Platos Principales")
+	@ActionSemantics(Of.SAFE)
+	@MemberOrder(name = "Listar", sequence = "2")
+	public List<PlatoPrincipal> listarPLatosPrincipalesTodos() {
 		final List<PlatoPrincipal> listaPlatos = allInstances(PlatoPrincipal.class);
 		return listaPlatos;
 	}
-
-	// // Se verifica que el elemento por borrar no este relacionado con ninguna
-	// // comanda o menu
-	// @Hidden
-	// public boolean validaBorrado(final PlatoPrincipal _platoPrincipal) {
-	// return (firstMatch(Menu.class, new Predicate<Menu>() {
-	// @Override
-	// public boolean apply(Menu _menu) {
-	// // TODO Auto-generated method stub
-	// return _menu.getPlatoPrincipal().equals(_platoPrincipal);
-	// }
-	// }) != null) ? false : (firstMatch(ComandaProducto.class,
-	// new Predicate<ComandaProducto>() {
-	// @Override
-	// public boolean apply(ComandaProducto _comanda) {
-	// // TODO Auto-generated method stub
-	// for (PlatoPrincipal platoPrincipal : _comanda
-	// .getPlatosPrincipales())
-	// return platoPrincipal.equals(_platoPrincipal);
-	// return false;
-	// }
-	// }) != null) ? false : true;
-	// }
 }

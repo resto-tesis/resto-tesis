@@ -36,6 +36,10 @@ public class NoConfirmada implements IEstadoComanda {
 		comanda = _comanda;
 	}
 
+	public String iconName(){
+		return "PedidoVacio";
+	}
+		
 	// {{ Comanda (property)
 	private Comanda comanda;
 

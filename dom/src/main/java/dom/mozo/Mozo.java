@@ -40,6 +40,10 @@ import dom.mesa.Mesa;
 @Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
 public class Mozo extends Empleado {
 
+	public String iconName() {
+		return getBaja() ? "MozoBaja" : "Mozo";
+	}
+
 	// {{ Lista De Mesas (Collection)
 
 	private List<Mesa> listaMesas = new ArrayList<Mesa>();

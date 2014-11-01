@@ -27,15 +27,21 @@ import org.apache.isis.applib.annotation.Programmatic;
 
 import dom.comanda.ComandaServicio;
 import dom.menu.Menu;
+import dom.menu.MenuServicio;
 import dom.objetosValor.ValueMenu;
 import dom.objetosValor.ValueProductoElaborado;
 import dom.objetosValor.ValueProductoNoElaborado;
 import dom.producto.ProductoElaborado;
 import dom.producto.bebida.Bebida;
+import dom.producto.bebida.BebidaServicio;
 import dom.producto.guarnicion.Guarnicion;
+import dom.producto.guarnicion.GuarnicionServicio;
 import dom.producto.platoEntrada.PlatoEntrada;
+import dom.producto.platoEntrada.PlatoEntradaServicio;
 import dom.producto.platoPrincipal.PlatoPrincipal;
+import dom.producto.platoPrincipal.PlatoPrincipalServicio;
 import dom.producto.postre.Postre;
+import dom.producto.postre.PostreServicio;
 
 @DomainService
 public class PedidoServicio extends AbstractFactoryAndRepository {
@@ -53,33 +59,39 @@ public class PedidoServicio extends AbstractFactoryAndRepository {
 	}
 
 	@Programmatic
+	public boolean soloBebidas(final Pedido _pedido) {
+		return (_pedido.getComanda().getProductos().isEmpty() && _pedido
+				.getComanda().getMenues().isEmpty()) ? true : false;
+	}
+
+	@Programmatic
 	public List<Bebida> listarBebidas() {
-		return allInstances(Bebida.class);
+		return bebidaServicio.listarBebidasAlta();
 	}
 
 	@Programmatic
 	public List<Postre> listarPostres() {
-		return allInstances(Postre.class);
+		return postreServicio.listarPostresAlta();
 	}
 
 	@Programmatic
 	public List<PlatoPrincipal> listarPlatosPrincipales() {
-		return allInstances(PlatoPrincipal.class);
+		return platoPrincipalServicio.listarPLatosPrincipalesAlta();
 	}
 
 	@Programmatic
 	public List<PlatoEntrada> listarPlatosEntrada() {
-		return allInstances(PlatoEntrada.class);
+		return platoEntradaServicio.listarPLatosEntradaAlta();
 	}
 
 	@Programmatic
 	public List<Guarnicion> listarGuarniciones() {
-		return allInstances(Guarnicion.class);
+		return guarnicionServicio.listarGuarnicionesAlta();
 	}
 
 	@Programmatic
 	public List<Menu> listarMenues() {
-		return allInstances(Menu.class);
+		return menuServicio.listarMenuesAlta();
 	}
 
 	@Programmatic
@@ -184,4 +196,21 @@ public class PedidoServicio extends AbstractFactoryAndRepository {
 	@Inject
 	private ComandaServicio comandaServicio;
 
+	@Inject
+	private MenuServicio menuServicio;
+
+	@Inject
+	private PlatoPrincipalServicio platoPrincipalServicio;
+
+	@Inject
+	private PlatoEntradaServicio platoEntradaServicio;
+
+	@Inject
+	private PostreServicio postreServicio;
+
+	@Inject
+	private GuarnicionServicio guarnicionServicio;
+
+	@Inject
+	private BebidaServicio bebidaServicio;
 }

@@ -125,7 +125,21 @@ public class ClienteServicio extends AbstractFactoryAndRepository {
 	@Named("Listar")
 	@ActionSemantics(Of.SAFE)
 	@MemberOrder(sequence = "2")
-	public List<Cliente> listarClientes() {
+	public List<Cliente> listarClientesAlta() {
+		return allMatches(Cliente.class, new Predicate<Cliente>() {
+
+			@Override
+			public boolean apply(Cliente input) {
+				// TODO Auto-generated method stub
+				return input.getBaja() ? false : true;
+			}
+		});
+	}
+
+	@Named("Listar Todos")
+	@ActionSemantics(Of.SAFE)
+	@MemberOrder(sequence = "2")
+	public List<Cliente> listarClientesTodos() {
 		final List<Cliente> listaDeClientes = allInstances(Cliente.class);
 		return listaDeClientes;
 	}

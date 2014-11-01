@@ -30,6 +30,10 @@ import org.apache.isis.applib.annotation.Where;
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 public class ItemFactura {
 
+	public String iconName() {
+		return "ItemFactura";
+	}
+
 	public ItemFactura() {
 		// TODO Auto-generated constructor stub
 	}

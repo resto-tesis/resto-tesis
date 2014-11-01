@@ -55,6 +55,10 @@ import dom.menu.Menu;
 @AutoComplete(repository = OfertaServicio.class, action = "completarOfertas")
 public class Oferta extends Observado {
 
+	public String iconName() {
+		return getBaja() ? "OfertaDes" : "Oferta";
+	}
+
 	// {{ Numero (property)
 	private int numero;
 
@@ -226,11 +230,11 @@ public class Oferta extends Observado {
 		setBaja(false);
 		return this;
 	}
-	
+
 	public String disableBaja() {
 		return getBaja() ? "Oferta dada de Baja!" : null;
 	}
-	
+
 	public String disableAlta() {
 		return getBaja() ? null : "Oferta dada de Alta!";
 	}

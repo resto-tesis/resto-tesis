@@ -37,6 +37,10 @@ import dom.producto.postre.PostreServicio;
 @AutoComplete(repository = PostreServicio.class, action = "completarPostres")
 public class Postre extends ProductoElaborado {
 
+	public String iconName() {
+		return getBaja() ? "PostreDes" : "Postre";
+	}
+	
 	// {{ injected: DomainObjectContainer
 	@Inject
 	private DomainObjectContainer contenedor;

@@ -19,17 +19,25 @@ package dom.vista.carta;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import org.apache.isis.applib.AbstractFactoryAndRepository;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.Named;
 import org.apache.isis.applib.annotation.Programmatic;
 
 import dom.menu.Menu;
+import dom.menu.MenuServicio;
 import dom.producto.bebida.Bebida;
+import dom.producto.bebida.BebidaServicio;
 import dom.producto.guarnicion.Guarnicion;
+import dom.producto.guarnicion.GuarnicionServicio;
 import dom.producto.platoEntrada.PlatoEntrada;
+import dom.producto.platoEntrada.PlatoEntradaServicio;
 import dom.producto.platoPrincipal.PlatoPrincipal;
+import dom.producto.platoPrincipal.PlatoPrincipalServicio;
 import dom.producto.postre.Postre;
+import dom.producto.postre.PostreServicio;
 
 @DomainService
 @Named("Carta")
@@ -42,31 +50,49 @@ public class CartaServicio extends AbstractFactoryAndRepository {
 
 	@Programmatic
 	public List<Bebida> listarBebidas() {
-		return allInstances(Bebida.class);
+		return bebidaServicio.listarBebidasAlta();
 	}
 
 	@Programmatic
 	public List<Guarnicion> listarGuarnicion() {
-		return allInstances(Guarnicion.class);
+		return guarnicionServicio.listarGuarnicionesAlta();
 	}
 
 	@Programmatic
 	public List<Menu> listarMenu() {
-		return allInstances(Menu.class);
+		return menuServicio.listarMenuesAlta();
 	}
 
 	@Programmatic
 	public List<PlatoEntrada> listarPlatosEntradas() {
-		return allInstances(PlatoEntrada.class);
+		return platoEntradaServicio.listarPLatosEntradaAlta();
 	}
 
 	@Programmatic
 	public List<PlatoPrincipal> listarPlatosPricipales() {
-		return allInstances(PlatoPrincipal.class);
+		return platoPrincipalServicio.listarPLatosPrincipalesAlta();
 	}
 
 	@Programmatic
 	public List<Postre> listarPostres() {
-		return allInstances(Postre.class);
+		return postreServicio.listarPostresAlta();
 	}
+
+	@Inject
+	private MenuServicio menuServicio;
+
+	@Inject
+	private PlatoPrincipalServicio platoPrincipalServicio;
+
+	@Inject
+	private PlatoEntradaServicio platoEntradaServicio;
+
+	@Inject
+	private PostreServicio postreServicio;
+
+	@Inject
+	private GuarnicionServicio guarnicionServicio;
+
+	@Inject
+	private BebidaServicio bebidaServicio;
 }

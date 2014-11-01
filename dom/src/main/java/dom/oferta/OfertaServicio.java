@@ -20,6 +20,8 @@ package dom.oferta;
 import java.util.Date;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import org.apache.isis.applib.AbstractFactoryAndRepository;
 import org.apache.isis.applib.annotation.ActionSemantics;
 import org.apache.isis.applib.annotation.DomainService;
@@ -36,7 +38,10 @@ import org.apache.isis.applib.annotation.ActionSemantics.Of;
 import org.apache.isis.applib.query.QueryDefault;
 import org.joda.time.LocalDate;
 
+import com.google.common.base.Predicate;
+
 import dom.menu.Menu;
+import dom.menu.MenuServicio;
 
 @DomainService
 @Named("Oferta")
@@ -78,8 +83,11 @@ public class OfertaServicio extends AbstractFactoryAndRepository {
 
 	@Programmatic
 	public List<Menu> choices3CrearOferta() {
-		return allInstances(Menu.class);
+		return menuServicio.listarMenuesAlta();
 	}
+
+	@Inject
+	private MenuServicio menuServicio;
 
 	final LocalDate fecha_actual = LocalDate.now();
 
@@ -115,9 +123,22 @@ public class OfertaServicio extends AbstractFactoryAndRepository {
 	@Named("Listar")
 	@ActionSemantics(Of.SAFE)
 	@MemberOrder(sequence = "2")
-	public List<Oferta> listarOfertas() {
+	public List<Oferta> listarOfertasAlta() {
+		return allMatches(Oferta.class, new Predicate<Oferta>() {
+
+			@Override
+			public boolean apply(Oferta input) {
+				// TODO Auto-generated method stub
+				return input.getBaja() ? false : true;
+			}
+		});
+	}
+
+	@Named("Listar")
+	@ActionSemantics(Of.SAFE)
+	@MemberOrder(sequence = "2")
+	public List<Oferta> listarOfertasTodas() {
 		final List<Oferta> listaOfertas = allInstances(Oferta.class);
 		return listaOfertas;
 	}
-
 }

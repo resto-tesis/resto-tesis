@@ -24,6 +24,8 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.joda.time.LocalDate;
 
+import com.google.common.base.Predicate;
+
 @DomainService(menuOrder = "10")
 public class EmpleadoServicio extends AbstractFactoryAndRepository {
 
@@ -35,14 +37,26 @@ public class EmpleadoServicio extends AbstractFactoryAndRepository {
 
 	@Programmatic
 	public String validarDocumento(final long _dni) {
-		for (Empleado _empleado : listarEmpleados())
+		for (Empleado _empleado : listarEmpleadosTodos())
 			return _dni == _empleado.getDocumento() ? "Ya existe el número de documento ingresado."
 					: null;
 		return null;
 	}
 
 	@Programmatic
-	public List<Empleado> listarEmpleados() {
+	public List<Empleado> listarEmpleadosTodos() {
 		return allInstances(Empleado.class);
+	}
+
+	@Programmatic
+	public List<Empleado> listarEmpleadosAlta() {
+		return allMatches(Empleado.class, new Predicate<Empleado>() {
+
+			@Override
+			public boolean apply(Empleado input) {
+				// TODO Auto-generated method stub
+				return input.getBaja() ? false : true;
+			}
+		});
 	}
 }

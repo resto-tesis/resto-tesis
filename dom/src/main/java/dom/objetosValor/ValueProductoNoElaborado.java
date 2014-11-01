@@ -4,6 +4,7 @@ import javax.inject.Inject;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
+
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.TypicalLength;
@@ -12,6 +13,10 @@ import dom.producto.ProductoNoElaborado;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 public class ValueProductoNoElaborado {
+
+	public String iconName() {
+		return getProducto().iconName();
+	}
 
 	public ValueProductoNoElaborado() {
 		// TODO Auto-generated constructor stub

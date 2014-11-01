@@ -35,6 +35,8 @@ import org.apache.isis.applib.annotation.RegEx;
 import org.apache.isis.applib.annotation.ActionSemantics.Of;
 import org.apache.isis.applib.query.QueryDefault;
 
+import com.google.common.base.Predicate;
+
 import dom.producto.plato.CondicionDePlatoEnum;
 import dom.producto.plato.Plato;
 
@@ -83,31 +85,22 @@ public class PlatoEntradaServicio extends AbstractFactoryAndRepository {
 	@Named("Platos de Entrada")
 	@ActionSemantics(Of.SAFE)
 	@MemberOrder(name = "Listar", sequence = "2")
-	public List<PlatoEntrada> listarPLatosEntrada() {
+	public List<PlatoEntrada> listarPLatosEntradaAlta() {
+		return allMatches(PlatoEntrada.class, new Predicate<PlatoEntrada>() {
+
+			@Override
+			public boolean apply(PlatoEntrada input) {
+				// TODO Auto-generated method stub
+				return input.getBaja() ? false : true;
+			}
+		});
+	}
+
+	@Named("Platos de Entrada")
+	@ActionSemantics(Of.SAFE)
+	@MemberOrder(name = "Listar", sequence = "2")
+	public List<PlatoEntrada> listarPLatosEntradaTodos() {
 		final List<PlatoEntrada> listaPlatos = allInstances(PlatoEntrada.class);
 		return listaPlatos;
 	}
-
-	// // Se verifica que el elemento por borrar no este relacionado con ninguna
-	// // comanda o menu
-	// @Hidden
-	// public boolean validaBorrado(final PlatoEntrada _platoEntrada) {
-	// return (firstMatch(Menu.class, new Predicate<Menu>() {
-	// @Override
-	// public boolean apply(Menu _menu) {
-	// // TODO Auto-generated method stub
-	// return _menu.getPlatoEntrada().equals(_platoEntrada);
-	// }
-	// }) != null) ? false : (firstMatch(ComandaProducto.class,
-	// new Predicate<ComandaProducto>() {
-	// @Override
-	// public boolean apply(ComandaProducto _comanda) {
-	// // TODO Auto-generated method stub
-	// for (PlatoEntrada platoEntrada : _comanda
-	// .getPlatosEntrada())
-	// return platoEntrada.equals(_platoEntrada);
-	// return false;
-	// }
-	// }) != null) ? false : true;
-	// }
 }

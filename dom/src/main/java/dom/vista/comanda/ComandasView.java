@@ -55,7 +55,7 @@ public class ComandasView extends AbstractViewModel {
 	@Render(Type.EAGERLY)
 	@MemberOrder(name = "lista", sequence = "1")
 	public List<Comanda> getListaComandas() {
-		return servicioComandasView.listarComandas();
+		return servicioComandasView.listarComandasEnEsp_EnPrep();
 
 	}
 

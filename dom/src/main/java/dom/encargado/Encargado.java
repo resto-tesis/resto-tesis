@@ -27,5 +27,7 @@ import dom.empleado.Empleado;
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
 public class Encargado extends Empleado {
-
+	public String iconName() {
+		return getBaja() ? "EncargadoBaja" : "Encargado";
+	}
 }

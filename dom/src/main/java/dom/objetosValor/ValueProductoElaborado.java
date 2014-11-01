@@ -14,6 +14,10 @@ import dom.producto.ProductoElaborado;
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 public class ValueProductoElaborado {
 
+	public String iconName() {
+		return getProducto().iconName();
+	}
+
 	public ValueProductoElaborado() {
 		// TODO Auto-generated constructor stub
 	}

@@ -24,6 +24,8 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.Named;
 import org.apache.isis.applib.annotation.Programmatic;
 
+import com.google.common.base.Predicate;
+
 import dom.comanda.Comanda;
 
 @Named("Comandas")
@@ -35,7 +37,21 @@ public class ServicioComandasView extends AbstractFactoryAndRepository {
 	}
 
 	@Programmatic
-	public List<Comanda> listarComandas() {
+	public List<Comanda> listarComandasEnEsp_EnPrep() {
+		return allMatches(Comanda.class, new Predicate<Comanda>() {
+
+			@Override
+			public boolean apply(Comanda input) {
+				// TODO Auto-generated method stub
+				return input.getEstado() == input.getEnEspera()
+						|| input.getEstado() == input.getEnPreparacion() ? true
+						: false;
+			}
+		});
+	}
+
+	@Programmatic
+	public List<Comanda> listarComandasTodas() {
 		return allInstances(Comanda.class);
 	}
 }

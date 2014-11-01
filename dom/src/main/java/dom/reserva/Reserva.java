@@ -43,6 +43,10 @@ import dom.mesa.Mesa;
 @Sequence(name = "secuenciaNumeroReserva", strategy = SequenceStrategy.CONTIGUOUS)
 public class Reserva {
 
+	public String iconName(){
+		return "Reserva";
+	}
+	
 	public Reserva() {
 		// TODO Auto-generated constructor stub
 	}
