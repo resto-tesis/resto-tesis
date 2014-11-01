@@ -54,6 +54,10 @@ import dom.usuario.Usuario;
 public class MozoServicio extends AbstractFactoryAndRepository implements
 		IValidacionEmpleado {
 
+	public String iconName(){
+		return "Mozo";
+	}
+	
 	/*
 	 * Atributo Extra para las validaciones de las fechas
 	 */

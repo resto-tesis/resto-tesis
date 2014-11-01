@@ -36,6 +36,10 @@ import dom.mesa.Mesa;
 @Named("Reserva")
 public class ReservaServicio extends AbstractFactoryAndRepository {
 
+	public String iconName(){
+		return "Reserva";
+	}
+	
 	public ReservaServicio() {
 		// TODO Auto-generated constructor stub
 	}

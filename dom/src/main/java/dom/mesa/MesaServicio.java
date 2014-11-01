@@ -42,6 +42,10 @@ import dom.pedido.PedidoServicio;
 @Named("Mesa")
 public class MesaServicio extends AbstractFactoryAndRepository {
 
+	public String iconName(){
+		return "Mesa";
+	}
+	
 	@Named("Crear")
 	@MemberOrder(sequence = "1")
 	public Mesa crearMesa(@Named("Número") final int numero,

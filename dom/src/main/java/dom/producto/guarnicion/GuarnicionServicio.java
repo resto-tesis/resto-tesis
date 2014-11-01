@@ -41,6 +41,10 @@ import com.google.common.base.Predicate;
 @Named("Guarnición")
 public class GuarnicionServicio extends AbstractFactoryAndRepository {
 
+	public String iconName(){
+		return "Guarnicion";
+	}
+	
 	@Named("Guarnición")
 	@MemberOrder(name = "Crear", sequence = "1")
 	public Guarnicion crearGuarnicion(

@@ -44,6 +44,10 @@ import dom.producto.plato.Plato;
 @Named("Plato de Entrada")
 public class PlatoEntradaServicio extends AbstractFactoryAndRepository {
 
+	public String iconName(){
+		return "PlatoEntrada";
+	}
+	
 	@Named("Plato de Entrada")
 	@MemberOrder(name = "Crear", sequence = "1")
 	public Plato crearPlatoEntrada(

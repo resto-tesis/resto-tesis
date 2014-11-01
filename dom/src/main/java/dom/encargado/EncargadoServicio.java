@@ -49,6 +49,10 @@ import dom.usuario.Usuario;
 public class EncargadoServicio extends AbstractFactoryAndRepository implements
 		IValidacionEmpleado {
 
+	public String iconName(){
+		return "Encargado";
+	}
+	
 	/*
 	 * Atributo Extra para las validaciones de las fechas
 	 */

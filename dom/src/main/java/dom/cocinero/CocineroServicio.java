@@ -52,6 +52,10 @@ import dom.usuario.Usuario;
 public class CocineroServicio extends AbstractFactoryAndRepository implements
 		IValidacionEmpleado {
 
+	public String iconName(){
+		return "Cocinero";
+	}
+	
 	/*
 	 * Atributo Extra para las validaciones de las fechas
 	 */

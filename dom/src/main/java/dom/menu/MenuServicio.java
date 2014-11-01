@@ -49,6 +49,10 @@ import dom.producto.postre.PostreServicio;
 @Named("Menu")
 public class MenuServicio extends AbstractFactoryAndRepository {
 
+	public String iconName(){
+		return "Menu";
+	}
+	
 	@Hidden(where = Where.OBJECT_FORMS)
 	@Named("Crear")
 	@MemberOrder(sequence = "1")

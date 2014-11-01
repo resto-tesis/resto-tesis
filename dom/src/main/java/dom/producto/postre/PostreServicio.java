@@ -41,6 +41,10 @@ import com.google.common.base.Predicate;
 @Named("Postre")
 public class PostreServicio extends AbstractFactoryAndRepository {
 
+	public String iconName(){
+		return "Postre";
+	}
+	
 	@Named("Postre")
 	@MemberOrder(name = "Crear", sequence = "1")
 	public Postre crearPostre(

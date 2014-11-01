@@ -47,6 +47,10 @@ import dom.menu.MenuServicio;
 @Named("Oferta")
 public class OfertaServicio extends AbstractFactoryAndRepository {
 
+	public String iconName(){
+		return "Oferta";
+	}
+	
 	@Hidden(where = Where.OBJECT_FORMS)
 	@Named("Crear")
 	@MemberOrder(sequence = "1")

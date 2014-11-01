@@ -45,6 +45,10 @@ import dom.producto.platoPrincipal.PlatoPrincipal;
 @Named("Plato Principal")
 public class PlatoPrincipalServicio extends AbstractFactoryAndRepository {
 
+	public String iconName(){
+		return "PlatoPrincipal";
+	}
+	
 	@Named("Plato Principal")
 	@MemberOrder(name = "Crear", sequence = "1")
 	public Plato crearPlatoPrincipal(

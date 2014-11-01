@@ -42,6 +42,10 @@ import com.google.common.base.Predicate;
 @Named("Bebida")
 public class BebidaServicio extends AbstractFactoryAndRepository {
 
+	public String iconName(){
+		return "BebidaFria";
+	}
+	
 	@Named("Bebida")
 	@MemberOrder(name = "Crear", sequence = "1")
 	public Bebida crearBebida(

@@ -45,6 +45,10 @@ import dom.usuario.Usuario;
 @Named("Cliente")
 public class ClienteServicio extends AbstractFactoryAndRepository {
 
+	public String iconName(){
+		return "Cliente";
+	}
+	
 	@Named("Registrar")
 	@MemberOrder(sequence = "1")
 	public Cliente cargarCliente(
