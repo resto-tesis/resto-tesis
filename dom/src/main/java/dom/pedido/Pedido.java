@@ -129,6 +129,8 @@ public class Pedido {
 
 	public String disableRemoveFromComanda(
 			final ValueProductoElaborado _producto) {
+		if(getComanda().getProductos().isEmpty())
+			return "No se pidieron productos";
 		return getComanda().getEstado().validarModificacion();
 	}
 
@@ -151,6 +153,8 @@ public class Pedido {
 	}
 
 	public String disableRemoveFromMenues(final ValueMenu _menu) {
+		if(getComanda().getMenues().isEmpty())
+			return "No se pidieron menues";
 		return getComanda().getEstado().validarModificacion();
 	}
 
@@ -189,6 +193,10 @@ public class Pedido {
 
 	public List<ValueProductoNoElaborado> choices0RemoveFromBebidas() {
 		return getBebidas();
+	}
+
+	public String disableRemoveFromBebidas(final ValueProductoNoElaborado _bebida) {
+		return getBebidas().isEmpty() ? "No se pidieron bebidas" : null;
 	}
 
 	@MemberOrder(name = "bebidas", sequence = "1")
