@@ -18,7 +18,19 @@
 package dom.cliente;
 
 import dom.oferta.Oferta;
-
+/**
+ * Interface para actualizar las Ofertas 
+ * @author RestoTesis
+ * @since 10/07/2014
+ * @version 1.0.0
+ */
 public interface IObservador {
+	/**
+	 * Metodo a implementar para actualizar la oferta 
+	 * @author RestoTesis
+	 * @since 10/06/2014
+	 * @version 1.0.0
+	 * @param _oferta
+	 */
 	public void actualizar(Oferta _oferta);
 }

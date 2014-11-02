@@ -41,6 +41,13 @@ import dom.persona.Persona;
 import dom.usuario.Rol;
 import dom.usuario.Usuario;
 
+
+/**
+ * Contiene la funcionalidad para Cargar/Listar un nuevo Cliente 
+ * @author RestoTesis
+ * @since 10/06/2014
+ * @version 1.0.0
+ */
 @DomainService(menuOrder = "11")
 @Named("Cliente")
 public class ClienteServicio extends AbstractFactoryAndRepository {
@@ -49,6 +56,13 @@ public class ClienteServicio extends AbstractFactoryAndRepository {
 		return "Cliente";
 	}
 	
+	/**
+	 * Obtiene los datos validados del Cliente 
+	 * @author RestoTesis
+	 * @since 10/06/2014
+	 * @version 1.0.0
+	 * @return nuevoCliente
+	 */
 	@Named("Registrar")
 	@MemberOrder(sequence = "1")
 	public Cliente cargarCliente(
@@ -66,7 +80,13 @@ public class ClienteServicio extends AbstractFactoryAndRepository {
 				_telefono, _celular, _correo,
 				crearUsuario(_nombreUsuario, _password));
 	}
-
+	/**
+	 * Realiza la validacion del ingreso del cliente 
+	 * @author RestoTesis
+	 * @since 10/06/2014
+	 * @version 1.0.0
+	 */
+	
 	public String validateCargarCliente(final String _apellido,
 			final String _nombre, final long _dni, final String _direccion,
 			final String _telefono, final String _celular,
@@ -92,6 +112,13 @@ public class ClienteServicio extends AbstractFactoryAndRepository {
 		}) != null ? "Ya existe el usuario!" : null;
 	}
 
+	/**
+	 * Crea el Usuario y su Password 
+	 * @author RestoTesis
+	 * @since 10/06/2014
+	 * @version 1.0.0
+	 * @return usuario
+	 */
 	@Programmatic
 	public Usuario crearUsuario(final String _nombreUsuario,
 			final Password _password) {
@@ -104,6 +131,13 @@ public class ClienteServicio extends AbstractFactoryAndRepository {
 		return usuario;
 	}
 
+	/**
+	 * Persiste un nuevoCliente 
+	 * @author RestoTesis
+	 * @since 10/06/2014
+	 * @version 1.0.0
+	 * @return clienteNuevo
+	 */
 	@Programmatic
 	public Cliente nuevoCliente(Oferta _oferta, final String _apellido,
 			final String _nombre, final long _dni, final String _direccion,
@@ -139,7 +173,12 @@ public class ClienteServicio extends AbstractFactoryAndRepository {
 			}
 		});
 	}
-
+	/**
+	 * Obtiene una lista de todos los clientes 
+	 * @author RestoTesis
+	 * @since 10/06/2014
+	 * @version 1.0.0
+	 */
 	@Named("Listar Todos")
 	@ActionSemantics(Of.SAFE)
 	@MemberOrder(sequence = "2")

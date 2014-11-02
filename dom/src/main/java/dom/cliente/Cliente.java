@@ -34,12 +34,18 @@ import org.apache.isis.applib.annotation.Optional;
 import servicio.correo.CorreoServicio;
 import dom.oferta.Oferta;
 import dom.persona.Persona;
-
+/**
+ * Entidad Cliente la cual extiende de Persona
+ * @author RestoTesis
+ * @since 10/05/2014
+ * @version 1.0.0
+ */
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Sequence(name = "secuenciaNumeroCliente", strategy = SequenceStrategy.CONTIGUOUS)
 @Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
 public class Cliente extends Persona implements IObservador {
 
+	
 	public String iconName(){
 		return getBaja()?"ClienteDes":"Cliente";
 	}
