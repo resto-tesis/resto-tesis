@@ -129,7 +129,7 @@ public class Pedido {
 
 	public String disableRemoveFromComanda(
 			final ValueProductoElaborado _producto) {
-		if(getComanda().getProductos().isEmpty())
+		if (getComanda().getProductos().isEmpty())
 			return "No se pidieron productos";
 		return getComanda().getEstado().validarModificacion();
 	}
@@ -153,7 +153,7 @@ public class Pedido {
 	}
 
 	public String disableRemoveFromMenues(final ValueMenu _menu) {
-		if(getComanda().getMenues().isEmpty())
+		if (getComanda().getMenues().isEmpty())
 			return "No se pidieron menues";
 		return getComanda().getEstado().validarModificacion();
 	}
@@ -195,7 +195,8 @@ public class Pedido {
 		return getBebidas();
 	}
 
-	public String disableRemoveFromBebidas(final ValueProductoNoElaborado _bebida) {
+	public String disableRemoveFromBebidas(
+			final ValueProductoNoElaborado _bebida) {
 		return getBebidas().isEmpty() ? "No se pidieron bebidas" : null;
 	}
 
@@ -463,26 +464,6 @@ public class Pedido {
 
 	public String disableEnviar() {
 		return getComanda().getEstado().Enviar();
-	}
-
-	@MemberOrder(name = "comanda", sequence = "2")
-	public Pedido preparar() {
-		cambiarEstado();
-		return this;
-	}
-
-	public String disablePreparar() {
-		return getComanda().getEstado().Preparar();
-	}
-
-	@MemberOrder(name = "comanda", sequence = "3")
-	public Pedido comandaLista() {
-		cambiarEstado();
-		return this;
-	}
-
-	public String disableComandaLista() {
-		return getComanda().getEstado().ComandaLista();
 	}
 
 	@Programmatic
