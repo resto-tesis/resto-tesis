@@ -23,6 +23,12 @@ import org.apache.isis.applib.AbstractFactoryAndRepository;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.Programmatic;
 
+/**
+ * Clase que da funcionalidad de crear y persistir la comanda
+ * @author RestoTesis
+ * @since 10/06/2014
+ * @version 1.0.0
+ */
 @DomainService
 public class ComandaServicio extends AbstractFactoryAndRepository {
 
@@ -30,6 +36,12 @@ public class ComandaServicio extends AbstractFactoryAndRepository {
 		// TODO Auto-generated constructor stub
 	}
 
+	/**
+	 * Metodo que crea y persiste la comanda
+	 * @author RestoTesis
+	 * @since 10/05/2014
+	 * @version 1.0.0
+	 */
 	@Programmatic
 	public Comanda crearComanda() {
 		final Comanda comanda = newTransientInstance(Comanda.class);

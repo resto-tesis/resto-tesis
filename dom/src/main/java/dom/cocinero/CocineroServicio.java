@@ -18,9 +18,6 @@
 package dom.cocinero;
 
 import java.util.List;
-
-import javax.inject.Inject;
-
 import org.apache.isis.applib.AbstractFactoryAndRepository;
 import org.apache.isis.applib.annotation.ActionSemantics;
 import org.apache.isis.applib.annotation.DomainService;
@@ -37,16 +34,19 @@ import org.apache.isis.applib.query.QueryDefault;
 import org.apache.isis.applib.value.Password;
 import org.joda.time.Days;
 import org.joda.time.LocalDate;
-
 import com.google.common.base.Predicate;
-
 import dom.empleado.Empleado;
-import dom.empleado.EmpleadoServicio;
 import dom.empleado.IValidacionEmpleado;
 import dom.persona.Persona;
 import dom.usuario.Rol;
 import dom.usuario.Usuario;
 
+/**
+ * Contiene la funcionalidad para Cargar/Listar un nuevo Cocinero 
+ * @author RestoTesis
+ * @since 10/06/2014
+ * @version 1.0.0
+ */
 @Named("Cocinero")
 @DomainService()
 public class CocineroServicio extends AbstractFactoryAndRepository implements
@@ -61,6 +61,13 @@ public class CocineroServicio extends AbstractFactoryAndRepository implements
 	 */
 	final LocalDate fecha_actual = LocalDate.now();
 
+	/**
+	 * Obtiene los datos validados de un nuevo Cocinero 
+	 * @author RestoTesis
+	 * @since 10/06/2014
+	 * @version 1.0.0
+	 * @return nuevoCliente
+	 */
 	@Named("Nuevo Cocinero")
 	@MemberOrder(name = "Empleados", sequence = "10.5")
 	public Cocinero crear(
@@ -80,6 +87,13 @@ public class CocineroServicio extends AbstractFactoryAndRepository implements
 				_correo, fechadeNacimiento, fechadeIngreso);
 	}
 
+	/**
+	 * Crea Usuario y Password para el nuevo cocinero
+	 * @author RestoTesis
+	 * @since 10/06/2014
+	 * @version 1.0.0
+	 * @return usuario
+	 */
 	@Programmatic
 	public Usuario crearUsuario(final String _nombreUsuario,
 			final Password _password) {
@@ -91,7 +105,15 @@ public class CocineroServicio extends AbstractFactoryAndRepository implements
 		persistIfNotAlready(usuario);
 		return usuario;
 	}
+	
 
+	/**
+	 * Persiste un nuevo Cocinero 
+	 * @author RestoTesis
+	 * @since 10/06/2014
+	 * @version 1.0.0
+	 * @return clienteNuevo
+	 */
 	@Programmatic
 	public Cocinero crearNuevoCocinero(final Usuario _usuario,
 			final String _nombre, final String _apellido, final long _dni,
@@ -115,7 +137,8 @@ public class CocineroServicio extends AbstractFactoryAndRepository implements
 		persist(cocineroNuevo);
 		return cocineroNuevo;
 	}
-
+	
+	
 	@Named("Cocineros")
 	@MemberOrder(name = "Empleados", sequence = "10.2")
 	@ActionSemantics(Of.SAFE)
@@ -130,6 +153,12 @@ public class CocineroServicio extends AbstractFactoryAndRepository implements
 		});
 	}
 
+	/**
+	 * Obtiene una lista de todos los Cocinero 
+	 * @author RestoTesis
+	 * @since 10/06/2014
+	 * @version 1.0.0
+	 */
 	@Named("Cocineros")
 	@MemberOrder(name = "Empleados", sequence = "10.2")
 	@ActionSemantics(Of.SAFE)
@@ -137,9 +166,13 @@ public class CocineroServicio extends AbstractFactoryAndRepository implements
 		final List<Cocinero> listaCocinero = allInstances(Cocinero.class);
 		return listaCocinero;
 	}
-
-	/*
-	 * Validacion del ingreso de fechas por el UI
+	
+	
+	/**
+	 * Realiza la Validacion del ingreso de fechas por el UI
+	 * @author RestoTesis
+	 * @since 10/06/2014
+	 * @version 1.0.0
 	 */
 	@Override
 	public String validateCrear(String _nombre, String _apellido,
@@ -175,9 +208,12 @@ public class CocineroServicio extends AbstractFactoryAndRepository implements
 		}) != null ? "Ya existe el usuario!" : null;
 	}
 
-	/*
+	/**
 	 * Validacion de la mayoria de edad de los empleados ingresados 6575 son la
 	 * cantidad de dias que tiene una persona de 18 años
+	 * @author RestoTesis
+	 * @since 10/06/2014
+	 * @version 1.0.0
 	 */
 	@Override
 	@Programmatic
@@ -189,9 +225,11 @@ public class CocineroServicio extends AbstractFactoryAndRepository implements
 		return false;
 	}
 
-	/*
-	 * Obtiene la cantidad de dias entre la fecha de nacimiento y la fecha
-	 * actual
+	/**
+	 * Obtiene la cantidad de dias entre la fecha de nacimiento y la fecha actual
+	 * @author RestoTesis
+	 * @since 10/06/2014
+	 * @version 1.0.0
 	 */
 	@Override
 	@Programmatic

@@ -19,7 +19,12 @@ package dom.empleado;
 
 import org.apache.isis.applib.value.Password;
 import org.joda.time.LocalDate;
-
+/**
+ * Interface para realizar validaciones  
+ * @author RestoTesis
+ * @since 10/06/2014
+ * @version 1.0.0
+ */
 public interface IValidacionEmpleado {
 	public String validateCrear(final String _nombre, final String _apellido,
 			final long _dni, final String _direccion, final String _telefono,

@@ -24,6 +24,12 @@ import javax.jdo.annotations.PersistenceCapable;
 
 import dom.empleado.Empleado;
 
+/**
+ * Entidad Cocinero la cual extiende de Empleado
+ * @author RestoTesis
+ * @since 10/05/2014
+ * @version 1.0.0
+ */
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
 public class Cocinero extends Empleado {

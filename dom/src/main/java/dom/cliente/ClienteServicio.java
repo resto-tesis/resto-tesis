@@ -113,7 +113,7 @@ public class ClienteServicio extends AbstractFactoryAndRepository {
 	}
 
 	/**
-	 * Crea el Usuario y su Password 
+	 * Crea Usuario y Password para el nuevo cliente
 	 * @author RestoTesis
 	 * @since 10/06/2014
 	 * @version 1.0.0
@@ -132,7 +132,7 @@ public class ClienteServicio extends AbstractFactoryAndRepository {
 	}
 
 	/**
-	 * Persiste un nuevoCliente 
+	 * Persiste un nuevo Cliente 
 	 * @author RestoTesis
 	 * @since 10/06/2014
 	 * @version 1.0.0
@@ -160,6 +160,12 @@ public class ClienteServicio extends AbstractFactoryAndRepository {
 		return clienteNuevo;
 	}
 
+	/**
+	 * Obtiene una lista de clientes Activos	 
+	 * @author RestoTesis
+	 * @since 10/06/2014
+	 * @version 1.0.0
+	 */
 	@Named("Listar")
 	@ActionSemantics(Of.SAFE)
 	@MemberOrder(sequence = "2")
