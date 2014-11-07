@@ -59,7 +59,7 @@ display:none
 .entityCollectionsPanel{
 max-height:650px;
 min-height:20;
-  overflow-y:auto;
+  overflow-y:scroll;
 } 
 
 #applicationActions .cssMenuPanel .menuh li p{
@@ -81,10 +81,7 @@ html{
   background:#ABABAB;
   height:auto;
 }
-.container-fluid:after{
 
-  clear:both;
-}
 
 #container{
   background:#ABABAB;
@@ -92,9 +89,6 @@ html{
   padding-bottom:40px;
   padding-right:0px;
   padding-left:0px;
-}
-
-#body{
 }
 
 
@@ -115,3 +109,36 @@ background-position:25px;
 }
 
 
+.myBlockContainer{
+  background-color:#F1F1F1;
+}
+
+.wicket-modal .w_content_container {
+  background-color:rgba(74, 59, 51, 0.6);
+}
+
+div.wicket-modal div.w_content{
+  background-color:rgba(0, 0, 0, 0);
+}
+
+div.wicket-modal div.w_content_2{
+  background-color:rgba(0, 0, 0, 0);
+}
+
+
+
+.linksSelectorPanel span.ViewLinkItem {
+  background-color:rgba(107, 83, 66, 1);
+}
+
+.links{
+  color:rgba(12, 170, 2, 1);
+}
+
+.loginPanel table tr td{
+  color:#322929;
+}
+
+.loginPanel{
+  background-color:rgba(69, 48, 31, 0.51);
+}
