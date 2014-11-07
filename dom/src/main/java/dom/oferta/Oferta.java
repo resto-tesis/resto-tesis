@@ -81,7 +81,7 @@ public class Oferta extends Observado {
 	// {{ Nombre (property)
 	private String nombre;
 
-	@RegEx(validation = "[0-9a-zA-ZñÑáéíóúÁÉÍÓÚ\\s]*")
+	@RegEx(validation = "[0-9a-zA-ZñÑáéíóúÁÉÍÓÚñÑ\\s]*")
 	@Title
 	@TypicalLength(30)
 	@MemberOrder(sequence = "2")

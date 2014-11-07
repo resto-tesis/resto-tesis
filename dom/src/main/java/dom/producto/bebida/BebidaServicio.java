@@ -49,7 +49,7 @@ public class BebidaServicio extends AbstractFactoryAndRepository {
 	@Named("Bebida")
 	@MemberOrder(name = "Crear", sequence = "1")
 	public Bebida crearBebida(
-			@Named("Nombre") @RegEx(validation = "[0-9a-zA-ZáéíóúÁÉÍÓÚ\\s]*") @MaxLength(value = 30) final String _nombre,
+			@Named("Nombre") @RegEx(validation = "[0-9a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]*") @MaxLength(value = 30) final String _nombre,
 			@Named("Tipo de Bebida") @TypicalLength(10) final TipoBebidaEnum _tipo,
 			@Named("Volumen") @Optional @TypicalLength(15) final VolumenBebidaEnum _volumen,
 			@Named("Descripción") @Optional @MultiLine(numberOfLines = 3) final String _descripcion,

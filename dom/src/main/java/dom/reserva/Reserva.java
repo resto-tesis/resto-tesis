@@ -37,16 +37,17 @@ import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
 import org.apache.isis.applib.annotation.Title;
 
+import dom.cliente.Cliente;
 import dom.mesa.Mesa;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Sequence(name = "secuenciaNumeroReserva", strategy = SequenceStrategy.CONTIGUOUS)
 public class Reserva {
 
-	public String iconName(){
+	public String iconName() {
 		return "Reserva";
 	}
-	
+
 	public Reserva() {
 		// TODO Auto-generated constructor stub
 	}
@@ -119,16 +120,15 @@ public class Reserva {
 	// }}
 
 	// {{ Cliente (property)
-	private String cliente;
+	private Cliente cliente;
 
-	@Disabled
 	@MemberOrder(sequence = "5")
 	@Column(allowsNull = "false")
-	public String getCliente() {
+	public Cliente getCliente() {
 		return cliente;
 	}
 
-	public void setCliente(final String cliente) {
+	public void setCliente(final Cliente cliente) {
 		this.cliente = cliente;
 	}
 

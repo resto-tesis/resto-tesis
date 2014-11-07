@@ -36,6 +36,7 @@ import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
 import org.apache.isis.applib.annotation.Optional;
+import org.apache.isis.applib.annotation.RegEx;
 import org.apache.isis.applib.annotation.Title;
 import org.apache.isis.applib.annotation.TypicalLength;
 import org.apache.isis.applib.annotation.Where;
@@ -77,6 +78,7 @@ public class Menu {
 	// {{ Nombre (property)
 	private String nombre;
 
+	@RegEx(validation = "[0-9a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]*")
 	@Hidden(where = Where.ALL_TABLES)
 	@MemberOrder(sequence = "2")
 	@Column(allowsNull = "false")

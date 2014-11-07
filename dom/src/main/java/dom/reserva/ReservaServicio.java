@@ -30,16 +30,17 @@ import org.apache.isis.applib.annotation.Where;
 
 import com.google.common.base.Predicate;
 
+import dom.cliente.Cliente;
 import dom.mesa.Mesa;
 
 @DomainService
 @Named("Reserva")
 public class ReservaServicio extends AbstractFactoryAndRepository {
 
-	public String iconName(){
+	public String iconName() {
 		return "Reserva";
 	}
-	
+
 	public ReservaServicio() {
 		// TODO Auto-generated constructor stub
 	}
@@ -54,8 +55,8 @@ public class ReservaServicio extends AbstractFactoryAndRepository {
 
 	public String[] choices3CrearReserva() {
 		return new String[] { "11:30", "12:00", "12:30", "13:00", "13:30",
-				"14:00", "14:30", "20:00", "20:30", "21:00", "21:30",
-				"22:00", "22:30", "23:00", "23:30" };
+				"14:00", "14:30", "20:00", "20:30", "21:00", "21:30", "22:00",
+				"22:30", "23:00", "23:30" };
 	}
 
 	public List<Mesa> choices1CrearReserva(final int _comensales) {
@@ -76,7 +77,15 @@ public class ReservaServicio extends AbstractFactoryAndRepository {
 		reserva.setMesa(_mesa);
 		reserva.setComensales(_comensales);
 		reserva.setFechaHora(sumaFechaHora(_fecha, _hora).getTime());
-		reserva.setCliente(getUser().getName());
+		reserva.setCliente(uniqueMatch(Cliente.class, new Predicate<Cliente>() {
+
+			@Override
+			public boolean apply(Cliente input) {
+				// TODO Auto-generated method stub
+				return input.getUsuario().getNombre()
+						.equals(getUser().getName()) ? true : false;
+			}
+		}));
 		persist(reserva);
 		return reserva;
 	}
@@ -143,7 +152,20 @@ public class ReservaServicio extends AbstractFactoryAndRepository {
 	}
 
 	@Named("Listar")
-	public List<Reserva> listarReservas() {
+	public List<Reserva> listarReservasTodas() {
 		return allInstances(Reserva.class);
+	}
+
+	@Named("Listar")
+	public List<Reserva> listarReservas() {
+		return allMatches(Reserva.class, new Predicate<Reserva>() {
+
+			@Override
+			public boolean apply(Reserva input) {
+				// TODO Auto-generated method stub
+				return input.getCliente().getUsuario().getNombre()
+						.equals(getUser().getName()) ? true : false;
+			}
+		});
 	}
 }

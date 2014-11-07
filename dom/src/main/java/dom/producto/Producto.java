@@ -75,7 +75,7 @@ public abstract class Producto {
 	private String nombre;
 
 	@Hidden(where = Where.ALL_TABLES)
-	@RegEx(validation = "[0-9a-zA-ZáéíóúÁÉÍÓÚ\\s]*")
+	@RegEx(validation = "[0-9a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]*")
 	@MaxLength(value = 30)
 	@Title
 	@Column(allowsNull = "false")

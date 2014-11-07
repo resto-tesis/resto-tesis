@@ -33,6 +33,11 @@ import dom.comanda.Comanda;
 @MemberGroupLayout(columnSpans = { 6, 0, 6 }, left = { "lista" })
 public class ComandasView extends AbstractViewModel {
 
+	public String iconName()
+	{
+		return "Cocina";
+	}
+	
 	public String title() {
 		return "Cocina";
 	}

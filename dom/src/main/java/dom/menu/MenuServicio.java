@@ -57,7 +57,7 @@ public class MenuServicio extends AbstractFactoryAndRepository {
 	@Named("Crear")
 	@MemberOrder(sequence = "1")
 	public Menu crearMenu(
-			@Named("Nombre") @RegEx(validation = "[0-9a-zA-ZáéíóúÁÉÍÓÚ\\s]*") String _nombre,
+			@Named("Nombre") @RegEx(validation = "[0-9a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]*") String _nombre,
 			@Named("Plato Principal") final PlatoPrincipal _platoPrincipal,
 			@Named("Plato de Entrada") @Optional final PlatoEntrada _platoEntrada,
 			@Named("Guarnición") @Optional final Guarnicion _guarnicion,

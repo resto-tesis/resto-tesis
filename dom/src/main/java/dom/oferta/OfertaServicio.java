@@ -55,7 +55,7 @@ public class OfertaServicio extends AbstractFactoryAndRepository {
 	@Named("Crear")
 	@MemberOrder(sequence = "1")
 	public Oferta crearOferta(
-			@Named("Nombre") @TypicalLength(30) @RegEx(validation = "[0-9a-zA-ZñÑáéíóúÁÉÍÓÚ\\s]*") final String _nombre,
+			@Named("Nombre") @TypicalLength(30) @RegEx(validation = "[0-9a-zA-ZñÑáéíóúÁÉÍÓÚñÑ\\s]*") final String _nombre,
 			@Named("Cantidad de Personas") @Optional final int _cantidad_personas,
 			@Named("Descripción") @MultiLine(numberOfLines = 3) final String _descripcion,
 			@Named("Menu") @Optional final Menu _menu,
