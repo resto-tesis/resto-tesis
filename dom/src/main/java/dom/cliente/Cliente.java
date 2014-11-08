@@ -34,6 +34,8 @@ import org.apache.isis.applib.annotation.Optional;
 import servicio.correo.CorreoServicio;
 import dom.oferta.Oferta;
 import dom.persona.Persona;
+
+
 /**
  * Entidad Cliente la cual extiende de Persona
  * @author RestoTesis
@@ -105,7 +107,16 @@ public class Cliente extends Persona implements IObservador {
 	// }}
 	@Inject
 	private CorreoServicio correo;
-
+	
+	
+	
+	/**
+	 * Metodo a implementar para actualizar la oferta 
+	 * @author RestoTesis
+	 * @since 10/06/2014
+	 * @version 1.0.0
+	 * @param _oferta
+	 */
 	@Override
 	public void actualizar(Oferta _oferta) {
 		// TODO Auto-generated method stub

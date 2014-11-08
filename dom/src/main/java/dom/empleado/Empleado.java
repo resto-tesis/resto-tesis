@@ -35,6 +35,12 @@ import org.apache.isis.applib.annotation.MemberOrder;
 
 import dom.persona.Persona;
 
+/**
+ * Entidad Empleado la cual extiende de Persona
+ * @author RestoTesis
+ * @since 10/05/2014
+ * @version 1.0.0
+ */
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
 @Sequence(name = "secuenciaLegajo", strategy = SequenceStrategy.CONTIGUOUS)

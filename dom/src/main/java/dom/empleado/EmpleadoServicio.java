@@ -26,6 +26,12 @@ import org.joda.time.LocalDate;
 
 import com.google.common.base.Predicate;
 
+/**
+ * Clase que implenta la funcionalidad al Empleado
+ * @author RestoTesis
+ * @since 10/05/2014
+ * @version 1.0.0
+ */
 @DomainService(menuOrder = "10")
 public class EmpleadoServicio extends AbstractFactoryAndRepository {
 
@@ -35,6 +41,13 @@ public class EmpleadoServicio extends AbstractFactoryAndRepository {
 
 	final LocalDate fecha_actual = LocalDate.now();
 
+	/**
+	 * Metodo para validar la existencia de un empleado por su dni 
+	 * @author RestoTesis
+	 * @since 10/06/2014
+	 * @version 1.0.0
+	 * @param long _dni
+	 */
 	@Programmatic
 	public String validarDocumento(final long _dni) {
 		for (Empleado _empleado : listarEmpleadosTodos())
@@ -43,6 +56,12 @@ public class EmpleadoServicio extends AbstractFactoryAndRepository {
 		return null;
 	}
 
+	/**
+	 * Metodo para obtener la lista de Empleados 
+	 * @author RestoTesis
+	 * @since 10/06/2014
+	 * @version 1.0.0
+	*/
 	@Programmatic
 	public List<Empleado> listarEmpleadosTodos() {
 		return allInstances(Empleado.class);

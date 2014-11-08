@@ -17,6 +17,12 @@
 
 package dom.comanda.estado;
 
+/**
+ * Interface para implementar los distintos estados de la comanda
+ * @author RestoTesis
+ * @since 10/05/2014
+ * @version 1.0.0
+ */
 public interface IEstadoComanda {
 
 	String title();

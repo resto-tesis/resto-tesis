@@ -46,6 +46,12 @@ import dom.comanda.estado.*;
 import dom.objetosValor.ValueMenu;
 import dom.objetosValor.ValueProductoElaborado;
 
+/**
+ * Entidad Comanda
+ * @author RestoTesis
+ * @since 10/05/2014
+ * @version 1.0.0
+ */
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Sequence(name = "secuenciaNumeroComanda", strategy = SequenceStrategy.CONTIGUOUS)
 public class Comanda {
@@ -53,7 +59,12 @@ public class Comanda {
 	public String iconName(){
 		return getEstado().iconName();
 	}
-	
+	/**
+	 * Constructor de la Entidad Comanda, donde se le agrega el estado
+	 * @author RestoTesis
+	 * @since 10/05/2014
+	 * @version 1.0.0
+	 */
 	public Comanda() {
 		enEspera = new EnEspera(this);
 		enPreparacion = new EnPreparacion(this);
@@ -117,6 +128,7 @@ public class Comanda {
 	// {{ Productos (Collection)
 	private List<ValueProductoElaborado> productos = new ArrayList<ValueProductoElaborado>();
 
+	
 	@Persistent(dependentElement = "true")
 	@Join(deleteAction = ForeignKeyAction.CASCADE)
 	@Render(Type.EAGERLY)

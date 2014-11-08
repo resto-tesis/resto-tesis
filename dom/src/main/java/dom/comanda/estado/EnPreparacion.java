@@ -26,6 +26,12 @@ import org.apache.isis.applib.annotation.Programmatic;
 
 import dom.comanda.Comanda;
 
+/**
+ * Estado Particular de la Comanda que implementa la Interface IEstadoComanda
+ * @author RestoTesis
+ * @since 10/05/2014
+ * @version 1.0.0
+ */
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 public class EnPreparacion implements IEstadoComanda {
 
@@ -55,6 +61,12 @@ public class EnPreparacion implements IEstadoComanda {
 
 	// }}
 
+	/**
+	 * Metodo para cambiar el estado de la Comanda
+	 * @author RestoTesis
+	 * @since 10/05/2014
+	 * @version 1.0.0
+	 */
 	@Override
 	@Programmatic
 	public void cambiarEstado() {
