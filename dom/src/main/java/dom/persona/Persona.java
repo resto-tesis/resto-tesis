@@ -29,6 +29,7 @@ import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
 import org.apache.isis.applib.annotation.Optional;
+import org.apache.isis.applib.annotation.RegEx;
 import org.apache.isis.applib.annotation.Title;
 
 import dom.usuario.Usuario;
@@ -87,6 +88,7 @@ public abstract class Persona {
 	// {{ Telefono (property)
 	private String telefono;
 
+	@RegEx(validation = "\\d{7,11}")
 	@Optional
 	@MemberOrder(sequence = "4")
 	public String getTelefono() {
@@ -102,6 +104,7 @@ public abstract class Persona {
 	// {{ Celular (property)
 	private String celular;
 
+	@RegEx(validation = "\\d{3,7}(-)?\\d{6}")
 	@Optional
 	@MemberOrder(sequence = "5")
 	public String getCelular() {

@@ -45,27 +45,29 @@ import dom.usuario.Rol;
 import dom.usuario.Usuario;
 
 /**
-* Contiene la funcionalidad para Cargar/Listar un nuevo Encargado 
-* @author RestoTesis
-* @since 10/06/2014
-* @version 1.0.0
-*/
+ * Contiene la funcionalidad para Cargar/Listar un nuevo Encargado
+ * 
+ * @author RestoTesis
+ * @since 10/06/2014
+ * @version 1.0.0
+ */
 @DomainService
 @Named("Encargado")
 public class EncargadoServicio extends AbstractFactoryAndRepository implements
 		IValidacionEmpleado {
 
-	public String iconName(){
+	public String iconName() {
 		return "Encargado";
 	}
-	
+
 	/*
 	 * Atributo Extra para las validaciones de las fechas
 	 */
 	final LocalDate fecha_actual = LocalDate.now();
 
 	/**
-	 * Obtiene los datos validados del Encargado 
+	 * Obtiene los datos validados del Encargado
+	 * 
 	 * @author RestoTesis
 	 * @since 10/06/2014
 	 * @version 1.0.0
@@ -78,7 +80,7 @@ public class EncargadoServicio extends AbstractFactoryAndRepository implements
 			@Named("Nombre") @RegEx(validation = "[a-zA-ZáéíóúÁÉÍÓÚ\\s]*") @MaxLength(value = 20) final String _nombre,
 			@Named("Documento") @RegEx(validation = "[0-9*") @MaxLength(value = 8) @MinLength(value = 7) final long _dni,
 			@Named("Direccion") @MultiLine(numberOfLines = 2) final String _direccion,
-			@Named("Telefono") @RegEx(validation = "\\d{7,10}") @Optional @MaxLength(value = 15) final String _telefono,
+			@Named("Telefono Fijo") @RegEx(validation = "\\d{7,11}") @Optional @MaxLength(value = 15) final String _telefono,
 			@Named("Celular") @RegEx(validation = "\\d{3,7}(-)?\\d{6}") @Optional @MaxLength(value = 15) final String _celular,
 			@Named("Correo Electronico") @RegEx(validation = "(\\w+\\.)*\\w+@(\\w+\\.)+[A-Za-z]+") @Optional final String _correo,
 			@Named("Fecha de Nacimiento") final LocalDate fechadeNacimiento,
@@ -92,6 +94,7 @@ public class EncargadoServicio extends AbstractFactoryAndRepository implements
 
 	/**
 	 * Crea Usuario y Password para el nuevo Encargado
+	 * 
 	 * @author RestoTesis
 	 * @since 10/06/2014
 	 * @version 1.0.0
@@ -110,7 +113,8 @@ public class EncargadoServicio extends AbstractFactoryAndRepository implements
 	}
 
 	/**
-	 * Persiste un nuevo Encargado 
+	 * Persiste un nuevo Encargado
+	 * 
 	 * @author RestoTesis
 	 * @since 10/06/2014
 	 * @version 1.0.0
@@ -153,9 +157,10 @@ public class EncargadoServicio extends AbstractFactoryAndRepository implements
 			}
 		});
 	}
-	
+
 	/**
-	 * Obtiene una lista de todos los Encargados 
+	 * Obtiene una lista de todos los Encargados
+	 * 
 	 * @author RestoTesis
 	 * @since 10/06/2014
 	 * @version 1.0.0
@@ -170,6 +175,7 @@ public class EncargadoServicio extends AbstractFactoryAndRepository implements
 
 	/**
 	 * Metodo que realiza la Validacion del ingreso de fechas por el UI
+	 * 
 	 * @author RestoTesis
 	 * @since 10/06/2014
 	 * @version 1.0.0
@@ -198,19 +204,23 @@ public class EncargadoServicio extends AbstractFactoryAndRepository implements
 			return "La fecha de ingreso debe ser menor o igual a la fecha actual";
 		if (validaMayorEdad(fechadeNacimiento) == false)
 			return "El empleado es menor de edad";
-		return firstMatch(Persona.class, new Predicate<Persona>() {
+		if (firstMatch(Persona.class, new Predicate<Persona>() {
 
 			@Override
 			public boolean apply(Persona _persona) {
 				// TODO Auto-generated method stub
 				return _persona.getUsuario().getNombre().equals(_nombreUsuario);
 			}
-		}) != null ? "Ya existe el usuario!" : null;
+		}) != null)
+			return "Ya existe el nombre de usuario!";
+		return _telefono.length() == 0 && _celular.length() == 0 ? "Debe ingresar al menos un teléfono"
+				: null;
 	}
 
 	/**
-	 * Validacion de la mayoria de edad de los Encargados ingresados; 6575 son la
-	 * cantidad de dias que tiene una persona de 18 años
+	 * Validacion de la mayoria de edad de los Encargados ingresados; 6575 son
+	 * la cantidad de dias que tiene una persona de 18 años
+	 * 
 	 * @author RestoTesis
 	 * @since 10/06/2014
 	 * @version 1.0.0
@@ -226,7 +236,9 @@ public class EncargadoServicio extends AbstractFactoryAndRepository implements
 	}
 
 	/**
-	 * Obtiene la cantidad de dias entre la fecha de nacimiento y la fecha actual
+	 * Obtiene la cantidad de dias entre la fecha de nacimiento y la fecha
+	 * actual
+	 * 
 	 * @author RestoTesis
 	 * @since 10/06/2014
 	 * @version 1.0.0

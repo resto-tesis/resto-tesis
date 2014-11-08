@@ -41,9 +41,9 @@ import dom.persona.Persona;
 import dom.usuario.Rol;
 import dom.usuario.Usuario;
 
-
 /**
- * Contiene la funcionalidad para Cargar/Listar un nuevo Cliente 
+ * Contiene la funcionalidad para Cargar/Listar un nuevo Cliente
+ * 
  * @author RestoTesis
  * @since 10/06/2014
  * @version 1.0.0
@@ -52,12 +52,13 @@ import dom.usuario.Usuario;
 @Named("Cliente")
 public class ClienteServicio extends AbstractFactoryAndRepository {
 
-	public String iconName(){
+	public String iconName() {
 		return "Cliente";
 	}
-	
+
 	/**
-	 * Obtiene los datos validados del Cliente 
+	 * Obtiene los datos validados del Cliente
+	 * 
 	 * @author RestoTesis
 	 * @since 10/06/2014
 	 * @version 1.0.0
@@ -70,7 +71,7 @@ public class ClienteServicio extends AbstractFactoryAndRepository {
 			@Named("Nombre") @RegEx(validation = "[a-zA-ZáéíóúÁÉÍÓÚ\\s]*") @MaxLength(value = 20) final String _nombre,
 			@Named("Documento") @RegEx(validation = "[0-9*") @MaxLength(value = 8) @MinLength(value = 7) final long _dni,
 			@Named("Direccion") @MultiLine(numberOfLines = 2) final String _direccion,
-			@Named("Telefono") @RegEx(validation = "\\d{7,10}") @Optional @MaxLength(value = 15) final String _telefono,
+			@Named("Telefono Fijo") @RegEx(validation = "\\d{7,11}") @Optional @MaxLength(value = 15) final String _telefono,
 			@Named("Celular") @RegEx(validation = "\\d{3,7}(-)?\\d{6}") @Optional @MaxLength(value = 15) final String _celular,
 			@Named("Correo Electronico") @RegEx(validation = "(\\w+\\.)*\\w+@(\\w+\\.)+[A-Za-z]+") @Optional final String _correo,
 			@Named("Usuario") final String _nombreUsuario,
@@ -80,13 +81,15 @@ public class ClienteServicio extends AbstractFactoryAndRepository {
 				_telefono, _celular, _correo,
 				crearUsuario(_nombreUsuario, _password));
 	}
+
 	/**
-	 * Realiza la validacion del ingreso del cliente 
+	 * Realiza la validacion del ingreso del cliente
+	 * 
 	 * @author RestoTesis
 	 * @since 10/06/2014
 	 * @version 1.0.0
 	 */
-	
+
 	public String validateCargarCliente(final String _apellido,
 			final String _nombre, final long _dni, final String _direccion,
 			final String _telefono, final String _celular,
@@ -102,18 +105,22 @@ public class ClienteServicio extends AbstractFactoryAndRepository {
 		}) != null) {
 			return "Ya existe un cliente con el dni ingresado!";
 		}
-		return firstMatch(Persona.class, new Predicate<Persona>() {
+		if (firstMatch(Persona.class, new Predicate<Persona>() {
 
 			@Override
 			public boolean apply(Persona _persona) {
 				// TODO Auto-generated method stub
 				return _persona.getUsuario().getNombre().equals(_nombreUsuario);
 			}
-		}) != null ? "Ya existe el usuario!" : null;
+		}) != null)
+			return "Ya existe el nombre de usuario!";
+		return _telefono.length() == 0 && _celular.length() == 0 ? "Debe ingresar al menos un teléfono"
+				: null;
 	}
 
 	/**
 	 * Crea Usuario y Password para el nuevo cliente
+	 * 
 	 * @author RestoTesis
 	 * @since 10/06/2014
 	 * @version 1.0.0
@@ -132,7 +139,8 @@ public class ClienteServicio extends AbstractFactoryAndRepository {
 	}
 
 	/**
-	 * Persiste un nuevo Cliente 
+	 * Persiste un nuevo Cliente
+	 * 
 	 * @author RestoTesis
 	 * @since 10/06/2014
 	 * @version 1.0.0
@@ -161,7 +169,8 @@ public class ClienteServicio extends AbstractFactoryAndRepository {
 	}
 
 	/**
-	 * Obtiene una lista de clientes Activos	 
+	 * Obtiene una lista de clientes Activos
+	 * 
 	 * @author RestoTesis
 	 * @since 10/06/2014
 	 * @version 1.0.0
@@ -179,8 +188,10 @@ public class ClienteServicio extends AbstractFactoryAndRepository {
 			}
 		});
 	}
+
 	/**
-	 * Obtiene una lista de todos los clientes 
+	 * Obtiene una lista de todos los clientes
+	 * 
 	 * @author RestoTesis
 	 * @since 10/06/2014
 	 * @version 1.0.0

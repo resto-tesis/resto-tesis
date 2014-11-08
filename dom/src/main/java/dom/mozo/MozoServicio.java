@@ -54,10 +54,10 @@ import dom.usuario.Usuario;
 public class MozoServicio extends AbstractFactoryAndRepository implements
 		IValidacionEmpleado {
 
-	public String iconName(){
+	public String iconName() {
 		return "Mozo";
 	}
-	
+
 	/*
 	 * Atributo Extra para las validaciones de las fechas
 	 */
@@ -70,7 +70,7 @@ public class MozoServicio extends AbstractFactoryAndRepository implements
 			@Named("Nombre") @RegEx(validation = "[a-zA-ZáéíóúÁÉÍÓÚ\\s]*") @MaxLength(value = 20) final String _nombre,
 			@Named("Documento") @RegEx(validation = "[0-9*") @MaxLength(value = 8) @MinLength(value = 7) final long _dni,
 			@Named("Direccion") @MultiLine(numberOfLines = 2) final String _direccion,
-			@Named("Telefono") @RegEx(validation = "\\d{7,10}") @Optional @MaxLength(value = 15) final String _telefono,
+			@Named("Telefono Fijo") @RegEx(validation = "\\d{7,11}") @Optional @MaxLength(value = 15) final String _telefono,
 			@Named("Celular") @RegEx(validation = "\\d{3,7}(-)?\\d{6}") @Optional @MaxLength(value = 15) final String _celular,
 			@Named("Correo Electronico") @RegEx(validation = "(\\w+\\.)*\\w+@(\\w+\\.)+[A-Za-z]+") @Optional final String _correo,
 			@Named("Fecha de Nacimiento") final LocalDate fechadeNacimiento,
@@ -175,14 +175,17 @@ public class MozoServicio extends AbstractFactoryAndRepository implements
 			return "La fecha de ingreso debe ser menor o igual a la fecha actual";
 		if (validaMayorEdad(fechadeNacimiento) == false)
 			return "El empleado es menor de edad";
-		return firstMatch(Persona.class, new Predicate<Persona>() {
+		if (firstMatch(Persona.class, new Predicate<Persona>() {
 
 			@Override
 			public boolean apply(Persona _persona) {
 				// TODO Auto-generated method stub
 				return _persona.getUsuario().getNombre().equals(_nombreUsuario);
 			}
-		}) != null ? "Ya existe el usuario!" : null;
+		}) != null)
+			return "Ya existe el nombre de usuario!";
+		return _telefono.length() == 0 && _celular.length() == 0 ? "Debe ingresar al menos un teléfono"
+				: null;
 	}
 
 	/*
