@@ -70,7 +70,7 @@ public class ClienteServicio extends AbstractFactoryAndRepository {
 			@Named("Apellido") @RegEx(validation = "[a-zA-ZáéíóúÁÉÍÓÚ\\s]*") @MaxLength(value = 20) final String _apellido,
 			@Named("Nombre") @RegEx(validation = "[a-zA-ZáéíóúÁÉÍÓÚ\\s]*") @MaxLength(value = 20) final String _nombre,
 			@Named("Documento") @RegEx(validation = "[0-9*") @MaxLength(value = 8) @MinLength(value = 7) final long _dni,
-			@Named("Direccion") @MultiLine(numberOfLines = 2) final String _direccion,
+			@Named("Direccion") @MultiLine(numberOfLines = 2) @Optional final String _direccion,
 			@Named("Telefono Fijo") @RegEx(validation = "\\d{7,11}") @Optional @MaxLength(value = 15) final String _telefono,
 			@Named("Celular") @RegEx(validation = "\\d{3,7}(-)?\\d{6}") @Optional @MaxLength(value = 15) final String _celular,
 			@Named("Correo Electronico") @RegEx(validation = "(\\w+\\.)*\\w+@(\\w+\\.)+[A-Za-z]+") @Optional final String _correo,
@@ -114,7 +114,7 @@ public class ClienteServicio extends AbstractFactoryAndRepository {
 			}
 		}) != null)
 			return "Ya existe el nombre de usuario!";
-		return _telefono.length() == 0 && _celular.length() == 0 ? "Debe ingresar al menos un teléfono"
+		return _telefono == null && _celular == null ? "Debe ingresar al menos un teléfono"
 				: null;
 	}
 

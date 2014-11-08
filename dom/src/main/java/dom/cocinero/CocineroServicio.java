@@ -210,7 +210,7 @@ public class CocineroServicio extends AbstractFactoryAndRepository implements
 			}
 		}) != null)
 			return "Ya existe el nombre de usuario!";
-		return _telefono.length() == 0 && _celular.length() == 0 ? "Debe ingresar al menos un teléfono"
+		return _telefono == null && _celular == null ? "Debe ingresar al menos un teléfono"
 				: null;
 	}
 

@@ -27,6 +27,7 @@ import javax.jdo.annotations.Persistent;
 import org.apache.isis.applib.annotation.Disabled;
 import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.annotation.MultiLine;
 import org.apache.isis.applib.annotation.Named;
 import org.apache.isis.applib.annotation.Optional;
 import org.apache.isis.applib.annotation.RegEx;
@@ -135,8 +136,10 @@ public abstract class Persona {
 	// {{ Direccion (property)
 	private String direccion;
 
+	@Optional
+	@MultiLine(numberOfLines = 2)
 	@Named("Dirección")
-	@Column(allowsNull = "false")
+	@Column(allowsNull = "true")
 	@MemberOrder(sequence = "7")
 	public String getDireccion() {
 		return direccion;
