@@ -131,7 +131,7 @@ public class Oferta extends Observado {
 	// {{ Menu (property)
 	private Menu menu;
 
-	@Optional
+	@Column(allowsNull = "false")
 	@MemberOrder(sequence = "5")
 	public Menu getMenu() {
 		return menu;
