@@ -24,8 +24,6 @@ import javax.inject.Inject;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
-import javax.jdo.annotations.Queries;
-import javax.jdo.annotations.Query;
 
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.Bulk;
@@ -212,16 +210,7 @@ public class Mesa {
 	}
 
 	public String disableFacturar() {
-		if (getPedidos().isEmpty())
-			return "Mesa sin Pedidos";
-		for (Pedido _pedido : getPedidos()) {
-			if (_pedido.getBebidas().isEmpty()
-					&& (_pedido.getComanda().getMenues().isEmpty() && _pedido
-							.getComanda().getProductos().isEmpty())) {
-				return "Existe Pedido vacío!";
-			}
-		}
-		return null;
+		return mesaServicio.validarFactturado(this);
 	}
 
 	// {{ injected: DomainObjectContainer

@@ -42,10 +42,10 @@ import dom.pedido.PedidoServicio;
 @Named("Mesa")
 public class MesaServicio extends AbstractFactoryAndRepository {
 
-	public String iconName(){
+	public String iconName() {
 		return "Mesa";
 	}
-	
+
 	@Named("Crear")
 	@MemberOrder(sequence = "1")
 	public Mesa crearMesa(@Named("Número") final int numero,
@@ -151,6 +151,24 @@ public class MesaServicio extends AbstractFactoryAndRepository {
 		_mesa.addToPedidos(pedido);
 		_mesa.setEstadoHabilitacion(EstadoHabilitacionMesaEnum.Ocupada);
 		return pedido;
+	}
+
+	@Programmatic
+	public String validarFactturado(final Mesa _mesa) {
+		if (_mesa.getPedidos().isEmpty())
+			return "No hay Pedidos para facturar";
+		for (Pedido _pedido : _mesa.getPedidos()) {
+			if (_pedido.getBebidas().isEmpty()
+					&& (_pedido.getComanda().getMenues().isEmpty() && _pedido
+							.getComanda().getProductos().isEmpty()))
+				return "Existe Pedido vacío!";
+			if (!_pedido.getProductosComanda().isEmpty()
+					|| !_pedido.getMenuesComanda().isEmpty())
+				if (_pedido.getComanda().getEstado() != _pedido.getComanda()
+						.getPreparada())
+					return "Existen Pedidos en Cocina";
+		}
+		return null;
 	}
 
 	@Programmatic

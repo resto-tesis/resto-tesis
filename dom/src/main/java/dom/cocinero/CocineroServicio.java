@@ -19,8 +19,6 @@ package dom.cocinero;
 
 import java.util.List;
 
-import javax.inject.Inject;
-
 import org.apache.isis.applib.AbstractFactoryAndRepository;
 import org.apache.isis.applib.annotation.ActionSemantics;
 import org.apache.isis.applib.annotation.DomainService;
@@ -41,7 +39,6 @@ import org.joda.time.LocalDate;
 import com.google.common.base.Predicate;
 
 import dom.empleado.Empleado;
-import dom.empleado.EmpleadoServicio;
 import dom.empleado.IValidacionEmpleado;
 import dom.persona.Persona;
 import dom.usuario.Rol;
@@ -52,10 +49,10 @@ import dom.usuario.Usuario;
 public class CocineroServicio extends AbstractFactoryAndRepository implements
 		IValidacionEmpleado {
 
-	public String iconName(){
+	public String iconName() {
 		return "Cocinero";
 	}
-	
+
 	/*
 	 * Atributo Extra para las validaciones de las fechas
 	 */
