@@ -23,8 +23,14 @@ import org.apache.isis.applib.AbstractFactoryAndRepository;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.Programmatic;
 
+import com.google.common.base.Predicate;
+
+import dom.empleado.Empleado;
+import dom.mozo.Mozo;
+
 /**
  * Clase que da funcionalidad de crear y persistir la comanda
+ * 
  * @author RestoTesis
  * @since 10/06/2014
  * @version 1.0.0
@@ -38,15 +44,26 @@ public class ComandaServicio extends AbstractFactoryAndRepository {
 
 	/**
 	 * Metodo que crea y persiste la comanda
+	 * 
 	 * @author RestoTesis
 	 * @since 10/05/2014
 	 * @version 1.0.0
 	 */
 	@Programmatic
 	public Comanda crearComanda() {
+		final Empleado usuarioActual = uniqueMatch(Empleado.class,
+				new Predicate<Empleado>() {
+
+					@Override
+					public boolean apply(Empleado input) {
+						// TODO Auto-generated method stub
+						return input.getUsuario().getNombre()
+								.equals(getUser().getName()) ? true : false;
+					}
+				});
 		final Comanda comanda = newTransientInstance(Comanda.class);
 		comanda.setFechaDePedido(new Date());
-		comanda.setMozo(getUser().getName());
+		comanda.setMozo(usuarioActual);
 		persist(comanda);
 		return comanda;
 	}

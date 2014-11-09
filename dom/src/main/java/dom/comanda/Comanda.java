@@ -43,6 +43,8 @@ import org.apache.isis.applib.annotation.Title;
 import org.apache.isis.applib.annotation.TypicalLength;
 
 import dom.comanda.estado.*;
+import dom.empleado.Empleado;
+import dom.mozo.Mozo;
 import dom.objetosValor.ValueMenu;
 import dom.objetosValor.ValueProductoElaborado;
 
@@ -93,16 +95,16 @@ public class Comanda {
 	// }}
 
 	// {{ Mozo (property)
-	private String mozo;
+	private Empleado mozo;
 
 	@Disabled
 	@MemberOrder(sequence = "3")
 	@Column(allowsNull = "false")
-	public String getMozo() {
+	public Empleado getMozo() {
 		return mozo;
 	}
 
-	public void setMozo(final String mozo) {
+	public void setMozo(final Empleado mozo) {
 		this.mozo = mozo;
 	}
 

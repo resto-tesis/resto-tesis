@@ -32,6 +32,7 @@ import org.apache.isis.applib.annotation.Named;
 import org.apache.isis.applib.annotation.Optional;
 import org.apache.isis.applib.annotation.RegEx;
 import org.apache.isis.applib.annotation.Title;
+import org.apache.isis.applib.annotation.Where;
 
 import dom.usuario.Usuario;
 
@@ -42,6 +43,7 @@ public abstract class Persona {
 	// {{ Apellido (property)
 	private String apellido;
 
+	@Hidden(where = Where.ALL_TABLES)
 	@Title(sequence = "1.0")
 	@Column(allowsNull = "false")
 	@MemberOrder(sequence = "1")
@@ -58,6 +60,7 @@ public abstract class Persona {
 	// {{ Nombre (property)
 	private String nombre;
 
+	@Hidden(where = Where.ALL_TABLES)
 	@Title(sequence = "1.5", prepend = ", ")
 	@Column(allowsNull = "false")
 	@MemberOrder(sequence = "2")
@@ -121,6 +124,7 @@ public abstract class Persona {
 	// {{ Correo (property)
 	private String correo;
 
+	@Hidden(where = Where.ALL_TABLES)
 	@Optional
 	@MemberOrder(sequence = "6")
 	public String getCorreo() {
@@ -136,6 +140,7 @@ public abstract class Persona {
 	// {{ Direccion (property)
 	private String direccion;
 
+	@Hidden(where = Where.ALL_TABLES)
 	@Optional
 	@MultiLine(numberOfLines = 2)
 	@Named("Dirección")

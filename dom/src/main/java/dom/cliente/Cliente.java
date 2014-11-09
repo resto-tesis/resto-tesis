@@ -28,16 +28,18 @@ import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.Sequence;
 import javax.jdo.annotations.SequenceStrategy;
 
+import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Optional;
+import org.apache.isis.applib.annotation.TypicalLength;
 
 import servicio.correo.CorreoServicio;
 import dom.oferta.Oferta;
 import dom.persona.Persona;
 
-
 /**
  * Entidad Cliente la cual extiende de Persona
+ * 
  * @author RestoTesis
  * @since 10/05/2014
  * @version 1.0.0
@@ -47,14 +49,14 @@ import dom.persona.Persona;
 @Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
 public class Cliente extends Persona implements IObservador {
 
-	
-	public String iconName(){
-		return getBaja()?"ClienteDes":"Cliente";
+	public String iconName() {
+		return getBaja() ? "ClienteDes" : "Cliente";
 	}
-	
+
 	// {{ NumeroCliente (property)
 	private long numeroCliente;
 
+	@TypicalLength(5)
 	@Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT, sequence = "secuenciaNumeroCliente")
 	@MemberOrder(sequence = "1")
 	@Column(allowsNull = "false")
@@ -94,6 +96,7 @@ public class Cliente extends Persona implements IObservador {
 	// {{ Oferta (property)
 	private Oferta oferta;
 
+	@Hidden
 	@Optional
 	@MemberOrder(sequence = "1")
 	public Oferta getOferta() {
@@ -107,11 +110,10 @@ public class Cliente extends Persona implements IObservador {
 	// }}
 	@Inject
 	private CorreoServicio correo;
-	
-	
-	
+
 	/**
-	 * Metodo a implementar para actualizar la oferta 
+	 * Metodo a implementar para actualizar la oferta
+	 * 
 	 * @author RestoTesis
 	 * @since 10/06/2014
 	 * @version 1.0.0

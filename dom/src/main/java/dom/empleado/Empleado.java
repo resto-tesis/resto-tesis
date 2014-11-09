@@ -31,12 +31,16 @@ import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.Sequence;
 import javax.jdo.annotations.SequenceStrategy;
 
+import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.MemberOrder;
+import org.apache.isis.applib.annotation.TypicalLength;
+import org.apache.isis.applib.annotation.Where;
 
 import dom.persona.Persona;
 
 /**
  * Entidad Empleado la cual extiende de Persona
+ * 
  * @author RestoTesis
  * @since 10/05/2014
  * @version 1.0.0
@@ -51,6 +55,7 @@ public abstract class Empleado extends Persona {
 	// {{ Legajo (property)
 	private long legajo;
 
+	@TypicalLength(5)
 	@Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT, sequence = "secuenciaLegajo")
 	@MemberOrder(sequence = "1")
 	@Column(allowsNull = "false")
@@ -67,6 +72,7 @@ public abstract class Empleado extends Persona {
 	// {{ fechaDeNacimiento (property)
 	private Date fechaDeNacimiento;
 
+	@Hidden(where = Where.ALL_TABLES)
 	@MemberOrder(sequence = "5")
 	public String getFechaDeNacimiento() {
 		return formato.format(fechaDeNacimiento);

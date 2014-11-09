@@ -135,7 +135,7 @@ public class Reserva {
 	// }}
 
 	@Bulk
-	public List<Reserva> borrar() {
+	public List<Reserva> cancelar() {
 		contenedor.removeIfNotAlready(this);
 		return reservaServicio.listarReservas();
 	}

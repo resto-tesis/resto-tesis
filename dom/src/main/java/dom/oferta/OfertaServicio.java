@@ -87,6 +87,11 @@ public class OfertaServicio extends AbstractFactoryAndRepository {
 
 	@Programmatic
 	public List<Menu> choices3CrearOferta() {
+		return listarMenues();
+	}
+
+	@Programmatic
+	public List<Menu> listarMenues() {
 		return menuServicio.listarMenuesAlta();
 	}
 

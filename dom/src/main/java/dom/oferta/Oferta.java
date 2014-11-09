@@ -39,12 +39,10 @@ import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.MultiLine;
 import org.apache.isis.applib.annotation.Named;
-import org.apache.isis.applib.annotation.Optional;
 import org.apache.isis.applib.annotation.RegEx;
-import org.apache.isis.applib.annotation.Render;
 import org.apache.isis.applib.annotation.Title;
 import org.apache.isis.applib.annotation.TypicalLength;
-import org.apache.isis.applib.annotation.Render.Type;
+import org.apache.isis.applib.annotation.Where;
 
 import dom.cliente.Cliente;
 import dom.menu.Menu;
@@ -62,6 +60,7 @@ public class Oferta extends Observado {
 	// {{ Numero (property)
 	private int numero;
 
+	@Hidden(where = Where.ALL_TABLES)
 	@Named("Número")
 	@TypicalLength(3)
 	@Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT, sequence = "secuenciaNumeroOferta")
@@ -81,6 +80,7 @@ public class Oferta extends Observado {
 	// {{ Nombre (property)
 	private String nombre;
 
+	@Hidden(where = Where.ALL_TABLES)
 	@RegEx(validation = "[0-9a-zA-ZñÑáéíóúÁÉÍÓÚñÑ\\s]*")
 	@Title
 	@TypicalLength(30)
@@ -99,8 +99,8 @@ public class Oferta extends Observado {
 	// {{ CantidadPersonas (property)
 	private int cantidadPersonas;
 
-	@Optional
-	@MemberOrder(sequence = "3")
+	@Column(allowsNull = "false")
+	@MemberOrder(sequence = "5")
 	public int getCantidadPersonas() {
 		return cantidadPersonas;
 	}
@@ -114,6 +114,7 @@ public class Oferta extends Observado {
 	// {{ Descripcion (property)
 	private String descripcion;
 
+	@Hidden(where = Where.ALL_TABLES)
 	@Named("Descripción")
 	@MultiLine(numberOfLines = 3)
 	@MemberOrder(sequence = "4")
@@ -132,7 +133,7 @@ public class Oferta extends Observado {
 	private Menu menu;
 
 	@Column(allowsNull = "false")
-	@MemberOrder(sequence = "5")
+	@MemberOrder(sequence = "3")
 	public Menu getMenu() {
 		return menu;
 	}
@@ -142,6 +143,10 @@ public class Oferta extends Observado {
 	}
 
 	// }}
+
+	public List<Menu> choicesMenu() {
+		return ofertaServicio.listarMenues();
+	}
 
 	private SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
 
@@ -177,7 +182,7 @@ public class Oferta extends Observado {
 	private int descuento;
 
 	@Named("Descuento (%)")
-	@MemberOrder(sequence = "1")
+	@MemberOrder(sequence = "10")
 	@Column(allowsNull = "false")
 	public int getDescuento() {
 		return descuento;
@@ -191,7 +196,7 @@ public class Oferta extends Observado {
 
 	@Named("Precio Final ($)")
 	@Disabled
-	@MemberOrder(sequence = "11")
+	@MemberOrder(sequence = "12")
 	public double getPrecioFinal() {
 		// return precioFinal;
 		return ofertaServicio.calcularDescuento(this);
@@ -199,7 +204,7 @@ public class Oferta extends Observado {
 
 	@Named("Precio Sin Descuento ($)")
 	@Disabled
-	@MemberOrder(sequence = "10")
+	@MemberOrder(sequence = "11")
 	public double getPrecioSinDescuento() {
 		return ofertaServicio.calcularTotal(this);
 	}
@@ -304,7 +309,7 @@ public class Oferta extends Observado {
 	// {{ ListaClientes (Collection)
 	private List<Cliente> listaClientes = new ArrayList<Cliente>();
 
-	@Render(Type.EAGERLY)
+	@Hidden
 	public List<Cliente> getListaClientes() {
 		return contenedor.allInstances(Cliente.class);
 	}
@@ -376,5 +381,4 @@ public class Oferta extends Observado {
 				+ caducidad + ", descuento=" + descuento + ", ofertaServicio="
 				+ ofertaServicio + "]";
 	}
-
 }
