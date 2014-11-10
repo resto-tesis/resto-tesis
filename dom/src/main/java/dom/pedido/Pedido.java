@@ -45,6 +45,7 @@ import org.apache.isis.applib.annotation.Where;
 
 import dom.comanda.Comanda;
 import dom.menu.Menu;
+import dom.mesa.Mesa;
 import dom.objetosValor.ValueMenu;
 import dom.objetosValor.ValueProductoElaborado;
 import dom.objetosValor.ValueProductoNoElaborado;
@@ -454,26 +455,22 @@ public class Pedido {
 		return getComanda().getEstado().validarModificacion();
 	}
 
-	// // {{ Mesa (property)
-	// @Persistent(mappedBy = "pedidos")
-	// private Mesa mesa;
-	//
-	// @Disabled
-	// @MemberOrder(sequence = "1")
-	// @Column(allowsNull = "false")
-	// public Mesa getMesa() {
-	// return mesa;
-	// }
-	//
-	// public void setMesa(final Mesa mesa) {
-	// this.mesa = mesa;
-	// }
-	//
-	// // }}
-	//
-	// public Mesa volver() {
-	// return mesa;
-	// }
+	// {{ Mesa (property)
+	private Mesa mesa;
+
+	@Hidden
+	@Disabled
+	@MemberOrder(sequence = "1")
+	@Column(allowsNull = "false")
+	public Mesa getMesa() {
+		return mesa;
+	}
+
+	public void setMesa(final Mesa mesa) {
+		this.mesa = mesa;
+	}
+
+	// }}
 
 	// /////////////////////////////////////////////////////--Acciones//Comanda--///////////////////////////////////////////////////////
 
@@ -499,5 +496,9 @@ public class Pedido {
 
 	@Inject
 	private PedidoServicio pedidoServicio;
+
+	public Mesa volver() {
+		return pedidoServicio.volver(this);
+	}
 
 }

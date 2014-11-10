@@ -196,5 +196,5 @@ public class MesaServicio extends AbstractFactoryAndRepository {
 
 	@Inject
 	private PedidoServicio pedidoServicio;
-
+	
 }

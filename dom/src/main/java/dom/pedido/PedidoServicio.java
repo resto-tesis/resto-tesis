@@ -28,6 +28,7 @@ import org.apache.isis.applib.annotation.Programmatic;
 import dom.comanda.ComandaServicio;
 import dom.menu.Menu;
 import dom.menu.MenuServicio;
+import dom.mesa.Mesa;
 import dom.objetosValor.ValueMenu;
 import dom.objetosValor.ValueProductoElaborado;
 import dom.objetosValor.ValueProductoNoElaborado;
@@ -213,4 +214,11 @@ public class PedidoServicio extends AbstractFactoryAndRepository {
 
 	@Inject
 	private BebidaServicio bebidaServicio;
+
+	@Programmatic
+	public Mesa volver(Pedido pedido) {
+		// TODO Auto-generated method stub
+		return pedido.getMesa();
+	}
+	
 }

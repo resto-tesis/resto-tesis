@@ -23,7 +23,9 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdentityType;
+import javax.jdo.annotations.Join;
 import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Persistent;
 
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.Bulk;
@@ -151,6 +153,8 @@ public class Mesa {
 	// }}
 
 	// {{ Pedidos (Collection)
+	@Persistent(mappedBy = "mesa")
+	@Join
 	private List<Pedido> pedidos = new ArrayList<Pedido>();
 
 	@Render(Type.EAGERLY)
