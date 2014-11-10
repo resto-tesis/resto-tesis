@@ -49,10 +49,10 @@ import dom.producto.postre.PostreServicio;
 @Named("Menu")
 public class MenuServicio extends AbstractFactoryAndRepository {
 
-	public String iconName(){
+	public String iconName() {
 		return "Menu";
 	}
-	
+
 	@Hidden(where = Where.OBJECT_FORMS)
 	@Named("Crear")
 	@MemberOrder(sequence = "1")
@@ -83,6 +83,15 @@ public class MenuServicio extends AbstractFactoryAndRepository {
 		menu.setBaja(false);
 		persist(menu);
 		return menu;
+	}
+
+	@Programmatic
+	public String validateCrearMenu(final String _nombre,
+			final PlatoPrincipal _platoPrincipal,
+			final PlatoEntrada _platoEntrada, final Guarnicion _guarnicion,
+			final Postre _postre, final int _descuento) {
+		return (_descuento > 50) ? "El porcentaje máximo de descuento para los menues es de 50%"
+				: null;
 	}
 
 	@Programmatic
