@@ -88,7 +88,7 @@ public class Mesa {
 
 	@Named("Número")
 	@Disabled
-	@Title(prepend = "Mesa Nº ")
+	@Title(prepend = "Mesa Nro. ")
 	@Column(allowsNull = "false")
 	@MemberOrder(sequence = "2")
 	public int getNumero() {
