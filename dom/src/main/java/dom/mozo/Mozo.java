@@ -41,7 +41,7 @@ import dom.mesa.Mesa;
 public class Mozo extends Empleado {
 
 	public String iconName() {
-		return getBaja() ? "MozoBaja" : "Mozo";
+		return getBaja() ? "MozoDes" : "Mozo";
 	}
 
 	// {{ Lista De Mesas (Collection)

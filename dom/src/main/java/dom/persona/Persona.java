@@ -190,6 +190,7 @@ public abstract class Persona {
 	// }}
 
 	public Persona alta() {
+		getUsuario().setBaja(false);
 		setBaja(false);
 		return this;
 	}
@@ -199,6 +200,7 @@ public abstract class Persona {
 	}
 
 	public Persona baja() {
+		getUsuario().setBaja(true);
 		setBaja(true);
 		return this;
 	}

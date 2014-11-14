@@ -28,6 +28,7 @@ import javax.jdo.annotations.SequenceStrategy;
 
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.Hidden;
+import org.apache.isis.applib.annotation.MemberOrder;
 
 @Sequence(name = "secuenciaUsuario", strategy = SequenceStrategy.CONTIGUOUS, datastoreSequence = "secuenciaUsuarios")
 @DatastoreIdentity(strategy = IdGeneratorStrategy.INCREMENT, sequence = "secuenciaUsuario")
@@ -37,6 +38,21 @@ public class Usuario {
 	public Usuario() {
 		// TODO Auto-generated constructor stub
 	}
+
+	// {{ Baja (property)
+	private boolean baja;
+
+	@MemberOrder(sequence = "1")
+	@Column(allowsNull = "false")
+	public boolean getBaja() {
+		return baja;
+	}
+
+	public void setBaja(final boolean baja) {
+		this.baja = baja;
+	}
+
+	// }}
 
 	// {{ Nombre (property)
 	private String nombre;
