@@ -164,12 +164,13 @@ public class Pedido {
 	}
 
 	// {{ Productos (Collection)
-	private List<ValueProductoNoElaborado> bebidas = new ArrayList<ValueProductoNoElaborado>();
-
 	@Persistent(dependentElement = "true")
 	@Join(deleteAction = ForeignKeyAction.CASCADE)
+	private List<ValueProductoNoElaborado> bebidas = new ArrayList<ValueProductoNoElaborado>();
+
 	@Render(Type.EAGERLY)
-	@MemberOrder(sequence = "1")
+	@MemberOrder(name = "bebidas", sequence = "13")
+	@Named("Bebidas del Pedido")
 	public List<ValueProductoNoElaborado> getBebidas() {
 		return bebidas;
 	}
@@ -202,7 +203,8 @@ public class Pedido {
 	}
 
 	@MemberOrder(name = "bebidas", sequence = "1")
-	public Pedido bebidas(final Bebida _bebida1,
+	@Named("Bebidas")
+	public Pedido pedirBebidas(final Bebida _bebida1,
 			@Optional @Named("Cantidad") final Integer _cantidad1,
 			@Optional @Named("Nota") final String _nota1,
 			@Optional final Bebida _bebida2,
@@ -220,23 +222,23 @@ public class Pedido {
 		return this;
 	}
 
-	public List<Bebida> choices0Bebidas() {
+	public List<Bebida> choices0PedirBebidas() {
 		return pedidoServicio.listarBebidas();
 	}
 
-	public List<Bebida> choices3Bebidas() {
+	public List<Bebida> choices3PedirBebidas() {
 		return pedidoServicio.listarBebidas();
 	}
 
-	public List<Bebida> choices6Bebidas() {
+	public List<Bebida> choices6PedirBebidas() {
 		return pedidoServicio.listarBebidas();
 	}
 
-	public List<Bebida> choices9Bebidas() {
+	public List<Bebida> choices9PedirBebidas() {
 		return pedidoServicio.listarBebidas();
 	}
 
-	public String disableBebidas(final Bebida _bebida1,
+	public String disablePedirBebidas(final Bebida _bebida1,
 			final Integer _cantidad1, final String _nota1,
 			final Bebida _bebida2, final Integer _cantidad2,
 			final String _nota2, final Bebida _bebida3,
