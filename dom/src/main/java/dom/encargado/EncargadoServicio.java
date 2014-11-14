@@ -46,7 +46,7 @@ import dom.usuario.Usuario;
 
 /**
  * Contiene la funcionalidad para Cargar/Listar un nuevo Encargado
- * 
+ * implementa la inteface IValidacionEmpleado
  * @author RestoTesis
  * @since 10/06/2014
  * @version 1.0.0
@@ -56,22 +56,33 @@ import dom.usuario.Usuario;
 public class EncargadoServicio extends AbstractFactoryAndRepository implements
 		IValidacionEmpleado {
 
+	/**
+	 * Retorna el nombre del icono del nuevo Encargado 
+	 * @return String
+	 */
 	public String iconName() {
 		return "Encargado";
 	}
 
-	/*
+	/**
 	 * Atributo Extra para las validaciones de las fechas
 	 */
 	final LocalDate fecha_actual = LocalDate.now();
 
 	/**
-	 * Obtiene los datos validados del Encargado
-	 * 
-	 * @author RestoTesis
-	 * @since 10/06/2014
-	 * @version 1.0.0
-	 * @return nuevoCliente
+	 * Obtiene los datos validados del Encargado de la Interfaz de Usuario
+	 * @param String _apellido
+	 * @param String _nombre
+	 * @param long _dni
+	 * @param String _direccion
+	 * @param String _telefono
+	 * @param String _celular
+	 * @param String _correo
+	 * @param LocalDate fechadeNacimiento
+	 * @param LocalDate fechadeIngreso
+	 * @param String _nombreUsusario
+	 * @param Password _password
+	 * @return Encargado nuevoEncargado
 	 */
 	@Named("Nuevo Encargado")
 	@MemberOrder(name = "Empleados", sequence = "10.6")
@@ -93,12 +104,8 @@ public class EncargadoServicio extends AbstractFactoryAndRepository implements
 	}
 
 	/**
-	 * Crea Usuario y Password para el nuevo Encargado
-	 * 
-	 * @author RestoTesis
-	 * @since 10/06/2014
-	 * @version 1.0.0
-	 * @return usuario
+	 * Crea y persiste el Usuario y Password para el nuevo Encargado
+	 * @return Usuario usuario
 	 */
 	@Programmatic
 	public Usuario crearUsuario(final String _nombreUsuario,
@@ -113,12 +120,19 @@ public class EncargadoServicio extends AbstractFactoryAndRepository implements
 	}
 
 	/**
-	 * Persiste un nuevo Encargado
-	 * 
-	 * @author RestoTesis
-	 * @since 10/06/2014
-	 * @version 1.0.0
-	 * @return clienteNuevo
+	 * Toma los datos obtenidos en la carga y persiste un nuevo Encargado
+	 * @param Usuario _usuario
+	 * @param String _apellido
+	 * @param String _nombre
+	 * @param long _dni
+	 * @param String _direccion
+	 * @param String _telefono
+	 * @param String _celular
+	 * @param String _correo
+	 * @param LocalDate fechadeNacimiento
+	 * @param LoccalDate fechadeIngreso
+	 * @param Encargado encargado 
+	 * @return Encargado encargado
 	 */
 	@Programmatic
 	public Encargado crearEncargadoNuevo(final Usuario _usuario,
@@ -144,6 +158,11 @@ public class EncargadoServicio extends AbstractFactoryAndRepository implements
 		return encargado;
 	}
 
+	/**
+	 * Obtiene una lista de Cocineros de alta
+	 * @see dom.persona.Persona.getBaja()
+	 * @return List<Encargado>
+	 */
 	@Named("Encargados")
 	@ActionSemantics(Of.SAFE)
 	@MemberOrder(name = "Empleados", sequence = "10.3")
@@ -160,10 +179,7 @@ public class EncargadoServicio extends AbstractFactoryAndRepository implements
 
 	/**
 	 * Obtiene una lista de todos los Encargados
-	 * 
-	 * @author RestoTesis
-	 * @since 10/06/2014
-	 * @version 1.0.0
+	 * @return List<Encargado> listaencargados
 	 */
 	@Named("Encargados")
 	@ActionSemantics(Of.SAFE)
@@ -174,11 +190,18 @@ public class EncargadoServicio extends AbstractFactoryAndRepository implements
 	}
 
 	/**
-	 * Metodo que realiza la Validacion del ingreso de fechas por el UI
-	 * 
-	 * @author RestoTesis
-	 * @since 10/06/2014
-	 * @version 1.0.0
+	 * Realiza la Validacion de existencia por dni, fecha, edad, telefono del ingreso por UI
+	 * @param String _nombre
+	 * @param String _apellido
+	 * @param long _dni
+	 * @param String _direccion
+	 * @param String _telefono
+	 * @param String _celular
+	 * @param String _correo
+	 * @param LocalDate fechadeNacimiento
+	 * @param LoccalDate fechadeIngreso
+	 * @param String _nombreUsuario
+	 * @param Password _password
 	 */
 	@Override
 	public String validateCrear(String _nombre, String _apellido,
@@ -218,12 +241,10 @@ public class EncargadoServicio extends AbstractFactoryAndRepository implements
 	}
 
 	/**
-	 * Validacion de la mayoria de edad de los Encargados ingresados; 6575 son
-	 * la cantidad de dias que tiene una persona de 18 años
-	 * 
-	 * @author RestoTesis
-	 * @since 10/06/2014
-	 * @version 1.0.0
+	 * Validacion de la mayoria de edad de los encargados ingresados 6575 son la
+	 * cantidad de dias que tiene una persona de 18 años
+	 * @param LocalDate fechadeNacimiento
+	 * @return boolean
 	 */
 	@Override
 	@Programmatic
@@ -236,12 +257,9 @@ public class EncargadoServicio extends AbstractFactoryAndRepository implements
 	}
 
 	/**
-	 * Obtiene la cantidad de dias entre la fecha de nacimiento y la fecha
-	 * actual
-	 * 
-	 * @author RestoTesis
-	 * @since 10/06/2014
-	 * @version 1.0.0
+	 * Obtiene la cantidad de dias entre la fecha de nacimiento y la fecha actual
+	 * @param LocalDate fechadeNacimiento
+	 * @return org.joda.time.Days meses
 	 */
 	@Override
 	@Programmatic

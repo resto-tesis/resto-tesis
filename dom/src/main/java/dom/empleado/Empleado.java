@@ -39,8 +39,8 @@ import org.apache.isis.applib.annotation.Where;
 import dom.persona.Persona;
 
 /**
- * Entidad Empleado la cual extiende de Persona
- * 
+ * Entidad Empleado la cual representa a las personas que trabajaran en el local comercial
+ * cualquiera fuera su funcion especifica, extiende de la clase Persona
  * @author RestoTesis
  * @since 10/05/2014
  * @version 1.0.0
@@ -55,6 +55,10 @@ public abstract class Empleado extends Persona {
 	// {{ Legajo (property)
 	private long legajo;
 
+	/**
+	 * Retorna el legajo del Empleado que se va a crear.
+	 * @return long legajo
+	 */
 	@TypicalLength(5)
 	@Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT, sequence = "secuenciaLegajo")
 	@MemberOrder(sequence = "1")
@@ -63,45 +67,70 @@ public abstract class Empleado extends Persona {
 		return legajo;
 	}
 
+	/**
+	 * Setea el legajo del Empleado que se va a crear.
+	 * @param long legajo
+	 */
 	public void setLegajo(final long legajo) {
 		this.legajo = legajo;
 	}
-
-	// }}
-
+	
 	// {{ fechaDeNacimiento (property)
 	private Date fechaDeNacimiento;
 
+	/**
+	 * Obtiene la fecha de nacimiento con un formato determinado
+	 * @return SimpleDateFormat formato
+	 */
 	@Hidden(where = Where.ALL_TABLES)
 	@MemberOrder(sequence = "5")
 	public String getFechaDeNacimiento() {
 		return formato.format(fechaDeNacimiento);
 	}
 
+	/**
+	 * Setea la fecha de nacimiento
+	 * @param Date fechaDeNacimiento
+	 */
 	public void setFechaDeNacimiento(final Date fechaDeNacimiento) {
 		this.fechaDeNacimiento = fechaDeNacimiento;
 	}
 
-	// }}
+	
 
 	// {{ fechaDeIngreso (property)
 	private Date fechaDeIngreso;
 
+	/**
+	 * Obtiene la fecha de ingreso con un formato determinado
+	 * @return SimpleDateFormat formato
+	 */
 	@MemberOrder(sequence = "6")
 	public String getFechaDeIngreso() {
 		return formato.format(fechaDeIngreso);
 	}
 
+	/**
+	 * Setea la fecha de ingreso
+	 * @param Date fechaDeIngreso
+	 */
 	public void setFechaDeIngreso(final Date fechaDeIngreso) {
 		this.fechaDeIngreso = fechaDeIngreso;
 	}
 
-	// }}
-
+	/**
+	 * Metodo para validar la existencia de un empleado por su dni 
+	 * @param long documento
+	 * @see dom.empleado.EmpleadoServicio.validarDocumento
+	 * @return long
+	 */
 	public String validateDocumento(long documento) {
 		return empleadoServicio.validarDocumento(documento);
 	}
 
+	/**
+	 * Injección del Servicio del Empleado
+	 */
 	@Inject
 	private EmpleadoServicio empleadoServicio;
 

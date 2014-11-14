@@ -26,7 +26,7 @@ import org.apache.isis.applib.annotation.MemberOrder;
 import dom.comanda.Comanda;
 
 /**
- * Estado Particular de la Comanda que implementa la Interface IEstadoComanda
+ * Estado Particular Preparada de la Comanda, que implementa la Interface IEstadoComanda
  * @author RestoTesis
  * @since 10/05/2014
  * @version 1.0.0
@@ -34,13 +34,24 @@ import dom.comanda.Comanda;
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 public class Preparada implements IEstadoComanda {
 
+	/**
+	 * Atributo Extra para implemtar el estado en particular
+	 */ 
 	private String mensajeEstadoActual = "Comanda Ya Preparada!!";
 
+	/**
+	 * Constructor donde se asigna el estado 
+	 * @param Comanda _comanda
+	 */
 	public Preparada(Comanda _comanda) {
 		// TODO Auto-generated constructor stub
 		comanda = _comanda;
 	}
 
+	/**
+	 * Retorna el nombre del icono del nuevo estado 
+	 * @return String
+	 */
 	public String iconName(){
 		return "PedidoPreparado";
 	}
@@ -48,48 +59,78 @@ public class Preparada implements IEstadoComanda {
 	// {{ Comanda (property)
 	private Comanda comanda;
 
+	/**
+	 * Obtiene una Comanda
+	 * @return Comanda comanda
+	 */
 	@MemberOrder(sequence = "1")
 	@Column(allowsNull = "true")
 	public Comanda getComanda() {
 		return comanda;
 	}
-
+	
+	/**
+	 * Setea una Comanda
+	 * @param Comanda comanda
+	 */
 	public void setComanda(final Comanda comanda) {
 		this.comanda = comanda;
 	}
 
-	// }}
-
+	/**
+	 * Metodo para cambiar el estado de la Comanda
+	 * al ser el ultimo estado posible, no varia.
+	 */
 	@Override
 	public void cambiarEstado() {
 		// TODO Auto-generated method stub
 		// getComanda().setEstado(getComanda().getFacturada());
 	}
 
+	/**
+	 * Asigna al titulo un estado
+	 * @return String
+	 */
 	@Override
 	public String title() {
 		// TODO Auto-generated method stub
 		return "Preparada";
 	}
 
+	/**
+	 * Envia el estado actual de la Comanda
+	 * @return String mensajeEstadoActual
+	 */
 	@Override
 	public String Enviar() {
 		// TODO Auto-generated method stub
 		return mensajeEstadoActual;
 	}
 
+	/**
+	 * Determina el estado actual de la Comanda
+	 * @return String mensajeEstadoActual
+	 */
 	@Override
 	public String Preparar() {
 		// TODO Auto-generated method stub
 		return mensajeEstadoActual;
 	}
 
+	/**
+	 * Determina el estado actual de la Comanda
+	 * @return String mensajeEstadoActual
+	 */
 	@Override
 	public String ComandaLista() {
 		// TODO Auto-generated method stub
 		return mensajeEstadoActual;
 	}
 
+	/**
+	 * Valida la modificacion del estado actual de la Comanda
+	 * @return String mensajeEstadoActual
+	 */
 	@Override
 	public String validarModificacion() {
 		// TODO Auto-generated method stub

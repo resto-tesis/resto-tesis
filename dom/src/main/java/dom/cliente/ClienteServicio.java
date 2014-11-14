@@ -52,17 +52,27 @@ import dom.usuario.Usuario;
 @Named("Cliente")
 public class ClienteServicio extends AbstractFactoryAndRepository {
 
+	/**
+	 * Retorna el nombre del icono para el cliente
+	 * @return String
+	 */
 	public String iconName() {
 		return "Cliente";
 	}
 
 	/**
 	 * Obtiene los datos validados del Cliente
-	 * 
-	 * @author RestoTesis
-	 * @since 10/06/2014
-	 * @version 1.0.0
-	 * @return nuevoCliente
+	 * @param String _apellido
+	 * @param String _nombre
+	 * @param long _dni
+	 * @param String _direccion
+	 * @param String _telefono
+	 * @param String _celular
+	 * @param String _correo
+	 * @param String _nombreUsusario
+	 * @param Password _password
+	 * @param Oferta _oferta
+	 * @return Cliente nuevoCliente
 	 */
 	@Named("Registrar")
 	@MemberOrder(sequence = "1")
@@ -83,13 +93,17 @@ public class ClienteServicio extends AbstractFactoryAndRepository {
 	}
 
 	/**
-	 * Realiza la validacion del ingreso del cliente
-	 * 
-	 * @author RestoTesis
-	 * @since 10/06/2014
-	 * @version 1.0.0
+	 * Realiza la validacion del ingreso del cliente por Dni y valida al menos un numero de Telefono
+	 * @param String _apellido
+	 * @param String _nombre
+	 * @param long _dni
+	 * @param String _direccion
+	 * @param String _telefono
+	 * @param String _celular
+	 * @param String _correo
+	 * @param String _nombreUsusario
+	 * @param Password _password
 	 */
-
 	public String validateCargarCliente(final String _apellido,
 			final String _nombre, final long _dni, final String _direccion,
 			final String _telefono, final String _celular,
@@ -120,11 +134,9 @@ public class ClienteServicio extends AbstractFactoryAndRepository {
 
 	/**
 	 * Crea Usuario y Password para el nuevo cliente
-	 * 
-	 * @author RestoTesis
-	 * @since 10/06/2014
-	 * @version 1.0.0
-	 * @return usuario
+	 * @param String _nombreUsuario
+	 * @param Password _password
+	 * @return Usuario usuario
 	 */
 	@Programmatic
 	public Usuario crearUsuario(final String _nombreUsuario,
@@ -139,12 +151,18 @@ public class ClienteServicio extends AbstractFactoryAndRepository {
 	}
 
 	/**
-	 * Persiste un nuevo Cliente
-	 * 
-	 * @author RestoTesis
-	 * @since 10/06/2014
-	 * @version 1.0.0
-	 * @return clienteNuevo
+	 * Toma el cliente ingresado y lo persiste 
+	 * @param String _apellido
+	 * @param String _nombre
+	 * @param long _dni
+	 * @param String _direccion
+	 * @param String _telefono
+	 * @param String _celular
+	 * @param String _correo
+	 * @param Usuario _usuario
+	 * @param Password _password
+	 * @param Cliente clienteNuevo
+	 * @return Cliente clienteNuevo
 	 */
 	@Programmatic
 	public Cliente nuevoCliente(Oferta _oferta, final String _apellido,
@@ -170,10 +188,7 @@ public class ClienteServicio extends AbstractFactoryAndRepository {
 
 	/**
 	 * Obtiene una lista de clientes Activos
-	 * 
-	 * @author RestoTesis
-	 * @since 10/06/2014
-	 * @version 1.0.0
+	 * @return List<Cliente>
 	 */
 	@Named("Listar")
 	@ActionSemantics(Of.SAFE)
@@ -191,10 +206,7 @@ public class ClienteServicio extends AbstractFactoryAndRepository {
 
 	/**
 	 * Obtiene una lista de todos los clientes
-	 * 
-	 * @author RestoTesis
-	 * @since 10/06/2014
-	 * @version 1.0.0
+	 * @return List<Cliente> listaDeClientes
 	 */
 	@Named("Listar Todos")
 	@ActionSemantics(Of.SAFE)

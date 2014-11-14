@@ -25,7 +25,8 @@ import javax.jdo.annotations.PersistenceCapable;
 import dom.empleado.Empleado;
 
 /**
- * Entidad Cocinero la cual extiende de Empleado
+ * Entidad Cocinero la cual representa un empleado del comercio, que desarrollara
+ * funciones especificas en la cocina, extiende de la clase Empleado
  * @author RestoTesis
  * @since 10/05/2014
  * @version 1.0.0
@@ -33,6 +34,11 @@ import dom.empleado.Empleado;
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
 public class Cocinero extends Empleado {
+	/**
+	 * Retorna el nombre del icono segun el Cocinero esta dado de baja/alta
+	 * @see dom.persona.Persona.getBaja();
+	 * @return String
+	 */
 	public String iconName() {
 		return getBaja() ? "CocineroBaja" : "Cocinero";
 	}

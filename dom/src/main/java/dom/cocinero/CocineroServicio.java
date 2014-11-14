@@ -43,7 +43,7 @@ import dom.usuario.Usuario;
 
 /**
  * Contiene la funcionalidad para Cargar/Listar un nuevo Cocinero
- * 
+ * implementa la inteface IValidacionEmpleado
  * @author RestoTesis
  * @since 10/06/2014
  * @version 1.0.0
@@ -52,23 +52,33 @@ import dom.usuario.Usuario;
 @DomainService()
 public class CocineroServicio extends AbstractFactoryAndRepository implements
 		IValidacionEmpleado {
-
+	/**
+	 * Retorna el nombre del icono del nuevo Cocinero 
+	 * @return String
+	 */
 	public String iconName() {
 		return "Cocinero";
 	}
 
-	/*
+	/**
 	 * Atributo Extra para las validaciones de las fechas
 	 */
 	final LocalDate fecha_actual = LocalDate.now();
 
 	/**
 	 * Obtiene los datos validados de un nuevo Cocinero
-	 * 
-	 * @author RestoTesis
-	 * @since 10/06/2014
-	 * @version 1.0.0
-	 * @return nuevoCliente
+	 * @param String _apellido
+	 * @param String _nombre
+	 * @param long _dni
+	 * @param String _direccion
+	 * @param String _telefono
+	 * @param String _celular
+	 * @param String _correo
+	 * @param LocalDate fechadeNacimiento
+	 * @param LocalDate fechadeIngreso
+	 * @param String _nombreUsusario
+	 * @param Password _password
+	 * @return Cocinero cocineroNuevo
 	 */
 	@Named("Nuevo Cocinero")
 	@MemberOrder(name = "Empleados", sequence = "10.5")
@@ -88,14 +98,9 @@ public class CocineroServicio extends AbstractFactoryAndRepository implements
 				_nombre, _apellido, _dni, _direccion, _telefono, _celular,
 				_correo, fechadeNacimiento, fechadeIngreso);
 	}
-
 	/**
-	 * Crea Usuario y Password para el nuevo cocinero
-	 * 
-	 * @author RestoTesis
-	 * @since 10/06/2014
-	 * @version 1.0.0
-	 * @return usuario
+	 * Crea y persiste el Usuario y Password para el nuevo cocinero
+	 * @return Usuario usuario
 	 */
 	@Programmatic
 	public Usuario crearUsuario(final String _nombreUsuario,
@@ -108,14 +113,20 @@ public class CocineroServicio extends AbstractFactoryAndRepository implements
 		persistIfNotAlready(usuario);
 		return usuario;
 	}
-
 	/**
 	 * Persiste un nuevo Cocinero
-	 * 
-	 * @author RestoTesis
-	 * @since 10/06/2014
-	 * @version 1.0.0
-	 * @return clienteNuevo
+	 * @param Usuario _usuario
+	 * @param String _nombre
+	 * @param String _apellido
+	 * @param long _dni
+	 * @param String _direccion
+	 * @param String _telefono
+	 * @param String _celular
+	 * @param String _correo
+	 * @param LocalDate fechadeNacimiento
+	 * @param LoccalDate fechadeIngreso
+	 * @param Cocinero cocineroNuevo 
+	 * @return Cocinero cocineroNuevo
 	 */
 	@Programmatic
 	public Cocinero crearNuevoCocinero(final Usuario _usuario,
@@ -140,7 +151,11 @@ public class CocineroServicio extends AbstractFactoryAndRepository implements
 		persist(cocineroNuevo);
 		return cocineroNuevo;
 	}
-
+	/**
+	 * Obtiene una lista de Cocineros de alta
+	 * @see dom.persona.Persona.getBaja()
+	 * @return List<Cocinero>
+	 */
 	@Named("Cocineros")
 	@MemberOrder(name = "Empleados", sequence = "10.2")
 	@ActionSemantics(Of.SAFE)
@@ -157,10 +172,7 @@ public class CocineroServicio extends AbstractFactoryAndRepository implements
 
 	/**
 	 * Obtiene una lista de todos los Cocinero
-	 * 
-	 * @author RestoTesis
-	 * @since 10/06/2014
-	 * @version 1.0.0
+	 * @return List<Cocinero> listaCocinero
 	 */
 	@Named("Cocineros")
 	@MemberOrder(name = "Empleados", sequence = "10.2")
@@ -171,11 +183,19 @@ public class CocineroServicio extends AbstractFactoryAndRepository implements
 	}
 
 	/**
-	 * Realiza la Validacion del ingreso de fechas por el UI
-	 * 
-	 * @author RestoTesis
-	 * @since 10/06/2014
-	 * @version 1.0.0
+	 * Realiza la Validacion de existencia por dni, fecha, edad, telefono del ingreso por UI
+	 * @param String _nombre
+	 * @param String _apellido
+	 * @param long _dni
+	 * @param String _direccion
+	 * @param String _telefono
+	 * @param String _celular
+	 * @param String _correo
+	 * @param LocalDate fechadeNacimiento
+	 * @param LoccalDate fechadeIngreso
+	 * @param String _nombreUsuario
+	 * @param Password _password
+	 * @return String
 	 */
 	@Override
 	public String validateCrear(String _nombre, String _apellido,
@@ -213,16 +233,13 @@ public class CocineroServicio extends AbstractFactoryAndRepository implements
 		return _telefono == null && _celular == null ? "Debe ingresar al menos un teléfono"
 				: null;
 	}
-
 	/**
 	 * Validacion de la mayoria de edad de los empleados ingresados 6575 son la
 	 * cantidad de dias que tiene una persona de 18 años
-	 * 
-	 * @author RestoTesis
-	 * @since 10/06/2014
-	 * @version 1.0.0
+	 * @param LocalDate fechadeNacimiento
+	 * @return boolean
 	 */
-	@Override
+@Override
 	@Programmatic
 	public boolean validaMayorEdad(LocalDate fechadeNacimiento) {
 		// TODO Auto-generated method stub
@@ -233,12 +250,9 @@ public class CocineroServicio extends AbstractFactoryAndRepository implements
 	}
 
 	/**
-	 * Obtiene la cantidad de dias entre la fecha de nacimiento y la fecha
-	 * actual
-	 * 
-	 * @author RestoTesis
-	 * @since 10/06/2014
-	 * @version 1.0.0
+	 * Obtiene la cantidad de dias entre la fecha de nacimiento y la fecha actual
+	 * @param LocalDate fechadeNacimiento
+	 * @return org.joda.time.Days meses
 	 */
 	@Override
 	@Programmatic

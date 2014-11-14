@@ -34,7 +34,9 @@ import com.google.common.base.Predicate;
  */
 @DomainService(menuOrder = "10")
 public class EmpleadoServicio extends AbstractFactoryAndRepository {
-
+	/**
+	 * Constructor de la clase EmpleadoServicio
+	 */
 	public EmpleadoServicio() {
 		// TODO Auto-generated constructor stub
 	}
@@ -43,10 +45,9 @@ public class EmpleadoServicio extends AbstractFactoryAndRepository {
 
 	/**
 	 * Metodo para validar la existencia de un empleado por su dni 
-	 * @author RestoTesis
-	 * @since 10/06/2014
-	 * @version 1.0.0
 	 * @param long _dni
+	 * @see dom.persona.Persona.getDocumento()
+	 * @return null
 	 */
 	@Programmatic
 	public String validarDocumento(final long _dni) {
@@ -57,16 +58,19 @@ public class EmpleadoServicio extends AbstractFactoryAndRepository {
 	}
 
 	/**
-	 * Metodo para obtener la lista de Empleados 
-	 * @author RestoTesis
-	 * @since 10/06/2014
-	 * @version 1.0.0
-	*/
+	 * Obtiene una lista de la totalidad de los Empleados 
+	 * @return List<Empleado>
+	 */
 	@Programmatic
 	public List<Empleado> listarEmpleadosTodos() {
 		return allInstances(Empleado.class);
 	}
 
+	/**
+	 * Obtiene una lista de los Empleados de alta
+	 * @see dom.persona.Persona.getBaja()
+	 * @return List<Empleado>
+	 */
 	@Programmatic
 	public List<Empleado> listarEmpleadosAlta() {
 		return allMatches(Empleado.class, new Predicate<Empleado>() {

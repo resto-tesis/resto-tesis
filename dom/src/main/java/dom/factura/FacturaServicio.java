@@ -32,14 +32,44 @@ import dom.objetosValor.ValueProductoElaborado;
 import dom.objetosValor.ValueProductoNoElaborado;
 import dom.pedido.Pedido;
 
+/**
+ * Clase que da funcionalidad de crear y persistir la Factura
+ * @author RestoTesis
+ * @since 15/10/2014
+ * @version 1.0.0
+ */
 @DomainService(menuOrder = "90")
 @Named("Facturas")
 public class FacturaServicio extends AbstractFactoryAndRepository {
 
+	/**
+	 * Constructor de la clase FacturaServicio
+	 */
 	public FacturaServicio() {
 		// TODO Auto-generated constructor stub
 	}
 
+	/**
+	 * Metodo que crea y persiste una nueva Factura, cargando todos sus items con precio  
+	 * @param List<Pedido> _pedidos
+	 * @see dom.objetosValor.ValueProductoNoElaborado.getProducto()
+	 * @see dom.objetosValor.ValueProductoNoElaborado.getCantidad()
+	 * @see dom.objetosValor.ValueMenu.getMenu()
+	 * @see dom.producto.Producto.getNombre()
+	 * @see dom.producto.Producto.getPrecio()
+	 * @see dom.factura.ItemFactura.getPrecioFinal()
+	 * @see dom.pedido.Pedido.getComanda()
+	 * @see dom.pedido.Pedido.getBebidas()
+	 * @see dom.comanda.Comanda.getMenues()
+	 * @see dom.menu.Menu.getNombre()
+	 * @see dom.menu.Menu.getDescuento()
+	 * @see dom.menu.Menu.getPrecioSinDescuento()
+	 * @see dom.menu.Menu.getPlatoPrincipal()
+	 * @see dom.menu.Menu.getPlatoEntrada()
+	 * @see dom.menu.Menu.getPostre()
+	 * @see dom.menu.Menu.getGuarnicion()
+	 * @return Factura factura
+	 */
 	@Programmatic
 	public Factura crearFactura(final List<Pedido> _pedidos) {
 		double precioTotal = 0;
@@ -127,7 +157,11 @@ public class FacturaServicio extends AbstractFactoryAndRepository {
 		persist(factura);
 		return factura;
 	}
-
+	
+	/**
+	 * Obtiene una lista de todas las facturas
+	 * @return List<Factura> lista
+	 */
 	@Named("Listar")
 	@ActionSemantics(Of.SAFE)
 	@MemberOrder(sequence = "60")

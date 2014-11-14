@@ -38,8 +38,8 @@ import dom.oferta.Oferta;
 import dom.persona.Persona;
 
 /**
- * Entidad Cliente la cual extiende de Persona
- * 
+ * Entidad Cliente la cual representa a cualquier persona que consuma 
+ * productos dentro del local, extiende de la clase Persona
  * @author RestoTesis
  * @since 10/05/2014
  * @version 1.0.0
@@ -49,6 +49,11 @@ import dom.persona.Persona;
 @Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
 public class Cliente extends Persona implements IObservador {
 
+	/**
+	 * Obtiene el nombre del icono segun el cliente este dado de baja/alta
+	 * @see dom.persona.Persona.getBaja();
+	 * @return String
+	 */
 	public String iconName() {
 		return getBaja() ? "ClienteDes" : "Cliente";
 	}
@@ -56,6 +61,10 @@ public class Cliente extends Persona implements IObservador {
 	// {{ NumeroCliente (property)
 	private long numeroCliente;
 
+	/**
+	 * Retorna el numero de Cliente que se va a crear.
+	 * @return long numeroCliente
+	 */
 	@TypicalLength(5)
 	@Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT, sequence = "secuenciaNumeroCliente")
 	@MemberOrder(sequence = "1")
@@ -64,6 +73,10 @@ public class Cliente extends Persona implements IObservador {
 		return numeroCliente;
 	}
 
+	/**
+	 * Setea el numero de Cliente que se va a crear.
+	 * @param long numeroCliente
+	 */
 	public void setNumeroCliente(final long numeroCliente) {
 		this.numeroCliente = numeroCliente;
 	}
@@ -96,6 +109,10 @@ public class Cliente extends Persona implements IObservador {
 	// {{ Oferta (property)
 	private Oferta oferta;
 
+	/**
+	 * Retorna la Oferta que se va a crear.
+	 * @return Oferta oferta
+	 */
 	@Hidden
 	@Optional
 	@MemberOrder(sequence = "1")
@@ -103,6 +120,10 @@ public class Cliente extends Persona implements IObservador {
 		return oferta;
 	}
 
+	/**
+	 * Setea la Oferta que se va a crear.
+	 * @param Oferta oferta
+	 */
 	public void setOferta(final Oferta oferta) {
 		this.oferta = oferta;
 	}
@@ -113,11 +134,7 @@ public class Cliente extends Persona implements IObservador {
 
 	/**
 	 * Metodo a implementar para actualizar la oferta
-	 * 
-	 * @author RestoTesis
-	 * @since 10/06/2014
-	 * @version 1.0.0
-	 * @param _oferta
+	 * @param Oferta _oferta
 	 */
 	@Override
 	public void actualizar(Oferta _oferta) {

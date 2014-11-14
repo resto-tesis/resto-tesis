@@ -39,14 +39,26 @@ import org.apache.isis.applib.annotation.Render.Type;
 import org.apache.isis.applib.annotation.Title;
 import org.apache.isis.applib.annotation.TypicalLength;
 
+/**
+ * Entidad Factura, la cual representa un comprobante donde figura un detalle de 
+ * lo que ha sido consumido por un un cliente y cuanto se debe abonar por ello 
+ * @author RestoTesis
+ * @since 15/10/2014
+ * @version 1.0.0
+ */
 @Sequence(name = "secuenciaNumeroFactura", strategy = SequenceStrategy.CONTIGUOUS)
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 public class Factura {
-
+	/**
+	 * Retorna el nombre del icono de una nueva Factura 
+	 * @return String
+	 */
 	public String iconName(){
 		return "Factura";
 	}
-	
+	/**
+	 * Constructor de la clase Factura
+	 */
 	public Factura() {
 		// TODO Auto-generated constructor stub
 	}
@@ -54,6 +66,10 @@ public class Factura {
 	// {{ Numero (property)
 	private long numero;
 
+	/**
+	 * Obtiene el numero de una nueva Factura, el cual se genera en forma automatica
+	 * @return long numero
+	 */
 	@Title(prepend = "Factura Nº ")
 	@Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT, sequence = "secuenciaNumeroFactura")
 	@Named("Número")
@@ -65,15 +81,22 @@ public class Factura {
 		return numero;
 	}
 
+	/**
+	 * Setea el numero de una Factura
+	 * @param long numero
+	 */
 	public void setNumero(final long numero) {
 		this.numero = numero;
 	}
 
-	// }}
 
 	// {{ Total (property)
 	private double total;
 
+	/**
+	 * Obtiene el total de la Factura que se va a crear.
+	 * @return double total
+	 */
 	@Named("Total ($)")
 	@Disabled
 	@MemberOrder(sequence = "1")
@@ -82,6 +105,10 @@ public class Factura {
 		return total;
 	}
 
+	/**
+	 * Setea el total de la Factura
+	 * @param double total
+	 */
 	public void setTotal(final double total) {
 		this.total = total;
 	}
@@ -91,6 +118,10 @@ public class Factura {
 	// {{ Items (Collection)
 	private List<ItemFactura> items = new ArrayList<ItemFactura>();
 
+	/**
+	 * Obtiene una lista de los items de la factura
+	 * @return List<Itemfactura> items
+	 */
 	@Join
 	@Named("Detalle")
 	@Render(Type.EAGERLY)
@@ -99,16 +130,26 @@ public class Factura {
 		return items;
 	}
 
+	/**
+	 * Setea la lista de los items de la factura
+	 * @param List<Itemfactura> items
+	 */
 	public void setItems(final List<ItemFactura> items) {
 		this.items = items;
 	}
 
-	// }}
-
+	/**
+	 * Agrega un item a la lista de items de la factura
+	 * @param List<Itemfactura> _item
+	 */
 	public void addToItems(final ItemFactura _item) {
 		items.add(_item);
 	}
 
+	/**
+	 * remueve un item de la lista de items de la factura
+	 * @param List<Itemfactura> _item
+	 */
 	public void removeFromItems(final ItemFactura _item) {
 		items.remove(_item);
 	}

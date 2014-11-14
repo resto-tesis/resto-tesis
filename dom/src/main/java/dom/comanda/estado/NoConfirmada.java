@@ -27,7 +27,7 @@ import org.apache.isis.applib.annotation.Programmatic;
 import dom.comanda.Comanda;
 
 /**
- * Estado Particular de la Comanda que implementa la Interface IEstadoComanda
+ * Estado Particular No confirmada de la Comanda, que implementa la Interface IEstadoComanda
  * @author RestoTesis
  * @since 10/05/2014
  * @version 1.0.0
@@ -35,32 +35,53 @@ import dom.comanda.Comanda;
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 public class NoConfirmada implements IEstadoComanda {
 
+	/**
+	 * Atributo Extra para implemtar el estado en particular
+	 */
 	private String mensajeEstadoActual = "Comanda no Confirmada";
 
+	/**
+	 * Constructor donde se asigna el estado 
+	 * @param Comanda _comanda
+	 */
 	public NoConfirmada(Comanda _comanda) {
 		// TODO Auto-generated constructor stub
 		comanda = _comanda;
 	}
 
+	/**
+	 * Retorna el nombre del icono del nuevo estado 
+	 * @return String
+	 */
 	public String iconName(){
 		return "PedidoVacio";
 	}
 		
 	// {{ Comanda (property)
 	private Comanda comanda;
-
+	
+	/**
+	 * Obtiene una Comanda
+	 * @return Comanda comanda
+	 */
 	@MemberOrder(sequence = "1")
 	@Column(allowsNull = "true")
 	public Comanda getComanda() {
 		return comanda;
 	}
-
+	
+	/**
+	 * Setea una Comanda
+	 * @param Comanda comanda
+	 */
 	public void setComanda(final Comanda comanda) {
 		this.comanda = comanda;
 	}
 
-	// }}
-
+	/**
+	 * Asigna al titulo un estado
+	 * @return String
+	 */
 	@Override
 	public String title() {
 		// TODO Auto-generated method stub
@@ -69,9 +90,6 @@ public class NoConfirmada implements IEstadoComanda {
 
 	/**
 	 * Metodo para cambiar el estado de la Comanda
-	 * @author RestoTesis
-	 * @since 10/05/2014
-	 * @version 1.0.0
 	 */
 	@Override
 	@Programmatic
@@ -80,6 +98,10 @@ public class NoConfirmada implements IEstadoComanda {
 		getComanda().setEstado(getComanda().getEnEspera());
 	}
 
+	/**
+	 * Envia el estado actual de la Comanda
+	 * @return String or null
+	 */
 	@Override
 	@Programmatic
 	public String Enviar() {
@@ -90,6 +112,10 @@ public class NoConfirmada implements IEstadoComanda {
 		return null;
 	}
 
+	/**
+	 * Determina el estado actual de la Comanda
+	 * @return String mensajeEstadoActual
+	 */
 	@Override
 	@Programmatic
 	public String Preparar() {
@@ -97,13 +123,21 @@ public class NoConfirmada implements IEstadoComanda {
 		return mensajeEstadoActual;
 	}
 
+	/**
+	 * Determina el estado actual de la Comanda
+	 * @return String mensajeEstadoActual
+	 */
 	@Override
 	@Programmatic
 	public String ComandaLista() {
 		// TODO Auto-generated method stub
 		return mensajeEstadoActual;
 	}
-
+	
+	/**
+	 * Valida la modificacion del estado actual de la Comanda
+	 * @return null
+	 */
 	@Override
 	@Programmatic
 	public String validarModificacion() {

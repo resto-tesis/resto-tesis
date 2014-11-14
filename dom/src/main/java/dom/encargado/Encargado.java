@@ -25,7 +25,8 @@ import javax.jdo.annotations.PersistenceCapable;
 import dom.empleado.Empleado;
 
 /**
- * Entidad Empleado la cual extiende de Persona
+ * Entidad Encargado la cual representa un empleado del comercio, que desarrollara
+ * funciones especificas de encargado de los demas empleados, extiende de la clase Empleado
  * @author RestoTesis
  * @since 10/05/2014
  * @version 1.0.0
@@ -33,6 +34,11 @@ import dom.empleado.Empleado;
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
 public class Encargado extends Empleado {
+	/**
+	 * Retorna el nombre del icono segun el Encargado esta dado de baja/alta
+	 * @see dom.persona.Persona.getBaja()
+	 * @return Strnig
+	 */
 	public String iconName() {
 		return getBaja() ? "EncargadoBaja" : "Encargado";
 	}

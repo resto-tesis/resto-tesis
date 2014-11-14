@@ -30,10 +30,18 @@ import org.apache.isis.applib.annotation.Where;
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 public class ItemFactura {
 
+	/**
+	 * Retorna el nombre del icono del item de la factura 
+	 * @return String
+	 */
 	public String iconName() {
 		return "ItemFactura";
 	}
 
+	/**
+	 * Constructor de la clase ItemFactura 
+	 * @return String
+	 */
 	public ItemFactura() {
 		// TODO Auto-generated constructor stub
 	}
@@ -41,6 +49,10 @@ public class ItemFactura {
 	// {{ Nombre (property)
 	private String nombre;
 
+	/**
+	 * Obtiene el nombre de una nueva Factura
+	 * @return String nombre
+	 */
 	@Title
 	@Hidden(where = Where.ALL_TABLES)
 	@MemberOrder(sequence = "1")
@@ -49,15 +61,21 @@ public class ItemFactura {
 		return nombre;
 	}
 
+	/**
+	 * Setea el nombre de una factura
+	 * @param String nombre
+	 */
 	public void setNombre(final String nombre) {
 		this.nombre = nombre;
 	}
 
-	// }}
-
 	// {{ Precio (property)
 	private double precio;
 
+	/**
+	 * Obtiene el precio de una nueva Factura
+	 * @return double precio
+	 */
 	@Named("Precio ($)")
 	@MemberOrder(sequence = "3")
 	@Column(allowsNull = "false")
@@ -65,20 +83,30 @@ public class ItemFactura {
 		return precio;
 	}
 
+	/**
+	 * Setea el precio de una nueva Factura
+	 * @param double precio
+	 */
 	public void setPrecio(final double precio) {
 		this.precio = precio;
 	}
 
-	// }}
-
 	// {{ Cantidad (property)
 	private int cantidad;
 
+	/**
+	 * Obtiene la cantidad de una nueva Factura
+	 * @return int cantidad
+	 */
 	@MemberOrder(sequence = "1")
 	@Column(allowsNull = "false")
 	public int getCantidad() {
 		return cantidad;
 	}
+	/**
+	 * Setea la cantidad de una nueva Factura
+	 * @param int cantidad
+	 */
 
 	public void setCantidad(final int cantidad) {
 		this.cantidad = cantidad;
@@ -89,6 +117,10 @@ public class ItemFactura {
 	// {{ Descuento (property)
 	private int descuento;
 
+	/**
+	 * Obtiene el descuento de una nueva Factura
+	 * @return int descuento
+	 */
 	@Named("Descuento (%)")
 	@MemberOrder(sequence = "4")
 	@Column(allowsNull = "false")
@@ -96,12 +128,18 @@ public class ItemFactura {
 		return descuento;
 	}
 
+	/**
+	 * Setea el descuento de una nueva Factura
+	 * @param int descuento
+	 */
 	public void setDescuento(final int descuento) {
 		this.descuento = descuento;
 	}
 
-	// }}
-
+	/**
+	 * Realiza los calculos para obtener el precio final de una nueva Factura
+	 * @return double precio
+	 */
 	@Named("Precio Final ($)")
 	@MemberOrder(sequence = "5")
 	public double getPrecioFinal() {

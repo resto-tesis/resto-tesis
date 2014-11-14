@@ -42,9 +42,20 @@ import dom.factura.Factura;
 import dom.mozo.Mozo;
 import dom.pedido.Pedido;
 
+/**
+ * Entidad que representa una Mesa donde se sentaran los clientes
+ * para realizar las consumisiones
+ * @author RestoTesis
+ * @since 10/05/2014
+ * @version 1.0.0
+ */
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 public class Mesa {
 
+	/**
+	 * Obtiene el nombre del icono segun su estado de asignacion y ocupacion
+	 * @return String
+	 */
 	public String iconName() {
 		if (getEstadoAsignacion() == EstadoAsignacionMesaEnum.No_Asignada)
 			return "MesaNoAsig";
@@ -56,6 +67,10 @@ public class Mesa {
 	// {{ EstadoSeleccion (property)
 	private boolean estadoSeleccion;
 
+	/**
+	 * Obtiene el estado de seleccion de una mesa
+	 * @return boolean estadoSeleccion
+	 */
 	@Hidden
 	@Disabled
 	@Column(allowsNull = "false")
@@ -63,13 +78,19 @@ public class Mesa {
 	public boolean getEstadoSeleccion() {
 		return estadoSeleccion;
 	}
-
+	
+	/**
+	 * Setea el estado de seleccion de una mesa
+	 * @param boolean estadoSeleccion
+	 */ 
 	public void setEstadoSeleccion(final boolean estadoSeleccion) {
 		this.estadoSeleccion = estadoSeleccion;
 	}
 
-	// }}
-
+	/**
+	 * Obtiene una lista de mozos para asignar mesa
+	 * @return list<Mozo>
+	 */
 	@Bulk
 	@MemberOrder(sequence = "2")
 	public List<Mozo> seleccionar() {
@@ -77,7 +98,11 @@ public class Mesa {
 			setEstadoSeleccion(true);
 		return mesaServicio.listarMozos();
 	}
-
+	
+	/**
+	 * Obtiene e informa el estado de asignacion de la mesa (Asignada) 
+	 * @return String 
+	 */
 	public String disableSeleccionar() {
 		return (estadoAsignacion == EstadoAsignacionMesaEnum.Asignada) ? "Mesa Ya Asignada."
 				: null;
@@ -86,6 +111,10 @@ public class Mesa {
 	// {{ Numero (property)
 	private int numero;
 
+	/**
+	 * Obtiene el numero de la Mesa que se va a crear.
+	 * @return int numero
+	 */
 	@Named("Número")
 	@Disabled
 	@Title(prepend = "Mesa Nro. ")
@@ -94,27 +123,35 @@ public class Mesa {
 	public int getNumero() {
 		return numero;
 	}
-
+	
+	/**
+	 * Setea el numero de la Mesa que se va a crear.
+	 * @param int numeroMesa
+	 */
 	public void setNumero(final int numeroMesa) {
 		this.numero = numeroMesa;
 	}
 
-	// }}
-
 	// {{ Capacidad (property)
 	private int capacidad;
 
+	/**
+	 * Obtiene la capacidad de la Mesa que se va a crear.
+	 * @return int capacidad
+	 */
 	@Column(allowsNull = "false")
 	@MemberOrder(sequence = "3")
 	public int getCapacidad() {
 		return capacidad;
 	}
 
+	/**
+	 * Setea la capacidad de la Mesa.
+	 * @param int capacidadMesa
+	 */
 	public void setCapacidad(final int capacidadMesa) {
 		this.capacidad = capacidadMesa;
 	}
-
-	// }}
 
 	// {{ EstadoHabilitacion (property)
 	private EstadoHabilitacionMesaEnum estadoHabilitacion;

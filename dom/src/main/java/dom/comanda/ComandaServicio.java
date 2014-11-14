@@ -18,19 +18,14 @@
 package dom.comanda;
 
 import java.util.Date;
-
 import org.apache.isis.applib.AbstractFactoryAndRepository;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.Programmatic;
-
 import com.google.common.base.Predicate;
-
 import dom.empleado.Empleado;
-import dom.mozo.Mozo;
 
 /**
  * Clase que da funcionalidad de crear y persistir la comanda
- * 
  * @author RestoTesis
  * @since 10/06/2014
  * @version 1.0.0
@@ -43,12 +38,11 @@ public class ComandaServicio extends AbstractFactoryAndRepository {
 	}
 
 	/**
-	 * Metodo que crea y persiste la comanda
-	 * 
-	 * @author RestoTesis
-	 * @since 10/05/2014
-	 * @version 1.0.0
-	 */
+	* Metodo que crea y persiste la comanda
+	* @see dom.persona.Persona.getUsuario()
+	* @see dom.usuario.Usuario.getNombre()
+	* @return Comanda comanda
+	*/
 	@Programmatic
 	public Comanda crearComanda() {
 		final Empleado usuarioActual = uniqueMatch(Empleado.class,

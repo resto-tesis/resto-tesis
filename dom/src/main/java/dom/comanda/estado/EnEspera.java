@@ -27,7 +27,7 @@ import org.apache.isis.applib.annotation.Programmatic;
 import dom.comanda.Comanda;
 
 /**
- * Estado Particular de la Comanda que implementa la Interface IEstadoComanda
+ * Estado Particular En Espera de la Comanda, que implementa la Interface IEstadoComanda
  * @author RestoTesis
  * @since 10/05/2014
  * @version 1.0.0
@@ -35,13 +35,24 @@ import dom.comanda.Comanda;
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 public class EnEspera implements IEstadoComanda {
 
+	/**
+	 * Atributo Extra para implemtar el estado en particular
+	 */
 	private String mensajeEstadoActual = "Comanda en Espera";
 
+	/**
+	 * Constructor donde se asigna el estado 
+	 * @param Comanda _comanda
+	 */
 	public EnEspera(Comanda _comanda) {
 		// TODO Auto-generated constructor stub
 		comanda = _comanda;
 	}
 
+	/**
+	 * Retorna el nombre del icono del nuevo estado 
+	 * @return String
+	 */
 	public String iconName(){
 		return "PedidoEnEspera2";
 	}
@@ -49,18 +60,28 @@ public class EnEspera implements IEstadoComanda {
 	// {{ Comanda (property)
 	private Comanda comanda;
 
+	/**
+	 * Obtiene una Comanda
+	 * @return Comanda comanda
+	 */
 	@MemberOrder(sequence = "1")
 	@Column(allowsNull = "true")
 	public Comanda getComanda() {
 		return comanda;
 	}
 
+	/**
+	 * Setea una Comanda
+	 * @param Comanda comanda
+	 */
 	public void setComanda(final Comanda comanda) {
 		this.comanda = comanda;
 	}
 
-	// }}
-
+	/**
+	 * Asigna al titulo un estado
+	 * @return String
+	 */
 	@Override
 	public String title() {
 		return "En Espera";
@@ -68,9 +89,6 @@ public class EnEspera implements IEstadoComanda {
 
 	/**
 	 * Metodo para cambiar el estado de la Comanda
-	 * @author RestoTesis
-	 * @since 10/05/2014
-	 * @version 1.0.0
 	 */
 	@Override
 	@Programmatic
@@ -79,6 +97,10 @@ public class EnEspera implements IEstadoComanda {
 		getComanda().setEstado(getComanda().getEnPreparacion());
 	}
 
+	/**
+	 * Envia el estado actual de la Comanda
+	 * @return String mensajeEstadoActual
+	 */
 	@Override
 	@Programmatic
 	public String Enviar() {
@@ -86,6 +108,10 @@ public class EnEspera implements IEstadoComanda {
 		return mensajeEstadoActual;
 	}
 
+	/**
+	 * Determina el estado actual de la Comanda
+	 * @return null
+	 */
 	@Override
 	@Programmatic
 	public String Preparar() {
@@ -93,6 +119,10 @@ public class EnEspera implements IEstadoComanda {
 		return null;
 	}
 
+	/**
+	 * Determina el estado actual de la Comanda
+	 * @return String mensajeEstadoActual
+	 */
 	@Override
 	@Programmatic
 	public String ComandaLista() {
@@ -100,6 +130,10 @@ public class EnEspera implements IEstadoComanda {
 		return mensajeEstadoActual;
 	}
 
+	/**
+	 * Valida la modificacion del estado actual de la Comanda
+	 * @return null
+	 */
 	@Override
 	@Programmatic
 	public String validarModificacion() {
