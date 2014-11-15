@@ -26,34 +26,34 @@ import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.TypicalLength;
 
-import dom.menu.Menu;
+import dom.oferta.Oferta;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
-public class ValueMenu {
+public class ValueOferta {
 
 	public String iconName() {
-		return getMenu().iconName();
+		return getOferta().iconName();
 	}
 
-	public ValueMenu() {
+	public ValueOferta() {
 		// TODO Auto-generated constructor stub
 	}
 
 	public String title() {
-		return getMenu().getNombre() + " (x " + getCantidad() + ")";
+		return getOferta().getNombre() + " (x " + getCantidad() + ")";
 	}
 
-	// {{ Menu (property)
-	private Menu menu;
+	// {{ Oferta (property)
+	private Oferta oferta;
 
-	@MemberOrder(sequence = "5")
+	@MemberOrder(sequence = "1")
 	@Column(allowsNull = "false")
-	public Menu getMenu() {
-		return menu;
+	public Oferta getOferta() {
+		return oferta;
 	}
 
-	public void setMenu(final Menu menu) {
-		this.menu = menu;
+	public void setOferta(final Oferta oferta) {
+		this.oferta = oferta;
 	}
 
 	// }}

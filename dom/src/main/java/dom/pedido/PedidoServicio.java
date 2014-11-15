@@ -23,6 +23,8 @@ import javax.inject.Inject;
 
 import org.apache.isis.applib.AbstractFactoryAndRepository;
 import org.apache.isis.applib.annotation.DomainService;
+import org.apache.isis.applib.annotation.Named;
+import org.apache.isis.applib.annotation.Optional;
 import org.apache.isis.applib.annotation.Programmatic;
 
 import dom.comanda.ComandaServicio;
@@ -30,8 +32,11 @@ import dom.menu.Menu;
 import dom.menu.MenuServicio;
 import dom.mesa.Mesa;
 import dom.objetosValor.ValueMenu;
+import dom.objetosValor.ValueOferta;
 import dom.objetosValor.ValueProductoElaborado;
 import dom.objetosValor.ValueProductoNoElaborado;
+import dom.oferta.Oferta;
+import dom.oferta.OfertaServicio;
 import dom.producto.ProductoElaborado;
 import dom.producto.bebida.Bebida;
 import dom.producto.bebida.BebidaServicio;
@@ -96,6 +101,11 @@ public class PedidoServicio extends AbstractFactoryAndRepository {
 	}
 
 	@Programmatic
+	public List<Oferta> listarOfertas() {
+		return ofertaServicio.listarOfertasAlta();
+	}
+
+	@Programmatic
 	public void agregarMenu(final Menu _menu1, final Integer _cantidad1,
 			final String _nota1, final Menu _menu2, final Integer _cantidad2,
 			final String _nota2, Pedido _pedido) {
@@ -112,6 +122,26 @@ public class PedidoServicio extends AbstractFactoryAndRepository {
 			menu2.setNota(_nota2);
 			persist(menu2);
 			_pedido.getComanda().addToMenues(menu2);
+		}
+	}
+
+	@Programmatic
+	public void agregarOferta(final Oferta _oferta1, final Integer _cantidad1,
+			final String _nota1, final Oferta _oferta2,
+			final Integer _cantidad2, final String _nota2, Pedido _pedido) {
+		final ValueOferta oferta = newTransientInstance(ValueOferta.class);
+		oferta.setOferta(_oferta1);
+		oferta.setCantidad(_cantidad1 == null ? 1 : _cantidad1);
+		oferta.setNota(_nota1);
+		persist(oferta);
+		_pedido.getComanda().addToOfertas(oferta);
+		if (_oferta2 != null) {
+			final ValueOferta oferta2 = newTransientInstance(ValueOferta.class);
+			oferta2.setOferta(_oferta2);
+			oferta2.setCantidad(_cantidad2 == null ? 1 : _cantidad2);
+			oferta2.setNota(_nota2);
+			persist(oferta2);
+			_pedido.getComanda().addToOfertas(oferta2);
 		}
 	}
 
@@ -215,10 +245,13 @@ public class PedidoServicio extends AbstractFactoryAndRepository {
 	@Inject
 	private BebidaServicio bebidaServicio;
 
+	@Inject
+	private OfertaServicio ofertaServicio;
+
 	@Programmatic
 	public Mesa volver(Pedido pedido) {
 		// TODO Auto-generated method stub
 		return pedido.getMesa();
 	}
-	
+
 }

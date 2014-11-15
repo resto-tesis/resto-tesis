@@ -47,8 +47,10 @@ import dom.comanda.Comanda;
 import dom.menu.Menu;
 import dom.mesa.Mesa;
 import dom.objetosValor.ValueMenu;
+import dom.objetosValor.ValueOferta;
 import dom.objetosValor.ValueProductoElaborado;
 import dom.objetosValor.ValueProductoNoElaborado;
+import dom.oferta.Oferta;
 import dom.producto.bebida.Bebida;
 import dom.producto.guarnicion.Guarnicion;
 import dom.producto.platoEntrada.PlatoEntrada;
@@ -113,7 +115,7 @@ public class Pedido {
 
 	// }}
 
-	@Named("Productos de la Comanda")
+	@Named("Productos")
 	@Render(Type.EAGERLY)
 	@MemberOrder(name = "productosComanda", sequence = "1")
 	public List<ValueProductoElaborado> getProductosComanda() {
@@ -139,7 +141,7 @@ public class Pedido {
 		return getComanda().getProductos();
 	}
 
-	@Named("Menues de la Comanda")
+	@Named("Menues")
 	@Render(Type.EAGERLY)
 	@MemberOrder(name = "menuesComanda", sequence = "21")
 	public List<ValueMenu> getMenuesComanda() {
@@ -161,6 +163,30 @@ public class Pedido {
 
 	public List<ValueMenu> choices0RemoveFromMenues() {
 		return getComanda().getMenues();
+	}
+
+	@Named("Ofertas")
+	@Render(Type.EAGERLY)
+	@MemberOrder(name = "ofertasComanda", sequence = "30")
+	public List<ValueOferta> getOfertasComanda() {
+		return getComanda().getOfertas();
+	}
+
+	@Named("Eliminar...")
+	@MemberOrder(name = "ofertasComanda", sequence = "31")
+	public Pedido removeFromOfertas(@Named("Oferta") final ValueOferta _oferta) {
+		getComanda().removeFromOfertas(_oferta);
+		return this;
+	}
+
+	public String disableRemoveFromOfertas(final ValueOferta _oferta) {
+		if (getComanda().getOfertas().isEmpty())
+			return "No se pidieron ofertas";
+		return getComanda().getEstado().validarModificacion();
+	}
+
+	public List<ValueOferta> choices0RemoveFromOfertas() {
+		return getComanda().getOfertas();
 	}
 
 	// {{ Productos (Collection)
@@ -454,6 +480,32 @@ public class Pedido {
 	public String disableTomarMenues(final Menu _menu1,
 			final Integer _cantidad1, final String _nota1, final Menu _menu2,
 			final Integer _cantidad2, final String _nota2) {
+		return getComanda().getEstado().validarModificacion();
+	}
+
+	@MemberOrder(name = "ofertasComanda", sequence = "1")
+	public Pedido pedirOfertas(final Oferta _oferta1,
+			@Optional @Named("Cantidad") final Integer _cantidad1,
+			@Optional @Named("Nota") final String _nota1,
+			@Optional final Oferta _oferta2,
+			@Optional @Named("Cantidad") final Integer _cantidad2,
+			@Optional @Named("Nota") final String _nota2) {
+		pedidoServicio.agregarOferta(_oferta1, _cantidad1, _nota1, _oferta2,
+				_cantidad2, _nota2, this);
+		return this;
+	}
+
+	public List<Oferta> choices0PedirOfertas() {
+		return pedidoServicio.listarOfertas();
+	}
+
+	public List<Oferta> choices3PedirOfertas() {
+		return pedidoServicio.listarOfertas();
+	}
+
+	public String disablePedirOfertas(final Oferta _oferta1,
+			final Integer _cantidad1, final String _nota1,
+			final Oferta _oferta2, final Integer _cantidad2, final String _nota2) {
 		return getComanda().getEstado().validarModificacion();
 	}
 

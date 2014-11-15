@@ -20,6 +20,7 @@ package dom.comanda;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.ForeignKeyAction;
 import javax.jdo.annotations.IdGeneratorStrategy;
@@ -30,6 +31,7 @@ import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.Sequence;
 import javax.jdo.annotations.SequenceStrategy;
 import javax.jdo.annotations.Extension;
+
 import org.apache.isis.applib.annotation.Disabled;
 import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.MemberOrder;
@@ -39,13 +41,16 @@ import org.apache.isis.applib.annotation.Render;
 import org.apache.isis.applib.annotation.Render.Type;
 import org.apache.isis.applib.annotation.Title;
 import org.apache.isis.applib.annotation.TypicalLength;
+
 import dom.comanda.estado.*;
 import dom.empleado.Empleado;
 import dom.objetosValor.ValueMenu;
+import dom.objetosValor.ValueOferta;
 import dom.objetosValor.ValueProductoElaborado;
 
 /**
  * Entidad Comanda la cual representa cada pedido que un Cliente desee consumir
+ * 
  * @author RestoTesis
  * @since 10/05/2014
  * @version 1.0.0
@@ -55,12 +60,14 @@ import dom.objetosValor.ValueProductoElaborado;
 public class Comanda {
 
 	/**
-	 * Retorna el nombre del icono segun el estado 
+	 * Retorna el nombre del icono segun el estado
+	 * 
 	 * @return String
 	 */
-	public String iconName(){
+	public String iconName() {
 		return getEstado().iconName();
 	}
+
 	/**
 	 * Constructor de la Entidad Comanda, donde se le agrega el estado
 	 */
@@ -76,7 +83,9 @@ public class Comanda {
 	private int numero;
 
 	/**
-	 * Obtiene el numero de una nueva comanda, el cual se genera en forma automatica
+	 * Obtiene el numero de una nueva comanda, el cual se genera en forma
+	 * automatica
+	 * 
 	 * @return int numero
 	 */
 	@Named("Número")
@@ -91,6 +100,7 @@ public class Comanda {
 
 	/**
 	 * Setea el numero de la Comanda que se va a crear.
+	 * 
 	 * @param int nimeroComanda
 	 */
 	public void setNumero(final int numeroComanda) {
@@ -104,6 +114,7 @@ public class Comanda {
 
 	/**
 	 * Obtiene un Mozo
+	 * 
 	 * @return Empleado mozo
 	 */
 	@Disabled
@@ -115,7 +126,9 @@ public class Comanda {
 
 	/**
 	 * Setea el mozo
-	 * @param Empleado mozo
+	 * 
+	 * @param Empleado
+	 *            mozo
 	 */
 	public void setMozo(final Empleado mozo) {
 		this.mozo = mozo;
@@ -128,6 +141,7 @@ public class Comanda {
 
 	/**
 	 * Obtiene la fecha de un pedido
+	 * 
 	 * @return Date fechaDePedido
 	 */
 	@Disabled
@@ -140,7 +154,9 @@ public class Comanda {
 
 	/**
 	 * Setea la fecha de un pedido
-	 * @param Date fechaDePedido
+	 * 
+	 * @param Date
+	 *            fechaDePedido
 	 */
 	public void setFechaDePedido(final Date fechaDePedido) {
 		this.fechaDePedido = fechaDePedido;
@@ -153,6 +169,7 @@ public class Comanda {
 
 	/**
 	 * Obtiene una lista de Productos Elaborados
+	 * 
 	 * @return List<ValueProductosElaborados> productos
 	 */
 	@Persistent(dependentElement = "true")
@@ -165,7 +182,9 @@ public class Comanda {
 
 	/**
 	 * Setea una lista de productos elaborados
-	 * @param List<ValueProductosElaborados> productos
+	 * 
+	 * @param List
+	 *            <ValueProductosElaborados> productos
 	 */
 	public void setProductos(final List<ValueProductoElaborado> productos) {
 		this.productos = productos;
@@ -173,7 +192,9 @@ public class Comanda {
 
 	/**
 	 * Agrega un elemento a la lista de productos elaborados
-	 * @param ValueProductosElaborados _productos
+	 * 
+	 * @param ValueProductosElaborados
+	 *            _productos
 	 */
 	public void addToProductos(final ValueProductoElaborado _producto) {
 		getProductos().add(_producto);
@@ -181,7 +202,9 @@ public class Comanda {
 
 	/**
 	 * Remueve un elemento a la lista de productos elaborados
-	 * @param ValueProductosElaborados _productos
+	 * 
+	 * @param ValueProductosElaborados
+	 *            _productos
 	 */
 	public void removeFromProductos(final ValueProductoElaborado _producto) {
 		getProductos().remove(_producto);
@@ -192,6 +215,7 @@ public class Comanda {
 
 	/**
 	 * Obtiene una lista de menues
+	 * 
 	 * @return List<ValueMenu> menues
 	 */
 	@Persistent(dependentElement = "true")
@@ -204,7 +228,9 @@ public class Comanda {
 
 	/**
 	 * Setea una lista de menues
-	 * @param List<ValueMenu> menues
+	 * 
+	 * @param List
+	 *            <ValueMenu> menues
 	 */
 	public void setMenues(final List<ValueMenu> menues) {
 		this.menues = menues;
@@ -212,7 +238,9 @@ public class Comanda {
 
 	/**
 	 * Agrega un elemento a la lista de menues
-	 * @param ValueMenu _menu
+	 * 
+	 * @param ValueMenu
+	 *            _menu
 	 */
 	public void addToMenues(final ValueMenu _menu) {
 		getMenues().add(_menu);
@@ -220,10 +248,37 @@ public class Comanda {
 
 	/**
 	 * Remueve un elemento de la lista de menues
-	 * @param ValueMenu _menu
+	 * 
+	 * @param ValueMenu
+	 *            _menu
 	 */
 	public void removeFromMenues(final ValueMenu _menu) {
 		getMenues().remove(_menu);
+	}
+
+	// {{ Ofertas (Collection)
+	private List<ValueOferta> ofertas = new ArrayList<ValueOferta>();
+
+	@Persistent(dependentElement = "true")
+	@Join(deleteAction = ForeignKeyAction.CASCADE)
+	@Render(Type.EAGERLY)
+	@MemberOrder(sequence = "3")
+	public List<ValueOferta> getOfertas() {
+		return ofertas;
+	}
+
+	public void setOfertas(final List<ValueOferta> ofertas) {
+		this.ofertas = ofertas;
+	}
+
+	// }}
+
+	public void addToOfertas(final ValueOferta _oferta) {
+		getOfertas().add(_oferta);
+	}
+
+	public void removeFromOfertas(final ValueOferta _oferta) {
+		getOfertas().remove(_oferta);
 	}
 
 	// {{ Estado (property)
@@ -231,6 +286,7 @@ public class Comanda {
 
 	/**
 	 * Obtiene el estado de una comanda
+	 * 
 	 * @return IEstadoComanda estado
 	 */
 	@Hidden
@@ -251,7 +307,9 @@ public class Comanda {
 
 	/**
 	 * Setea el estado de una comanda
-	 * @param IEstadoComanda estado
+	 * 
+	 * @param IEstadoComanda
+	 *            estado
 	 */
 	public void setEstado(final IEstadoComanda estado) {
 		this.estado = estado;
@@ -264,6 +322,7 @@ public class Comanda {
 
 	/**
 	 * Obtiene el estado particular NoConfirmada para la Comanda
+	 * 
 	 * @return NoConfirmada noConfirmada
 	 */
 	@Persistent(dependent = "true")
@@ -276,7 +335,9 @@ public class Comanda {
 
 	/**
 	 * Setea el estado particular NoConfirmada
-	 * @param NoConfirmada noConformada
+	 * 
+	 * @param NoConfirmada
+	 *            noConformada
 	 */
 	public void setNoConfirmada(final NoConfirmada noConfirmada) {
 		this.noConfirmada = noConfirmada;
@@ -289,6 +350,7 @@ public class Comanda {
 
 	/**
 	 * Obtiene el estado particular EnEspera para la Comanda
+	 * 
 	 * @return EnEspera enEspera
 	 */
 	@Persistent(dependent = "true")
@@ -300,19 +362,21 @@ public class Comanda {
 	}
 
 	/**
-	 * Setea el estado particular EnEspera 
-	 * @param EnEspera enEspera
+	 * Setea el estado particular EnEspera
+	 * 
+	 * @param EnEspera
+	 *            enEspera
 	 */
 	public void setEnEspera(final EnEspera enEspera) {
 		this.enEspera = enEspera;
 	}
 
-	
 	// {{ EnPreparacion (property)
 	private EnPreparacion enPreparacion;
 
 	/**
 	 * Obtiene el estado particular EnPreparacion para la Comanda
+	 * 
 	 * @return EnPreparacion enPreparacion
 	 */
 	@Persistent(dependent = "true")
@@ -324,20 +388,21 @@ public class Comanda {
 	}
 
 	/**
-	 * Setea el estado particular EnPreparacion 
-	 * @param EnPreparacion enPreparacion
+	 * Setea el estado particular EnPreparacion
+	 * 
+	 * @param EnPreparacion
+	 *            enPreparacion
 	 */
 	public void setEnPreparacion(final EnPreparacion enPreparacion) {
 		this.enPreparacion = enPreparacion;
 	}
-
-	
 
 	// {{ Preparada (property)
 	private Preparada preparada;
 
 	/**
 	 * Obtiene el estado particular Preparada para la Comanda
+	 * 
 	 * @return Preparada preparada
 	 */
 	@Persistent(dependent = "true")
@@ -350,7 +415,9 @@ public class Comanda {
 
 	/**
 	 * Setea el estado particular Preparada
-	 * @param Preparada preparada
+	 * 
+	 * @param Preparada
+	 *            preparada
 	 */
 	public void setPreparada(final Preparada preparada) {
 		this.preparada = preparada;
@@ -361,7 +428,8 @@ public class Comanda {
 	// /////////////////////////////////////////////////////--Acciones//Comanda--///////////////////////////////////////////////////////
 
 	/**
-	 * Cambia al estado de la Comanda 
+	 * Cambia al estado de la Comanda
+	 * 
 	 * @return this
 	 */
 	@MemberOrder(sequence = "2")
@@ -371,7 +439,8 @@ public class Comanda {
 	}
 
 	/**
-	 * Cambia al estado de la Comanda 
+	 * Cambia al estado de la Comanda
+	 * 
 	 * @return String
 	 */
 	public String disablePreparar() {
@@ -380,6 +449,7 @@ public class Comanda {
 
 	/**
 	 * Cambia al estado de la Comanda
+	 * 
 	 * @return this
 	 */
 	@MemberOrder(sequence = "3")
@@ -389,7 +459,8 @@ public class Comanda {
 	}
 
 	/**
-	 * Cambia al estado de la Comanda 
+	 * Cambia al estado de la Comanda
+	 * 
 	 * @return String
 	 */
 	public String disableComandaLista() {
