@@ -17,7 +17,6 @@
 
 package dom.oferta;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -148,31 +147,31 @@ public class Oferta extends Observado {
 		return ofertaServicio.listarMenues();
 	}
 
-	private SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
-
 	// {{ FechaInicio (property)
-	private Date fechaInicio;
+	private java.sql.Date fechaInicio;
 
+	@Column(allowsNull = "false")
 	@MemberOrder(sequence = "6")
-	public String getFechaInicio() {
-		return formato.format(fechaInicio);
+	public java.sql.Date getFechaInicio() {
+		return fechaInicio;
 	}
 
-	public void setFechaInicio(final Date fechaInicio) {
+	public void setFechaInicio(final java.sql.Date fechaInicio) {
 		this.fechaInicio = fechaInicio;
 	}
 
 	// }}
 
 	// {{ Caducidad (property)
-	private Date caducidad;
+	private java.sql.Date caducidad;
 
+	@Column(allowsNull = "false")
 	@MemberOrder(sequence = "7")
-	public String getCaducidad() {
-		return formato.format(caducidad);
+	public java.sql.Date getCaducidad() {
+		return caducidad;
 	}
 
-	public void setCaducidad(final Date caducidad) {
+	public void setCaducidad(final java.sql.Date caducidad) {
 		this.caducidad = caducidad;
 	}
 
@@ -361,8 +360,8 @@ public class Oferta extends Observado {
 
 	@Hidden
 	public void setDatos(String _nombre, int _cantidad_personas,
-			String _descripcion, Menu _menu, Date _fechaInicio,
-			Date _caducidad, int _descuento) {
+			String _descripcion, Menu _menu, java.sql.Date _fechaInicio,
+			java.sql.Date _caducidad, int _descuento) {
 		this.nombre = _nombre;
 		this.cantidadPersonas = _cantidad_personas;
 		this.descripcion = _descripcion;
