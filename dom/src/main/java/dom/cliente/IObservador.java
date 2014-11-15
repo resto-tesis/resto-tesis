@@ -29,5 +29,5 @@ public interface IObservador {
 	 * Metodo a implementar para actualizar la oferta 
 	 * @param _oferta
 	 */
-	public void actualizar(Oferta _oferta);
+	public IObservador actualizar(Oferta _oferta);
 }

@@ -39,6 +39,7 @@ import org.apache.isis.applib.query.QueryDefault;
 
 import com.google.common.base.Predicate;
 
+import dom.cliente.Cliente;
 import dom.menu.Menu;
 import dom.menu.MenuServicio;
 
@@ -139,6 +140,18 @@ public class OfertaServicio extends AbstractFactoryAndRepository {
 						&& input.getFechaInicio().before(new Date())
 						&& input.getCaducidad().after(new Date()) ? true
 						: false;
+			}
+		});
+	}
+
+	@Programmatic
+	public List<Cliente> clientesConCuenta() {
+		return allMatches(Cliente.class, new Predicate<Cliente>() {
+
+			@Override
+			public boolean apply(Cliente input) {
+				// TODO Auto-generated method stub
+				return !input.getCorreo().isEmpty() && !input.getBaja();
 			}
 		});
 	}

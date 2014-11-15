@@ -219,7 +219,8 @@ public abstract class Persona {
 
 	public String validateCambiarContrasenia(final Password _nuevaContraseña,
 			final Password _repitaContraseña) {
-		if (_nuevaContraseña.getPassword() != _repitaContraseña.getPassword())
+		if (!_nuevaContraseña.getPassword().equals(
+				_repitaContraseña.getPassword()))
 			return "Las contraseñas no coinciden!";
 		return null;
 	}

@@ -17,7 +17,6 @@
 
 package dom.oferta;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -305,52 +304,56 @@ public class Oferta extends Observado {
 		return true;
 	}
 
-	// {{ ListaClientes (Collection)
-	private List<Cliente> listaClientes = new ArrayList<Cliente>();
+	// // {{ ListaClientes (Collection)
+	// private List<Cliente> listaClientes = new ArrayList<Cliente>();
+	//
+	// @Hidden
+	// public List<Cliente> getListaClientes() {
+	// return contenedor.allInstances(ofType, range)(Cliente.class);
+	// }
+	//
+	// public void setListaClientes(final List<Cliente> listaClientes) {
+	// this.listaClientes = listaClientes;
+	// }
+	//
+	// // }}
+	//
+	// @Hidden
+	// @MemberOrder(name = "listaClientes", sequence = "2")
+	// public Oferta quitarCliente(final Cliente cliente) {
+	// getListaClientes().remove(cliente);
+	// return this;
+	// }
+	//
+	// @Hidden
+	// @Override
+	// public void registrarCliente(Cliente _cliente) {
+	// // TODO Auto-generated method stub
+	// listaClientes.add(_cliente);
+	// }
+	//
+	// @Hidden
+	// @Override
+	// public void removerCliente(Cliente _cliente) {
+	// // TODO Auto-generated method stub
+	// int i = listaClientes.indexOf(_cliente);
+	// if (i >= 0) {
+	// listaClientes.remove(i);
+	// }
+	// }
 
-	@Hidden
-	public List<Cliente> getListaClientes() {
-		return contenedor.allInstances(Cliente.class);
-	}
-
-	public void setListaClientes(final List<Cliente> listaClientes) {
-		this.listaClientes = listaClientes;
-	}
-
-	// }}
-
-	@Hidden
-	@MemberOrder(name = "listaClientes", sequence = "2")
-	public Oferta quitarCliente(final Cliente cliente) {
-		getListaClientes().remove(cliente);
+	@Override
+	public Oferta notificarClientes() {
+		// TODO Auto-generated method stub
+		if (getCaducidad().compareTo(new Date()) < 0 || getBaja())
+			contenedor.informUser("Oferta vencida/Baja");
+		else {
+			for (Cliente _cliente : ofertaServicio.clientesConCuenta()) {
+				_cliente.actualizar(this);
+			}
+			contenedor.informUser("Se ha notificado a todos los Clientes");
+		}
 		return this;
-	}
-
-	@Hidden
-	@Override
-	public void registrarCliente(Cliente _cliente) {
-		// TODO Auto-generated method stub
-		listaClientes.add(_cliente);
-	}
-
-	@Hidden
-	@Override
-	public void removerCliente(Cliente _cliente) {
-		// TODO Auto-generated method stub
-		int i = listaClientes.indexOf(_cliente);
-		if (i >= 0) {
-			listaClientes.remove(i);
-		}
-	}
-
-	@Override
-	public void notificarClientes() {
-		// TODO Auto-generated method stub
-		listaClientes = this.getListaClientes();
-		for (Cliente _cliente : listaClientes) {
-			_cliente.actualizar(this);
-		}
-		contenedor.informUser("Se ha notificado a todos los Clientes");
 	}
 
 	@Hidden

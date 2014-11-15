@@ -17,36 +17,12 @@
 
 package dom.oferta;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import dom.cliente.Cliente;
-
 public abstract class Observado {
 
-	//El constructor crea el vector con la asociacion Observable-Observador
 	public Observado() {
-        listaClientes = new ArrayList<Cliente>();
-    }
- 
-    //Agregar y eliminar sencillamente operan sobre vector _observadores...
-    public void registrarCliente(Cliente _cliente) {
-        listaClientes.add(_cliente);
-    }
- 
-    public void removerCliente(Cliente _cliente) {
-        listaClientes.remove(_cliente);
-    }
- 
-    //Notificacion: Para cada observador se invoca el método actualizar().
-    public void notificarClientes() {
-        for (Cliente _cliente : listaClientes) {
-            _cliente.actualizar(oferta);
-        }
-    }
+	}
 
-	//Este atributo privado mantiene el vector con los observadores
-    private List<Cliente> listaClientes;
-    private Oferta oferta;
-    
+	// Notificacion: Para cada observador se invoca el método actualizar().
+	public abstract Observado notificarClientes();
+
 }
