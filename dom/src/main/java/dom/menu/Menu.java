@@ -73,7 +73,7 @@ public class Menu {
 	/**
 	 * Obtiene el numero de un nuevo Menu que se 
 	 * generará de forma automática
-	 * @return int numero
+	 * @return numero int
 	 */
 	@Hidden(where = Where.ALL_TABLES)
 	@Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT, sequence = "secuenciaNumeroMenu")
@@ -87,7 +87,7 @@ public class Menu {
 
 	/**
 	 * Setea el numero de un Menu
-	 * @param int numero
+	 * @param numero int
 	 */
 	public void setNumero(final int numero) {
 		this.numero = numero;
@@ -100,7 +100,7 @@ public class Menu {
 
 	/**
 	 * Obtiene y valida el nombre de un nuevo Menu
-	 * @return String nombre
+	 * @return nombre String
 	 */
 	@RegEx(validation = "[0-9a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]*")
 	@Hidden(where = Where.ALL_TABLES)
@@ -113,7 +113,7 @@ public class Menu {
 
 	/**
 	 * Setea el nombre del Menu
-	 * @param String nombre
+	 * @param nombre String
 	 */
 	public void setNombre(final String nombre) {
 		this.nombre = nombre;
@@ -125,7 +125,7 @@ public class Menu {
 
 	/**
 	 * Obtiene un plato principal para el Menu
-	 * @return PlatoPrincipal platoPrincipal
+	 * @return platoPrincipal PlatoPrincipal
 	 */
 	@Hidden(where = Where.ALL_TABLES)
 	@MemberOrder(sequence = "3")
@@ -136,7 +136,7 @@ public class Menu {
 
 	/**
 	 * Setea un plato principal para el Menu
-	 * @param PlatoPrincipal platoPrincipal
+	 * @param platoPrincipal PlatoPrincipal
 	 */
 	public void setPlatoPrincipal(final PlatoPrincipal platoPrincipal) {
 		this.platoPrincipal = platoPrincipal;
@@ -147,7 +147,7 @@ public class Menu {
 
 	/**
 	 * Obtiene una guarnicion para el Menu
-	 * @return Guarnicion guarnicion
+	 * @return guarnicion Guarnicion
 	 */
 	@Hidden(where = Where.ALL_TABLES)
 	@Optional
@@ -158,7 +158,7 @@ public class Menu {
 
 	/**
 	 * Setea una guarnicion para el Menu
-	 * @param Guarnicion guarnicion
+	 * @param guarnicion Guarnicion
 	 */
 	public void setGuarnicion(final Guarnicion guarnicion) {
 		this.guarnicion = guarnicion;
@@ -169,7 +169,7 @@ public class Menu {
 
 	/**
 	 * Obtiene un plato de entrada para el Menu
-	 * @return PlatoEntrada platoEntrada
+	 * @return platoEntrada PlatoEntrada
 	 */
 	@Hidden(where = Where.ALL_TABLES)
 	@Optional
@@ -180,7 +180,7 @@ public class Menu {
 
 	/**
 	 * Setea un plato de entrada para el Menu
-	 * @param PlatoEntrada platoEntrada
+	 * @param platoEntrada PlatoEntrada
 	 */
 	public void setPlatoEntrada(final PlatoEntrada platoEntrada) {
 		this.platoEntrada = platoEntrada;
@@ -191,7 +191,7 @@ public class Menu {
 
 	/**
 	 * Obtiene un postre para el Menu
-	 * @return Postre postre
+	 * @return postre Postre
 	 */
 	@Hidden(where = Where.ALL_TABLES)
 	@Optional
@@ -201,7 +201,7 @@ public class Menu {
 	}
 	/**
 	 * Setea un postre del Menu
-	 * @param Postre postre
+	 * @param postre Postre
 	 */
 	public void setPostre(final Postre postre) {
 		this.postre = postre;
@@ -212,7 +212,7 @@ public class Menu {
 
 	/**
 	 * Obtiene un descuento para el Menu
-	 * @return int descuento
+	 * @return descuento int
 	 */
 	@Named("Descuento (%)")
 	@MemberOrder(sequence = "8")
@@ -223,7 +223,7 @@ public class Menu {
 
 	/**
 	 * Setea un descuento para el Menu
-	 * @param int descuento
+	 * @param descuento int
 	 */
 	public void setDescuento(final int descuento) {
 		this.descuento = descuento;
@@ -232,7 +232,7 @@ public class Menu {
 	/**
 	 * Obtiene una lista de Platos de Entrada
 	 * @see dom.menu.MenuServicio.choices2CrearMenu()
-	 * @return MenuServicio menuServicio
+	 * @return menuServicio MenuServicio
 	 */
 	public List<PlatoEntrada> choicesPlatoEntrada() {
 		return menuServicio.choices2CrearMenu();
@@ -241,7 +241,7 @@ public class Menu {
 	/**
 	 * Obtiene una lista de Platos principales
 	 * @see dom.menu.MenuServicio.choices2CrearMenu()
-	 * @return MenuServicio menuServicio
+	 * @return menuServicio MenuServicio
 	 */
 	public List<PlatoPrincipal> choicesPlatoPrincipal() {
 		return menuServicio.choices1CrearMenu();
@@ -250,7 +250,7 @@ public class Menu {
 	/**
 	 * Obtiene una lista de Postres
 	 * @see dom.menu.MenuServicio.choices4CrearMenu()
-	 * @return MenuServicio menuServicio
+	 * @return menuServicio MenuServicio
 	 */
 	public List<Postre> choicesPostre() {
 		return menuServicio.choices4CrearMenu();
@@ -259,7 +259,7 @@ public class Menu {
 	/**
 	 * Obtiene una lista de Guarniciones
 	 * @see dom.menu.MenuServicio.choices3CrearMenu()
-	 * @return MenuServicio menuServicio
+	 * @return menuServicio MenuServicio
 	 */
 	public List<Guarnicion> choicesGuarnicion() {
 		return menuServicio.choices3CrearMenu();
@@ -268,7 +268,7 @@ public class Menu {
 	/**
 	 * Obtiene el precio final con descuento del Menu
 	 * @see dom.menu.MenuServicio.calcularDescuento()
-	 * @return MenuServicio menuServicio
+	 * @return menuServicio MenuServicio
 	 */
 	@Named("Precio Final ($)")
 	@Disabled
@@ -280,7 +280,7 @@ public class Menu {
 	/**
 	 * Obtiene el precio total sin descuento del Menu
 	 * @see dom.menu.MenuServicio.calcularTotal()
-	 * @return MenuServicio menuServicio
+	 * @return menuServicio MenuServicio
 	 */
 	@Named("Precio Sin Descuento ($)")
 	@Disabled
@@ -294,7 +294,7 @@ public class Menu {
 
 	/**
 	 * Obtiene si el Menu esta de Baja
-	 * @return boolean baja 
+	 * @return baja boolean 
 	 */
 	@Hidden
 	@Disabled
@@ -306,7 +306,7 @@ public class Menu {
 
 	/**
 	 * Setea si el Menu esta de Baja
-	 * @param boolean baja 
+	 * @param baja boolean 
 	 */
 	public void setBaja(final boolean baja) {
 		this.baja = baja;
@@ -331,7 +331,7 @@ public class Menu {
 	}
 	
 	/**
-	 * Setea al Menu para su Baja
+	 * Setea al titulo del Menu de Baja
 	 * @return String
 	 */
 	public String disableBaja() {
@@ -339,7 +339,7 @@ public class Menu {
 	}
 
 	/**
-	 * Setea al Menu para su Alta
+	 * Setea al titulo del Menu de Alta
 	 * @return String
 	 */
 	public String disableAlta() {
@@ -350,6 +350,9 @@ public class Menu {
 	@Inject
 	private DomainObjectContainer contenedor;
 
+	/**
+	 * Inyeccion del servivio de menu
+	 */
 	@Inject
 	private MenuServicio menuServicio;
 

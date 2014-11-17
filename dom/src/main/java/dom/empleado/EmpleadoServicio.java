@@ -45,7 +45,7 @@ public class EmpleadoServicio extends AbstractFactoryAndRepository {
 
 	/**
 	 * Metodo para validar la existencia de un empleado por su dni 
-	 * @param long _dni
+	 * @param _dni long
 	 * @see dom.persona.Persona.getDocumento()
 	 * @return null
 	 */

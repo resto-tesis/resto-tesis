@@ -28,17 +28,17 @@ import org.joda.time.LocalDate;
 public interface IValidacionEmpleado {
 	/**
 	 * Metodo a implementar para realizar la Validacion de existencia por dni, fecha, edad, telefono del ingreso por UI
-	 * @param String _nombre
-	 * @param String _apellido
-	 * @param long _dni
-	 * @param String _direccion
-	 * @param String _telefono
-	 * @param String _celular
-	 * @param String _correo
-	 * @param LocalDate fechadeNacimiento
-	 * @param LoccalDate fechadeIngreso
-	 * @param String _nombreUsuario
-	 * @param Password _password
+	 * @param _nombre String
+	 * @param _apellido String
+	 * @param _dni long
+	 * @param _direccion String
+	 * @param _telefono String
+	 * @param _celular String
+	 * @param _correo String
+	 * @param fechadeNacimiento LocalDate
+	 * @param fechadeIngreso LocalDate
+	 * @param _nombreUsuario String
+	 * @param _password Password
 	 */
 	public String validateCrear(final String _nombre, final String _apellido,
 			final long _dni, final String _direccion, final String _telefono,
@@ -48,13 +48,13 @@ public interface IValidacionEmpleado {
 
 	/**
 	 * Metodo a implementar para validar la mayoria de edad
-	 * @param LocalDate fechadeNacimiento
+	 * @param fechadeNacimiento LocalDate
 	 */
 	public boolean validaMayorEdad(final LocalDate fechadeNacimiento);
 
 	/**
 	 * Metodo a implementar para obtener la cantidad de dias entre la fecha de nacimiento y la fecha actual
-	 * @param LocalDate fechadeNacimiento
+	 * @param fechadeNacimiento LocalDate
 	 */
 	public int getDiasNacimiento_Hoy(final LocalDate fechadeNacimiento);
 

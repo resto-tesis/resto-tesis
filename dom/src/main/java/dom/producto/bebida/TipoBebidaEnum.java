@@ -19,9 +19,18 @@ package dom.producto.bebida;
 
 import java.util.Arrays;
 import java.util.List;
-
+/**
+ * Clase enumerada, de la cual agrega el tipo de Bebida
+ * @author RestoTesis
+ * @since 10/06/2014
+ * @version 1.0.0
+ */
 public enum TipoBebidaEnum {
 	Gaseosa {
+		/**
+		 * Permite seleccionar el volumen a la Gaseosa
+		 * @return List<VolumenBebidaEmun>
+		 */
 		@Override
 		public List<VolumenBebidaEnum> volumen() {
 			return Arrays.asList(VolumenBebidaEnum.Lata,
@@ -37,12 +46,20 @@ public enum TipoBebidaEnum {
 		}
 	},
 	Vino {
+		/**
+		 * Permite seleccionar un volumen al Vino
+		 * @return List<VolumenBebidaEmun>
+		 */
 		@Override
 		public List<VolumenBebidaEnum> volumen() {
 			return Arrays.asList(VolumenBebidaEnum.Un_Litro);
 		}
 	},
 	Cerveza {
+		/**
+		 * Permite seleccionar el volumen a la Cerveza
+		 * @return List<VolumenBebidaEmun>
+		 */
 		@Override
 		public List<VolumenBebidaEnum> volumen() {
 			return Arrays.asList(VolumenBebidaEnum.Lata,
@@ -50,12 +67,20 @@ public enum TipoBebidaEnum {
 		}
 	},
 	Jugo {
+		/**
+		 * Permite seleccionar un volumen al Jugo
+		 * @return List<VolumenBebidaEmun>
+		 */
 		@Override
 		public List<VolumenBebidaEnum> volumen() {
 			return Arrays.asList(VolumenBebidaEnum.Un_Litro);
 		}
 	},
 	Agua {
+		/**
+		 * Permite seleccionar el volumen al Agua mineral
+		 * @return List<VolumenBebidaEmun>
+		 */
 		@Override
 		public List<VolumenBebidaEnum> volumen() {
 			return Arrays.asList(VolumenBebidaEnum.Medio_Litro,
@@ -63,6 +88,10 @@ public enum TipoBebidaEnum {
 		}
 	},
 	Cafe {
+		/**
+		 * Permite seleccionar un volumen al Cafe
+		 * @return List<VolumenBebidaEmun>
+		 */
 		@Override
 		public List<VolumenBebidaEnum> volumen() {
 			return Arrays.asList(VolumenBebidaEnum.Chico,
@@ -70,6 +99,10 @@ public enum TipoBebidaEnum {
 		}
 	},
 	Otro {
+		/**
+		 * Permite seleccionar a otro tipo de bebida, otro volumen
+		 * @return List<VolumenBebidaEmun>
+		 */
 		@Override
 		public List<VolumenBebidaEnum> volumen() {
 			return Arrays.asList(VolumenBebidaEnum.Otro_Volumen);

@@ -67,18 +67,18 @@ public class CocineroServicio extends AbstractFactoryAndRepository implements
 
 	/**
 	 * Obtiene los datos validados de un nuevo Cocinero
-	 * @param String _apellido
-	 * @param String _nombre
-	 * @param long _dni
-	 * @param String _direccion
-	 * @param String _telefono
-	 * @param String _celular
-	 * @param String _correo
-	 * @param LocalDate fechadeNacimiento
-	 * @param LocalDate fechadeIngreso
-	 * @param String _nombreUsusario
-	 * @param Password _password
-	 * @return Cocinero cocineroNuevo
+	 * @param _apellido String
+	 * @param _nombre String
+	 * @param _dni long
+	 * @param _direccion String
+	 * @param _telefono String
+	 * @param _celular String
+	 * @param _correo String
+	 * @param fechadeNacimiento LocalDate
+	 * @param fechadeIngreso LocalDate
+	 * @param _nombreUsusario String
+	 * @param _password Password
+	 * @return cocineroNuevo Cocinero
 	 */
 	@Named("Nuevo Cocinero")
 	@MemberOrder(name = "Empleados", sequence = "10.5")
@@ -100,7 +100,7 @@ public class CocineroServicio extends AbstractFactoryAndRepository implements
 	}
 	/**
 	 * Crea y persiste el Usuario y Password para el nuevo cocinero
-	 * @return Usuario usuario
+	 * @return usuario Usuario
 	 */
 	@Programmatic
 	public Usuario crearUsuario(final String _nombreUsuario,
@@ -115,18 +115,18 @@ public class CocineroServicio extends AbstractFactoryAndRepository implements
 	}
 	/**
 	 * Persiste un nuevo Cocinero
-	 * @param Usuario _usuario
-	 * @param String _nombre
-	 * @param String _apellido
-	 * @param long _dni
-	 * @param String _direccion
-	 * @param String _telefono
-	 * @param String _celular
-	 * @param String _correo
-	 * @param LocalDate fechadeNacimiento
-	 * @param LoccalDate fechadeIngreso
-	 * @param Cocinero cocineroNuevo 
-	 * @return Cocinero cocineroNuevo
+	 * @param _usuario Usuario
+	 * @param _nombre String
+	 * @param _apellido String
+	 * @param _dni long
+	 * @param _direccion String
+	 * @param _telefono String
+	 * @param _celular String
+	 * @param _correo String
+	 * @param fechadeNacimiento LocalDate
+	 * @param fechadeIngreso LocalDate
+	 * @param cocineroNuevo Cocinero 
+	 * @return cocineroNuevo Cocinero
 	 */
 	@Programmatic
 	public Cocinero crearNuevoCocinero(final Usuario _usuario,
@@ -172,7 +172,7 @@ public class CocineroServicio extends AbstractFactoryAndRepository implements
 
 	/**
 	 * Obtiene una lista de todos los Cocinero
-	 * @return List<Cocinero> listaCocinero
+	 * @return listaCocinero List<Cocinero>
 	 */
 	@Named("Cocineros")
 	@MemberOrder(name = "Empleados", sequence = "10.2")
@@ -184,17 +184,17 @@ public class CocineroServicio extends AbstractFactoryAndRepository implements
 
 	/**
 	 * Realiza la Validacion de existencia por dni, fecha, edad, telefono del ingreso por UI
-	 * @param String _nombre
-	 * @param String _apellido
-	 * @param long _dni
-	 * @param String _direccion
-	 * @param String _telefono
-	 * @param String _celular
-	 * @param String _correo
-	 * @param LocalDate fechadeNacimiento
-	 * @param LoccalDate fechadeIngreso
-	 * @param String _nombreUsuario
-	 * @param Password _password
+	 * @param _nombre String
+	 * @param _apellido String
+	 * @param _dni long
+	 * @param _direccion String
+	 * @param _telefono String
+	 * @param _celular String
+	 * @param _correo String
+	 * @param fechadeNacimiento LocalDate
+	 * @param fechadeIngreso LocalDate
+	 * @param _nombreUsuario String
+	 * @param _password Password
 	 * @return String
 	 */
 	@Override
@@ -236,7 +236,7 @@ public class CocineroServicio extends AbstractFactoryAndRepository implements
 	/**
 	 * Validacion de la mayoria de edad de los empleados ingresados 6575 son la
 	 * cantidad de dias que tiene una persona de 18 años
-	 * @param LocalDate fechadeNacimiento
+	 * @param fechadeNacimiento LocalDate
 	 * @return boolean
 	 */
 @Override
@@ -251,7 +251,7 @@ public class CocineroServicio extends AbstractFactoryAndRepository implements
 
 	/**
 	 * Obtiene la cantidad de dias entre la fecha de nacimiento y la fecha actual
-	 * @param LocalDate fechadeNacimiento
+	 * @param fechadeNacimiento LocalDate
 	 * @return org.joda.time.Days meses
 	 */
 	@Override

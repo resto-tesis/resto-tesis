@@ -57,7 +57,7 @@ public abstract class Empleado extends Persona {
 
 	/**
 	 * Retorna el legajo del Empleado que se va a crear.
-	 * @return long legajo
+	 * @return legajo long
 	 */
 	@TypicalLength(5)
 	@Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT, sequence = "secuenciaLegajo")
@@ -69,7 +69,7 @@ public abstract class Empleado extends Persona {
 
 	/**
 	 * Setea el legajo del Empleado que se va a crear.
-	 * @param long legajo
+	 * @param legajo long
 	 */
 	public void setLegajo(final long legajo) {
 		this.legajo = legajo;
@@ -80,7 +80,7 @@ public abstract class Empleado extends Persona {
 
 	/**
 	 * Obtiene la fecha de nacimiento con un formato determinado
-	 * @return SimpleDateFormat formato
+	 * @return formato SimpleDateFormat
 	 */
 	@Hidden(where = Where.ALL_TABLES)
 	@MemberOrder(sequence = "5")
@@ -90,7 +90,7 @@ public abstract class Empleado extends Persona {
 
 	/**
 	 * Setea la fecha de nacimiento
-	 * @param Date fechaDeNacimiento
+	 * @param fechaDeNacimiento Date
 	 */
 	public void setFechaDeNacimiento(final Date fechaDeNacimiento) {
 		this.fechaDeNacimiento = fechaDeNacimiento;
@@ -103,7 +103,7 @@ public abstract class Empleado extends Persona {
 
 	/**
 	 * Obtiene la fecha de ingreso con un formato determinado
-	 * @return SimpleDateFormat formato
+	 * @return formato SimpleDateFormat
 	 */
 	@MemberOrder(sequence = "6")
 	public String getFechaDeIngreso() {
@@ -112,7 +112,7 @@ public abstract class Empleado extends Persona {
 
 	/**
 	 * Setea la fecha de ingreso
-	 * @param Date fechaDeIngreso
+	 * @param fechaDeIngreso Date
 	 */
 	public void setFechaDeIngreso(final Date fechaDeIngreso) {
 		this.fechaDeIngreso = fechaDeIngreso;
@@ -120,7 +120,7 @@ public abstract class Empleado extends Persona {
 
 	/**
 	 * Metodo para validar la existencia de un empleado por su dni 
-	 * @param long documento
+	 * @param documento long
 	 * @see dom.empleado.EmpleadoServicio.validarDocumento
 	 * @return long
 	 */

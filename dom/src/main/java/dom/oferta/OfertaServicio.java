@@ -42,15 +42,36 @@ import com.google.common.base.Predicate;
 
 import dom.menu.Menu;
 import dom.menu.MenuServicio;
-
+/**
+ * Otorga la funcionalidad a la clase Oferta: permitinedo crearla,persistirla, listarlas,
+ * otorgar y calcular descuento aplicado; listar los menues a incorporar
+ * @author RestoTesis
+ * @since 15/10/2014
+ * @version 1.0.0
+ */
 @DomainService
 @Named("Oferta")
 public class OfertaServicio extends AbstractFactoryAndRepository {
 
+	/**
+	 * Retorna el nombre del icono de la Oferta
+	 * @return String
+	 */
 	public String iconName() {
 		return "Oferta";
 	}
 
+	/**
+	 * Obtiene de la interfaz de usuario, una nueva Oferta
+	 * @param _nombre String
+	 * @param _cantidad_personas int
+	 * @param _descripcion String
+	 * @param _menu Menu
+	 * @param _fecha_inicio Date
+	 * @param _caducidad Date
+	 * @param _descuento int
+	 * @return nuevaOferta() Oferta
+	 */
 	@Hidden(where = Where.OBJECT_FORMS)
 	@Named("Crear")
 	@MemberOrder(sequence = "1")
@@ -66,6 +87,17 @@ public class OfertaServicio extends AbstractFactoryAndRepository {
 				_fecha_inicio, _caducidad, _descuento);
 	}
 
+	/**
+	 * Persiste una nueva Oferta
+	 * @param _nombre String
+	 * @param _cantidad_personas int
+	 * @param _descripcion String
+	 * @param _menu Menu
+	 * @param _fecha_inicio Date
+	 * @param _caducidad Date
+	 * @param _descuento int
+	 * @return oferta Oferta
+	 */
 	@Programmatic
 	public Oferta nuevaOferta(final String _nombre,
 			final int _cantidad_personas, final String _descripcion,
@@ -85,21 +117,44 @@ public class OfertaServicio extends AbstractFactoryAndRepository {
 		return oferta;
 	}
 
+	/**
+	 * Carga en la UI una lista de nemues
+	 * @return ListarMenues() List<Menu>
+	 */
 	@Programmatic
 	public List<Menu> choices3CrearOferta() {
 		return listarMenues();
 	}
 
+	/**
+	 * Obtiene una lista de menues de alta
+	 * @see dom.menu.MenuServicio.listarMenuesAlta()
+	 * @return List<Menu>
+	 */
 	@Programmatic
 	public List<Menu> listarMenues() {
 		return menuServicio.listarMenuesAlta();
 	}
 
+	/**
+	 * Inyeccion del servicio del Menu
+	 */
 	@Inject
 	private MenuServicio menuServicio;
 
 	final LocalDate fecha_actual = LocalDate.now();
 
+	/**
+	 * Valida la fecha de inicio y finalizacion de la Oferta
+	 * @param _nombre String 
+	 * @param _cantidad_personas int
+	 * @param _descripcion String 
+	 * @param _menu Menu
+	 * @param _fecha_inicio Date
+	 * @param _caducidad Date
+	 * @param _descuento int
+	 * @return String
+	 */
 	@Programmatic
 	public String validateCrearOferta(String _nombre, int _cantidad_personas,
 			String _descripcion, Menu _menu, Date _fecha_inicio,
@@ -111,24 +166,45 @@ public class OfertaServicio extends AbstractFactoryAndRepository {
 		return null;
 	}
 
+	/**
+	 * Calcula el precio con un descuento determinado
+	 * @param _oferta Oferta
+	 * @see dom.oferta.Oferta.getDescuento()
+	 * @return total double
+	 */
 	@Programmatic
 	public double calcularDescuento(Oferta _oferta) {
 		final double total = calcularTotal(_oferta);
 		return (total - ((total / 100) * _oferta.getDescuento()));
 	}
 
+	/**
+	 * Calcula el precio segun la cantidad de personas
+	 * @param _oferta Oferta
+	 * @see dom.menu.Menu.getPrecioFinal()
+	 * @return double
+	 */
 	@Programmatic
 	public double calcularTotal(Oferta _oferta) {
 		return (_oferta.getMenu().getPrecioFinal())
 				* _oferta.getCantidadPersonas();
 	}
 
+	/**
+	 * Obtiene una lista de Ofertas que comiencen con determinada especificacion
+	 * @param nombre String
+	 * @return list<Oferta>
+	 */
 	@Programmatic
 	public List<Oferta> completarOferta(final String nombre) {
 		return allMatches(new QueryDefault<Oferta>(Oferta.class,
 				"ofertasQueEmpiezan", "nombre", "(?i).*" + nombre + ".*"));
 	}
 
+	/**
+	 * Obtiene una lista de Ofertas que se encuentren de alta
+	 * @return List<Oferta>
+	 */
 	@Named("Listar")
 	@ActionSemantics(Of.SAFE)
 	@MemberOrder(sequence = "2")
@@ -143,6 +219,10 @@ public class OfertaServicio extends AbstractFactoryAndRepository {
 		});
 	}
 
+	/**
+	 * Obtiene una lista de la totalidad de las Ofertas
+	 * @return listaOfertas List<Oferta>
+	 */
 	@Named("Listar")
 	@ActionSemantics(Of.SAFE)
 	@MemberOrder(sequence = "2")

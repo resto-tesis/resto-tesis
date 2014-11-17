@@ -62,17 +62,17 @@ public class ClienteServicio extends AbstractFactoryAndRepository {
 
 	/**
 	 * Obtiene los datos validados del Cliente
-	 * @param String _apellido
-	 * @param String _nombre
-	 * @param long _dni
-	 * @param String _direccion
-	 * @param String _telefono
-	 * @param String _celular
-	 * @param String _correo
-	 * @param String _nombreUsusario
-	 * @param Password _password
-	 * @param Oferta _oferta
-	 * @return Cliente nuevoCliente
+	 * @param _apellido String
+	 * @param String _nombre String
+	 * @param _dni long
+	 * @param _direccion String
+	 * @param _telefono String
+	 * @param _celular String
+	 * @param _correo String
+	 * @param _nombreUsusario String
+	 * @param _password Password
+	 * @param _oferta Oferta
+	 * @return nuevoCliente Cliente
 	 */
 	@Named("Registrar")
 	@MemberOrder(sequence = "1")
@@ -94,15 +94,16 @@ public class ClienteServicio extends AbstractFactoryAndRepository {
 
 	/**
 	 * Realiza la validacion del ingreso del cliente por Dni y valida al menos un numero de Telefono
-	 * @param String _apellido
-	 * @param String _nombre
-	 * @param long _dni
-	 * @param String _direccion
-	 * @param String _telefono
-	 * @param String _celular
-	 * @param String _correo
-	 * @param String _nombreUsusario
-	 * @param Password _password
+	 * @param _apellido String
+	 * @param _nombre String
+	 * @param _dni long
+	 * @param _direccion String
+	 * @param _telefono String
+	 * @param _celular String
+	 * @param _correo String
+	 * @param _nombreUsusario String
+	 * @param _password Password
+	 * @return String
 	 */
 	public String validateCargarCliente(final String _apellido,
 			final String _nombre, final long _dni, final String _direccion,
@@ -134,9 +135,9 @@ public class ClienteServicio extends AbstractFactoryAndRepository {
 
 	/**
 	 * Crea Usuario y Password para el nuevo cliente
-	 * @param String _nombreUsuario
-	 * @param Password _password
-	 * @return Usuario usuario
+	 * @param _nombreUsuario String
+	 * @param _password Password
+	 * @return usuario Usuario
 	 */
 	@Programmatic
 	public Usuario crearUsuario(final String _nombreUsuario,
@@ -152,17 +153,17 @@ public class ClienteServicio extends AbstractFactoryAndRepository {
 
 	/**
 	 * Toma el cliente ingresado y lo persiste 
-	 * @param String _apellido
-	 * @param String _nombre
-	 * @param long _dni
-	 * @param String _direccion
-	 * @param String _telefono
-	 * @param String _celular
-	 * @param String _correo
-	 * @param Usuario _usuario
-	 * @param Password _password
-	 * @param Cliente clienteNuevo
-	 * @return Cliente clienteNuevo
+	 * @param _apellido String
+	 * @param _nombre String
+	 * @param _dni long
+	 * @param _direccion String
+	 * @param _telefono String
+	 * @param _celular String
+	 * @param _correo String
+	 * @param _usuario Usuario
+	 * @param _passwordPassword
+	 * @param clienteNuevo Cliente
+	 * @return clienteNuevo Cliente
 	 */
 	@Programmatic
 	public Cliente nuevoCliente(Oferta _oferta, final String _apellido,
@@ -206,7 +207,7 @@ public class ClienteServicio extends AbstractFactoryAndRepository {
 
 	/**
 	 * Obtiene una lista de todos los clientes
-	 * @return List<Cliente> listaDeClientes
+	 * @return listaDeClientes List<Cliente>
 	 */
 	@Named("Listar Todos")
 	@ActionSemantics(Of.SAFE)

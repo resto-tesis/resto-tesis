@@ -16,7 +16,12 @@
  */
 
 package dom.mesa;
-
+/**
+ * clase del tipo enum, que le permite a la Clase Mesa implementar distintos estados de Asignacion
+ * @author RestoTesis
+ * @since 10/08/2014
+ * @version 1.0.0
+ */
 public enum EstadoAsignacionMesaEnum {
 	Asignada("Asignada"), No_Asignada("No Asignada");
 	private final String nombre;

@@ -71,18 +71,18 @@ public class EncargadoServicio extends AbstractFactoryAndRepository implements
 
 	/**
 	 * Obtiene los datos validados del Encargado de la Interfaz de Usuario
-	 * @param String _apellido
-	 * @param String _nombre
-	 * @param long _dni
-	 * @param String _direccion
-	 * @param String _telefono
-	 * @param String _celular
-	 * @param String _correo
-	 * @param LocalDate fechadeNacimiento
-	 * @param LocalDate fechadeIngreso
-	 * @param String _nombreUsusario
-	 * @param Password _password
-	 * @return Encargado nuevoEncargado
+	 * @param _apellido String
+	 * @param _nombre String
+	 * @param _dni long
+	 * @param _direccion String
+	 * @param _telefono String
+	 * @param _celular String
+	 * @param _correo String
+	 * @param fechadeNacimiento LocalDate
+	 * @param fechadeIngreso LocalDate
+	 * @param _nombreUsusario String
+	 * @param _password Password
+	 * @return nuevoEncargado Encargado
 	 */
 	@Named("Nuevo Encargado")
 	@MemberOrder(name = "Empleados", sequence = "10.6")
@@ -105,7 +105,7 @@ public class EncargadoServicio extends AbstractFactoryAndRepository implements
 
 	/**
 	 * Crea y persiste el Usuario y Password para el nuevo Encargado
-	 * @return Usuario usuario
+	 * @return usuario Usuario
 	 */
 	@Programmatic
 	public Usuario crearUsuario(final String _nombreUsuario,
@@ -121,18 +121,18 @@ public class EncargadoServicio extends AbstractFactoryAndRepository implements
 
 	/**
 	 * Toma los datos obtenidos en la carga y persiste un nuevo Encargado
-	 * @param Usuario _usuario
-	 * @param String _apellido
-	 * @param String _nombre
-	 * @param long _dni
-	 * @param String _direccion
-	 * @param String _telefono
-	 * @param String _celular
-	 * @param String _correo
-	 * @param LocalDate fechadeNacimiento
-	 * @param LoccalDate fechadeIngreso
-	 * @param Encargado encargado 
-	 * @return Encargado encargado
+	 * @param _usuario Usuario
+	 * @param _apellido String
+	 * @param String _nombre String
+	 * @param _dni long
+	 * @param _direccion String
+	 * @param _telefono String
+	 * @param _celular String
+	 * @param _correo String
+	 * @param fechadeNacimiento LocalDate
+	 * @param fechadeIngreso LoccalDate
+	 * @param encargado Encargado 
+	 * @return encargado Encargado
 	 */
 	@Programmatic
 	public Encargado crearEncargadoNuevo(final Usuario _usuario,
@@ -179,7 +179,7 @@ public class EncargadoServicio extends AbstractFactoryAndRepository implements
 
 	/**
 	 * Obtiene una lista de todos los Encargados
-	 * @return List<Encargado> listaencargados
+	 * @return listaencargados List<Encargado>
 	 */
 	@Named("Encargados")
 	@ActionSemantics(Of.SAFE)
@@ -191,17 +191,17 @@ public class EncargadoServicio extends AbstractFactoryAndRepository implements
 
 	/**
 	 * Realiza la Validacion de existencia por dni, fecha, edad, telefono del ingreso por UI
-	 * @param String _nombre
-	 * @param String _apellido
-	 * @param long _dni
-	 * @param String _direccion
-	 * @param String _telefono
-	 * @param String _celular
-	 * @param String _correo
-	 * @param LocalDate fechadeNacimiento
-	 * @param LoccalDate fechadeIngreso
-	 * @param String _nombreUsuario
-	 * @param Password _password
+	 * @param _nombre String
+	 * @param _apellido String
+	 * @param _dni long
+	 * @param _direccion String
+	 * @param _telefono String
+	 * @param _celular String
+	 * @param _correo String
+	 * @param fechadeNacimiento LocalDate
+	 * @param fechadeIngreso LocalDate
+	 * @param _nombreUsuario String
+	 * @param _password Password
 	 */
 	@Override
 	public String validateCrear(String _nombre, String _apellido,
@@ -243,7 +243,7 @@ public class EncargadoServicio extends AbstractFactoryAndRepository implements
 	/**
 	 * Validacion de la mayoria de edad de los encargados ingresados 6575 son la
 	 * cantidad de dias que tiene una persona de 18 años
-	 * @param LocalDate fechadeNacimiento
+	 * @param fechadeNacimiento LocalDate
 	 * @return boolean
 	 */
 	@Override

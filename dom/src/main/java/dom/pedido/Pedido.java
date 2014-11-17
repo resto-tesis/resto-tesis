@@ -54,7 +54,12 @@ import dom.producto.guarnicion.Guarnicion;
 import dom.producto.platoEntrada.PlatoEntrada;
 import dom.producto.platoPrincipal.PlatoPrincipal;
 import dom.producto.postre.Postre;
-
+/**
+ * 
+ * @author RestoTesis
+ * @since 10/09/2014
+ * @version 1.0.0
+ */
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Sequence(name = "secuenciaNumeroPedido", strategy = SequenceStrategy.CONTIGUOUS)
 public class Pedido {

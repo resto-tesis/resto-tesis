@@ -51,7 +51,7 @@ public class ItemFactura {
 
 	/**
 	 * Obtiene el nombre de una nueva Factura
-	 * @return String nombre
+	 * @return nombre String
 	 */
 	@Title
 	@Hidden(where = Where.ALL_TABLES)
@@ -63,7 +63,7 @@ public class ItemFactura {
 
 	/**
 	 * Setea el nombre de una factura
-	 * @param String nombre
+	 * @param nombre String
 	 */
 	public void setNombre(final String nombre) {
 		this.nombre = nombre;
@@ -74,7 +74,7 @@ public class ItemFactura {
 
 	/**
 	 * Obtiene el precio de una nueva Factura
-	 * @return double precio
+	 * @return precio double
 	 */
 	@Named("Precio ($)")
 	@MemberOrder(sequence = "3")
@@ -85,7 +85,7 @@ public class ItemFactura {
 
 	/**
 	 * Setea el precio de una nueva Factura
-	 * @param double precio
+	 * @param precio double
 	 */
 	public void setPrecio(final double precio) {
 		this.precio = precio;
@@ -96,7 +96,7 @@ public class ItemFactura {
 
 	/**
 	 * Obtiene la cantidad de una nueva Factura
-	 * @return int cantidad
+	 * @return cantidad int
 	 */
 	@MemberOrder(sequence = "1")
 	@Column(allowsNull = "false")
@@ -105,21 +105,19 @@ public class ItemFactura {
 	}
 	/**
 	 * Setea la cantidad de una nueva Factura
-	 * @param int cantidad
+	 * @param cantidad int
 	 */
 
 	public void setCantidad(final int cantidad) {
 		this.cantidad = cantidad;
 	}
 
-	// }}
-
 	// {{ Descuento (property)
 	private int descuento;
 
 	/**
 	 * Obtiene el descuento de una nueva Factura
-	 * @return int descuento
+	 * @return descuento int
 	 */
 	@Named("Descuento (%)")
 	@MemberOrder(sequence = "4")
@@ -130,7 +128,7 @@ public class ItemFactura {
 
 	/**
 	 * Setea el descuento de una nueva Factura
-	 * @param int descuento
+	 * @param descuent int
 	 */
 	public void setDescuento(final int descuento) {
 		this.descuento = descuento;
@@ -138,7 +136,7 @@ public class ItemFactura {
 
 	/**
 	 * Realiza los calculos para obtener el precio final de una nueva Factura
-	 * @return double precio
+	 * @return precio double
 	 */
 	@Named("Precio Final ($)")
 	@MemberOrder(sequence = "5")

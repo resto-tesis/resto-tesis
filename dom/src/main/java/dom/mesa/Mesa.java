@@ -69,7 +69,7 @@ public class Mesa {
 
 	/**
 	 * Obtiene el estado de seleccion de una mesa
-	 * @return boolean estadoSeleccion
+	 * @return estadoSeleccion boolean
 	 */
 	@Hidden
 	@Disabled
@@ -81,7 +81,7 @@ public class Mesa {
 	
 	/**
 	 * Setea el estado de seleccion de una mesa
-	 * @param boolean estadoSeleccion
+	 * @param estadoSeleccion boolean
 	 */ 
 	public void setEstadoSeleccion(final boolean estadoSeleccion) {
 		this.estadoSeleccion = estadoSeleccion;
@@ -113,7 +113,7 @@ public class Mesa {
 
 	/**
 	 * Obtiene el numero de la Mesa que se va a crear.
-	 * @return int numero
+	 * @return numero int
 	 */
 	@Named("Número")
 	@Disabled
@@ -126,7 +126,7 @@ public class Mesa {
 	
 	/**
 	 * Setea el numero de la Mesa que se va a crear.
-	 * @param int numeroMesa
+	 * @param numeroMesa int
 	 */
 	public void setNumero(final int numeroMesa) {
 		this.numero = numeroMesa;
@@ -137,7 +137,7 @@ public class Mesa {
 
 	/**
 	 * Obtiene la capacidad de la Mesa que se va a crear.
-	 * @return int capacidad
+	 * @return capacidad int
 	 */
 	@Column(allowsNull = "false")
 	@MemberOrder(sequence = "3")
@@ -147,7 +147,7 @@ public class Mesa {
 
 	/**
 	 * Setea la capacidad de la Mesa.
-	 * @param int capacidadMesa
+	 * @param capacidadMesa int
 	 */
 	public void setCapacidad(final int capacidadMesa) {
 		this.capacidad = capacidadMesa;
@@ -156,6 +156,10 @@ public class Mesa {
 	// {{ EstadoHabilitacion (property)
 	private EstadoHabilitacionMesaEnum estadoHabilitacion;
 
+	/**
+	 * Obtiene el estado de habilitacion de una Mesa
+	 * @return estadoHabilitacionMesa Enum 
+	 */
 	@Disabled
 	@Named("Ocupación")
 	@Column(allowsNull = "false")
@@ -163,17 +167,22 @@ public class Mesa {
 	public EstadoHabilitacionMesaEnum getEstadoHabilitacion() {
 		return estadoHabilitacion;
 	}
-
+	/**
+	 * Setea el estado de habilitacion de una mesa
+	 * @param estadoHabilitacionMesa Enum
+	 */
 	public void setEstadoHabilitacion(
 			final EstadoHabilitacionMesaEnum estadoHabilitacionMesa) {
 		this.estadoHabilitacion = estadoHabilitacionMesa;
 	}
 
-	// }}
-
 	// {{ EstadoAsignacion (property)
 	private EstadoAsignacionMesaEnum estadoAsignacion;
 
+	/**
+	 * Obtiene el estado de asignacon de una Mesa
+	 * @return estadoAsignacion Enum
+	 */
 	@Named("Asignación")
 	@Column(allowsNull = "false")
 	@MemberOrder(sequence = "5")
@@ -182,50 +191,83 @@ public class Mesa {
 		return estadoAsignacion;
 	}
 
+	/**
+	 * Setea el estado de asignacion de una mesa
+	 * @param estadoAsignacion Enum
+	 */
 	public void setEstadoAsignacion(
 			final EstadoAsignacionMesaEnum estadoAsignacionMesa) {
 		this.estadoAsignacion = estadoAsignacionMesa;
 	}
-
-	// }}
 
 	// {{ Pedidos (Collection)
 	@Persistent(mappedBy = "mesa")
 	@Join
 	private List<Pedido> pedidos = new ArrayList<Pedido>();
 
+	/**
+	 * Obtine una lista de pedidos 
+	 * @return List<Pedido> pedidos
+	 */
 	@Render(Type.EAGERLY)
 	@MemberOrder(sequence = "1")
 	public List<Pedido> getPedidos() {
 		return pedidos;
 	}
 
+	/**
+	 * Setea una lista de pedidos 
+	 * @param pedidos Pedido
+	 */
 	public void setPedidos(final List<Pedido> pedidos) {
 		this.pedidos = pedidos;
 	}
 
-	// }}
-
+	/**
+	 * Agrega un pedido a la lista de pedidos 
+	 * @param _pedido Pedido
+	 */
 	@Programmatic
 	public void addToPedidos(final Pedido _pedido) {
 		getPedidos().add(_pedido);
 	}
 
+	/**
+	 * Remueve un pedido a la lista de pedidos 
+	 * @param _pedido Pedido
+	 */
 	@Programmatic
 	public void removeFromPedidos(final Pedido _pedido) {
 		getPedidos().remove(_pedido);
 	}
 
+	/**
+	 * Permite tomar un pedido 
+	 * @param _pedido Pedido
+	 */
 	@MemberOrder(name = "pedidos", sequence = "1")
 	public Pedido tomarPedido() {
 		return mesaServicio.tomarPedido(this);
 	}
 
+	/**
+	 * Define el estado de asignacion de una mesa 
+	 * @return String
+	 */
 	public String disableTomarPedido() {
 		return (getEstadoAsignacion() == EstadoAsignacionMesaEnum.Asignada) ? null
 				: "Mesa sin Asignar!";
 	}
 
+	/**
+	 * Borra un pedido efectuado
+	 * @param _pedido Pedido
+	 * @see dom.pedido.Pedido.getBebidas()
+	 * @see dom.pedido.Pedido.getComanda()
+	 * @see dom.comanda.Comanda.getMenues()
+	 * @see dom.comanda.Comanda.getProductos()
+	 * @return this
+	 */
 	@MemberOrder(name = "pedidos", sequence = "2")
 	public Mesa borrarPedido(@Named("Pedido") Pedido _pedido) {
 		if (!_pedido.getBebidas().isEmpty()
@@ -238,28 +280,48 @@ public class Mesa {
 		return this;
 	}
 
+	/**
+	 * Obtine una lista de padidos para su borrado
+	 * @return List<Pedido>
+	 */
 	public List<Pedido> choices0BorrarPedido() {
 		return getPedidos();
 	}
 
+	/**
+	 * Verifica si existen pedidos realizados
+	 * @param _pedido Pedido
+	 * @return String
+	 */
 	public String disableBorrarPedido(Pedido _pedido) {
 		return getPedidos().isEmpty() ? "No Existen Pedidos" : null;
 	}
-
+	
+	/**
+	 * Permite Facturar una mesa
+	 * @see dom.mesa.MesaServicio.facturar
+	 * @return factura Factura
+	 */
 	public Factura facturar() {
 		return mesaServicio.facturar(this);
 	}
 
+	/**
+	 * Permite validar un pedido antes de ser facturado
+	 * @return String
+	 */
 	public String disableFacturar() {
 		return mesaServicio.validarFactturado(this);
 	}
 
-	// {{ injected: DomainObjectContainer
+	/**
+	 * Inyeccion del Contenedor
+	 */
 	@Inject
 	private DomainObjectContainer contenedor;
 
-	/*
-	 * Inyección del servicio
+	/**
+	 * Inyección del servicio de la clase MesaServicio
 	 */
 	@Inject
 	private MesaServicio mesaServicio;

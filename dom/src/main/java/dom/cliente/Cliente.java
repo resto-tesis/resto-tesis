@@ -39,7 +39,7 @@ import dom.persona.Persona;
 
 /**
  * Entidad Cliente la cual representa a cualquier persona que consuma 
- * productos dentro del local, extiende de la clase Persona
+ * productos dentro del local, extiende de la clase Persona, implementa IObservador
  * @author RestoTesis
  * @since 10/05/2014
  * @version 1.0.0
@@ -63,7 +63,7 @@ public class Cliente extends Persona implements IObservador {
 
 	/**
 	 * Retorna el numero de Cliente que se va a crear.
-	 * @return long numeroCliente
+	 * @return numeroCliente long
 	 */
 	@TypicalLength(5)
 	@Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT, sequence = "secuenciaNumeroCliente")
@@ -75,7 +75,7 @@ public class Cliente extends Persona implements IObservador {
 
 	/**
 	 * Setea el numero de Cliente que se va a crear.
-	 * @param long numeroCliente
+	 * @param numeroCliente long
 	 */
 	public void setNumeroCliente(final long numeroCliente) {
 		this.numeroCliente = numeroCliente;
@@ -111,7 +111,7 @@ public class Cliente extends Persona implements IObservador {
 
 	/**
 	 * Retorna la Oferta que se va a crear.
-	 * @return Oferta oferta
+	 * @return oferta Oferta
 	 */
 	@Hidden
 	@Optional
@@ -122,7 +122,7 @@ public class Cliente extends Persona implements IObservador {
 
 	/**
 	 * Setea la Oferta que se va a crear.
-	 * @param Oferta oferta
+	 * @param oferta Oferta
 	 */
 	public void setOferta(final Oferta oferta) {
 		this.oferta = oferta;
@@ -133,8 +133,8 @@ public class Cliente extends Persona implements IObservador {
 	private CorreoServicio correo;
 
 	/**
-	 * Metodo a implementar para actualizar la oferta
-	 * @param Oferta _oferta
+	 * Metodo para actualizar la oferta
+	 * @param _oferta Oferta
 	 */
 	@Override
 	public void actualizar(Oferta _oferta) {

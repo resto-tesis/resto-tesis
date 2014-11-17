@@ -35,11 +35,23 @@ import org.apache.isis.applib.annotation.Render.Type;
 import dom.empleado.Empleado;
 import dom.mesa.EstadoAsignacionMesaEnum;
 import dom.mesa.Mesa;
-
+/**
+ * Entidad Mozo, la cual representa un empleado del comercio, que desarrollara
+ * funciones especificas en el salon de ventas, tomando los pedidos o comandas
+ * a los clientes, extiende de la clase Empleado
+ * @author RestoTesis
+ * @since 10/05/2014
+ * @version 1.0.0
+ */
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
 public class Mozo extends Empleado {
 
+	/**
+	 * Retorna el nombre del icono segun el Mozo este dado de baja/alta
+	 * @see dom.persona.Persona.getBaja();
+	 * @return String
+	 */
 	public String iconName() {
 		return getBaja() ? "MozoBaja" : "Mozo";
 	}
@@ -48,18 +60,30 @@ public class Mozo extends Empleado {
 
 	private List<Mesa> listaMesas = new ArrayList<Mesa>();
 
+	/**
+	 * Atributo del tipo List<Mesa> que le permite al mozo obtener una lista de mesas
+	 * @return listaMesas List<Mesa>
+	 */
 	@Render(Type.EAGERLY)
 	@Named("Mesas Asignadas")
 	public List<Mesa> getListamesas() {
 		return listaMesas;
 	}
 
+	/**
+	 * Permite al mozo setear una lista de mesas
+	 * @param listaMesas List<Mesa>
+	 */
 	public void setListaMesas(final List<Mesa> listaMesas) {
 		this.listaMesas = listaMesas;
 	}
 
 	// }}
 
+	/**
+	 * Permite que el mozo listar mesas con estado: sin asignar
+	 * @return List<Mesa>
+	 */
 	@MemberOrder(name = "listaMesas", sequence = "1")
 	public List<Mesa> seleccionarMesas() {
 		for (Mesa _mesa : contenedor.allInstances(Mesa.class))
@@ -67,21 +91,39 @@ public class Mozo extends Empleado {
 		return mozoServicio.listarMesasSinAsignar();
 	}
 
+	/**
+	 * Validar si existen mesas sin asignar
+	 * @return String
+	 */
 	public String disableSeleccionarMesas() {
 		return mozoServicio.listarMesasSinAsignar().isEmpty() ? "No Existen Mesas Sin Asignar"
 				: null;
 	}
 
+	/**
+	 * Permite asignar una mesa al Mozo
+	 * @return this
+	 */
 	@MemberOrder(name = "listaMesas", sequence = "2")
 	public Mozo asignar() {
 		return mozoServicio.asignarMesas(this);
 	}
 
+	/**
+	 * Permite ver si existen mesas seleccionadas
+	 * @return String
+	 */
 	public String disableAsignar() {
 		return mozoServicio.listaMesasSeleccionadas().isEmpty() ? "No Hay Mesas Seleccionadas"
 				: null;
 	}
 
+	/**
+	 * Permite desasignar una Mesa al Mozo y le cambia el estdo de asignacion
+	 * @param _mesa Mesa
+	 * @see dom.mesa.Mesa.getPedidos()
+	 * @return this
+	 */
 	@Named("Quitar")
 	@MemberOrder(name = "listaMesas", sequence = "3")
 	public Mozo desasignarMesa(final Mesa _mesa) {
@@ -94,20 +136,31 @@ public class Mozo extends Empleado {
 		return this;
 	}
 
+	/**
+	 * Permite verificar si no existen Mesas asignadas
+	 * @param _mesa Mesa
+	 * @return String
+	 */
 	public String disableDesasignarMesa(final Mesa _mesa) {
 		return listaMesas.isEmpty() ? "No Existen Mesas Asignadas" : null;
 	}
 
+	/**
+	 * Permite obtener una lista de mesas
+	 * @return List<Mesas>
+	 */
 	public List<Mesa> choices0DesasignarMesa() {
 		return getListamesas();
 	}
 
-	// {{ injected: DomainObjectContainer
+	/**
+	 * Inyección del contenedor
+	 */
 	@Inject
 	private DomainObjectContainer contenedor;
 
-	/*
-	 * Inyección del servicio
+	/**
+	 * Inyección del servicio del Mozo
 	 */
 	@Inject
 	private MozoServicio mozoServicio;

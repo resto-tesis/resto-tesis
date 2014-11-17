@@ -35,7 +35,13 @@ import org.apache.isis.applib.annotation.Title;
 import org.apache.isis.applib.annotation.Where;
 
 import dom.usuario.Usuario;
-
+/**
+ * Clase abstracta que representa a una persona, de la cual extenderan todos 
+ * los empleados y clientes
+ * @author RestoTesis
+ * @since 10/09/2014
+ * @version 1.0.0
+ */
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
 public abstract class Persona {
@@ -43,6 +49,10 @@ public abstract class Persona {
 	// {{ Apellido (property)
 	private String apellido;
 
+	/**
+	 * Pemite obtener un apellido a la Persona
+	 * @return apellido String
+	 */
 	@Hidden(where = Where.ALL_TABLES)
 	@Title(sequence = "1.0")
 	@Column(allowsNull = "false")
@@ -51,15 +61,21 @@ public abstract class Persona {
 		return apellido;
 	}
 
+	/**
+	 * Setea el apellido de la Persona
+	 * @param apellido String
+	 */
 	public void setApellido(final String apellido) {
 		this.apellido = apellido;
 	}
 
-	// }}
-
 	// {{ Nombre (property)
 	private String nombre;
 
+	/**
+	 * Pemite obtener un nombre a la Persona
+	 * @return nombre String
+	 */
 	@Hidden(where = Where.ALL_TABLES)
 	@Title(sequence = "1.5", prepend = ", ")
 	@Column(allowsNull = "false")
@@ -68,30 +84,42 @@ public abstract class Persona {
 		return nombre;
 	}
 
+	/**
+	 * Setea el nombre de la Persona
+	 * @param nombre String
+	 */
 	public void setNombre(final String nombre) {
 		this.nombre = nombre;
 	}
-
-	// }}
-
+	
 	// {{ Documento (property)
 	private long documento;
 
+	/**
+	 * Pemite obtener un numero de documento a la Persona
+	 * @return documento long
+	 */
 	@Column(allowsNull = "false")
 	@MemberOrder(sequence = "3")
 	public long getDocumento() {
 		return documento;
 	}
 
+	/**
+	 * Setea el numero de documento de la Persona
+	 * @param documento long
+	 */
 	public void setDocumento(final long documento) {
 		this.documento = documento;
 	}
 
-	// }}
-
 	// {{ Telefono (property)
 	private String telefono;
 
+	/**
+	 * Pemite obtener un numero de telefono fijo a la Persona
+	 * @return telefono String
+	 */
 	@RegEx(validation = "\\d{7,11}")
 	@Optional
 	@MemberOrder(sequence = "4")
@@ -99,15 +127,21 @@ public abstract class Persona {
 		return telefono;
 	}
 
+	/**
+	 * Setea el numero de telefono fijo de la Persona
+	 * @param telefono String
+	 */
 	public void setTelefono(final String telefono) {
 		this.telefono = telefono;
 	}
 
-	// }}
-
 	// {{ Celular (property)
 	private String celular;
 
+	/**
+	 * Pemite obtener un numero de telefono celular a la Persona
+	 * @return celular String
+	 */
 	@RegEx(validation = "\\d{3,7}(-)?\\d{6}")
 	@Optional
 	@MemberOrder(sequence = "5")
@@ -115,6 +149,10 @@ public abstract class Persona {
 		return celular;
 	}
 
+	/**
+	 * Setea el numero de telefono celular de la Persona
+	 * @param celular String
+	 */
 	public void setCelular(final String celular) {
 		this.celular = celular;
 	}
@@ -124,6 +162,10 @@ public abstract class Persona {
 	// {{ Correo (property)
 	private String correo;
 
+	/**
+	 * Pemite obtener un correo electronico a la Persona
+	 * @return correo String
+	 */
 	@Hidden(where = Where.ALL_TABLES)
 	@Optional
 	@MemberOrder(sequence = "6")
@@ -131,15 +173,21 @@ public abstract class Persona {
 		return correo;
 	}
 
+	/**
+	 * Setea el correo electronico de la Persona
+	 * @param correo String
+	 */
 	public void setCorreo(final String correo) {
 		this.correo = correo;
 	}
 
-	// }}
-
 	// {{ Direccion (property)
 	private String direccion;
 
+	/**
+	 * Pemite obtener una direccion de la Persona
+	 * @return direccion String
+	 */
 	@Hidden(where = Where.ALL_TABLES)
 	@Optional
 	@MultiLine(numberOfLines = 2)
@@ -150,15 +198,21 @@ public abstract class Persona {
 		return direccion;
 	}
 
+	/**
+	 * Setea la direccion de la Persona
+	 * @param correo String
+	 */
 	public void setDireccion(final String direccion) {
 		this.direccion = direccion;
 	}
 
-	// }}
-
 	// {{ Usuario (property)
 	private Usuario usuario;
 
+	/**
+	 * Permite obtener un nombre de usuario
+	 * @return
+	 */
 	@Hidden
 	@Persistent(dependent = "true")
 	@Column(allowsNull = "false")
@@ -166,15 +220,21 @@ public abstract class Persona {
 		return usuario;
 	}
 
+	/**
+	 * Setea el usuario 
+	 * @param usuario Usuario
+	 */
 	public void setUsuario(final Usuario usuario) {
 		this.usuario = usuario;
 	}
 
-	// }}
-
 	// {{ Baja (property)
 	private boolean baja;
 
+	/**
+	 * Permite realizar la baja de una persona 
+	 * @return baja boolean
+	 */
 	@Hidden
 	@Disabled
 	@MemberOrder(sequence = "1")
@@ -183,26 +243,44 @@ public abstract class Persona {
 		return baja;
 	}
 
+	/**
+	 * Setea la baja de una persona 
+	 * @param baja boolean
+	 */
 	public void setBaja(final boolean baja) {
 		this.baja = baja;
 	}
 
-	// }}
-
+	/**
+	 * Asigna el estado de alta
+	 * @return this Persona
+	 */
 	public Persona alta() {
 		setBaja(false);
 		return this;
 	}
 
+	/**
+	 * Verifica si su estado es alta
+	 * @return String
+	 */
 	public String disableAlta() {
 		return getBaja() ? null : "Ya dado de Alta!";
 	}
 
+	/**
+	 * Asigna el estado de baja
+	 * @return this Persona
+	 */
 	public Persona baja() {
 		setBaja(true);
 		return this;
 	}
 
+	/**
+	 * Verifica si su estado es baja
+	 * @return String
+	 */
 	public String disableBaja() {
 		return getBaja() ? "Ya dado de Baja!" : null;
 	}

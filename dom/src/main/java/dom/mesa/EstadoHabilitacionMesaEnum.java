@@ -16,7 +16,12 @@
  */
 
 package dom.mesa;
-
+/**
+ * clase tipo enum, que le permite a la Clase Mesa implementar distintos estados de HabilitacionS
+ * @author RestoTesis
+ * @since 10/08/2014
+ * @version 1.0.0
+ */
 public enum EstadoHabilitacionMesaEnum {
 	Ocupada, Desocupada;
 

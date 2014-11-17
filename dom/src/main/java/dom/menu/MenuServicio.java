@@ -66,13 +66,13 @@ public class MenuServicio extends AbstractFactoryAndRepository {
 
 	/**
 	 * Obtiene los datos validados del Menu desde la interfaz de usuario
-	 * @param String _nombre
-	 * @param PlatoPrincipal _platoprincipal
-	 * @param PlatoEntrada _platoEntrada
-	 * @param Guarnicion _guarnicion
-	 * @param Postre _postre
-	 * @param int _descuento
-	 * @return Menu nuevoMenu
+	 * @param _nombre String
+	 * @param _platoprincipal PlatoPrincipal
+	 * @param _platoEntrada PlatoEntrada
+	 * @param _guarnicion Guarnicion
+	 * @param _postrePostre 
+	 * @param _descuento int
+	 * @return nuevoMenu Menu
 	 */
 	@Hidden(where = Where.OBJECT_FORMS)
 	@Named("Crear")
@@ -91,14 +91,14 @@ public class MenuServicio extends AbstractFactoryAndRepository {
 	/**
 	 * Toma los datos obtenidos en la carga de menu desde el metodo
 	 * crearMenu() y persiste los items en el nuevo Menu
-	 * @param String _nombre
-	 * @param PlatoPrincipal _platoprincipal
-	 * @param PlatoEntrada _platoEntrada
-	 * @param Guarnicion _guarnicion
-	 * @param Postre _postre
-	 * @param int _descuento
+	 * @param _nombre String
+	 * @param _platoprincipal PlatoPrincipal
+	 * @param _platoEntrada PlatoEntrada
+	 * @param _guarnicion Guarnicion
+	 * @param _postrePostre 
+	 * @param _descuento int
 	 * @see dom.menu.MenuServicio.crearMenu
-	 * @return Menu menu
+	 * @return menu Menu
 	 */
 	@Programmatic
 	public Menu nuevoMenu(final String _nombre,
@@ -120,12 +120,12 @@ public class MenuServicio extends AbstractFactoryAndRepository {
 
 	/**
 	 * Valida que el descuento aplicado al Menu no sea mayor del 50 %
-	 * @param String _nombre
-	 * @param PlatoPrincipal _platoprincipal
-	 * @param PlatoEntrada _platoEntrada
-	 * @param Guarnicion _guarnicion
-	 * @param Postre _postre
-	 * @param int _descuento
+	 * @param _nombre String
+	 * @param _platoprincipal PlatoPrincipal
+	 * @param _platoEntrada PlatoEntrada
+	 * @param _guarnicion Guarnicion
+	 * @param _postrePostre 
+	 * @param _descuento int
 	 * @return String
 	 */
 	@Programmatic
@@ -140,7 +140,7 @@ public class MenuServicio extends AbstractFactoryAndRepository {
 	/**
 	 * Calcula el Precio de Menu a partir de un descuento aplicado
 	 * @see dom.menu.Menu.getDescuento()
-	 * @return double total
+	 * @return total double
 	 */
 	@Programmatic
 	public double calcularDescuento(Menu _menu) {
@@ -150,9 +150,9 @@ public class MenuServicio extends AbstractFactoryAndRepository {
 
 	/**
 	 * Calcula el Precio total del Menu
-	 * @param Menu _menu
+	 * @param _menu Menu
 	 * @see dom.producto.Producto.getPrecio()
-	 * @return double total
+	 * @return total double
 	 */
 	@Programmatic
 	public double calcularTotal(Menu _menu) {
@@ -169,7 +169,7 @@ public class MenuServicio extends AbstractFactoryAndRepository {
 	/**
 	 * Obtiene una lista de los Platos Principales de Alta
 	 * @see dom.producto.platoPrincipal.PlatoPrincipalServicio.listarPLatosPrincipalesAlta()
-	 * @return List<PlatoPrincipal> listarPlatosPrincipalesAlta();
+	 * @return listarPlatosPrincipalesAlta() List<PlatoPrincipal>;
 	 */
 	@Programmatic
 	public List<PlatoPrincipal> choices1CrearMenu() {
@@ -179,7 +179,7 @@ public class MenuServicio extends AbstractFactoryAndRepository {
 	/**
 	 * Obtiene una lista de los Platos de Entrada de alta
 	 * @see dom.producto.platoEntrada.PlatoEntradaServicio.listarPLatosEntradaAlta()
-	 * @return List<PlatoEntrada> platoEntradaServicio
+	 * @return platoEntradaServicio List<PlatoEntrada>
 	 */
 	@Programmatic
 	public List<PlatoEntrada> choices2CrearMenu() {
@@ -189,7 +189,7 @@ public class MenuServicio extends AbstractFactoryAndRepository {
 	/**
 	 * Obtiene una lista de las guarniciones de alta
 	 * @see dom.producto.guarnicion.GuarnicionServicio.listarGuarnicionesAlta()
-	 * @return List<Guarnicion> guarnicionServicio
+	 * @return guarnicionServicio List<Guarnicion>
 	 */
 	@Programmatic
 	public List<Guarnicion> choices3CrearMenu() {
@@ -199,7 +199,7 @@ public class MenuServicio extends AbstractFactoryAndRepository {
 	/**
 	 * Obtiene una lista de Postres de alta
 	 * @see dom.producto.postre.PostreServicio.listarPostresAlta()
-	 * @return List<Postre> postreServicio
+	 * @return postreServicio List<Postre>
 	 */
 	@Programmatic
 	public List<Postre> choices4CrearMenu() {
@@ -233,7 +233,7 @@ public class MenuServicio extends AbstractFactoryAndRepository {
 	/**
 	 * Obtiene una lista de Menus que se van filtrando a medida
 	 * que se van escribiendo los caracteres
-	 * @param String nombre
+	 * @param nombre String
 	 * @return List<Menu>
 	 */
 	@Programmatic

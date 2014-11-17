@@ -48,21 +48,46 @@ import dom.mesa.MesaServicio;
 import dom.persona.Persona;
 import dom.usuario.Rol;
 import dom.usuario.Usuario;
-
+/**
+ * Contiene la funcionalidad para Cargar/Listar un nuevo Mozo
+ * implementa la inteface IValidacionEmpleado
+ * @author RestoTesis
+ * @since 10/06/2014
+ * @version 1.0.0
+ */
 @DomainService
 @Named("Mozo")
 public class MozoServicio extends AbstractFactoryAndRepository implements
 		IValidacionEmpleado {
 
+	/**
+	 * Retorna el nombre del icono del nuevo Mozo 
+	 * @return String
+	 */
 	public String iconName() {
 		return "Mozo";
 	}
 
-	/*
+	/**
 	 * Atributo Extra para las validaciones de las fechas
 	 */
 	final LocalDate fecha_actual = LocalDate.now();
 
+	/**
+	 * Obtiene los datos validados de un nuevo Cocinero
+	 * @param _apellido String
+	 * @param _nombre String
+	 * @param _dni long
+	 * @param _direccion String
+	 * @param _telefono String
+	 * @param _celular String
+	 * @param _correo String
+	 * @param fechadeNacimiento LocalDate
+	 * @param fechadeIngreso LocalDate
+	 * @param _nombreUsusario String
+	 * @param _password Password
+	 * @return mozo Mozo
+	 */
 	@Named("Nuevo Mozo")
 	@MemberOrder(name = "Empleados", sequence = "10.4")
 	public Mozo crear(
@@ -82,6 +107,10 @@ public class MozoServicio extends AbstractFactoryAndRepository implements
 				_correo, fechadeIngreso, fechadeNacimiento);
 	}
 
+	/**
+	 * Crea y persiste el Usuario y Password para el nuevo mozo
+	 * @return usuario Usuario
+	 */
 	@Programmatic
 	public Usuario crearUsuario(final String _nombreUsuario,
 			final Password _password) {
@@ -93,6 +122,21 @@ public class MozoServicio extends AbstractFactoryAndRepository implements
 		return usuario;
 	}
 
+	/**
+	 * Persiste un nuevo Mozo
+	 * @param _usuario Usuario
+	 * @param  _apellido String 
+	 * @param _nombre String
+	 * @param _dni long
+	 * @param _direccion String
+	 * @param _telefono String
+	 * @param _celular String
+	 * @param _correo String
+	 * @param fechadeNacimiento LocalDate
+	 * @param fechadeIngreso LocalDate
+	 * @param mozo Mozo 
+	 * @return mozo Mozo
+	 */
 	@Programmatic
 	public Mozo crearNuevoMozo(final Usuario _usuario, final String _apellido,
 			final String _nombre, final long _dni, final String _direccion,
@@ -117,6 +161,11 @@ public class MozoServicio extends AbstractFactoryAndRepository implements
 		return mozo;
 	}
 
+	/**
+	 * Obtiene una lista de Mozos de alta
+	 * @see dom.persona.Persona.getBaja()
+	 * @return List<Mozo>
+	 */
 	@Named("Mozos")
 	@ActionSemantics(Of.SAFE)
 	@MemberOrder(name = "Empleados", sequence = "10.1")
@@ -131,6 +180,10 @@ public class MozoServicio extends AbstractFactoryAndRepository implements
 		});
 	}
 
+	/**
+	 * Obtiene una lista de todoslos Mozos
+	 * @return List<Mozo>
+	 */
 	@Named("Mozos")
 	@ActionSemantics(Of.SAFE)
 	@MemberOrder(name = "Empleados", sequence = "10.1")
@@ -138,18 +191,38 @@ public class MozoServicio extends AbstractFactoryAndRepository implements
 		return allInstances(Mozo.class);
 	}
 
+	/**
+	 * Obtiene una lista de Mesas con el estado sin asignar
+	 * @return List<Mesa>
+	 */
 	@Programmatic
 	public List<Mesa> listarMesasSinAsignar() {
 		return mesaServicio.listarMesasSinAsignar();
 	}
 
+	/**
+	 * Obtiene una lista de Mesas con el estado seleccionada
+	 * @return List<Mesa>
+	 */
 	@Programmatic
 	public List<Mesa> listaMesasSeleccionadas() {
 		return mesaServicio.listarMesasSeleccionadas();
 	}
 
-	/*
-	 * Validacion del ingreso de fechas por el UI
+	/**
+	 * Realiza la Validacion de existencia del Mozo por dni, fecha, edad, telefono del ingreso por UI
+	 * @param _nombre String
+	 * @param _apellido String
+	 * @param _dni long
+	 * @param _direccion String
+	 * @param _telefono String
+	 * @param _celular String
+	 * @param _correo String
+	 * @param fechadeNacimiento LocalDate
+	 * @param fechadeIngreso LocalDate
+	 * @param _nombreUsuario String
+	 * @param _password Password
+	 * @return String
 	 */
 	@Override
 	public String validateCrear(String _nombre, String _apellido,
@@ -188,9 +261,11 @@ public class MozoServicio extends AbstractFactoryAndRepository implements
 				: null;
 	}
 
-	/*
-	 * Validacion de la mayoria de edad de los empleados ingresados 6575 son la
-	 * cantidad de dias que tiene una persona de 18 años
+	/**
+	 * Validacion de la mayoria de edad de los empleados ingresados;
+	 * 6575 son la cantidad de dias que tiene una persona de 18 años
+	 * @param fechadeNacimiento LocalDate
+	 * @return boolean
 	 */
 	@Override
 	@Programmatic
@@ -202,9 +277,10 @@ public class MozoServicio extends AbstractFactoryAndRepository implements
 		return false;
 	}
 
-	/*
-	 * Obtiene la cantidad de dias entre la fecha de nacimiento y la fecha
-	 * actual
+	/**
+	 * Obtiene la cantidad de dias entre la fecha de nacimiento y la fecha actual
+	 * @param fechadeNacimiento LocalDate
+	 * @return org.joda.time.Days meses
 	 */
 	@Override
 	@Programmatic
@@ -214,6 +290,11 @@ public class MozoServicio extends AbstractFactoryAndRepository implements
 		return meses.getDays();
 	}
 
+	/**
+	 * Pemite asignar una Mesa a un Mozo; cambiando su estado de seleccion y asignacion
+	 * @param _mozo Mozo
+	 * @return _mozo Mozo
+	 */
 	@Programmatic
 	public Mozo asignarMesas(Mozo _mozo) {
 		for (Mesa _mesa : listaMesasSeleccionadas()) {
@@ -225,6 +306,9 @@ public class MozoServicio extends AbstractFactoryAndRepository implements
 		return _mozo;
 	}
 
+	/**
+	 * Inyeccion del servicio de la Mesa
+	 */
 	@Inject
 	private MesaServicio mesaServicio;
 }

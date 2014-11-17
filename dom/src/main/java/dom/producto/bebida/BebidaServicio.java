@@ -37,15 +37,34 @@ import org.apache.isis.applib.annotation.ActionSemantics.Of;
 import org.apache.isis.applib.query.QueryDefault;
 
 import com.google.common.base.Predicate;
-
+/**
+ * Clase que da la funcionalidad de crear, persistir, listar, obtener tipos y volumenes
+ * a la clase bebida
+ * @author RestoTesis
+ * @since 10/05/2014
+ * @version 1.0.0
+ */
 @DomainService
 @Named("Bebida")
 public class BebidaServicio extends AbstractFactoryAndRepository {
 
+	/**
+	 * Obtiene el nombre del icono de la bebida.
+	 * @return String
+	 */
 	public String iconName(){
 		return "BebidaFria";
 	}
 	
+	/**
+	 * Obtiene de la UI los datos validados de la bebida a crear
+	 * @param _nombre String
+	 * @param _tipo TipoBebidaEnum
+	 * @param _volumen VolumenBebidaEnum
+	 * @param _descripcion String
+	 * @param _precio Bigdecimal
+	 * @return nuevaInstanciaBebida() Bebida
+	 */
 	@Named("Bebida")
 	@MemberOrder(name = "Crear", sequence = "1")
 	public Bebida crearBebida(
@@ -58,6 +77,15 @@ public class BebidaServicio extends AbstractFactoryAndRepository {
 				_precio);
 	}
 
+	/**
+	 * Toma los valores de crearBebida() y los persiste
+	 * @param _nombre String
+	 * @param _tipo TipoBebidaEnum
+	 * @param _volumen VolumenBebidaEnum
+	 * @param _descripcion String
+	 * @param _precio Bigdecimal
+	 * @return
+	 */
 	@Programmatic
 	public Bebida nuevaInstanciaBebida(final String _nombre,
 			final TipoBebidaEnum _tipo, final VolumenBebidaEnum _volumen,
@@ -74,6 +102,11 @@ public class BebidaServicio extends AbstractFactoryAndRepository {
 		return nuevaBebida;
 	}
 
+	/**
+	 * 
+	 * @param nombre String
+	 * @return
+	 */
 	@Programmatic
 	public List<Bebida> completarBebidas(final String nombre) {
 		return allMatches(new QueryDefault<Bebida>(Bebida.class,

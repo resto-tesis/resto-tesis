@@ -27,7 +27,7 @@ import dom.oferta.Oferta;
 public interface IObservador {
 	/**
 	 * Metodo a implementar para actualizar la oferta 
-	 * @param _oferta
+	 * @param _oferta Oferta
 	 */
 	public void actualizar(Oferta _oferta);
 }

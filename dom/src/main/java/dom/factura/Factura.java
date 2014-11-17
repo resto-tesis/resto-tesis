@@ -68,7 +68,7 @@ public class Factura {
 
 	/**
 	 * Obtiene el numero de una nueva Factura, el cual se genera en forma automatica
-	 * @return long numero
+	 * @return numero long
 	 */
 	@Title(prepend = "Factura Nº ")
 	@Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT, sequence = "secuenciaNumeroFactura")
@@ -83,7 +83,7 @@ public class Factura {
 
 	/**
 	 * Setea el numero de una Factura
-	 * @param long numero
+	 * @param numero long
 	 */
 	public void setNumero(final long numero) {
 		this.numero = numero;
@@ -95,7 +95,7 @@ public class Factura {
 
 	/**
 	 * Obtiene el total de la Factura que se va a crear.
-	 * @return double total
+	 * @return total double
 	 */
 	@Named("Total ($)")
 	@Disabled
@@ -107,7 +107,7 @@ public class Factura {
 
 	/**
 	 * Setea el total de la Factura
-	 * @param double total
+	 * @param total double
 	 */
 	public void setTotal(final double total) {
 		this.total = total;
@@ -120,7 +120,7 @@ public class Factura {
 
 	/**
 	 * Obtiene una lista de los items de la factura
-	 * @return List<Itemfactura> items
+	 * @return items List<Itemfactura>
 	 */
 	@Join
 	@Named("Detalle")
@@ -132,7 +132,7 @@ public class Factura {
 
 	/**
 	 * Setea la lista de los items de la factura
-	 * @param List<Itemfactura> items
+	 * @param items List<Itemfactura>
 	 */
 	public void setItems(final List<ItemFactura> items) {
 		this.items = items;
@@ -140,7 +140,7 @@ public class Factura {
 
 	/**
 	 * Agrega un item a la lista de items de la factura
-	 * @param List<Itemfactura> _item
+	 * @param _item List<Itemfactura>
 	 */
 	public void addToItems(final ItemFactura _item) {
 		items.add(_item);
@@ -148,7 +148,7 @@ public class Factura {
 
 	/**
 	 * remueve un item de la lista de items de la factura
-	 * @param List<Itemfactura> _item
+	 * @param _item List<Itemfactura>
 	 */
 	public void removeFromItems(final ItemFactura _item) {
 		items.remove(_item);

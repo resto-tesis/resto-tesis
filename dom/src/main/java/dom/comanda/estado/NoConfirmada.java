@@ -42,7 +42,7 @@ public class NoConfirmada implements IEstadoComanda {
 
 	/**
 	 * Constructor donde se asigna el estado 
-	 * @param Comanda _comanda
+	 * @param _comanda Comanda
 	 */
 	public NoConfirmada(Comanda _comanda) {
 		// TODO Auto-generated constructor stub
@@ -62,7 +62,7 @@ public class NoConfirmada implements IEstadoComanda {
 	
 	/**
 	 * Obtiene una Comanda
-	 * @return Comanda comanda
+	 * @return comanda Comanda
 	 */
 	@MemberOrder(sequence = "1")
 	@Column(allowsNull = "true")
@@ -72,7 +72,7 @@ public class NoConfirmada implements IEstadoComanda {
 	
 	/**
 	 * Setea una Comanda
-	 * @param Comanda comanda
+	 * @param comanda Comanda
 	 */
 	public void setComanda(final Comanda comanda) {
 		this.comanda = comanda;
@@ -114,7 +114,7 @@ public class NoConfirmada implements IEstadoComanda {
 
 	/**
 	 * Determina el estado actual de la Comanda
-	 * @return String mensajeEstadoActual
+	 * @return mensajeEstadoActual String
 	 */
 	@Override
 	@Programmatic
@@ -125,7 +125,7 @@ public class NoConfirmada implements IEstadoComanda {
 
 	/**
 	 * Determina el estado actual de la Comanda
-	 * @return String mensajeEstadoActual
+	 * @return mensajeEstadoActual String
 	 */
 	@Override
 	@Programmatic

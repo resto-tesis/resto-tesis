@@ -41,7 +41,7 @@ public class ComandaServicio extends AbstractFactoryAndRepository {
 	* Metodo que crea y persiste la comanda
 	* @see dom.persona.Persona.getUsuario()
 	* @see dom.usuario.Usuario.getNombre()
-	* @return Comanda comanda
+	* @return comanda Comanda
 	*/
 	@Programmatic
 	public Comanda crearComanda() {

@@ -43,7 +43,12 @@ import dom.producto.platoPrincipal.PlatoPrincipal;
 import dom.producto.platoPrincipal.PlatoPrincipalServicio;
 import dom.producto.postre.Postre;
 import dom.producto.postre.PostreServicio;
-
+/**
+ * 
+ * @author RestoTesis
+ * @since 10/09/2014
+ * @version 1.0.0
+ */
 @DomainService
 public class PedidoServicio extends AbstractFactoryAndRepository {
 

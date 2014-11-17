@@ -31,13 +31,23 @@ import org.apache.isis.applib.annotation.Optional;
 import org.apache.isis.applib.annotation.TypicalLength;
 
 import dom.producto.ProductoNoElaborado;
-
+/**
+ * Entidad que representa las bebidas que se podran consumir en el local, 
+ * extiende de ProductoNoElaborado
+ * @author RestoTesis
+ * @since 10/05/2014
+ * @version 1.0.0
+ */
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
 @Query(name = "bebidasQueEmpiezan", language = "JDOQL", value = "SELECT FROM dom.bebida.Bebida WHERE nombre.matches(:nombre)")
 @AutoComplete(repository = BebidaServicio.class, action = "completarBebidas")
 public class Bebida extends ProductoNoElaborado {
 
+	/**
+	 * Obtiene el nombre del icono de la bebida.
+	 * @return String
+	 */
 	public String iconName() {
 		return getBaja() ? "BebidaFriaDes" : "BebidaFria";
 	}
@@ -45,6 +55,10 @@ public class Bebida extends ProductoNoElaborado {
 	// {{ Tipo (property)
 	private TipoBebidaEnum tipoBebida;
 
+	/**
+	 * Obtiene el tipo de bebida del enumerado
+	 * @return tipoBebida TipoBebidaEnum
+	 */
 	@TypicalLength(10)
 	@Optional
 	@MemberOrder(sequence = "2")
@@ -52,15 +66,21 @@ public class Bebida extends ProductoNoElaborado {
 		return tipoBebida;
 	}
 
+	/**
+	 * Setea el tipo de bebida 
+	 * @param tipoBebida TipoBebidaEnum
+	 */
 	public void setTipoBebida(final TipoBebidaEnum tipoBebida) {
 		this.tipoBebida = tipoBebida;
 	}
 
-	// }}
-
 	// {{ Volumen (property)
 	private VolumenBebidaEnum volumen;
 
+	/**
+	 * Obtiene el volumen de la bebida del enumerado
+	 * @return tipoBebida VolumenBebidaEnum
+	 */
 	@TypicalLength(15)
 	@Optional
 	@MemberOrder(sequence = "4")
@@ -68,13 +88,17 @@ public class Bebida extends ProductoNoElaborado {
 		return volumen;
 	}
 
+	/**
+	 * Setea el volumen de la bebida 
+	 * @param tipoBebida VolumenBebidaEnum
+	 */
 	public void setVolumen(final VolumenBebidaEnum volumen) {
 		this.volumen = volumen;
 	}
 
-	// }}
-
-	// {{ injected: DomainObjectContainer
+	/**
+	 * Inyeccion del contenedor
+	 */
 	@Inject
 	private DomainObjectContainer contenedor;
 

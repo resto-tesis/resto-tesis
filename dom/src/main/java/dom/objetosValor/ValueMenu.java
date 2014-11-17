@@ -11,17 +11,35 @@ import org.apache.isis.applib.annotation.TypicalLength;
 
 import dom.menu.Menu;
 
+/**
+ * Objeto de Valor que se creará cuando se desee agregar una cantidad o alguna nota
+ * al momento de tomar un pedido con mas de un menu en alguna de las mesas.
+ * @author RestoTesis
+ * @since 15/10/2014
+ * @version 1.0.0
+ */
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 public class ValueMenu {
 
+	/**
+	 * Obtiene el nombre del icono para un Menu
+	 * @return String
+	 */
 	public String iconName(){
 		return getMenu().iconName();
 	}
-	
+	/**
+	 * Constructor de la clase
+	 */
 	public ValueMenu() {
 		// TODO Auto-generated constructor stub
 	}
 
+	/**
+	 * Obtiene el nombre y cantidad del menu
+	 * @see dom.menu.Menu.getNombre()
+	 * @return String
+	 */
 	public String title() {
 		return getMenu().getNombre() + " (x " + getCantidad() + ")";
 	}
@@ -29,36 +47,52 @@ public class ValueMenu {
 	// {{ Menu (property)
 	private Menu menu;
 
+	/**
+	 * Obtiene un Menu
+	 * @return menu Menu
+	 */
 	@MemberOrder(sequence = "5")
 	@Column(allowsNull = "false")
 	public Menu getMenu() {
 		return menu;
 	}
 
+	/**
+	 * Setea un Menu
+	 * @param menu Menu
+	 */
 	public void setMenu(final Menu menu) {
 		this.menu = menu;
 	}
 
-	// }}
-
 	// {{ Nota (property)
 	private String nota;
 
+	/**
+	 * Obtiene una nota o comentario del Menu
+	 * @return nota String
+	 */
 	@MemberOrder(sequence = "4")
 	@Column(allowsNull = "true")
 	public String getNota() {
 		return nota;
 	}
 
+	/**
+	 * Setea una nota o comentario del Menu
+	 * @param nota String
+	 */
 	public void setNota(final String nota) {
 		this.nota = nota;
 	}
 
-	// }}
-
 	// {{ Cantidad (property)
 	private int cantidad;
 
+	/**
+	 * Obtiene la cantidad de Menues iguales
+	 * @return cantidad int
+	 */
 	@TypicalLength(2)
 	@MemberOrder(sequence = "3")
 	@Column(allowsNull = "false")
@@ -66,12 +100,17 @@ public class ValueMenu {
 		return cantidad;
 	}
 
+	/**
+	 * Setea la cantidad de Menues iguales
+	 * @param cantidad int
+	 */
 	public void setCantidad(final int cantidad) {
 		this.cantidad = cantidad;
 	}
 
-	// }}
-
+	/**
+	 * Inyeccion del contenedor
+	 */
 	@Inject
 	private DomainObjectContainer contenedor;
 }
