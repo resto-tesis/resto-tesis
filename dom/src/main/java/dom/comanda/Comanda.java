@@ -83,15 +83,8 @@ public class Comanda {
 	private int numero;
 
 	/**
-<<<<<<< HEAD
 	 * Obtiene el numero de una nueva comanda, el cual se genera en forma automatica
 	 * @return numero int
-=======
-	 * Obtiene el numero de una nueva comanda, el cual se genera en forma
-	 * automatica
-	 * 
-	 * @return int numero
->>>>>>> 8a91ce6d19b175dc974491ec4796ab35890b4c08
 	 */
 	@Named("Número")
 	@TypicalLength(3)
@@ -105,12 +98,7 @@ public class Comanda {
 
 	/**
 	 * Setea el numero de la Comanda que se va a crear.
-<<<<<<< HEAD
 	 * @param numeroComanda int
-=======
-	 * 
-	 * @param int nimeroComanda
->>>>>>> 8a91ce6d19b175dc974491ec4796ab35890b4c08
 	 */
 	public void setNumero(final int numeroComanda) {
 		this.numero = numeroComanda;
@@ -123,12 +111,7 @@ public class Comanda {
 
 	/**
 	 * Obtiene un Mozo
-<<<<<<< HEAD
 	 * @return mozo Empleado
-=======
-	 * 
-	 * @return Empleado mozo
->>>>>>> 8a91ce6d19b175dc974491ec4796ab35890b4c08
 	 */
 	@Disabled
 	@MemberOrder(sequence = "3")
@@ -139,31 +122,18 @@ public class Comanda {
 
 	/**
 	 * Setea el mozo
-<<<<<<< HEAD
 	 * @param mozo Empleado
-=======
-	 * 
-	 * @param Empleado
-	 *            mozo
->>>>>>> 8a91ce6d19b175dc974491ec4796ab35890b4c08
 	 */
 	public void setMozo(final Empleado mozo) {
 		this.mozo = mozo;
 	}
-
-	// }}
 
 	// {{ FechaDePedido (property)
 	private Date fechaDePedido;
 
 	/**
 	 * Obtiene la fecha de un pedido
-<<<<<<< HEAD
 	 * @return fechaDePedido Date
-=======
-	 * 
-	 * @return Date fechaDePedido
->>>>>>> 8a91ce6d19b175dc974491ec4796ab35890b4c08
 	 */
 	@Disabled
 	@Named("Fecha y Hora")
@@ -175,31 +145,18 @@ public class Comanda {
 
 	/**
 	 * Setea la fecha de un pedido
-<<<<<<< HEAD
 	 * @param fechaDePedido Date
-=======
-	 * 
-	 * @param Date
-	 *            fechaDePedido
->>>>>>> 8a91ce6d19b175dc974491ec4796ab35890b4c08
 	 */
 	public void setFechaDePedido(final Date fechaDePedido) {
 		this.fechaDePedido = fechaDePedido;
 	}
-
-	// }}
 
 	// {{ Productos (Collection)
 	private List<ValueProductoElaborado> productos = new ArrayList<ValueProductoElaborado>();
 
 	/**
 	 * Obtiene una lista de Productos Elaborados
-<<<<<<< HEAD
 	 * @return productos List<ValueProductosElaborados>
-=======
-	 * 
-	 * @return List<ValueProductosElaborados> productos
->>>>>>> 8a91ce6d19b175dc974491ec4796ab35890b4c08
 	 */
 	@Persistent(dependentElement = "true")
 	@Join(deleteAction = ForeignKeyAction.CASCADE)
@@ -211,13 +168,7 @@ public class Comanda {
 
 	/**
 	 * Setea una lista de productos elaborados
-<<<<<<< HEAD
 	 * @param productos List<ValueProductosElaborados>
-=======
-	 * 
-	 * @param List
-	 *            <ValueProductosElaborados> productos
->>>>>>> 8a91ce6d19b175dc974491ec4796ab35890b4c08
 	 */
 	public void setProductos(final List<ValueProductoElaborado> productos) {
 		this.productos = productos;
@@ -225,13 +176,7 @@ public class Comanda {
 
 	/**
 	 * Agrega un elemento a la lista de productos elaborados
-<<<<<<< HEAD
 	 * @param _productos ValueProductosElaborados
-=======
-	 * 
-	 * @param ValueProductosElaborados
-	 *            _productos
->>>>>>> 8a91ce6d19b175dc974491ec4796ab35890b4c08
 	 */
 	public void addToProductos(final ValueProductoElaborado _producto) {
 		getProductos().add(_producto);
@@ -239,13 +184,7 @@ public class Comanda {
 
 	/**
 	 * Remueve un elemento a la lista de productos elaborados
-<<<<<<< HEAD
 	 * @param _productos ValueProductosElaborados
-=======
-	 * 
-	 * @param ValueProductosElaborados
-	 *            _productos
->>>>>>> 8a91ce6d19b175dc974491ec4796ab35890b4c08
 	 */
 	public void removeFromProductos(final ValueProductoElaborado _producto) {
 		getProductos().remove(_producto);
@@ -256,12 +195,7 @@ public class Comanda {
 
 	/**
 	 * Obtiene una lista de menues
-<<<<<<< HEAD
 	 * @return menues List<ValueMenu>
-=======
-	 * 
-	 * @return List<ValueMenu> menues
->>>>>>> 8a91ce6d19b175dc974491ec4796ab35890b4c08
 	 */
 	@Persistent(dependentElement = "true")
 	@Join(deleteAction = ForeignKeyAction.CASCADE)
@@ -273,13 +207,7 @@ public class Comanda {
 
 	/**
 	 * Setea una lista de menues
-<<<<<<< HEAD
 	 * @param menues List<ValueMenu>
-=======
-	 * 
-	 * @param List
-	 *            <ValueMenu> menues
->>>>>>> 8a91ce6d19b175dc974491ec4796ab35890b4c08
 	 */
 	public void setMenues(final List<ValueMenu> menues) {
 		this.menues = menues;
@@ -287,13 +215,7 @@ public class Comanda {
 
 	/**
 	 * Agrega un elemento a la lista de menues
-<<<<<<< HEAD
 	 * @param _menu ValueMenu 
-=======
-	 * 
-	 * @param ValueMenu
-	 *            _menu
->>>>>>> 8a91ce6d19b175dc974491ec4796ab35890b4c08
 	 */
 	public void addToMenues(final ValueMenu _menu) {
 		getMenues().add(_menu);
@@ -301,13 +223,7 @@ public class Comanda {
 
 	/**
 	 * Remueve un elemento de la lista de menues
-<<<<<<< HEAD
 	 * @param _menu ValueMenu 
-=======
-	 * 
-	 * @param ValueMenu
-	 *            _menu
->>>>>>> 8a91ce6d19b175dc974491ec4796ab35890b4c08
 	 */
 	public void removeFromMenues(final ValueMenu _menu) {
 		getMenues().remove(_menu);
@@ -343,12 +259,7 @@ public class Comanda {
 
 	/**
 	 * Obtiene el estado de una comanda
-<<<<<<< HEAD
 	 * @return estado IEstadoComanda
-=======
-	 * 
-	 * @return IEstadoComanda estado
->>>>>>> 8a91ce6d19b175dc974491ec4796ab35890b4c08
 	 */
 	@Hidden
 	@Title(prepend = "Comanda ")
@@ -368,13 +279,7 @@ public class Comanda {
 
 	/**
 	 * Setea el estado de una comanda
-<<<<<<< HEAD
 	 * @param estado IEstadoComanda 
-=======
-	 * 
-	 * @param IEstadoComanda
-	 *            estado
->>>>>>> 8a91ce6d19b175dc974491ec4796ab35890b4c08
 	 */
 	public void setEstado(final IEstadoComanda estado) {
 		this.estado = estado;
@@ -387,12 +292,7 @@ public class Comanda {
 
 	/**
 	 * Obtiene el estado particular NoConfirmada para la Comanda
-<<<<<<< HEAD
 	 * @return noConfirmada NoConfirmada 
-=======
-	 * 
-	 * @return NoConfirmada noConfirmada
->>>>>>> 8a91ce6d19b175dc974491ec4796ab35890b4c08
 	 */
 	@Persistent(dependent = "true")
 	@Hidden
@@ -404,31 +304,18 @@ public class Comanda {
 
 	/**
 	 * Setea el estado particular NoConfirmada
-<<<<<<< HEAD
 	 * @param noConformada NoConfirmada
-=======
-	 * 
-	 * @param NoConfirmada
-	 *            noConformada
->>>>>>> 8a91ce6d19b175dc974491ec4796ab35890b4c08
 	 */
 	public void setNoConfirmada(final NoConfirmada noConfirmada) {
 		this.noConfirmada = noConfirmada;
 	}
-
-	// }}
 
 	// {{ EnEspera (property)
 	private EnEspera enEspera;
 
 	/**
 	 * Obtiene el estado particular EnEspera para la Comanda
-<<<<<<< HEAD
 	 * @return enEspera EnEspera
-=======
-	 * 
-	 * @return EnEspera enEspera
->>>>>>> 8a91ce6d19b175dc974491ec4796ab35890b4c08
 	 */
 	@Persistent(dependent = "true")
 	@Hidden
@@ -439,15 +326,8 @@ public class Comanda {
 	}
 
 	/**
-<<<<<<< HEAD
-	 * Setea el estado particular EnEspera 
+     * Setea el estado particular EnEspera 
 	 * @param enEspera EnEspera
-=======
-	 * Setea el estado particular EnEspera
-	 * 
-	 * @param EnEspera
-	 *            enEspera
->>>>>>> 8a91ce6d19b175dc974491ec4796ab35890b4c08
 	 */
 	public void setEnEspera(final EnEspera enEspera) {
 		this.enEspera = enEspera;
@@ -458,12 +338,7 @@ public class Comanda {
 
 	/**
 	 * Obtiene el estado particular EnPreparacion para la Comanda
-<<<<<<< HEAD
 	 * @return enPreparacion EnPreparacion
-=======
-	 * 
-	 * @return EnPreparacion enPreparacion
->>>>>>> 8a91ce6d19b175dc974491ec4796ab35890b4c08
 	 */
 	@Persistent(dependent = "true")
 	@Hidden
@@ -474,15 +349,8 @@ public class Comanda {
 	}
 
 	/**
-<<<<<<< HEAD
 	 * Setea el estado particular EnPreparacion 
 	 * @param enPreparacion EnPreparacion
-=======
-	 * Setea el estado particular EnPreparacion
-	 * 
-	 * @param EnPreparacion
-	 *            enPreparacion
->>>>>>> 8a91ce6d19b175dc974491ec4796ab35890b4c08
 	 */
 	public void setEnPreparacion(final EnPreparacion enPreparacion) {
 		this.enPreparacion = enPreparacion;
@@ -493,12 +361,7 @@ public class Comanda {
 
 	/**
 	 * Obtiene el estado particular Preparada para la Comanda
-<<<<<<< HEAD
 	 * @return preparada Preparada
-=======
-	 * 
-	 * @return Preparada preparada
->>>>>>> 8a91ce6d19b175dc974491ec4796ab35890b4c08
 	 */
 	@Persistent(dependent = "true")
 	@Hidden
@@ -510,13 +373,7 @@ public class Comanda {
 
 	/**
 	 * Setea el estado particular Preparada
-<<<<<<< HEAD
 	 * @param preparada Preparada
-=======
-	 * 
-	 * @param Preparada
-	 *            preparada
->>>>>>> 8a91ce6d19b175dc974491ec4796ab35890b4c08
 	 */
 	public void setPreparada(final Preparada preparada) {
 		this.preparada = preparada;

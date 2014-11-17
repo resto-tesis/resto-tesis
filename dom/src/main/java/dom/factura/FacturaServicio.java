@@ -52,16 +52,8 @@ public class FacturaServicio extends AbstractFactoryAndRepository {
 	}
 
 	/**
-<<<<<<< HEAD
 	 * Metodo que crea y persiste una nueva Factura, cargando todos sus items con precio  
-	 * @param _pedidos List<Pedido>
-=======
-	 * Metodo que crea y persiste una nueva Factura, cargando todos sus items
-	 * con precio
-	 * 
-	 * @param List
-	 *            <Pedido> _pedidos
->>>>>>> 8a91ce6d19b175dc974491ec4796ab35890b4c08
+	 * @param List<Pedido> _pedidos
 	 * @see dom.objetosValor.ValueProductoNoElaborado.getProducto()
 	 * @see dom.objetosValor.ValueProductoNoElaborado.getCantidad()
 	 * @see dom.objetosValor.ValueMenu.getMenu()
@@ -142,12 +134,7 @@ public class FacturaServicio extends AbstractFactoryAndRepository {
 
 	/**
 	 * Obtiene una lista de todas las facturas
-<<<<<<< HEAD
-	 * @return lista List<Factura>
-=======
-	 * 
 	 * @return List<Factura> lista
->>>>>>> 8a91ce6d19b175dc974491ec4796ab35890b4c08
 	 */
 	@Named("Listar")
 	@ActionSemantics(Of.SAFE)
