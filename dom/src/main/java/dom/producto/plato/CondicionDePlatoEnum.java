@@ -16,17 +16,31 @@
  */
 
 package dom.producto.plato;
-
+/**
+ * Enumerado que le dara al posibilidad de implementar la condicion de frio o caliente
+ * a los platos elaborados
+ * @author RestoTesis
+ * @since 10/05/2014
+ * @version 1.0.0
+ */
 public enum CondicionDePlatoEnum {
 
 	Caliente("Caliente"), Frio("Frio");
 
 	private final String nombre;
 
+	/**
+	 * Permite obtener el nombre de la condicion
+	 * @return nombre String
+	 */
 	public String getNombre() {
 		return nombre;
 	}
 
+	/**
+	 * Setea el nombre de la condicion
+	 * @param _nombre String
+	 */
 	private CondicionDePlatoEnum(String _nombre) {
 		nombre = _nombre;
 	}

@@ -40,15 +40,31 @@ import com.google.common.base.Predicate;
 import dom.producto.plato.CondicionDePlatoEnum;
 import dom.producto.plato.Plato;
 import dom.producto.platoPrincipal.PlatoPrincipal;
-
+/**
+ * Clase que da la funcionalidad de crear, persistir y listar a la clase PlatoPrincipal
+ * @author RestoTesis
+ * @since 10/05/2014
+ * @version 1.0.0
+ */
 @DomainService
 @Named("Plato Principal")
 public class PlatoPrincipalServicio extends AbstractFactoryAndRepository {
 
+	/**
+	 * Obtiene el nombre del icono de un Plato Principal
+	 * @return String
+	 */
 	public String iconName(){
 		return "PlatoPrincipal";
 	}
-	
+	/**
+	 * Obtiene de la UI los datos validados del Plato Principal
+	 * @param nombre String 
+	 * @param unaCondicion CondicionDePlatoEnum
+	 * @param unaDescripcion String
+	 * @param unPrecio BigDecimal
+	 * @return crearUnPlatoPrincipal() PlatoPrincipal
+	 */
 	@Named("Plato Principal")
 	@MemberOrder(name = "Crear", sequence = "1")
 	public Plato crearPlatoPrincipal(
@@ -62,6 +78,14 @@ public class PlatoPrincipalServicio extends AbstractFactoryAndRepository {
 				unPrecio);
 	}
 
+	/**
+	 * Toma los datos obtenidos en crearPlatoPrincipal() y los persiste
+	 * @param nombre String 
+	 * @param unaCondicion CondicionDePlatoEnum
+	 * @param unaDescripcion String
+	 * @param unPrecio BigDecimal
+	 * @return unPlato PlatoPrincipal
+	 */
 	@Programmatic
 	public PlatoPrincipal crearUnPlatoPrincipal(final String nombre,
 			final CondicionDePlatoEnum unaCondicion,
@@ -81,6 +105,11 @@ public class PlatoPrincipalServicio extends AbstractFactoryAndRepository {
 		return unPlato;
 	}
 
+	/**
+	 * Obtiene una lista de Platos de Principales, que empiecen con un determinado parametro
+	 * @param nombre String
+	 * @return list<PlatoPrincipal>
+	 */
 	@Programmatic
 	public List<PlatoPrincipal> completarPlatoPrincipal(final String nombre) {
 		return allMatches(new QueryDefault<PlatoPrincipal>(
@@ -88,6 +117,10 @@ public class PlatoPrincipalServicio extends AbstractFactoryAndRepository {
 				"(?i).*" + nombre + ".*"));
 	}
 
+	/**
+	 * Obtiene una lista de Platos de Principales de alta
+	 * @return list<PlatoPrincipal>
+	 */
 	@Named("Platos Principales")
 	@ActionSemantics(Of.SAFE)
 	@MemberOrder(name = "Listar", sequence = "2")
@@ -103,6 +136,10 @@ public class PlatoPrincipalServicio extends AbstractFactoryAndRepository {
 				});
 	}
 
+	/**
+	 * Obtiene una lista de todos los Platos de Principales 
+	 * @return listaPlatos list<PlatoPrincipal>
+	 */
 	@Named("Platos Principales")
 	@ActionSemantics(Of.SAFE)
 	@MemberOrder(name = "Listar", sequence = "2")

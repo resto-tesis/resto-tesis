@@ -29,21 +29,37 @@ import org.apache.isis.applib.annotation.AutoComplete;
 
 import dom.producto.plato.Plato;
 
+/**
+ * Entidad que representa un alimento elaborado que se servira como plato principal,   
+ * el cual podra acompañarse de una guarnicion, extiende de Plato
+ * @author RestoTesis
+ * @since 10/05/2014
+ * @version 1.0.0
+ */
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
 @Query(name = "platoPrincipalQueEmpiezan", language = "JDOQL", value = "SELECT FROM dom.platoPrincipal.PlatoPrincipal WHERE nombre.matches(:nombre)")
 @AutoComplete(repository = PlatoPrincipalServicio.class, action = "completarPlatoPrincipal")
 public class PlatoPrincipal extends Plato {
 
+	/**
+	 * Obtiene el nombre del icono de un Plato Principal
+	 * @return String
+	 */
 	public String iconName() {
 		return getBaja() ? "PlatoPrincipalDes" : "PlatoPrincipal";
 	}
 
+	/**
+	 * Constructor de la Clase
+	 */
 	public PlatoPrincipal() {
 		// TODO Auto-generated constructor stub
 	}
 
-	// {{ injected: DomainObjectContainer
+	/**
+	 * Inyeccion del contenedor
+	 */
 	@Inject
 	private DomainObjectContainer contenedor;
 

@@ -39,15 +39,31 @@ import com.google.common.base.Predicate;
 
 import dom.producto.plato.CondicionDePlatoEnum;
 import dom.producto.plato.Plato;
-
+/**
+ * Clase que da la funcionalidad de crear, persistir y listar a la clase PlatoEntrada
+ * @author RestoTesis
+ * @since 10/05/2014
+ * @version 1.0.0
+ */
 @DomainService
 @Named("Plato de Entrada")
 public class PlatoEntradaServicio extends AbstractFactoryAndRepository {
 
+	/**
+	 * Obtiene el nombre del icono de un Plato de entrada
+	 * @return String
+	 */
 	public String iconName(){
 		return "PlatoEntrada";
 	}
-	
+	/**
+	 * Obtiene de la UI los datos validados del Plato de entrada a crear
+	 * @param nombre String 
+	 * @param unaCondicion CondicionDePlatoEnum
+	 * @param unaDescripcion String
+	 * @param unPrecio BigDecimal
+	 * @return crearUnPlatoEntreda() PlatoEntrada
+	 */
 	@Named("Plato de Entrada")
 	@MemberOrder(name = "Crear", sequence = "1")
 	public Plato crearPlatoEntrada(
@@ -61,6 +77,14 @@ public class PlatoEntradaServicio extends AbstractFactoryAndRepository {
 				unPrecio);
 	}
 
+	/**
+	 * Toma los datos obtenidos en crearPlatoEntrada() y los persiste
+	 * @param nombre String 
+	 * @param unaCondicion CondicionDePlatoEnum
+	 * @param unaDescripcion String
+	 * @param unPrecio BigDecimal
+	 * @return unPlato PlatoEntrada
+	 */
 	@Programmatic
 	public PlatoEntrada crearUnPlatoEntrada(final String nombre,
 			final CondicionDePlatoEnum unaCondicion,
@@ -80,12 +104,21 @@ public class PlatoEntradaServicio extends AbstractFactoryAndRepository {
 		return unPlato;
 	}
 
+	/**
+	 * Obtiene una lista de Platos de Entrada, que empiecen con un determinado parametro
+	 * @param nombre String
+	 * @return list<PlatoEntrada>
+	 */
 	@Programmatic
 	public List<PlatoEntrada> completarPlatoEntrada(final String nombre) {
 		return allMatches(new QueryDefault<PlatoEntrada>(PlatoEntrada.class,
 				"platoEntradaQueEmpiezan", "nombre", "(?i).*" + nombre + ".*"));
 	}
 
+	/**
+	 * Lista todas los Platos de Entrada de alta
+	 * @return List<PlatoEntrada>
+	 */
 	@Named("Platos de Entrada")
 	@ActionSemantics(Of.SAFE)
 	@MemberOrder(name = "Listar", sequence = "2")
@@ -100,6 +133,10 @@ public class PlatoEntradaServicio extends AbstractFactoryAndRepository {
 		});
 	}
 
+	/**
+	 * Lista todas los Platos de Entrada
+	 * @return List<PlatoEntrada>
+	 */
 	@Named("Platos de Entrada")
 	@ActionSemantics(Of.SAFE)
 	@MemberOrder(name = "Listar", sequence = "2")

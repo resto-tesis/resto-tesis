@@ -103,9 +103,9 @@ public class BebidaServicio extends AbstractFactoryAndRepository {
 	}
 
 	/**
-	 * 
+	 * Obtiene una lista de bebidas, que empiecen con un determinado parametro
 	 * @param nombre String
-	 * @return
+	 * @return list<Bebidas>
 	 */
 	@Programmatic
 	public List<Bebida> completarBebidas(final String nombre) {
@@ -113,19 +113,40 @@ public class BebidaServicio extends AbstractFactoryAndRepository {
 				"bebidasQueEmpiezan", "nombre", "(?i).*" + nombre + ".*"));
 	}
 
+	/**
+	 * Obtiene por defecto un bebida del tipo gaseosa
+	 */
 	public TipoBebidaEnum default1CrearBebida() {
 		return TipoBebidaEnum.Gaseosa;
 	}
 
+	/**
+	 * Crea por defecto un bebida del tipo gaseosa con su volumen
+	 */
 	public VolumenBebidaEnum default2CrearBebida() {
 		return default1CrearBebida().volumen().get(0);
 	}
 
+	/**
+	 * Permite seleccionar las Bibidas de un mismo nombre y tipo, sin importar el volumen
+	 * @param nombre String 
+	 * @param tipoBebida TipoBebidaEnum
+	 * @return List<VolumenBebidaEnum>
+	 */
 	public List<VolumenBebidaEnum> choices2CrearBebida(final String nombre,
 			final TipoBebidaEnum tipoBebida) {
 		return VolumenBebidaEnum.listar(tipoBebida);
 	}
 
+	/**
+	 * Valida la creacion de una nueva Bebida
+	 * @param _nombre String
+	 * @param _tipoBebida TipoBebidaEnum
+	 * @param _volumenBebida VolumenBebidaEnum
+	 * @param _descripcion String
+	 * @param _precio BigDecimal
+	 * @return String
+	 */
 	public String validateCrearBebida(final String _nombre,
 			final TipoBebidaEnum _tipoBebida,
 			final VolumenBebidaEnum _volumenBebida, final String _descripcion,
@@ -133,6 +154,10 @@ public class BebidaServicio extends AbstractFactoryAndRepository {
 		return VolumenBebidaEnum.validate(_tipoBebida, _volumenBebida);
 	}
 
+	/**
+	 * Lista todas las Bebidas
+	 * @return lista_bebidas List<Bebidas>
+	 */
 	@MemberOrder(name = "Listar", sequence = "2")
 	@ActionSemantics(Of.SAFE)
 	@Named("Bebidas")
@@ -141,6 +166,10 @@ public class BebidaServicio extends AbstractFactoryAndRepository {
 		return lista_bebidas;
 	}
 
+	/**
+	 * Lista todas las Bebidas de alta
+	 * @return List<Bebidas>
+	 */
 	@MemberOrder(name = "Listar", sequence = "2")
 	@ActionSemantics(Of.SAFE)
 	@Named("Bebidas")

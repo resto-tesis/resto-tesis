@@ -36,15 +36,31 @@ import org.apache.isis.applib.annotation.Optional;
 import org.apache.isis.applib.query.QueryDefault;
 
 import com.google.common.base.Predicate;
-
+/**
+ * Clase que da la funcionalidad de crear, persistir y listar a la clase guarnicion
+ * @author RestoTesis
+ * @since 10/05/2014
+ * @version 1.0.0
+ */
 @DomainService
 @Named("Guarnición")
 public class GuarnicionServicio extends AbstractFactoryAndRepository {
 
+	/**
+	 * Obtiene el nombre del icono de una guarnicion
+	 * @return String
+	 */
 	public String iconName(){
 		return "Guarnicion";
 	}
 	
+	/**
+	 * Obtiene de la UI los datos validados de la Guarnicion a crear
+	 * @param nombreGuarnicion String
+	 * @param descripcionGuarnicion String
+	 * @param precioGuarnicion BigDecimal
+	 * @return crearGuarnicionNueva() Guarnicion
+	 */
 	@Named("Guarnición")
 	@MemberOrder(name = "Crear", sequence = "1")
 	public Guarnicion crearGuarnicion(
@@ -55,6 +71,13 @@ public class GuarnicionServicio extends AbstractFactoryAndRepository {
 				precioGuarnicion);
 	}
 
+	/**
+	 * Toma los datos obtenidos en crearGuarnicion() y los persiste
+	 * @param nombreGuarnicion String
+	 * @param descripcionGuarnicion String
+	 * @param precioGuarnicion BigDecimal
+	 * @return guarnicion Guarnicion
+	 */
 	@Programmatic
 	public Guarnicion crearGuarnicionNueva(final String nombreGuarnicion,
 			final String descripcionGuarnicion,
@@ -69,12 +92,21 @@ public class GuarnicionServicio extends AbstractFactoryAndRepository {
 		return guarnicion;
 	}
 
+	/**
+	 * Obtiene una lista de Guarniciones, que empiecen con un determinado parametro
+	 * @param nombre String
+	 * @return list<Guarnicion>
+	 */
 	@Programmatic
 	public List<Guarnicion> completarGuarniciones(final String nombre) {
 		return allMatches(new QueryDefault<Guarnicion>(Guarnicion.class,
 				"guarnicionesQueEmpiezan", "nombre", "(?i).*" + nombre + ".*"));
 	}
 
+	/**
+	 * Lista todas las Guarniciones de alta
+	 * @return List<Guarnicion>
+	 */
 	@Named("Guarniciones")
 	@ActionSemantics(Of.SAFE)
 	@MemberOrder(name = "Listar", sequence = "2")
@@ -89,6 +121,10 @@ public class GuarnicionServicio extends AbstractFactoryAndRepository {
 		});
 	}
 
+	/**
+	 * Lista todas las Guarniciones
+	 * @return listaguarniciones List<Guarnicion>
+	 */
 	@Named("Guarniciones")
 	@ActionSemantics(Of.SAFE)
 	@MemberOrder(name = "Listar", sequence = "2")

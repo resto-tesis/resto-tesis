@@ -28,7 +28,13 @@ import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
 
 import dom.producto.ProductoElaborado;
-
+/**
+ * Entidad que le dara al posibilidad de implementar la condicion de frio o caliente
+ * a los platos que se sirvan a los clientes, extiende de ProductoElaborado
+ * @author RestoTesis
+ * @since 10/05/2014
+ * @version 1.0.0
+ */
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
 public abstract class Plato extends ProductoElaborado {
@@ -36,6 +42,10 @@ public abstract class Plato extends ProductoElaborado {
 	// {{ CondicionDePlato (property)
 	private CondicionDePlatoEnum condicionDePlato;
 
+	/**
+	 * Permite obtener la condicion del un plato
+	 * @return condicionDePlato String
+	 */
 	@Named("Condición")
 	@Column(allowsNull = "false")
 	@MemberOrder(sequence = "5")
@@ -43,6 +53,10 @@ public abstract class Plato extends ProductoElaborado {
 		return condicionDePlato;
 	}
 
+	/**
+	 * Setea la condicion del un plato
+	 * @param condicionDePlato CondicionDePlatoEnum
+	 */
 	public void setCondicionDePlato(final CondicionDePlatoEnum condicionDePLato) {
 		this.condicionDePlato = condicionDePLato;
 	}
@@ -70,7 +84,5 @@ public abstract class Plato extends ProductoElaborado {
 			return false;
 		return true;
 	}
-
-	// }}
 
 }

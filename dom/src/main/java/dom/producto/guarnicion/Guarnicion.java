@@ -28,18 +28,30 @@ import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.AutoComplete;
 
 import dom.producto.ProductoElaborado;
-
+/**
+ * Entidad que representa un alimento elaborado que acompañara los platos principales,   
+ * extiende de ProductoElaborado
+ * @author RestoTesis
+ * @since 10/05/2014
+ * @version 1.0.0
+ */
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
 @Query(name = "guarnicionesQueEmpiezan", language = "JDOQL", value = "SELECT FROM dom.guarnicion.Guarnicion WHERE nombre.matches(:nombre)")
 @AutoComplete(repository = GuarnicionServicio.class, action = "completarGuarniciones")
 public class Guarnicion extends ProductoElaborado {
 
+	/**
+	 * Obtiene el nombre del icono de una guarnicion
+	 * @return String
+	 */
 	public String iconName() {
 		return getBaja() ? "GuarnicionDes" : "Guarnicion";
 	}
 	
-	// {{ injected: DomainObjectContainer
+	/**
+	 * Inyeccion del contenedor
+	 */
 	@Inject
 	private DomainObjectContainer contenedor;
 
