@@ -170,8 +170,6 @@ public class Cliente extends Persona implements IObservador {
 	/**
 	 * Metodo para actualizar la oferta
 	 * @param _oferta Oferta
-	 * Metodo a implementar para actualizar la oferta
-	 * @param Oferta _oferta
 	 */
 	@Named("Enviar Oferta")
 	@Override

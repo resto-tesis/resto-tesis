@@ -66,7 +66,6 @@ public class ClienteServicio extends AbstractFactoryAndRepository {
 
 	/**
 	 * Obtiene los datos validados del Cliente
-<<<<<<< HEAD
 	 * @param _apellido String
 	 * @param String _nombre String
 	 * @param _dni long
@@ -78,29 +77,6 @@ public class ClienteServicio extends AbstractFactoryAndRepository {
 	 * @param _password Password
 	 * @param _oferta Oferta
 	 * @return nuevoCliente Cliente
-=======
-	 * 
-	 * @param String
-	 *            _apellido
-	 * @param String
-	 *            _nombre
-	 * @param long _dni
-	 * @param String
-	 *            _direccion
-	 * @param String
-	 *            _telefono
-	 * @param String
-	 *            _celular
-	 * @param String
-	 *            _correo
-	 * @param String
-	 *            _nombreUsusario
-	 * @param Password
-	 *            _password
-	 * @param Oferta
-	 *            _oferta
-	 * @return Cliente nuevoCliente
->>>>>>> 8a91ce6d19b175dc974491ec4796ab35890b4c08
 	 */
 	@Named("Registrar")
 	@MemberOrder(sequence = "1")
@@ -111,7 +87,7 @@ public class ClienteServicio extends AbstractFactoryAndRepository {
 			@Named("Direccion") @MultiLine(numberOfLines = 2) @Optional final String _direccion,
 			@Named("Telefono Fijo") @RegEx(validation = "\\d{7,11}") @Optional @MaxLength(value = 15) final String _telefono,
 			@Named("Celular") @RegEx(validation = "\\d{3,7}(-)?\\d{6}") @Optional @MaxLength(value = 15) final String _celular,
-			@Named("Correo Electronico") @RegEx(validation = "(\\w+\\.)*\\w+@(\\w+\\.)+[A-Za-z]+") @Optional final String _correo,
+			@Named("Correo Electronico") @RegEx(validation = "(\\w+\\.)*\\w+@(\\w+\\.)+[A-Za-z]+") final String _correo,
 			@Named("Usuario") final String _nombreUsuario,
 			@Named("Contraseña") final Password _password) {
 		return nuevoCliente(_apellido, _nombre, _dni, _direccion, _telefono,
@@ -119,7 +95,6 @@ public class ClienteServicio extends AbstractFactoryAndRepository {
 	}
 
 	/**
-<<<<<<< HEAD
 	 * Realiza la validacion del ingreso del cliente por Dni y valida al menos un numero de Telefono
 	 * @param _apellido String
 	 * @param _nombre String
@@ -131,28 +106,6 @@ public class ClienteServicio extends AbstractFactoryAndRepository {
 	 * @param _nombreUsusario String
 	 * @param _password Password
 	 * @return String
-=======
-	 * Realiza la validacion del ingreso del cliente por Dni y valida al menos
-	 * un numero de Telefono
-	 * 
-	 * @param String
-	 *            _apellido
-	 * @param String
-	 *            _nombre
-	 * @param long _dni
-	 * @param String
-	 *            _direccion
-	 * @param String
-	 *            _telefono
-	 * @param String
-	 *            _celular
-	 * @param String
-	 *            _correo
-	 * @param String
-	 *            _nombreUsusario
-	 * @param Password
-	 *            _password
->>>>>>> 8a91ce6d19b175dc974491ec4796ab35890b4c08
 	 */
 	public String validateCargarCliente(final String _apellido,
 			final String _nombre, final long _dni, final String _direccion,
@@ -160,7 +113,6 @@ public class ClienteServicio extends AbstractFactoryAndRepository {
 			final String _correo, final String _nombreUsuario,
 			final Password _password) {
 		if (firstMatch(Cliente.class, new Predicate<Cliente>() {
-
 			@Override
 			public boolean apply(Cliente _cliente) {
 				// TODO Auto-generated method stub
@@ -170,32 +122,29 @@ public class ClienteServicio extends AbstractFactoryAndRepository {
 			return "Ya existe un cliente con el dni ingresado!";
 		}
 		if (firstMatch(Persona.class, new Predicate<Persona>() {
-
 			@Override
 			public boolean apply(Persona _persona) {
 				// TODO Auto-generated method stub
 				return _persona.getUsuario().getNombre().equals(_nombreUsuario);
 			}
-		}) != null)
+		}) != null){
 			return "Ya existe el nombre de usuario!";
+		}
+		if(_correo == null){
+			return "Debe ingresar un correo";
+		}
 		return _telefono == null && _celular == null ? "Debe ingresar al menos un teléfono"
 				: null;
 	}
 
 	/**
 	 * Crea Usuario y Password para el nuevo cliente
-<<<<<<< HEAD
 	 * @param _nombreUsuario String
 	 * @param _password Password
-	 * @return usuario Usuario
-=======
-	 * 
-	 * @param String
-	 *            _nombreUsuario
-	 * @param Password
-	 *            _password
+	 * @return usuario Usuario	 * 
+	 * @param String _nombreUsuario
+	 * @param Password _password
 	 * @return Usuario usuario
->>>>>>> 8a91ce6d19b175dc974491ec4796ab35890b4c08
 	 */
 	@Programmatic
 	public Usuario crearUsuario(final String _nombreUsuario,
@@ -210,7 +159,6 @@ public class ClienteServicio extends AbstractFactoryAndRepository {
 	}
 
 	/**
-<<<<<<< HEAD
 	 * Toma el cliente ingresado y lo persiste 
 	 * @param _apellido String
 	 * @param _nombre String
@@ -223,30 +171,6 @@ public class ClienteServicio extends AbstractFactoryAndRepository {
 	 * @param _passwordPassword
 	 * @param clienteNuevo Cliente
 	 * @return clienteNuevo Cliente
-=======
-	 * Toma el cliente ingresado y lo persiste
-	 * 
-	 * @param String
-	 *            _apellido
-	 * @param String
-	 *            _nombre
-	 * @param long _dni
-	 * @param String
-	 *            _direccion
-	 * @param String
-	 *            _telefono
-	 * @param String
-	 *            _celular
-	 * @param String
-	 *            _correo
-	 * @param Usuario
-	 *            _usuario
-	 * @param Password
-	 *            _password
-	 * @param Cliente
-	 *            clienteNuevo
-	 * @return Cliente clienteNuevo
->>>>>>> 8a91ce6d19b175dc974491ec4796ab35890b4c08
 	 */
 	@Programmatic
 	public Cliente nuevoCliente(final String _apellido, final String _nombre,
@@ -297,12 +221,7 @@ public class ClienteServicio extends AbstractFactoryAndRepository {
 
 	/**
 	 * Obtiene una lista de todos los clientes
-<<<<<<< HEAD
 	 * @return listaDeClientes List<Cliente>
-=======
-	 * 
-	 * @return List<Cliente> listaDeClientes
->>>>>>> 8a91ce6d19b175dc974491ec4796ab35890b4c08
 	 */
 	@Named("Listar Todos")
 	@ActionSemantics(Of.SAFE)
