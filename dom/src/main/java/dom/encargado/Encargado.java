@@ -40,6 +40,6 @@ public class Encargado extends Empleado {
 	 * @return Strnig
 	 */
 	public String iconName() {
-		return getBaja() ? "EncargadoBaja" : "Encargado";
+		return getBaja() ? "EncargadoDes" : "Encargado";
 	}
 }

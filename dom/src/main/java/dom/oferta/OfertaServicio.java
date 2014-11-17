@@ -40,6 +40,7 @@ import org.joda.time.LocalDate;
 
 import com.google.common.base.Predicate;
 
+import dom.cliente.Cliente;
 import dom.menu.Menu;
 import dom.menu.MenuServicio;
 /**
@@ -80,8 +81,8 @@ public class OfertaServicio extends AbstractFactoryAndRepository {
 			@Named("Cantidad de Personas") @Optional final int _cantidad_personas,
 			@Named("Descripción") @MultiLine(numberOfLines = 3) final String _descripcion,
 			@Named("Menu") final Menu _menu,
-			@Named("Fecha de Inicio") final Date _fecha_inicio,
-			@Named("Caducidad") final Date _caducidad,
+			@Named("Fecha de Inicio") final java.sql.Date _fecha_inicio,
+			@Named("Caducidad") final java.sql.Date _caducidad,
 			@Named("Descuento (%)") final int _descuento) {
 		return nuevaOferta(_nombre, _cantidad_personas, _descripcion, _menu,
 				_fecha_inicio, _caducidad, _descuento);
@@ -101,8 +102,8 @@ public class OfertaServicio extends AbstractFactoryAndRepository {
 	@Programmatic
 	public Oferta nuevaOferta(final String _nombre,
 			final int _cantidad_personas, final String _descripcion,
-			final Menu _menu, final Date _fecha_inicio, final Date _caducidad,
-			final int _descuento) {
+			final Menu _menu, final java.sql.Date _fecha_inicio,
+			final java.sql.Date _caducidad, final int _descuento) {
 		final Oferta oferta = newTransientInstance(Oferta.class);
 		oferta.setNombre(_nombre.substring(0, 1).toUpperCase()
 				+ _nombre.substring(1));
@@ -159,7 +160,7 @@ public class OfertaServicio extends AbstractFactoryAndRepository {
 	public String validateCrearOferta(String _nombre, int _cantidad_personas,
 			String _descripcion, Menu _menu, Date _fecha_inicio,
 			Date _caducidad, int _descuento) {
-		if (_fecha_inicio.compareTo(fecha_actual.toDate()) < 0)
+		if (_fecha_inicio.compareTo(new Date()) < 0)
 			return "La fecha de inicio debe ser mayor o igual a la fecha actual";
 		if (_caducidad.compareTo(_fecha_inicio) < 0)
 			return "La fecha de caducidad debe ser mayor o igual a la fecha de inicio de la oferta";
@@ -214,7 +215,22 @@ public class OfertaServicio extends AbstractFactoryAndRepository {
 			@Override
 			public boolean apply(Oferta input) {
 				// TODO Auto-generated method stub
-				return input.getBaja() ? false : true;
+				return (!input.getBaja())
+						&& input.getFechaInicio().before(new Date())
+						&& input.getCaducidad().after(new Date()) ? true
+						: false;
+			}
+		});
+	}
+
+	@Programmatic
+	public List<Cliente> clientesConCuenta() {
+		return allMatches(Cliente.class, new Predicate<Cliente>() {
+
+			@Override
+			public boolean apply(Cliente input) {
+				// TODO Auto-generated method stub
+				return !input.getCorreo().isEmpty() && !input.getBaja();
 			}
 		});
 	}

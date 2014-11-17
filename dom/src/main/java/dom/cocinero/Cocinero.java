@@ -40,6 +40,6 @@ public class Cocinero extends Empleado {
 	 * @return String
 	 */
 	public String iconName() {
-		return getBaja() ? "CocineroBaja" : "Cocinero";
+		return getBaja() ? "CocineroDes" : "Cocinero";
 	}
 }

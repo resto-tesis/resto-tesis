@@ -17,7 +17,6 @@
 
 package dom.oferta;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -192,45 +191,44 @@ public class Oferta extends Observado {
 		return ofertaServicio.listarMenues();
 	}
 
-	private SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
-
 	// {{ FechaInicio (property)
-	private Date fechaInicio;
+	private java.sql.Date fechaInicio;
 
 	/**
 	 * Obtine una feche de inicio para la Oferta
 	 * @return Date
 	 */
+	@Column(allowsNull = "false")
 	@MemberOrder(sequence = "6")
-	public String getFechaInicio() {
-		return formato.format(fechaInicio);
+	public java.sql.Date getFechaInicio() {
+		return fechaInicio;
 	}
-
 	/**
 	 * Setea la feche de inicio de la Oferta
 	 * @return fechaInicio Date
 	 */
-	public void setFechaInicio(final Date fechaInicio) {
+	public void setFechaInicio(final java.sql.Date fechaInicio) {
 		this.fechaInicio = fechaInicio;
 	}
 
 	// {{ Caducidad (property)
-	private Date caducidad;
+	private java.sql.Date caducidad;
 
 	/**
 	 * Obtine una feche de finalizacion para la Oferta
 	 * @return Date
 	 */
+	@Column(allowsNull = "false")
 	@MemberOrder(sequence = "7")
-	public String getCaducidad() {
-		return formato.format(caducidad);
+	public java.sql.Date getCaducidad() {
+		return caducidad;
 	}
 
 	/**
 	 * Setea la feche de finalzacion de la Oferta
 	 * @param caducidad Date
 	 */
-	public void setCaducidad(final Date caducidad) {
+	public void setCaducidad(final java.sql.Date caducidad) {
 		this.caducidad = caducidad;
 	}
 
@@ -403,6 +401,7 @@ public class Oferta extends Observado {
 		return true;
 	}
 
+
 	// {{ ListaClientes (Collection)
 	private List<Cliente> listaClientes = new ArrayList<Cliente>();
 
@@ -435,44 +434,79 @@ public class Oferta extends Observado {
 		return this;
 	}
 
-	/**
-	 * Agrega un Cliente a la lista de clientes registrados
-	 * @param _cliente cliente
-	 */
-	@Hidden
-	@Override
-	public void registrarCliente(Cliente _cliente) {
-		// TODO Auto-generated method stub
-		listaClientes.add(_cliente);
-	}
+//	/**
+//	 * Agrega un Cliente a la lista de clientes registrados
+//	 * @param _cliente cliente
+//	 */
+//	@Hidden
+//	@Override
+//	public void registrarCliente(Cliente _cliente) {
+//		// TODO Auto-generated method stub
+//		listaClientes.add(_cliente);
+//	}
+//
+//	/**
+//	 * Remueve un Cliente de la lista de clientes registrados
+//	 * @param _cliente Cliente
+//	 */
 
-	/**
-	 * Remueve un Cliente de la lista de clientes registrados
-	 * @param _cliente Cliente
-	 */
-	@Hidden
-	@Override
-	public void removerCliente(Cliente _cliente) {
-		// TODO Auto-generated method stub
-		int i = listaClientes.indexOf(_cliente);
-		if (i >= 0) {
-			listaClientes.remove(i);
-		}
-	}
-
+	// // {{ ListaClientes (Collection)
+	// private List<Cliente> listaClientes = new ArrayList<Cliente>();
+	//
+	// @Hidden
+	// public List<Cliente> getListaClientes() {
+	// return contenedor.allInstances(ofType, range)(Cliente.class);
+	// }
+	//
+	// public void setListaClientes(final List<Cliente> listaClientes) {
+	// this.listaClientes = listaClientes;
+	// }
+	//
+	// // }}
+	//
+	// @Hidden
+	// @MemberOrder(name = "listaClientes", sequence = "2")
+	// public Oferta quitarCliente(final Cliente cliente) {
+	// getListaClientes().remove(cliente);
+	// return this;
+	// }
+	//
+	// @Hidden
+	// @Override
+	// public void registrarCliente(Cliente _cliente) {
+	// // TODO Auto-generated method stub
+	// listaClientes.add(_cliente);
+	// }
+	//
+	// @Hidden
+	// @Override
+	// public void removerCliente(Cliente _cliente) {
+	// // TODO Auto-generated method stub
+	// int i = listaClientes.indexOf(_cliente);
+	// if (i >= 0) {
+	// listaClientes.remove(i);
+	// }
+	// }
 	/**
 	 * Notifica a los clientes registrados e informa que se ha realizado
 	 * @see dom.cliente.Cliente.actualizar()
 	 */
 	@Override
-	public void notificarClientes() {
+	public Oferta notificarClientes() {
 		// TODO Auto-generated method stub
-		listaClientes = this.getListaClientes();
-		for (Cliente _cliente : listaClientes) {
-			_cliente.actualizar(this);
+		if (getCaducidad().compareTo(new Date()) < 0 || getBaja())
+			contenedor.informUser("Oferta vencida/Baja");
+		else {
+			for (Cliente _cliente : ofertaServicio.clientesConCuenta()) {
+				_cliente.actualizar(this);
+			}
+			contenedor.informUser("Se ha notificado a todos los Clientes");
 		}
-		contenedor.informUser("Se ha notificado a todos los Clientes");
+		return this;
 	}
+
+
+
 
 	/**
 	 * Notifica a los clientes cuando haya datos que se midifiquen
@@ -494,8 +528,8 @@ public class Oferta extends Observado {
 	 */
 	@Hidden
 	public void setDatos(String _nombre, int _cantidad_personas,
-			String _descripcion, Menu _menu, Date _fechaInicio,
-			Date _caducidad, int _descuento) {
+			String _descripcion, Menu _menu, java.sql.Date _fechaInicio,
+			java.sql.Date _caducidad, int _descuento) {
 		this.nombre = _nombre;
 		this.cantidadPersonas = _cantidad_personas;
 		this.descripcion = _descripcion;

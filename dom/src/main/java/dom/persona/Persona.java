@@ -33,6 +33,7 @@ import org.apache.isis.applib.annotation.Optional;
 import org.apache.isis.applib.annotation.RegEx;
 import org.apache.isis.applib.annotation.Title;
 import org.apache.isis.applib.annotation.Where;
+import org.apache.isis.applib.value.Password;
 
 import dom.usuario.Usuario;
 /**
@@ -256,6 +257,7 @@ public abstract class Persona {
 	 * @return this Persona
 	 */
 	public Persona alta() {
+		getUsuario().setBaja(false);
 		setBaja(false);
 		return this;
 	}
@@ -273,6 +275,7 @@ public abstract class Persona {
 	 * @return this Persona
 	 */
 	public Persona baja() {
+		getUsuario().setBaja(true);
 		setBaja(true);
 		return this;
 	}
@@ -283,6 +286,21 @@ public abstract class Persona {
 	 */
 	public String disableBaja() {
 		return getBaja() ? "Ya dado de Baja!" : null;
+	}
+
+	public Persona cambiarContrasenia(
+			@Named("Nueva Contraseña") final Password _nuevaContraseña,
+			@Named("Repita Contraseña") final Password _repitaContraseña) {
+		getUsuario().setPassword(_nuevaContraseña.getPassword());
+		return this;
+	}
+
+	public String validateCambiarContrasenia(final Password _nuevaContraseña,
+			final Password _repitaContraseña) {
+		if (!_nuevaContraseña.getPassword().equals(
+				_repitaContraseña.getPassword()))
+			return "Las contraseñas no coinciden!";
+		return null;
 	}
 
 	@Override

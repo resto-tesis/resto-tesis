@@ -133,7 +133,7 @@ public class MenuServicio extends AbstractFactoryAndRepository {
 			final PlatoPrincipal _platoPrincipal,
 			final PlatoEntrada _platoEntrada, final Guarnicion _guarnicion,
 			final Postre _postre, final int _descuento) {
-		return (_descuento > 80) ? "El porcentaje máximo de descuento para los menues es de 50%"
+		return (_descuento > 80) ? "El porcentaje máximo de descuento para los menues es de 80%"
 				: null;
 	}
 

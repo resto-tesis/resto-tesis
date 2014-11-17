@@ -19,6 +19,8 @@ package dom.cliente;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import org.apache.isis.applib.AbstractFactoryAndRepository;
 import org.apache.isis.applib.annotation.ActionSemantics;
 import org.apache.isis.applib.annotation.DomainService;
@@ -37,6 +39,7 @@ import org.apache.isis.applib.value.Password;
 import com.google.common.base.Predicate;
 
 import dom.oferta.Oferta;
+import dom.oferta.OfertaServicio;
 import dom.persona.Persona;
 import dom.usuario.Rol;
 import dom.usuario.Usuario;
@@ -54,6 +57,7 @@ public class ClienteServicio extends AbstractFactoryAndRepository {
 
 	/**
 	 * Retorna el nombre del icono para el cliente
+	 * 
 	 * @return String
 	 */
 	public String iconName() {
@@ -62,6 +66,7 @@ public class ClienteServicio extends AbstractFactoryAndRepository {
 
 	/**
 	 * Obtiene los datos validados del Cliente
+<<<<<<< HEAD
 	 * @param _apellido String
 	 * @param String _nombre String
 	 * @param _dni long
@@ -73,6 +78,29 @@ public class ClienteServicio extends AbstractFactoryAndRepository {
 	 * @param _password Password
 	 * @param _oferta Oferta
 	 * @return nuevoCliente Cliente
+=======
+	 * 
+	 * @param String
+	 *            _apellido
+	 * @param String
+	 *            _nombre
+	 * @param long _dni
+	 * @param String
+	 *            _direccion
+	 * @param String
+	 *            _telefono
+	 * @param String
+	 *            _celular
+	 * @param String
+	 *            _correo
+	 * @param String
+	 *            _nombreUsusario
+	 * @param Password
+	 *            _password
+	 * @param Oferta
+	 *            _oferta
+	 * @return Cliente nuevoCliente
+>>>>>>> 8a91ce6d19b175dc974491ec4796ab35890b4c08
 	 */
 	@Named("Registrar")
 	@MemberOrder(sequence = "1")
@@ -86,13 +114,12 @@ public class ClienteServicio extends AbstractFactoryAndRepository {
 			@Named("Correo Electronico") @RegEx(validation = "(\\w+\\.)*\\w+@(\\w+\\.)+[A-Za-z]+") @Optional final String _correo,
 			@Named("Usuario") final String _nombreUsuario,
 			@Named("Contraseña") final Password _password) {
-		Oferta _oferta = null;
-		return nuevoCliente(_oferta, _apellido, _nombre, _dni, _direccion,
-				_telefono, _celular, _correo,
-				crearUsuario(_nombreUsuario, _password));
+		return nuevoCliente(_apellido, _nombre, _dni, _direccion, _telefono,
+				_celular, _correo, crearUsuario(_nombreUsuario, _password));
 	}
 
 	/**
+<<<<<<< HEAD
 	 * Realiza la validacion del ingreso del cliente por Dni y valida al menos un numero de Telefono
 	 * @param _apellido String
 	 * @param _nombre String
@@ -104,6 +131,28 @@ public class ClienteServicio extends AbstractFactoryAndRepository {
 	 * @param _nombreUsusario String
 	 * @param _password Password
 	 * @return String
+=======
+	 * Realiza la validacion del ingreso del cliente por Dni y valida al menos
+	 * un numero de Telefono
+	 * 
+	 * @param String
+	 *            _apellido
+	 * @param String
+	 *            _nombre
+	 * @param long _dni
+	 * @param String
+	 *            _direccion
+	 * @param String
+	 *            _telefono
+	 * @param String
+	 *            _celular
+	 * @param String
+	 *            _correo
+	 * @param String
+	 *            _nombreUsusario
+	 * @param Password
+	 *            _password
+>>>>>>> 8a91ce6d19b175dc974491ec4796ab35890b4c08
 	 */
 	public String validateCargarCliente(final String _apellido,
 			final String _nombre, final long _dni, final String _direccion,
@@ -135,9 +184,18 @@ public class ClienteServicio extends AbstractFactoryAndRepository {
 
 	/**
 	 * Crea Usuario y Password para el nuevo cliente
+<<<<<<< HEAD
 	 * @param _nombreUsuario String
 	 * @param _password Password
 	 * @return usuario Usuario
+=======
+	 * 
+	 * @param String
+	 *            _nombreUsuario
+	 * @param Password
+	 *            _password
+	 * @return Usuario usuario
+>>>>>>> 8a91ce6d19b175dc974491ec4796ab35890b4c08
 	 */
 	@Programmatic
 	public Usuario crearUsuario(final String _nombreUsuario,
@@ -152,6 +210,7 @@ public class ClienteServicio extends AbstractFactoryAndRepository {
 	}
 
 	/**
+<<<<<<< HEAD
 	 * Toma el cliente ingresado y lo persiste 
 	 * @param _apellido String
 	 * @param _nombre String
@@ -164,12 +223,35 @@ public class ClienteServicio extends AbstractFactoryAndRepository {
 	 * @param _passwordPassword
 	 * @param clienteNuevo Cliente
 	 * @return clienteNuevo Cliente
+=======
+	 * Toma el cliente ingresado y lo persiste
+	 * 
+	 * @param String
+	 *            _apellido
+	 * @param String
+	 *            _nombre
+	 * @param long _dni
+	 * @param String
+	 *            _direccion
+	 * @param String
+	 *            _telefono
+	 * @param String
+	 *            _celular
+	 * @param String
+	 *            _correo
+	 * @param Usuario
+	 *            _usuario
+	 * @param Password
+	 *            _password
+	 * @param Cliente
+	 *            clienteNuevo
+	 * @return Cliente clienteNuevo
+>>>>>>> 8a91ce6d19b175dc974491ec4796ab35890b4c08
 	 */
 	@Programmatic
-	public Cliente nuevoCliente(Oferta _oferta, final String _apellido,
-			final String _nombre, final long _dni, final String _direccion,
-			final String _telefono, final String _celular,
-			final String _correo, final Usuario _usuario) {
+	public Cliente nuevoCliente(final String _apellido, final String _nombre,
+			final long _dni, final String _direccion, final String _telefono,
+			final String _celular, final String _correo, final Usuario _usuario) {
 		final Cliente clienteNuevo = newTransientInstance(Cliente.class);
 		clienteNuevo.setApellido(_apellido.substring(0, 1).toUpperCase()
 				+ _apellido.substring(1));
@@ -181,7 +263,6 @@ public class ClienteServicio extends AbstractFactoryAndRepository {
 		clienteNuevo.setCelular(_celular);
 		clienteNuevo.setCorreo(_correo);
 		clienteNuevo.setUsuario(_usuario);
-		clienteNuevo.setOferta(_oferta);
 		clienteNuevo.setBaja(false);
 		persist(clienteNuevo);
 		return clienteNuevo;
@@ -189,6 +270,7 @@ public class ClienteServicio extends AbstractFactoryAndRepository {
 
 	/**
 	 * Obtiene una lista de clientes Activos
+	 * 
 	 * @return List<Cliente>
 	 */
 	@Named("Listar")
@@ -205,9 +287,22 @@ public class ClienteServicio extends AbstractFactoryAndRepository {
 		});
 	}
 
+	@Programmatic
+	public List<Oferta> listarOfertas() {
+		return ofertaServicio.listarOfertasAlta();
+	}
+
+	@Inject
+	private OfertaServicio ofertaServicio;
+
 	/**
 	 * Obtiene una lista de todos los clientes
+<<<<<<< HEAD
 	 * @return listaDeClientes List<Cliente>
+=======
+	 * 
+	 * @return List<Cliente> listaDeClientes
+>>>>>>> 8a91ce6d19b175dc974491ec4796ab35890b4c08
 	 */
 	@Named("Listar Todos")
 	@ActionSemantics(Of.SAFE)

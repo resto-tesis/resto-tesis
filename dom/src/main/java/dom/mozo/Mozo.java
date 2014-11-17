@@ -53,7 +53,7 @@ public class Mozo extends Empleado {
 	 * @return String
 	 */
 	public String iconName() {
-		return getBaja() ? "MozoBaja" : "Mozo";
+		return getBaja() ? "MozoDes" : "Mozo";
 	}
 
 	// {{ Lista De Mesas (Collection)

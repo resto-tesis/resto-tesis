@@ -17,52 +17,14 @@
 
 package dom.oferta;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import dom.cliente.Cliente;
-/**
- * Clase Asbtracta de la cual extenderan los objetos que seran observados
- * @author RestoTesis
- * @since 15/10/2014
- * @version 1.0.0
- */
 public abstract class Observado {
 
-	/**
-	 * Constructor de la clase; en el que crea el vector con la asociacion Observable-Observador
-	 */
 	public Observado() {
-        listaClientes = new ArrayList<Cliente>();
-    }
- 
-    /**
-     * Permite Agregar un cliente sobre vector _observadores...
-     * @param _cliente Cliente
-     */
-    public void registrarCliente(Cliente _cliente) {
-        listaClientes.add(_cliente);
-    }
- 
-    /**
-     * Permite Remover un cliente sobre vector _observadores...
-     * @param _cliente Cliente
-     */
-    public void removerCliente(Cliente _cliente) {
-        listaClientes.remove(_cliente);
-    }
- 
-    /**
-     * Permite realizar la notificacion: Para cada observador se invoca el método actualizar().
-     */
-    public void notificarClientes() {
-        for (Cliente _cliente : listaClientes) {
-            _cliente.actualizar(oferta);
-        }
-    }
+	}
 
-	//Este atributo privado mantiene el vector con los observadores
-    private List<Cliente> listaClientes;
-    private Oferta oferta;
-    
+	// Notificacion: Para cada observador se invoca el método actualizar().
+	public abstract Observado notificarClientes();
+
 }
+
+

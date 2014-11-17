@@ -28,12 +28,14 @@ import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.ActionSemantics.Of;
 
 import dom.objetosValor.ValueMenu;
+import dom.objetosValor.ValueOferta;
 import dom.objetosValor.ValueProductoElaborado;
 import dom.objetosValor.ValueProductoNoElaborado;
 import dom.pedido.Pedido;
 
 /**
  * Clase que da funcionalidad de crear y persistir la Factura
+ * 
  * @author RestoTesis
  * @since 15/10/2014
  * @version 1.0.0
@@ -50,8 +52,16 @@ public class FacturaServicio extends AbstractFactoryAndRepository {
 	}
 
 	/**
+<<<<<<< HEAD
 	 * Metodo que crea y persiste una nueva Factura, cargando todos sus items con precio  
 	 * @param _pedidos List<Pedido>
+=======
+	 * Metodo que crea y persiste una nueva Factura, cargando todos sus items
+	 * con precio
+	 * 
+	 * @param List
+	 *            <Pedido> _pedidos
+>>>>>>> 8a91ce6d19b175dc974491ec4796ab35890b4c08
 	 * @see dom.objetosValor.ValueProductoNoElaborado.getProducto()
 	 * @see dom.objetosValor.ValueProductoNoElaborado.getCantidad()
 	 * @see dom.objetosValor.ValueMenu.getMenu()
@@ -101,55 +111,27 @@ public class FacturaServicio extends AbstractFactoryAndRepository {
 			if (!pedido.getComanda().getMenues().isEmpty()) {
 				for (ValueMenu menu : pedido.getComanda().getMenues()) {
 					ItemFactura itemMenu = newTransientInstance(ItemFactura.class);
-					itemMenu.setNombre(menu.getMenu().getNombre().toUpperCase());
+					itemMenu.setNombre("Menú - " + menu.getMenu().getNombre());
 					itemMenu.setCantidad(menu.getCantidad());
 					itemMenu.setDescuento(menu.getMenu().getDescuento());
 					itemMenu.setPrecio(menu.getMenu().getPrecioSinDescuento());
 					persist(itemMenu);
 					precioTotal += itemMenu.getPrecioFinal();
 					factura.addToItems(itemMenu);
-
-					ItemFactura item1 = newTransientInstance(ItemFactura.class);
-					item1.setNombre("--"
-							+ menu.getMenu().getPlatoPrincipal().getNombre());
-					item1.setCantidad(menu.getCantidad());
-					item1.setDescuento(menu.getMenu().getDescuento());
-					item1.setPrecio(menu.getMenu().getPlatoPrincipal()
-							.getPrecio());
-					persist(item1);
-					factura.addToItems(item1);
-					if (menu.getMenu().getPlatoEntrada() != null) {
-						ItemFactura item2 = newTransientInstance(ItemFactura.class);
-						item2.setNombre("--"
-								+ menu.getMenu().getPlatoEntrada().getNombre());
-						item2.setCantidad(menu.getCantidad());
-						item2.setDescuento(menu.getMenu().getDescuento());
-						item2.setPrecio(menu.getMenu().getPlatoEntrada()
-								.getPrecio());
-						persist(item2);
-						factura.addToItems(item2);
-					}
-					if (menu.getMenu().getPostre() != null) {
-						ItemFactura item3 = newTransientInstance(ItemFactura.class);
-						item3.setNombre("--"
-								+ menu.getMenu().getPostre().getNombre());
-						item3.setCantidad(menu.getCantidad());
-						item3.setDescuento(menu.getMenu().getDescuento());
-						item3.setPrecio(menu.getMenu().getPostre().getPrecio());
-						persist(item3);
-						factura.addToItems(item3);
-					}
-					if (menu.getMenu().getGuarnicion() != null) {
-						ItemFactura item4 = newTransientInstance(ItemFactura.class);
-						item4.setNombre("--"
-								+ menu.getMenu().getGuarnicion().getNombre());
-						item4.setCantidad(menu.getCantidad());
-						item4.setDescuento(menu.getMenu().getDescuento());
-						item4.setPrecio(menu.getMenu().getGuarnicion()
-								.getPrecio());
-						persist(item4);
-						factura.addToItems(item4);
-					}
+				}
+			}
+			if (!pedido.getComanda().getMenues().isEmpty()) {
+				for (ValueOferta oferta : pedido.getComanda().getOfertas()) {
+					ItemFactura itemOferta = newTransientInstance(ItemFactura.class);
+					itemOferta.setNombre("Oferta - "
+							+ oferta.getOferta().getNombre());
+					itemOferta.setCantidad(oferta.getCantidad());
+					itemOferta.setDescuento(oferta.getOferta().getDescuento());
+					itemOferta.setPrecio(oferta.getOferta()
+							.getPrecioSinDescuento());
+					persist(itemOferta);
+					precioTotal += itemOferta.getPrecioFinal();
+					factura.addToItems(itemOferta);
 				}
 			}
 		}
@@ -157,10 +139,15 @@ public class FacturaServicio extends AbstractFactoryAndRepository {
 		persist(factura);
 		return factura;
 	}
-	
+
 	/**
 	 * Obtiene una lista de todas las facturas
+<<<<<<< HEAD
 	 * @return lista List<Factura>
+=======
+	 * 
+	 * @return List<Factura> lista
+>>>>>>> 8a91ce6d19b175dc974491ec4796ab35890b4c08
 	 */
 	@Named("Listar")
 	@ActionSemantics(Of.SAFE)

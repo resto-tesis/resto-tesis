@@ -69,6 +69,31 @@ public class ReservaServicio extends AbstractFactoryAndRepository {
 			}
 		});
 	}
+	
+	@Named("Crear")
+	@Hidden(where = Where.OBJECT_FORMS)
+	public Reserva crearReservaEncargado(@Named("Comensales") final int _comensales,
+			@Named("Mesa") final Mesa _mesa, @Named("Fecha") final Date _fecha,
+			@Named("Hora") final String _hora) {
+		return nuevaReserva(_comensales, _mesa, _fecha, _hora);
+	}
+
+	public String[] choices3CrearReservaEncargado() {
+		return new String[] { "11:30", "12:00", "12:30", "13:00", "13:30",
+				"14:00", "14:30", "20:00", "20:30", "21:00", "21:30", "22:00",
+				"22:30", "23:00", "23:30" };
+	}
+
+	public List<Mesa> choices1CrearReservaEncargado(final int _comensales) {
+		return allMatches(Mesa.class, new Predicate<Mesa>() {
+			@Override
+			public boolean apply(Mesa input) {
+				// TODO Auto-generated method stub
+				return input.getCapacidad() >= _comensales
+						&& input.getCapacidad() <= (_comensales + 2);
+			}
+		});
+	}
 
 	@Programmatic
 	public Reserva nuevaReserva(final int _comensales, final Mesa _mesa,
