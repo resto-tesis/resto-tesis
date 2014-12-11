@@ -92,6 +92,11 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>org.isisaddons.wicket.wickedcharts</groupId>
+			<artifactId>isis-wicket-wickedcharts-cpt</artifactId>
+			<version>1.7.0</version>
+		</dependency>
+		<dependency>
 			<groupId>org.apache.isis.core</groupId>
 			<artifactId>isis-core-applib</artifactId>
 		</dependency>

@@ -27,6 +27,7 @@ import org.apache.isis.applib.annotation.Named;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.ActionSemantics.Of;
 
+import servicio.estadistica.Log;
 import dom.objetosValor.ValueMenu;
 import dom.objetosValor.ValueOferta;
 import dom.objetosValor.ValueProductoElaborado;
@@ -52,8 +53,11 @@ public class FacturaServicio extends AbstractFactoryAndRepository {
 	}
 
 	/**
-	 * Metodo que crea y persiste una nueva Factura, cargando todos sus items con precio  
-	 * @param List<Pedido> _pedidos
+	 * Metodo que crea y persiste una nueva Factura, cargando todos sus items
+	 * con precio
+	 * 
+	 * @param List
+	 *            <Pedido> _pedidos
 	 * @see dom.objetosValor.ValueProductoNoElaborado.getProducto()
 	 * @see dom.objetosValor.ValueProductoNoElaborado.getCantidad()
 	 * @see dom.objetosValor.ValueMenu.getMenu()
@@ -96,6 +100,8 @@ public class FacturaServicio extends AbstractFactoryAndRepository {
 					itemProducto.setDescuento(0);
 					itemProducto.setPrecio(producto.getProducto().getPrecio());
 					persist(itemProducto);
+					newPersistentInstance(Log.class).nuevoRegistro(
+							producto.getProducto(), producto.getCantidad());
 					precioTotal += itemProducto.getPrecioFinal();
 					factura.addToItems(itemProducto);
 				}
@@ -134,6 +140,7 @@ public class FacturaServicio extends AbstractFactoryAndRepository {
 
 	/**
 	 * Obtiene una lista de todas las facturas
+	 * 
 	 * @return List<Factura> lista
 	 */
 	@Named("Listar")
@@ -143,4 +150,5 @@ public class FacturaServicio extends AbstractFactoryAndRepository {
 		final List<Factura> lista = allInstances(Factura.class);
 		return lista;
 	}
+
 }

@@ -141,3 +141,7 @@ div.wicket-modal div.w_content_2{
 .loginPanel{
   background-color:rgba(69, 48, 31, 0.51);
 }
+
+.actionName{
+  display:none;
+}
