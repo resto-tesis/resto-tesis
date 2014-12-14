@@ -17,15 +17,32 @@
 
 package dom.factura;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
+
+import javax.annotation.PostConstruct;
 
 import org.apache.isis.applib.AbstractFactoryAndRepository;
 import org.apache.isis.applib.annotation.ActionSemantics;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
+import org.apache.isis.applib.annotation.NotContributed;
+import org.apache.isis.applib.annotation.NotInServiceMenu;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.ActionSemantics.Of;
+import org.apache.isis.applib.value.Blob;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.interactive.form.PDAcroForm;
+
+import com.google.common.io.Resources;
 
 import servicio.estadistica.Log;
 import dom.objetosValor.ValueMenu;
@@ -134,6 +151,7 @@ public class FacturaServicio extends AbstractFactoryAndRepository {
 			}
 		}
 		factura.setTotal(precioTotal);
+		factura.setFechaHora(new Date());
 		persist(factura);
 		return factura;
 	}
@@ -151,4 +169,63 @@ public class FacturaServicio extends AbstractFactoryAndRepository {
 		return lista;
 	}
 
+	private byte[] pdfAsBytes;
+
+	@PostConstruct
+	public void init() throws IOException {
+		pdfAsBytes = Resources.toByteArray(Resources.getResource(
+				this.getClass(), "plantilla.pdf"));
+	}
+
+	@NotContributed(NotContributed.As.ASSOCIATION)
+	@NotInServiceMenu
+	@ActionSemantics(Of.SAFE)
+	@MemberOrder(sequence = "10")
+	public Blob imprimirFactura(final Factura _factura) throws Exception {
+
+		try (PDDocument pdfDocument = cargarPlantilla(_factura)) {
+
+			final ByteArrayOutputStream target = new ByteArrayOutputStream();
+			pdfDocument.save(target);
+
+			final String name = "Factura-" + _factura.getNumero() + ".pdf";
+			final String mimeType = "application/pdf";
+			final byte[] bytes = target.toByteArray();
+
+			return new Blob(name, mimeType, bytes);
+		}
+	}
+
+	private PDDocument cargarPlantilla(Factura _factura) throws Exception {
+		PDDocument pdfDocument = PDDocument.load(new ByteArrayInputStream(
+				pdfAsBytes));
+
+		PDAcroForm pdfForm = pdfDocument.getDocumentCatalog().getAcroForm();
+
+		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy '-' HH:mm",
+				new Locale("es_AR"));
+		pdfForm.getField("fecha").setValue(
+				formato.format(_factura.getFechaHora()));
+		pdfForm.getField("numero").setValue(
+				String.valueOf(_factura.getNumero()));
+		pdfForm.getField("total").setValue(
+				new DecimalFormat("#.00").format(_factura.getTotal()));
+
+		int i = 1;
+		Iterator<ItemFactura> iterador = _factura.getItems().iterator();
+		while (i < 20 && iterador.hasNext()) {
+			ItemFactura item = iterador.next();
+
+			String txtDescripcion = "desc" + i;
+			String txtPrecio = "precio" + i;
+
+			pdfForm.getField(txtDescripcion).setValue(
+					item.getNombre() + " (" + item.getCantidad() + ")");
+			pdfForm.getField(txtPrecio).setValue(
+					new DecimalFormat("#.00").format(item.getPrecioFinal()));
+
+			i++;
+		}
+		return pdfDocument;
+	}
 }

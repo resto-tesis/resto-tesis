@@ -65,6 +65,11 @@ max-height:650px;
   color:black;
 }
 
+#applicationActions
+{
+  width:auto;
+}
+
 .resto-tesis{
   background:#ABABAB;
   min-width:1150px;

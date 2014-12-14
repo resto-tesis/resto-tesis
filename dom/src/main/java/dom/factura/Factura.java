@@ -18,6 +18,7 @@
 package dom.factura;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -40,8 +41,9 @@ import org.apache.isis.applib.annotation.Title;
 import org.apache.isis.applib.annotation.TypicalLength;
 
 /**
- * Entidad Factura, la cual representa un comprobante donde figura un detalle de 
- * lo que ha sido consumido por un un cliente y cuanto se debe abonar por ello 
+ * Entidad Factura, la cual representa un comprobante donde figura un detalle de
+ * lo que ha sido consumido por un un cliente y cuanto se debe abonar por ello
+ * 
  * @author RestoTesis
  * @since 15/10/2014
  * @version 1.0.0
@@ -50,12 +52,14 @@ import org.apache.isis.applib.annotation.TypicalLength;
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 public class Factura {
 	/**
-	 * Retorna el nombre del icono de una nueva Factura 
+	 * Retorna el nombre del icono de una nueva Factura
+	 * 
 	 * @return String
 	 */
-	public String iconName(){
+	public String iconName() {
 		return "Factura";
 	}
+
 	/**
 	 * Constructor de la clase Factura
 	 */
@@ -67,7 +71,9 @@ public class Factura {
 	private long numero;
 
 	/**
-	 * Obtiene el numero de una nueva Factura, el cual se genera en forma automatica
+	 * Obtiene el numero de una nueva Factura, el cual se genera en forma
+	 * automatica
+	 * 
 	 * @return numero long
 	 */
 	@Title(prepend = "Factura Nº ")
@@ -83,18 +89,20 @@ public class Factura {
 
 	/**
 	 * Setea el numero de una Factura
-	 * @param numero long
+	 * 
+	 * @param numero
+	 *            long
 	 */
 	public void setNumero(final long numero) {
 		this.numero = numero;
 	}
-
 
 	// {{ Total (property)
 	private double total;
 
 	/**
 	 * Obtiene el total de la Factura que se va a crear.
+	 * 
 	 * @return total double
 	 */
 	@Named("Total ($)")
@@ -107,7 +115,9 @@ public class Factura {
 
 	/**
 	 * Setea el total de la Factura
-	 * @param total double
+	 * 
+	 * @param total
+	 *            double
 	 */
 	public void setTotal(final double total) {
 		this.total = total;
@@ -120,6 +130,7 @@ public class Factura {
 
 	/**
 	 * Obtiene una lista de los items de la factura
+	 * 
 	 * @return items List<Itemfactura>
 	 */
 	@Join
@@ -132,7 +143,9 @@ public class Factura {
 
 	/**
 	 * Setea la lista de los items de la factura
-	 * @param items List<Itemfactura>
+	 * 
+	 * @param items
+	 *            List<Itemfactura>
 	 */
 	public void setItems(final List<ItemFactura> items) {
 		this.items = items;
@@ -140,7 +153,9 @@ public class Factura {
 
 	/**
 	 * Agrega un item a la lista de items de la factura
-	 * @param _item List<Itemfactura>
+	 * 
+	 * @param _item
+	 *            List<Itemfactura>
 	 */
 	public void addToItems(final ItemFactura _item) {
 		items.add(_item);
@@ -148,11 +163,28 @@ public class Factura {
 
 	/**
 	 * remueve un item de la lista de items de la factura
-	 * @param _item List<Itemfactura>
+	 * 
+	 * @param _item
+	 *            List<Itemfactura>
 	 */
 	public void removeFromItems(final ItemFactura _item) {
 		items.remove(_item);
 	}
+
+	// {{ FechaHora (property)
+	private Date fechaHora;
+
+	@MemberOrder(sequence = "1")
+	@Column(allowsNull = "false")
+	public Date getFechaHora() {
+		return fechaHora;
+	}
+
+	public void setFechaHora(final Date fechaHora) {
+		this.fechaHora = fechaHora;
+	}
+
+	// }}
 
 	@Inject
 	private DomainObjectContainer contenedor;
