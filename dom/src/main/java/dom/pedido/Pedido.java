@@ -81,7 +81,7 @@ public class Pedido {
 
 	public String title() {
 		if (pedidoServicio.soloBebidas(this) && getBebidas().isEmpty())
-			return "Pedido " + getNumero() + " (Vacío)";
+			return "Pedido " + getNumero() + " (Vacio)";
 		return "Pedido " + getNumero();
 	}
 
@@ -418,16 +418,16 @@ public class Pedido {
 	@MemberOrder(name = "productosComanda", sequence = "3")
 	@Named("Guarniciones")
 	public Pedido pedirGuarniciones(
-			@Named("Guarnición 1") final Guarnicion _guarnicion1,
+			@Named("Guarnicion 1") final Guarnicion _guarnicion1,
 			@Optional @Named("Cantidad") final Integer _cantidad1,
 			@Optional @Named("Nota") final String _nota1,
-			@Optional @Named("Guarnición 2") final Guarnicion _guarnicion2,
+			@Optional @Named("Guarnicion 2") final Guarnicion _guarnicion2,
 			@Optional @Named("Cantidad") final Integer _cantidad2,
 			@Optional @Named("Nota") final String _nota2,
-			@Optional @Named("Guarnición 3") final Guarnicion _guarnicion3,
+			@Optional @Named("Guarnicion 3") final Guarnicion _guarnicion3,
 			@Optional @Named("Cantidad") final Integer _cantidad3,
 			@Optional @Named("Nota") final String _nota3,
-			@Optional @Named("Guarnición 4") final Guarnicion _guarnicion4,
+			@Optional @Named("Guarnicion 4") final Guarnicion _guarnicion4,
 			@Optional @Named("Cantidad") final Integer _cantidad4,
 			@Optional @Named("Nota") final String _nota4) {
 		pedidoServicio.llenarComanda(_guarnicion1, _cantidad1, _nota1,

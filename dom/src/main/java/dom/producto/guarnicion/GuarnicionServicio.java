@@ -43,7 +43,7 @@ import com.google.common.base.Predicate;
  * @version 1.0.0
  */
 @DomainService
-@Named("Guarnición")
+@Named("Guarnicion")
 public class GuarnicionServicio extends AbstractFactoryAndRepository {
 
 	/**
@@ -61,11 +61,11 @@ public class GuarnicionServicio extends AbstractFactoryAndRepository {
 	 * @param precioGuarnicion BigDecimal
 	 * @return crearGuarnicionNueva() Guarnicion
 	 */
-	@Named("Guarnición")
+	@Named("Guarnicion")
 	@MemberOrder(name = "Crear", sequence = "1")
 	public Guarnicion crearGuarnicion(
-			@Named("Nombre") @RegEx(validation = "[0-9a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]*") @MaxLength(value = 30) final String nombreGuarnicion,
-			@Named("Descripción") @Optional @MultiLine(numberOfLines = 3) final String descripcionGuarnicion,
+			@Named("Nombre") @RegEx(validation = "[0-9a-zA-ZáéíoúÁÉÍoÚñÑ\\s]*") @MaxLength(value = 30) final String nombreGuarnicion,
+			@Named("Descripcion") @Optional @MultiLine(numberOfLines = 3) final String descripcionGuarnicion,
 			@Named("Precio") @MaxLength(value = 5) @Digits(integer = 2, fraction = 2) final BigDecimal precioGuarnicion) {
 		return crearGuarnicionNueva(nombreGuarnicion, descripcionGuarnicion,
 				precioGuarnicion);
