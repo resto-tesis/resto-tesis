@@ -19,7 +19,6 @@ package dom.reserva;
 
 import java.util.Date;
 import java.util.List;
-
 import javax.inject.Inject;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdGeneratorStrategy;
@@ -28,7 +27,6 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.Sequence;
 import javax.jdo.annotations.SequenceStrategy;
-
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.Bulk;
 import org.apache.isis.applib.annotation.Disabled;
@@ -36,9 +34,8 @@ import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
 import org.apache.isis.applib.annotation.Title;
-
-import dom.cliente.Cliente;
 import dom.mesa.Mesa;
+import dom.persona.Persona;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Sequence(name = "secuenciaNumeroReserva", strategy = SequenceStrategy.CONTIGUOUS)
@@ -119,20 +116,23 @@ public class Reserva {
 
 	// }}
 
-	// {{ Cliente (property)
-	private Cliente cliente;
-
+	
+	// {{ Persona (property)
+	private Persona persona;
+	
 	@MemberOrder(sequence = "5")
 	@Column(allowsNull = "false")
-	public Cliente getCliente() {
-		return cliente;
+	
+	public Persona getPersona() {
+		return persona;
 	}
 
-	public void setCliente(final Cliente cliente) {
-		this.cliente = cliente;
+	public void setPersona(final Persona persona) {
+		this.persona = persona;
 	}
-
 	// }}
+
+
 
 	@Bulk
 	public List<Reserva> cancelar() {

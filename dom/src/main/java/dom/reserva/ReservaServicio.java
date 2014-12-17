@@ -20,18 +20,15 @@ package dom.reserva;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-
 import org.apache.isis.applib.AbstractFactoryAndRepository;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.Named;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.Where;
-
 import com.google.common.base.Predicate;
-
-import dom.cliente.Cliente;
 import dom.mesa.Mesa;
+import dom.persona.Persona;
 
 @DomainService
 @Named("Reserva")
@@ -70,30 +67,6 @@ public class ReservaServicio extends AbstractFactoryAndRepository {
 		});
 	}
 	
-	@Named("Crear")
-	@Hidden(where = Where.OBJECT_FORMS)
-	public Reserva crearReservaEncargado(@Named("Comensales") final int _comensales,
-			@Named("Mesa") final Mesa _mesa, @Named("Fecha") final Date _fecha,
-			@Named("Hora") final String _hora) {
-		return nuevaReserva(_comensales, _mesa, _fecha, _hora);
-	}
-
-	public String[] choices3CrearReservaEncargado() {
-		return new String[] { "11:30", "12:00", "12:30", "13:00", "13:30",
-				"14:00", "14:30", "20:00", "20:30", "21:00", "21:30", "22:00",
-				"22:30", "23:00", "23:30" };
-	}
-
-	public List<Mesa> choices1CrearReservaEncargado(final int _comensales) {
-		return allMatches(Mesa.class, new Predicate<Mesa>() {
-			@Override
-			public boolean apply(Mesa input) {
-				// TODO Auto-generated method stub
-				return input.getCapacidad() >= _comensales
-						&& input.getCapacidad() <= (_comensales + 2);
-			}
-		});
-	}
 
 	@Programmatic
 	public Reserva nuevaReserva(final int _comensales, final Mesa _mesa,
@@ -102,10 +75,10 @@ public class ReservaServicio extends AbstractFactoryAndRepository {
 		reserva.setMesa(_mesa);
 		reserva.setComensales(_comensales);
 		reserva.setFechaHora(sumaFechaHora(_fecha, _hora).getTime());
-		reserva.setCliente(uniqueMatch(Cliente.class, new Predicate<Cliente>() {
+		reserva.setPersona(uniqueMatch(Persona.class, new Predicate<Persona>() {
 
 			@Override
-			public boolean apply(Cliente input) {
+			public boolean apply(Persona input) {
 				// TODO Auto-generated method stub
 				return input.getUsuario().getNombre()
 						.equals(getUser().getName()) ? true : false;
@@ -188,7 +161,7 @@ public class ReservaServicio extends AbstractFactoryAndRepository {
 			@Override
 			public boolean apply(Reserva input) {
 				// TODO Auto-generated method stub
-				return input.getCliente().getUsuario().getNombre()
+				return input.getPersona().getUsuario().getNombre()
 						.equals(getUser().getName()) ? true : false;
 			}
 		});
