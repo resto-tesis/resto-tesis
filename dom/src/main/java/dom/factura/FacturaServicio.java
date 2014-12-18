@@ -42,9 +42,10 @@ import org.apache.isis.applib.value.Blob;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.interactive.form.PDAcroForm;
 
+import servicio.estadistica.Log;
+
 import com.google.common.io.Resources;
 
-import servicio.estadistica.Log;
 import dom.objetosValor.ValueMenu;
 import dom.objetosValor.ValueOferta;
 import dom.objetosValor.ValueProductoElaborado;
@@ -135,7 +136,7 @@ public class FacturaServicio extends AbstractFactoryAndRepository {
 					factura.addToItems(itemMenu);
 				}
 			}
-			if (!pedido.getComanda().getMenues().isEmpty()) {
+			if (!pedido.getComanda().getOfertas().isEmpty()) {
 				for (ValueOferta oferta : pedido.getComanda().getOfertas()) {
 					ItemFactura itemOferta = newTransientInstance(ItemFactura.class);
 					itemOferta.setNombre("Oferta - "
