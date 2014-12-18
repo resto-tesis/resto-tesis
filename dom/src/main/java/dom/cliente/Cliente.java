@@ -27,24 +27,28 @@ import javax.jdo.annotations.Inheritance;
 import javax.jdo.annotations.InheritanceStrategy;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
+import javax.jdo.annotations.Query;
 import javax.jdo.annotations.Sequence;
 import javax.jdo.annotations.SequenceStrategy;
 
+import org.apache.isis.applib.annotation.AutoComplete;
 import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
 import org.apache.isis.applib.annotation.Optional;
 import org.apache.isis.applib.annotation.TypicalLength;
+import org.apache.isis.applib.query.QueryDefault;
 
 import servicio.correo.CorreoServicio;
 import dom.oferta.Oferta;
 import dom.persona.Persona;
 
 /**
- * Entidad Cliente la cual representa a cualquier persona que consuma 
- * productos dentro del local, extiende de la clase Persona, implementa IObservador
+ * Entidad Cliente la cual representa a cualquier persona que consuma productos
+ * dentro del local, extiende de la clase Persona, implementa IObservador
  * Entidad Cliente la cual representa a cualquier persona que consuma productos
  * dentro del local, extiende de la clase Persona
+ * 
  * @author RestoTesis
  * @since 10/05/2014
  * @version 1.0.0
@@ -52,6 +56,8 @@ import dom.persona.Persona;
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Sequence(name = "secuenciaNumeroCliente", strategy = SequenceStrategy.CONTIGUOUS)
 @Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
+@Query(name = "clientesQueEmpiezan", language = "JDOQL", value = "SELECT FROM dom.cliente.Cliente WHERE apellido.matches(:apellido)")
+@AutoComplete(repository = ClienteServicio.class, action = "completarClientes")
 public class Cliente extends Persona implements IObservador {
 
 	/**
@@ -69,6 +75,7 @@ public class Cliente extends Persona implements IObservador {
 
 	/**
 	 * Retorna el numero de Cliente que se va a crear
+	 * 
 	 * @return numeroCliente long
 	 * @return long numeroCliente
 	 */
@@ -82,7 +89,9 @@ public class Cliente extends Persona implements IObservador {
 
 	/**
 	 * Setea el numero de Cliente que se va a crear.
-	 * @param numeroCliente long
+	 * 
+	 * @param numeroCliente
+	 *            long
 	 * @param long numeroCliente
 	 */
 	public void setNumeroCliente(final long numeroCliente) {
@@ -119,6 +128,7 @@ public class Cliente extends Persona implements IObservador {
 
 	/**
 	 * Retorna la Oferta que se va a crear.
+	 * 
 	 * @return oferta Oferta
 	 */
 	@Hidden
@@ -130,11 +140,14 @@ public class Cliente extends Persona implements IObservador {
 
 	/**
 	 * Setea la Oferta que se va a crear.
-	 * @param oferta Oferta
+	 * 
+	 * @param oferta
+	 *            Oferta
 	 */
 	public void setOferta(final Oferta oferta) {
 		this.oferta = oferta;
 	}
+
 	//
 	// // {{ Oferta (property)
 	// private Oferta oferta;
@@ -169,7 +182,9 @@ public class Cliente extends Persona implements IObservador {
 
 	/**
 	 * Metodo para actualizar la oferta
-	 * @param _oferta Oferta
+	 * 
+	 * @param _oferta
+	 *            Oferta
 	 */
 	@Named("Enviar Oferta")
 	@Override
@@ -183,4 +198,5 @@ public class Cliente extends Persona implements IObservador {
 	public List<Oferta> choices0Actualizar() {
 		return clienteServicio.listarOfertas();
 	}
+
 }

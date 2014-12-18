@@ -34,8 +34,8 @@ import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Named;
 import org.apache.isis.applib.annotation.Title;
+import dom.cliente.Cliente;
 import dom.mesa.Mesa;
-import dom.persona.Persona;
 
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Sequence(name = "secuenciaNumeroReserva", strategy = SequenceStrategy.CONTIGUOUS)
@@ -116,23 +116,20 @@ public class Reserva {
 
 	// }}
 
-	
-	// {{ Persona (property)
-	private Persona persona;
-	
+	// {{ Cliente (property)
+	private Cliente cliente;
+
 	@MemberOrder(sequence = "5")
 	@Column(allowsNull = "false")
-	
-	public Persona getPersona() {
-		return persona;
+	public Cliente getCliente() {
+		return cliente;
 	}
 
-	public void setPersona(final Persona persona) {
-		this.persona = persona;
+	public void setCliente(final Cliente cliente) {
+		this.cliente = cliente;
 	}
+
 	// }}
-
-
 
 	@Bulk
 	public List<Reserva> cancelar() {

@@ -24,6 +24,7 @@ import javax.inject.Inject;
 import org.apache.isis.applib.AbstractFactoryAndRepository;
 import org.apache.isis.applib.annotation.ActionSemantics;
 import org.apache.isis.applib.annotation.DomainService;
+import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.MaxLength;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.MinLength;
@@ -66,16 +67,27 @@ public class ClienteServicio extends AbstractFactoryAndRepository {
 
 	/**
 	 * Obtiene los datos validados del Cliente
-	 * @param _apellido String
-	 * @param String _nombre String
-	 * @param _dni long
-	 * @param _direccion String
-	 * @param _telefono String
-	 * @param _celular String
-	 * @param _correo String
-	 * @param _nombreUsusario String
-	 * @param _password Password
-	 * @param _oferta Oferta
+	 * 
+	 * @param _apellido
+	 *            String
+	 * @param String
+	 *            _nombre String
+	 * @param _dni
+	 *            long
+	 * @param _direccion
+	 *            String
+	 * @param _telefono
+	 *            String
+	 * @param _celular
+	 *            String
+	 * @param _correo
+	 *            String
+	 * @param _nombreUsusario
+	 *            String
+	 * @param _password
+	 *            Password
+	 * @param _oferta
+	 *            Oferta
 	 * @return nuevoCliente Cliente
 	 */
 	@Named("Registrar")
@@ -95,16 +107,27 @@ public class ClienteServicio extends AbstractFactoryAndRepository {
 	}
 
 	/**
-	 * Realiza la validacion del ingreso del cliente por Dni y valida al menos un numero de Telefono
-	 * @param _apellido String
-	 * @param _nombre String
-	 * @param _dni long
-	 * @param _direccion String
-	 * @param _telefono String
-	 * @param _celular String
-	 * @param _correo String
-	 * @param _nombreUsusario String
-	 * @param _password Password
+	 * Realiza la validacion del ingreso del cliente por Dni y valida al menos
+	 * un numero de Telefono
+	 * 
+	 * @param _apellido
+	 *            String
+	 * @param _nombre
+	 *            String
+	 * @param _dni
+	 *            long
+	 * @param _direccion
+	 *            String
+	 * @param _telefono
+	 *            String
+	 * @param _celular
+	 *            String
+	 * @param _correo
+	 *            String
+	 * @param _nombreUsusario
+	 *            String
+	 * @param _password
+	 *            Password
 	 * @return String
 	 */
 	public String validateCargarCliente(final String _apellido,
@@ -127,10 +150,10 @@ public class ClienteServicio extends AbstractFactoryAndRepository {
 				// TODO Auto-generated method stub
 				return _persona.getUsuario().getNombre().equals(_nombreUsuario);
 			}
-		}) != null){
+		}) != null) {
 			return "Ya existe el nombre de usuario!";
 		}
-		if(_correo == null){
+		if (_correo == null) {
 			return "Debe ingresar un correo";
 		}
 		return _telefono == null && _celular == null ? "Debe ingresar al menos un teléfono"
@@ -139,11 +162,16 @@ public class ClienteServicio extends AbstractFactoryAndRepository {
 
 	/**
 	 * Crea Usuario y Password para el nuevo cliente
-	 * @param _nombreUsuario String
-	 * @param _password Password
-	 * @return usuario Usuario	 * 
-	 * @param String _nombreUsuario
-	 * @param Password _password
+	 * 
+	 * @param _nombreUsuario
+	 *            String
+	 * @param _password
+	 *            Password
+	 * @return usuario Usuario *
+	 * @param String
+	 *            _nombreUsuario
+	 * @param Password
+	 *            _password
 	 * @return Usuario usuario
 	 */
 	@Programmatic
@@ -159,17 +187,27 @@ public class ClienteServicio extends AbstractFactoryAndRepository {
 	}
 
 	/**
-	 * Toma el cliente ingresado y lo persiste 
-	 * @param _apellido String
-	 * @param _nombre String
-	 * @param _dni long
-	 * @param _direccion String
-	 * @param _telefono String
-	 * @param _celular String
-	 * @param _correo String
-	 * @param _usuario Usuario
+	 * Toma el cliente ingresado y lo persiste
+	 * 
+	 * @param _apellido
+	 *            String
+	 * @param _nombre
+	 *            String
+	 * @param _dni
+	 *            long
+	 * @param _direccion
+	 *            String
+	 * @param _telefono
+	 *            String
+	 * @param _celular
+	 *            String
+	 * @param _correo
+	 *            String
+	 * @param _usuario
+	 *            Usuario
 	 * @param _passwordPassword
-	 * @param clienteNuevo Cliente
+	 * @param clienteNuevo
+	 *            Cliente
 	 * @return clienteNuevo Cliente
 	 */
 	@Programmatic
@@ -221,6 +259,7 @@ public class ClienteServicio extends AbstractFactoryAndRepository {
 
 	/**
 	 * Obtiene una lista de todos los clientes
+	 * 
 	 * @return listaDeClientes List<Cliente>
 	 */
 	@Named("Listar Todos")
@@ -229,5 +268,11 @@ public class ClienteServicio extends AbstractFactoryAndRepository {
 	public List<Cliente> listarClientesTodos() {
 		final List<Cliente> listaDeClientes = allInstances(Cliente.class);
 		return listaDeClientes;
+	}
+
+	@Hidden
+	public List<Cliente> completarClientes(final String apellido) {
+		return allMatches(new QueryDefault<Cliente>(Cliente.class,
+				"clientesQueEmpiezan", "apellido", "(?i).*" + apellido + ".*"));
 	}
 }
