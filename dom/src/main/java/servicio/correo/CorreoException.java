@@ -18,6 +18,12 @@ package servicio.correo;
 
 import org.apache.isis.applib.ApplicationException;
 
+/**
+ * Clase que interpreta los errores del Correo
+ * @author RestoTesis
+ * @since 10/09/2014
+ * @version 1.0.0
+ */
 public class CorreoException extends ApplicationException {
 
 	public CorreoException(String msg, Throwable cause) {

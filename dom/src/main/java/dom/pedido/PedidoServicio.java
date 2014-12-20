@@ -47,7 +47,8 @@ import dom.producto.platoPrincipal.PlatoPrincipalServicio;
 import dom.producto.postre.Postre;
 import dom.producto.postre.PostreServicio;
 /**
- * 
+ * Otorga la funcionalidad de crear un pedido, agregar menues y ofertas al pedido,
+ * crear pedidos solo de bebidas y cargarlos en la comanda.-
  * @author RestoTesis
  * @since 10/09/2014
  * @version 1.0.0
@@ -55,10 +56,17 @@ import dom.producto.postre.PostreServicio;
 @DomainService
 public class PedidoServicio extends AbstractFactoryAndRepository {
 
+	/**
+	 * Constructor de la clase
+	 */
 	public PedidoServicio() {
 		// TODO Auto-generated constructor stub
 	}
 
+	/**
+	 * Obtiene y persiste un Pedido
+	 * @return pedido Pedido
+	 */
 	@Programmatic
 	public Pedido crearPedido() {
 		final Pedido pedido = newTransientInstance(Pedido.class);
@@ -67,47 +75,90 @@ public class PedidoServicio extends AbstractFactoryAndRepository {
 		return pedido;
 	}
 
+	/**
+	 * Verifica si un Pedido esta compuesto de Bebidas solamente
+	 * @param _pedido Pedido
+	 * @return Boolean
+	 */
 	@Programmatic
 	public boolean soloBebidas(final Pedido _pedido) {
 		return (_pedido.getComanda().getProductos().isEmpty() && _pedido
 				.getComanda().getMenues().isEmpty()) ? true : false;
 	}
 
+	/**
+	 * Obtiene una lista de Bebidas
+	 * @return List<Bebida>
+	 */
 	@Programmatic
 	public List<Bebida> listarBebidas() {
 		return bebidaServicio.listarBebidasAlta();
 	}
 
+	/**
+	 * Obtiene una lista de Postres
+	 * @return List<Postre>
+	 */
 	@Programmatic
 	public List<Postre> listarPostres() {
 		return postreServicio.listarPostresAlta();
 	}
 
+	/**
+	 * Obtiene una lista de Platos Principales
+	 * @return List<PlatoPrincipal>
+	 */
 	@Programmatic
 	public List<PlatoPrincipal> listarPlatosPrincipales() {
 		return platoPrincipalServicio.listarPLatosPrincipalesAlta();
 	}
 
+	/**
+	 * Obtiene una lista de platos de entrada
+	 * @return List<PlatoEntrada>
+	 */
 	@Programmatic
 	public List<PlatoEntrada> listarPlatosEntrada() {
 		return platoEntradaServicio.listarPLatosEntradaAlta();
 	}
 
+	/**
+	 * Obtiene una lista de Guarniciones
+	 * @return List<Guarnicion>
+	 */
 	@Programmatic
 	public List<Guarnicion> listarGuarniciones() {
 		return guarnicionServicio.listarGuarnicionesAlta();
 	}
 
+	/**
+	 * Obtiene una lista de menues
+	 * @return List<Menu>
+	 */
 	@Programmatic
 	public List<Menu> listarMenues() {
 		return menuServicio.listarMenuesAlta();
 	}
 
+	/**
+	 * Obtiene una lista de Ofertas
+	 * @return List<Oferta>
+	 */
 	@Programmatic
 	public List<Oferta> listarOfertas() {
 		return ofertaServicio.listarOfertasAlta();
 	}
 
+	/**
+	 * Agrega y persiste los menues al pedido
+	 * @param _menu1 Menu
+	 * @param _cantidad1 Integer
+	 * @param _nota1 String
+	 * @param _menu2 Menu
+	 * @param _cantidad2 Integer
+	 * @param _nota2 String
+	 * @param _pedido Pedido
+	 */
 	@Programmatic
 	public void agregarMenu(final Menu _menu1, final Integer _cantidad1,
 			final String _nota1, final Menu _menu2, final Integer _cantidad2,
@@ -128,6 +179,16 @@ public class PedidoServicio extends AbstractFactoryAndRepository {
 		}
 	}
 
+	/**
+	 * Agrega y persiste las Ofertas del Pedido
+	 * @param _oferta1 Oferta
+	 * @param _cantidad1 Integer
+	 * @param _nota1 String
+	 * @param _oferta2 Oferta
+	 * @param _cantidad2 Integer
+	 * @param _nota2 String
+	 * @param _pedido Pedido
+	 */
 	@Programmatic
 	public void agregarOferta(final Oferta _oferta1, final Integer _cantidad1,
 			final String _nota1, final Oferta _oferta2,
@@ -148,6 +209,22 @@ public class PedidoServicio extends AbstractFactoryAndRepository {
 		}
 	}
 
+	/**
+	 * Agrega y persiste las Bebidas del Pedido
+	 * @param _bebida1 Bebida
+	 * @param _cantidad1 Integer
+	 * @param _nota1 String
+	 * @param _bebida2 Bebida
+	 * @param _cantidad2 Integer
+	 * @param _nota2 String
+	 * @param _bebida3 Bebida
+	 * @param _cantidad3 Integer
+	 * @param _nota3 String
+	 * @param _bebida4 Bebida
+	 * @param _cantidad4 Integer
+	 * @param _nota4 String
+	 * @param _pedido Pedido
+	 */
 	@Programmatic
 	public void agregarBebidas(final Bebida _bebida1, final Integer _cantidad1,
 			final String _nota1, final Bebida _bebida2,
@@ -187,6 +264,22 @@ public class PedidoServicio extends AbstractFactoryAndRepository {
 		}
 	}
 
+	/**
+	 * Agrega y presisite un producto elaborado del pedido
+	 * @param _producto1 ProductoElaborado
+	 * @param _cantidad1 Integer
+	 * @param _nota1 String
+	 * @param _producto2 ProductoElaborado
+	 * @param _cantidad2 Integer
+	 * @param _nota2 String
+	 * @param _producto3 ProductoElaborado
+	 * @param _cantidad3 Integer
+	 * @param _nota3 String
+	 * @param _producto4 ProductoElaborado
+	 * @param _cantidad4 Integer
+	 * @param _nota4 String
+	 * @param _pedido Pedido
+	 */
 	@Programmatic
 	public void llenarComanda(final ProductoElaborado _producto1,
 			final Integer _cantidad1, final String _nota1,
@@ -251,6 +344,11 @@ public class PedidoServicio extends AbstractFactoryAndRepository {
 	@Inject
 	private OfertaServicio ofertaServicio;
 
+	/**
+	 * Obtiene la Mesa para el Pedido
+	 * @param pedido Pedido
+	 * @return mesa Mesa
+	 */
 	@Programmatic
 	public Mesa volver(Pedido pedido) {
 		// TODO Auto-generated method stub

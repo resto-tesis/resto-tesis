@@ -30,11 +30,20 @@ import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.MemberOrder;
 
+/**
+ * Entidad que representa a cada persona que acceda a la aplicacion
+ * @author RestoTesis
+ * @since 10/05/2014
+ * @version 1.0.0
+ */
 @Sequence(name = "secuenciaUsuario", strategy = SequenceStrategy.CONTIGUOUS, datastoreSequence = "secuenciaUsuarios")
 @DatastoreIdentity(strategy = IdGeneratorStrategy.INCREMENT, sequence = "secuenciaUsuario")
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 public class Usuario {
 
+	/**
+	 * contructor de la clase
+	 */
 	public Usuario() {
 		// TODO Auto-generated constructor stub
 	}
@@ -42,6 +51,10 @@ public class Usuario {
 	// {{ Baja (property)
 	private boolean baja;
 
+	/**
+	 * Permite obtener el estado de baja de un Usuario
+	 * @return baja boolean
+	 */
 	@MemberOrder(sequence = "1")
 	@Column(allowsNull = "false")
 	public boolean getBaja() {
@@ -52,16 +65,22 @@ public class Usuario {
 		this.baja = baja;
 	}
 
-	// }}
-
 	// {{ Nombre (property)
 	private String nombre;
 
+	/**
+	 * Permite obtener un nombre al Usuario
+	 * @return nombre Strnig
+	 */
 	@Column(allowsNull = "false")
 	public String getNombre() {
 		return nombre;
 	}
 
+	/**
+	 * Setea un nombre para el Usuario
+	 * @param nombre String
+	 */
 	public void setNombre(final String nombre) {
 		this.nombre = nombre;
 	}
@@ -71,32 +90,50 @@ public class Usuario {
 	// {{ Password (property)
 	private String password;
 
+	/**
+	 * Permite Obtener un password al Usuario
+	 * @return password Strnig
+	 */
 	@Hidden
 	@Column(allowsNull = "false")
 	public String getPassword() {
 		return password;
 	}
 
+	/**
+	 * Setea el password al Usuario
+	 * @param password String
+	 */
 	public void setPassword(final String password) {
 		this.password = password;
 	}
 
-	// }}
-
+	
 	// {{ Rol (property)
 	private Rol rol;
 
+	/**
+	 * Permite obtener un rol al Usuario
+	 * @return rol Rol
+	 */
 	@Column(allowsNull = "false")
 	public Rol getRol() {
 		return rol;
 	}
 
+	/**
+	 * Setea el Rol para un Usuario
+	 * @param rol Rol
+	 */
 	public void setRol(final Rol rol) {
 		this.rol = rol;
 	}
 
 	// }}
 
+	/**
+	 * Inyeccion del contenedor
+	 */
 	@Inject
 	private DomainObjectContainer contenedor;
 

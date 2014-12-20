@@ -27,7 +27,6 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.Sequence;
 import javax.jdo.annotations.SequenceStrategy;
-
 import org.apache.isis.applib.annotation.Disabled;
 import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.MaxLength;
@@ -40,20 +39,38 @@ import org.apache.isis.applib.annotation.Title;
 import org.apache.isis.applib.annotation.TypicalLength;
 import org.apache.isis.applib.annotation.Where;
 
+/**
+ * Clase asbtarcta que representa todos los productos que se serviran en el local,
+ * la cual contiene los datos comunes a cualquier tipo de ellos
+ * @author RestoTesis
+ * @since 10/05/2014
+ * @version 1.0.0
+ */
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
 @Sequence(name = "secuenciaNumeroProducto", strategy = SequenceStrategy.CONTIGUOUS)
 public abstract class Producto {
 
+	/**
+	 * Permite implementar la obtencio el nombre del icono de los productos.
+	 */
 	public abstract String iconName();
 	
+	/**
+	 * Constructor de la clase
+	 */
 	public Producto() {
 		// TODO Auto-generated constructor stub
 	}
 
+	
 	// {{ Numero (property)
 	private int numero;
 
+	/**
+	 * Obtiene un numero para el Producto
+	 * @return numero int
+	 */
 	@Hidden(where = Where.ALL_TABLES)
 	@Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT, sequence = "secuenciaNumeroProducto")
 	@Named("Número")
@@ -65,15 +82,21 @@ public abstract class Producto {
 		return numero;
 	}
 
+	/**
+	 * Setea el numero para el Producto
+	 * @param numero int
+	 */
 	public void setNumero(final int numero) {
 		this.numero = numero;
 	}
 
-	// }}
-
 	// {{ Nombre (property)
 	private String nombre;
 
+	/**
+	 * Obtiene un nombre para el Producto
+	 * @return nombre String
+	 */
 	@Hidden(where = Where.ALL_TABLES)
 	@RegEx(validation = "[0-9a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]*")
 	@MaxLength(value = 30)
@@ -84,15 +107,21 @@ public abstract class Producto {
 		return nombre;
 	}
 
+	/**
+	 * Setea el nombre del Producto
+	 * @param nombre String
+	 */
 	public void setNombre(final String nombre) {
 		this.nombre = nombre;
 	}
 
-	// }}
-
 	// {{ Descripcion (property)
 	private String descripcion;
 
+	/**
+	 * Obtiene una descripcion para el Producto
+	 * @return descripcion String
+	 */
 	@Named("Descripción")
 	@MultiLine(numberOfLines = 3)
 	@Optional
@@ -101,15 +130,21 @@ public abstract class Producto {
 		return descripcion;
 	}
 
+	/**
+	 * Setea la descripcion del Producto
+	 * @param descripcion String
+	 */
 	public void setDescripcion(final String descripcion) {
 		this.descripcion = descripcion;
 	}
 
-	// }}
-
 	// {{ Precio (property)
 	private double precio;
 
+	/**
+	 * Obtiene un precio para el Producto
+	 * @return precio double
+	 */
 	@TypicalLength(5)
 	@Column(allowsNull = "false")
 	@MemberOrder(sequence = "4")
@@ -117,15 +152,21 @@ public abstract class Producto {
 		return precio;
 	}
 
+	/**
+	 * Setea el precio del Producto
+	 * @param precio double
+	 */
 	public void setPrecio(final double precio) {
 		this.precio = precio;
 	}
 
-	// }}
-
 	// {{ Baja (property)
 	private boolean baja;
 
+	/**
+	 * Obtiene el estado de baja/alta para el Producto
+	 * @return baja boolean
+	 */
 	@Disabled
 	@Hidden
 	@MemberOrder(sequence = "1")
@@ -134,26 +175,44 @@ public abstract class Producto {
 		return baja;
 	}
 
+	/**
+	 * Setea el el estado de baja/alta para el Producto
+	 * @param baja boolean
+	 */
 	public void setBaja(final boolean baja) {
 		this.baja = baja;
 	}
 
-	// }}
-
+	/**
+	 * Asigna true al estado baja del producto
+	 * @return this (Producto)
+	 */
 	public Producto Baja() {
 		setBaja(true);
 		return this;
 	}
 
+	/**
+	 * Asigna el texto a mostrar del estado de baja
+	 * @return String
+	 */
 	public String disableBaja() {
 		return getBaja() ? "Producto dado de Baja!" : null;
 	}
 
+	/**
+	 * Asigna false al estado Alta del producto
+	 * @return this (Producto)
+	 */
 	public Producto Alta() {
 		setBaja(false);
 		return this;
 	}
 
+	/**
+	 * Asigna el texto a mostrar del estado de alta
+	 * @return String
+	 */
 	public String disableAlta() {
 		return getBaja() ? null : "Producto dado de Alta!";
 	}

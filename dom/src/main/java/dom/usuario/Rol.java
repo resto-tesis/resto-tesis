@@ -19,15 +19,20 @@ package dom.usuario;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Queries;
 import javax.jdo.annotations.Query;
-
 import org.apache.isis.applib.annotation.MemberOrder;
 
+/**
+ * Crea un Rol para cada Usuario, el que determinara el nivel de accesibilidad que cada uno
+ * tendra en la aplicacion
+ * @author RestoTesis
+ * @since 10/05/2014
+ * @version 1.0.0
+ */
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Queries({
 		@Query(name = "mozo-role", language = "JDOQL", value = "SELECT FROM dom.usuario.Rol where nombre=='mozo-role'"),
@@ -36,6 +41,9 @@ import org.apache.isis.applib.annotation.MemberOrder;
 		@Query(name = "cliente-role", language = "JDOQL", value = "SELECT FROM dom.usuario.Rol where nombre=='cliente-role'") })
 public class Rol {
 
+	/**
+	 * Constructor de la clase
+	 */
 	public Rol() {
 		// TODO Auto-generated constructor stub
 	}
@@ -43,25 +51,40 @@ public class Rol {
 	// {{ Nombre (property)
 	private String nombre;
 
+	/**
+	 * Permite obtener un nombre al Rol
+	 * @return nombre String
+	 */
 	@MemberOrder(sequence = "1")
 	@Column(allowsNull = "false")
 	public String getNombre() {
 		return nombre;
 	}
 
+	/**
+	 * Setea el nombre de Rol
+	 * @param nombre String 
+	 */
 	public void setNombre(final String nombre) {
 		this.nombre = nombre;
 	}
 
-	// }}
-
+	
 	// {{ ListaPermiso (Collection)
 	private List<Permiso> listaPermiso = new ArrayList<Permiso>();
 
+	/**
+	 * Obtiene una lista de Permisos para el Rol 
+	 * @return listaPermiso Permiso
+	 */
 	public List<Permiso> getListaPermiso() {
 		return listaPermiso;
 	}
 
+	/**
+	 * Setea la lista de Permisos de Rol
+	 * @param listaPermiso Permiso
+	 */
 	public void setListaPermiso(final List<Permiso> listaPermiso) {
 		this.listaPermiso = listaPermiso;
 	}
@@ -90,7 +113,5 @@ public class Rol {
 			return false;
 		return true;
 	}
-
-	// }}
-
+	
 }

@@ -30,6 +30,12 @@ import servicio.ofertaPrint.OfertaPrinting;
 import dom.cliente.Cliente;
 import dom.oferta.Oferta;
 
+/**
+ * Clase que permite enviar a los clientes las oferts mail
+ * @author RestoTesis
+ * @since 10/09/2014
+ * @version 1.0.0
+ */
 @DomainService
 public class CorreoServicio extends AbstractFactoryAndRepository {
 	
