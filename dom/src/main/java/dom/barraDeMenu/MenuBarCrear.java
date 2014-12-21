@@ -19,7 +19,13 @@ package dom.barraDeMenu;
 
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.Named;
-
+/**
+ * Crea el grupo del Menu de la barra superior de wicket,
+ * para agrupar los objetos a crear
+ * @author RestoTesis
+ * @since 10/05/2014
+ * @version 1.0.0
+ */
 @DomainService(menuOrder = "30")
 @Named("Crear")
 public class MenuBarCrear {

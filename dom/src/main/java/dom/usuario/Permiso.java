@@ -24,9 +24,19 @@ import javax.jdo.annotations.PersistenceCapable;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.annotation.Title;
 
+/**
+ * Clase para crear los permisos de los Usuarios y asi definir la accesibilidad
+ * de los mismos a la aplicacion
+ * @author RestoTesis
+ * @since 10/05/2014
+ * @version 1.0.0
+ */
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 public class Permiso {
 
+	/**
+	 * Contructor de la clase
+	 */
 	public Permiso() {
 		// TODO Auto-generated constructor stub
 	}
@@ -34,6 +44,10 @@ public class Permiso {
 	// {{ Permiso (property)
 	private String permiso;
 
+	/**
+	 * Obtiene un permiso 
+	 * @return permiso Strig
+	 */
 	@Title
 	@MemberOrder(sequence = "1")
 	@Column(allowsNull = "false")
@@ -41,6 +55,10 @@ public class Permiso {
 		return permiso;
 	}
 
+	/**
+	 * Setea el permiso del Usuario
+	 * @param permiso String
+	 */
 	public void setPermiso(final String permiso) {
 		this.permiso = permiso;
 	}

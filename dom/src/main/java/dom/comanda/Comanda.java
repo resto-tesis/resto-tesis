@@ -49,8 +49,8 @@ import dom.objetosValor.ValueOferta;
 import dom.objetosValor.ValueProductoElaborado;
 
 /**
- * Entidad Comanda la cual representa cada pedido que un Cliente desee consumir
- * 
+ * Entidada que representa lo que se consumira en cada mesa,
+ * conteniendo una cantidad de pedidos que se realicen en la misma.-
  * @author RestoTesis
  * @since 10/05/2014
  * @version 1.0.0
@@ -61,7 +61,6 @@ public class Comanda {
 
 	/**
 	 * Retorna el nombre del icono segun el estado
-	 * 
 	 * @return String
 	 */
 	public String iconName() {
@@ -232,6 +231,10 @@ public class Comanda {
 	// {{ Ofertas (Collection)
 	private List<ValueOferta> ofertas = new ArrayList<ValueOferta>();
 
+	/**
+	 * Permite obtener Ofertas para la comanda
+	 * @return list<Oferta>
+	 */
 	@Persistent(dependentElement = "true")
 	@Join(deleteAction = ForeignKeyAction.CASCADE)
 	@Render(Type.EAGERLY)
@@ -240,16 +243,26 @@ public class Comanda {
 		return ofertas;
 	}
 
+	/**
+	 * Setea las ofertas en la Comanda
+	 * @param ofertas List<Oferta>
+	 */
 	public void setOfertas(final List<ValueOferta> ofertas) {
 		this.ofertas = ofertas;
 	}
 
-	// }}
-
+	/**
+	 * Agrega Ofertas a la Comanda
+	 * @param _oferta ValueOferta
+	 */
 	public void addToOfertas(final ValueOferta _oferta) {
 		getOfertas().add(_oferta);
 	}
 
+	/**
+	 * Elimina una Oferta de la Comanda
+	 * @param _oferta ValueOferta
+	 */
 	public void removeFromOfertas(final ValueOferta _oferta) {
 		getOfertas().remove(_oferta);
 	}
@@ -379,10 +392,6 @@ public class Comanda {
 		this.preparada = preparada;
 	}
 
-	// ////////////////////////////////////////////Estados//////////////////////////////////////////////
-
-	// /////////////////////////////////////////////////////--Acciones//Comanda--///////////////////////////////////////////////////////
-
 	/**
 	 * Cambia al estado de la Comanda
 	 * 
@@ -431,6 +440,5 @@ public class Comanda {
 		getEstado().cambiarEstado();
 	}
 
-	// /////////////////////////////////////////////////////--Acciones//Comanda--///////////////////////////////////////////////////////
-
+	
 }

@@ -28,6 +28,12 @@ import com.google.common.base.Predicate;
 
 import dom.comanda.Comanda;
 
+/**
+ * 
+ * @author RestoTesis
+ * @since 10/11/2014
+ * @version 1.0.0
+ */
 @Named("Comandas")
 @DomainService
 public class ServicioComandasView extends AbstractFactoryAndRepository {
@@ -36,6 +42,10 @@ public class ServicioComandasView extends AbstractFactoryAndRepository {
 		return newViewModelInstance(ComandasView.class, "comandas");
 	}
 
+	/**
+	 * Obtiene una Lista de todas las Comandas en estado En_Espera y En_Preparacion
+	 * @return List<Comanda>
+	 */
 	@Programmatic
 	public List<Comanda> listarComandasEnEsp_EnPrep() {
 		return allMatches(Comanda.class, new Predicate<Comanda>() {
@@ -50,6 +60,10 @@ public class ServicioComandasView extends AbstractFactoryAndRepository {
 		});
 	}
 
+	/**
+	 * Obtiene una Lista de todas las Comandas, si importar su estado
+	 * @return List<Comanda>
+	 */
 	@Programmatic
 	public List<Comanda> listarComandasTodas() {
 		return allInstances(Comanda.class);

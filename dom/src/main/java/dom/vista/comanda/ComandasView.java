@@ -30,14 +30,28 @@ import org.apache.isis.applib.annotation.Render.Type;
 
 import dom.comanda.Comanda;
 
+/**
+ * Crea una vista Cocina, donde se pueden listar las Comandas
+ * en estado En_espera y En_Preparacion
+ * @author RestoTesis
+ * @since 10/11/2014
+ * @version 1.0.0
+ */
 @MemberGroupLayout(columnSpans = { 6, 0, 6 }, left = { "lista" })
 public class ComandasView extends AbstractViewModel {
 
+	/**
+	 * Asigna el nombre al icono
+	 * @return String
+	 */
 	public String iconName()
 	{
 		return "Cocina";
 	}
-	
+	/**
+	 * Asigan el nombre al titulo
+	 * @return String
+	 */
 	public String title() {
 		return "Cocina";
 	}
@@ -56,6 +70,10 @@ public class ComandasView extends AbstractViewModel {
 		this.memento = memento;
 	}
 
+	/**
+	 * Obtiene una Lista de Comandas en estado En_Espera y En_Preparacion
+	 * @return List<Comanda>
+	 */
 	@Named("Comandas")
 	@Render(Type.EAGERLY)
 	@MemberOrder(name = "lista", sequence = "1")
@@ -64,6 +82,9 @@ public class ComandasView extends AbstractViewModel {
 
 	}
 
+	/**
+	 * Inyeccion del servicio de ComandasView
+	 */
 	@Inject
 	private ServicioComandasView servicioComandasView;
 

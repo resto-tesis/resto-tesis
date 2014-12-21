@@ -17,12 +17,28 @@
 
 package dom.oferta;
 
+/**
+ * Clase abstracta que se utiliza para que una vez modificada la Oferta,
+ * se notifique a los clientes de los cambios, a implemenatar en Oferta.
+ * @author RestoTesis
+ * @since 15/10/2014
+ * @version 1.0.0
+ */
 public abstract class Observado {
 
+	/**
+	 * Contructor de la clase
+	 */
 	public Observado() {
 	}
 
-	// Notificacion: Para cada observador se invoca el método actualizar().
+	/**
+	 * Metodo a implementar, para cada observador se invoca el método actualizar()
+	 * a los clientes registrados, implementa Observado
+	 * @author RestoTesis
+	 * @since 15/10/2014
+	 * @version 1.0.0
+	 */
 	public abstract Observado notificarClientes();
 
 }

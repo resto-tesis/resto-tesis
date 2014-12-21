@@ -39,60 +39,113 @@ import dom.producto.platoPrincipal.PlatoPrincipalServicio;
 import dom.producto.postre.Postre;
 import dom.producto.postre.PostreServicio;
 
+/**
+ * Da la funcionalidad a la clase Carta de Obtener y mostras en ella,
+ * los diferentes productos que la componen
+ * @author RestoTesis
+ * @since 10/08/2014
+ * @version 1.0.0
+ */
 @DomainService
 @Named("Carta")
 public class CartaServicio extends AbstractFactoryAndRepository {
 
+	/**
+	 * Retorna una vista de la instancia de la Clase Carta
+	 * @return Carta
+	 */
 	@Named("Mostrar Carta")
 	public Carta mostrarCarta() {
 		return newViewModelInstance(Carta.class, "carta");
 	}
 
+	/**
+	 * Obtiene  una lista de bebidas
+	 * @return List<Bebidas>
+	 */
 	@Programmatic
 	public List<Bebida> listarBebidas() {
 		return bebidaServicio.listarBebidasAlta();
 	}
 
+	/**
+	 * Obtiene  una lista de Guarniciones
+	 * @return List<Guarnicion>
+	 */
 	@Programmatic
 	public List<Guarnicion> listarGuarnicion() {
 		return guarnicionServicio.listarGuarnicionesAlta();
 	}
 
+	/**
+	 * Obtiene la lista de menues 
+	 * @return List<Menu>
+	 */
 	@Programmatic
 	public List<Menu> listarMenu() {
 		return menuServicio.listarMenuesAlta();
 	}
 
+	/**
+	 * Obtiene la lista de platos de entradas 
+	 * @return List<PlatoEntrada>
+	 */
 	@Programmatic
 	public List<PlatoEntrada> listarPlatosEntradas() {
 		return platoEntradaServicio.listarPLatosEntradaAlta();
 	}
 
+	/**
+	 * Obtiene la lista de platos principales
+	 * @return List<PlatoPrincipal>
+	 */
 	@Programmatic
 	public List<PlatoPrincipal> listarPlatosPricipales() {
 		return platoPrincipalServicio.listarPLatosPrincipalesAlta();
 	}
 
+	/**
+	 * Obtiene la lista de postres
+	 * @return List<Postre>
+	 */
 	@Programmatic
 	public List<Postre> listarPostres() {
 		return postreServicio.listarPostresAlta();
 	}
 
+	/**
+	 * Inyecta el servicio del menu	
+	 */
 	@Inject
 	private MenuServicio menuServicio;
 
+	/**
+	 * Inyecta el servicio del plato principal	
+	 */
 	@Inject
 	private PlatoPrincipalServicio platoPrincipalServicio;
 
+	/**
+	 * Inyecta el servicio del plato de entrada	
+	 */
 	@Inject
 	private PlatoEntradaServicio platoEntradaServicio;
 
+	/**
+	 * Inyecta el servicio del postre	
+	 */
 	@Inject
 	private PostreServicio postreServicio;
 
+	/**
+	 * Inyecta el servicio de la guarnicion	
+	 */
 	@Inject
 	private GuarnicionServicio guarnicionServicio;
 
+	/**
+	 * Inyecta el servicio de la bebida	
+	 */
 	@Inject
 	private BebidaServicio bebidaServicio;
 }

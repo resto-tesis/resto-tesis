@@ -22,7 +22,13 @@ import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NotInServiceMenu;
 
 import dom.oferta.Oferta;
-
+/**
+ * Clase para crear el encabezado, cuerpo y datos del los productos que 
+ * integran la oferta a enviar por mail.
+ * @author RestoTesis
+ * @since 10/11/2014
+ * @version 1.0.0
+ */
 @DomainService
 public class OfertaPrinting extends AbstractFactoryAndRepository {
 

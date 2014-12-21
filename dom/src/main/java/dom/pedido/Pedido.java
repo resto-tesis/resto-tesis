@@ -57,7 +57,7 @@ import dom.producto.platoEntrada.PlatoEntrada;
 import dom.producto.platoPrincipal.PlatoPrincipal;
 import dom.producto.postre.Postre;
 /**
- * 
+ * Entidad Comanda la cual representa cada producto que un Cliente desee consumir
  * @author RestoTesis
  * @since 10/09/2014
  * @version 1.0.0
@@ -66,6 +66,10 @@ import dom.producto.postre.Postre;
 @Sequence(name = "secuenciaNumeroPedido", strategy = SequenceStrategy.CONTIGUOUS)
 public class Pedido {
 
+	/**
+	 * Asigna el texto al icono del nombre del pedido, segun este compuesto solo de bebidas o no.-
+	 * @return String
+	 */
 	public String iconName() {
 		if (pedidoServicio.soloBebidas(this)) {
 			if (getBebidas().isEmpty())
@@ -75,10 +79,17 @@ public class Pedido {
 		return getComanda().iconName();
 	}
 
+	/**
+	 * Constructor de la clase
+	 */
 	public Pedido() {
 		// TODO Auto-generated constructor stub
 	}
 
+	/**
+	 * Obtine el titulo y numero del pedido, si este esta compuesto solo de bebidas
+	 * @return String
+	 */
 	public String title() {
 		if (pedidoServicio.soloBebidas(this) && getBebidas().isEmpty())
 			return "Pedido " + getNumero() + " (Vacio)";
@@ -88,6 +99,10 @@ public class Pedido {
 	// {{ Numero (property)
 	private int numero;
 
+	/**
+	 * Obtiene un numero para el Pedido
+	 * @return numero int
+	 */
 	@Hidden(where = Where.ALL_TABLES)
 	@Named("Número")
 	@TypicalLength(3)
@@ -99,27 +114,39 @@ public class Pedido {
 		return numero;
 	}
 
+	/**
+	 * Setea el numero del Pedido
+	 * @param numero int
+	 */
 	public void setNumero(final int numero) {
 		this.numero = numero;
 	}
 
-	// }}
-
 	// {{ Comanda (property)
 	private Comanda comanda;
 
+	/**
+	 * Obtiene una comanda para el pedido
+	 * @return comanda Comanda
+	 */
 	@MemberOrder(sequence = "2")
 	@Column(allowsNull = "false")
 	public Comanda getComanda() {
 		return comanda;
 	}
 
+	/**
+	 * Setea una Comanda para el Pedido
+	 * @param comanda Comanda
+	 */
 	public void setComanda(final Comanda comanda) {
 		this.comanda = comanda;
 	}
 
-	// }}
-
+	/**
+	 * Obtiene una lista de productos elaborados para agreagar
+	 * @return comanda Comanda
+	 */
 	@Named("Productos")
 	@Render(Type.EAGERLY)
 	@MemberOrder(name = "productosComanda", sequence = "1")
@@ -127,6 +154,11 @@ public class Pedido {
 		return getComanda().getProductos();
 	}
 
+	/**
+	 * Elimina un producto elaborado de la comanda
+	 * @param _producto ValueProductoElaborado
+	 * @return this
+	 */
 	@MemberOrder(name = "productosComanda", sequence = "10")
 	@Named("Eliminar...")
 	public Pedido removeFromComanda(
@@ -135,6 +167,11 @@ public class Pedido {
 		return this;
 	}
 
+	/**
+	 * Permite si se pidio algun producto elaborado y su estado,
+	 * @param _producto ValueProductoElaborado
+	 * @return String
+	 */
 	public String disableRemoveFromComanda(
 			final ValueProductoElaborado _producto) {
 		if (getComanda().getProductos().isEmpty())
@@ -142,10 +179,18 @@ public class Pedido {
 		return getComanda().getEstado().validarModificacion();
 	}
 
+	/**
+	 * Obtiene una lista de productos elaborados
+	 * @return List<ProductosElaborados>
+	 */
 	public List<ValueProductoElaborado> choices0RemoveFromComanda() {
 		return getComanda().getProductos();
 	}
 
+	/**
+	 * Obtiene una lista de menues
+	 * @return List<Menu>
+	 */
 	@Named("Menues")
 	@Render(Type.EAGERLY)
 	@MemberOrder(name = "menuesComanda", sequence = "21")
@@ -153,6 +198,11 @@ public class Pedido {
 		return getComanda().getMenues();
 	}
 
+	/**
+	 * Permite remover un Menu de la Comanda
+	 * @param _menu ValueMenu
+	 * @return this
+	 */
 	@Named("Eliminar...")
 	@MemberOrder(name = "menuesComanda", sequence = "20")
 	public Pedido removeFromMenues(@Named("Menu") final ValueMenu _menu) {
@@ -160,16 +210,29 @@ public class Pedido {
 		return this;
 	}
 
+	/**
+	 * Verifica si se pidieron menues dentro de la comanda 
+	 * @param _menu ValueMenu
+	 * @return String
+	 */
 	public String disableRemoveFromMenues(final ValueMenu _menu) {
 		if (getComanda().getMenues().isEmpty())
 			return "No se pidieron menues";
 		return getComanda().getEstado().validarModificacion();
 	}
 
+	/**
+	 * Obtiene una lista de menues
+	 * @return List<Menu>
+	 */
 	public List<ValueMenu> choices0RemoveFromMenues() {
 		return getComanda().getMenues();
 	}
 
+	/**
+	 * Obtiene una lista de ofertas para agregar a la comanda
+	 * @return List<Oferta>
+	 */
 	@Named("Ofertas")
 	@Render(Type.EAGERLY)
 	@MemberOrder(name = "ofertasComanda", sequence = "30")
@@ -177,6 +240,11 @@ public class Pedido {
 		return getComanda().getOfertas();
 	}
 
+	/**
+	 * Segun el pedido, elimina una oferta de la comanda
+	 * @param _oferta ValueOferta
+	 * @return this
+	 */
 	@Named("Eliminar...")
 	@MemberOrder(name = "ofertasComanda", sequence = "31")
 	public Pedido removeFromOfertas(@Named("Oferta") final ValueOferta _oferta) {
@@ -184,21 +252,33 @@ public class Pedido {
 		return this;
 	}
 
+	/**
+	 * Verifica si se solicitaron Ofertas
+	 * @param _oferta ValueOferta
+	 * @return String
+	 */
 	public String disableRemoveFromOfertas(final ValueOferta _oferta) {
 		if (getComanda().getOfertas().isEmpty())
 			return "No se pidieron ofertas";
 		return getComanda().getEstado().validarModificacion();
 	}
 
+	/**
+	 * Obtiene una lista de Ofertas
+	 * @return List<Oferta>
+	 */
 	public List<ValueOferta> choices0RemoveFromOfertas() {
 		return getComanda().getOfertas();
 	}
 
-	// {{ Productos (Collection)
 	@Persistent(dependentElement = "true")
 	@Join(deleteAction = ForeignKeyAction.CASCADE)
 	private List<ValueProductoNoElaborado> bebidas = new ArrayList<ValueProductoNoElaborado>();
 
+	/**
+	 * Obtiene las Bebidas de un pedido
+	 * @return List<Bebidas>
+	 */
 	@Render(Type.EAGERLY)
 	@MemberOrder(name = "bebidas", sequence = "13")
 	@Named("Bebidas del Pedido")
@@ -206,16 +286,27 @@ public class Pedido {
 		return bebidas;
 	}
 
+	/**
+	 * Setea las Bedidas de un Pedido
+	 * @param bebidas List<Bebidas>
+	 */
 	public void setBebidas(final List<ValueProductoNoElaborado> bebidas) {
 		this.bebidas = bebidas;
 	}
 
-	// }}
-
+	/**
+	 * Agrega una Bebida al pedido
+	 * @param _bebida ValueProductoNoElaborado
+	 */
 	public void addToBebidas(final ValueProductoNoElaborado _bebida) {
 		getBebidas().add(_bebida);
 	}
 
+	/**
+	 * Elimina una Bebida del pedido
+	 * @param _bebida ValueProductoNoElaborado
+	 * @return this
+	 */
 	@MemberOrder(name = "bebidas", sequence = "2")
 	@Named("Eliminar...")
 	public Pedido removeFromBebidas(
@@ -224,15 +315,40 @@ public class Pedido {
 		return this;
 	}
 
+	/**
+	 * Obtiene  una lista de bebidas
+	 * @return List<Bebidas>
+	 */
 	public List<ValueProductoNoElaborado> choices0RemoveFromBebidas() {
 		return getBebidas();
 	}
 
+	/**
+	 * Verifica si se pidieron Bebidas
+	 * @param _bebida ValueProductoNoElaborado
+	 * @return String
+	 */
 	public String disableRemoveFromBebidas(
 			final ValueProductoNoElaborado _bebida) {
 		return getBebidas().isEmpty() ? "No se pidieron bebidas" : null;
 	}
 
+	/**
+	 * Agrega las Bebias al Pedido
+	 * @param _bebida1 Bebida
+	 * @param _cantidad1 Integer
+	 * @param _nota1 String
+	 * @param _bebida2 Bebida
+	 * @param _cantidad2 Integer
+	 * @param _nota2 String
+	 * @param _bebida3 Bebida
+	 * @param _cantidad3 Integer
+	 * @param _nota3 String
+	 * @param _bebida4 Bebida
+	 * @param _cantidad4 Integer
+	 * @param _nota4 String
+	 * @return this Pedido
+	 */
 	@MemberOrder(name = "bebidas", sequence = "1")
 	@Named("Bebidas")
 	public Pedido pedirBebidas(final Bebida _bebida1,
@@ -253,22 +369,55 @@ public class Pedido {
 		return this;
 	}
 
+	/**
+	 * Obtiene  una lista de bebidas
+	 * @return List<Bebidas>
+	 */
 	public List<Bebida> choices0PedirBebidas() {
 		return pedidoServicio.listarBebidas();
 	}
 
+	/**
+	 * Obtiene  una lista de bebidas
+	 * @return List<Bebidas>
+	 */
 	public List<Bebida> choices3PedirBebidas() {
 		return pedidoServicio.listarBebidas();
 	}
 
+	/**
+	 * Obtiene  una lista de bebidas
+	 * @return List<Bebidas>
+	 */
 	public List<Bebida> choices6PedirBebidas() {
 		return pedidoServicio.listarBebidas();
 	}
 
+	/**
+	 * Obtiene  una lista de bebidas
+	 * @return List<Bebidas>
+	 */
 	public List<Bebida> choices9PedirBebidas() {
 		return pedidoServicio.listarBebidas();
 	}
 
+	/**
+	 * Deshabita el metodo pedirBebidas()
+	 * @param _bebida1 Bebida
+	 * @param _cantidad1 Integer
+	 * @param _nota1 String
+	 * @param _bebida2 Bebida
+	 * @param _cantidad2 Integer
+	 * @param _nota2 String
+	 * @param _bebida3 Bebida
+	 * @param _cantidad3 Integer
+	 * @param _nota3 String
+	 * @param _bebida4 Bebida
+	 * @param _cantidad4 Integer
+	 * @param _nota4 String
+	 * @see getComanda().getEstado().validarModificacion()
+	 * @return getComanda().getEstado().validarModificacion() String 
+	 */
 	public String disablePedirBebidas(final Bebida _bebida1,
 			final Integer _cantidad1, final String _nota1,
 			final Bebida _bebida2, final Integer _cantidad2,
@@ -278,6 +427,22 @@ public class Pedido {
 		return getComanda().getEstado().validarModificacion();
 	}
 
+	/**
+	 * Agrega un plato principal al Pedido
+	 * @param _plato1 PlatoPrincipal
+	 * @param _cantidad1 Integer
+	 * @param _nota1 String
+	 * @param _plato2 PlatoPrincipal
+	 * @param _cantidad2 Integer
+	 * @param _nota2 String
+	 * @param _plato3 PlatoPrincipal
+	 * @param _cantidad3 Integer
+	 * @param _nota3 String
+	 * @param _plato4  PlatoPrincipal
+	 * @param _cantidad4 Integer
+	 * @param _nota4 String
+	 * @return this Pedido
+	 */
 	@MemberOrder(name = "productosComanda", sequence = "2")
 	@Named("Platos Principales")
 	public Pedido pedirPlatosPrincipales(final PlatoPrincipal _plato1,
@@ -298,22 +463,54 @@ public class Pedido {
 		return this;
 	}
 
+	/**
+	 * Obtiene  una lista de platos principales
+	 * @return List<PlatoPrincipal>
+	 */
 	public List<PlatoPrincipal> choices0PedirPlatosPrincipales() {
 		return pedidoServicio.listarPlatosPrincipales();
 	}
 
+	/**
+	 * Obtiene  una lista de platos principales
+	 * @return List<PlatoPrincipal>
+	 */
 	public List<PlatoPrincipal> choices3PedirPlatosPrincipales() {
 		return pedidoServicio.listarPlatosPrincipales();
 	}
-
+	/**
+	 * Obtiene  una lista de platos principales
+	 * @return List<PlatoPrincipal>
+	 */
 	public List<PlatoPrincipal> choices6PedirPlatosPrincipales() {
 		return pedidoServicio.listarPlatosPrincipales();
 	}
 
+	/**
+	 * Obtiene  una lista de platos principales
+	 * @return List<PlatoPrincipal>
+	 */
 	public List<PlatoPrincipal> choices9PedirPlatosPrincipales() {
 		return pedidoServicio.listarPlatosPrincipales();
 	}
 
+	/**
+	 * Deshabilita el metodo pedirPlatosPrincipales()
+	 * @param _plato1 PlatoPrincipal
+	 * @param _cantidad1 Integer
+	 * @param _nota1 String
+	 * @param _plato2 PlatoPrincipal
+	 * @param _cantidad2 Integer
+	 * @param _nota2 String
+	 * @param _plato3 PlatoPrincipal
+	 * @param _cantidad3 Integer
+	 * @param _nota3 String
+	 * @param _plato4  PlatoPrincipal
+	 * @param _cantidad4 Integer
+	 * @param _nota4 String
+	 * @see getComanda().getEstado().validarModificacion()
+	 * @return getComanda().getEstado().validarModificacion() String
+	 */
 	public String disablePedirPlatosPrincipales(final PlatoPrincipal _plato1,
 			final Integer _cantidad1, final String _nota1,
 			final PlatoPrincipal _plato2, final Integer _cantidad2,
@@ -324,6 +521,22 @@ public class Pedido {
 		return getComanda().getEstado().validarModificacion();
 	}
 
+	/**
+	 * Agrega un plato de entrada al Pedido
+	 * @param _plato1 PlatoEntrada
+	 * @param _cantidad1 Integer
+	 * @param _nota1 String
+	 * @param _plato2 PlatoEntrada
+	 * @param _cantidad2 Integer
+	 * @param _nota2 String
+	 * @param _plato3 PlatoEntrada
+	 * @param _cantidad3 Integer
+	 * @param _nota3 String
+	 * @param _plato4  PlatoEntrada
+	 * @param _cantidad4 Integer
+	 * @param _nota4 String
+	 * @return this Pedido
+	 */
 	@MemberOrder(name = "productosComanda", sequence = "1")
 	@Named("Platos Entrada")
 	public Pedido pedirPlatosEntrada(final PlatoEntrada _plato1,
@@ -344,22 +557,55 @@ public class Pedido {
 		return this;
 	}
 
+	/**
+	 * Obtiene  una lista de platos de entrada
+	 * @return List<PlatoEntrada>
+	 */
 	public List<PlatoEntrada> choices0PedirPlatosEntrada() {
 		return pedidoServicio.listarPlatosEntrada();
 	}
 
+	/**
+	 * Obtiene  una lista de platos de entrada
+	 * @return List<PlatoEntrada>
+	 */
 	public List<PlatoEntrada> choices3PedirPlatosEntrada() {
 		return pedidoServicio.listarPlatosEntrada();
 	}
 
+	/**
+	 * Obtiene  una lista de platos de entrada
+	 * @return List<PlatoEntrada>
+	 */
 	public List<PlatoEntrada> choices6PedirPlatosEntrada() {
 		return pedidoServicio.listarPlatosEntrada();
 	}
 
+	/**
+	 * Obtiene  una lista de platos de entrada
+	 * @return List<PlatoEntrada>
+	 */
 	public List<PlatoEntrada> choices9PedirPlatosEntrada() {
 		return pedidoServicio.listarPlatosEntrada();
 	}
 
+	/**
+	 * Deshabilita el metodo pedirPlatosEntrada()
+	 * @param _plato1 PlatoEntrada
+	 * @param _cantidad1 Integer
+	 * @param _nota1 String
+	 * @param _plato2 PlatoEntrada
+	 * @param _cantidad2 Integer
+	 * @param _nota2 String
+	 * @param _plato3 PlatoEntrada
+	 * @param _cantidad3 Integer
+	 * @param _nota3 String
+	 * @param _plato4  PlatoEntrada
+	 * @param _cantidad4 Integer
+	 * @param _nota4 String
+	 * @see getComanda().getEstado().validarModificacion()
+	 * @return getComanda().getEstado().validarModificacion() String
+	 */
 	public String disablePedirPlatosEntrada(final PlatoEntrada _plato1,
 			final Integer _cantidad1, final String _nota1,
 			final PlatoEntrada _plato2, final Integer _cantidad2,
@@ -370,6 +616,22 @@ public class Pedido {
 		return getComanda().getEstado().validarModificacion();
 	}
 
+	/**
+	 * Agrega un Postre al Pedido
+	 * @param _postre1 Postre
+	 * @param _cantidad1 Integer
+	 * @param _nota1 String
+	 * @param _postre2 Postre
+	 * @param _cantidad2 Integer
+	 * @param _nota2 String
+	 * @param _postre3 Postre
+	 * @param _cantidad3 Integer
+	 * @param _nota3 String
+	 * @param _postre4 Postre
+	 * @param _cantidad4 Integer
+	 * @param _nota4 String
+	 * @return this Pedido
+	 */
 	@MemberOrder(name = "productosComanda", sequence = "4")
 	@Named("Postres")
 	public Pedido pedirPostres(final Postre _postre1,
@@ -390,22 +652,55 @@ public class Pedido {
 		return this;
 	}
 
+	/**
+	 * Obtiene  una lista de Postres
+	 * @return List<Postre>
+	 */
 	public List<Postre> choices0PedirPostres() {
 		return pedidoServicio.listarPostres();
 	}
 
+	/**
+	 * Obtiene  una lista de Postres
+	 * @return List<Postre>
+	 */
 	public List<Postre> choices3PedirPostres() {
 		return pedidoServicio.listarPostres();
 	}
 
+	/**
+	 * Obtiene  una lista de Postres
+	 * @return List<Postre>
+	 */
 	public List<Postre> choices6PedirPostres() {
 		return pedidoServicio.listarPostres();
 	}
 
+	/**
+	 * Obtiene  una lista de Postres
+	 * @return List<Postre>
+	 */
 	public List<Postre> choices9PedirPostres() {
 		return pedidoServicio.listarPostres();
 	}
 
+	/**
+	 * Deshabilita el metodo pedirPostres()
+	 * @param _postre1 Postre
+	 * @param _cantidad1 Integer
+	 * @param _nota1 String
+	 * @param _postre2 Postre
+	 * @param _cantidad2 Integer
+	 * @param _nota2 String
+	 * @param _postre3 Postre
+	 * @param _cantidad3 Integer
+	 * @param _nota3 String
+	 * @param _postre4 Postre
+	 * @param _cantidad4 Integer
+	 * @param _nota4 String
+	 * @see getComanda().getEstado().validarModificacion()
+	 * @return getComanda().getEstado().validarModificacion() String
+	 */
 	public String disablePedirPostres(final Postre _postre1,
 			final Integer _cantidad1, final String _nota1,
 			final Postre _postre2, final Integer _cantidad2,
@@ -415,6 +710,22 @@ public class Pedido {
 		return getComanda().getEstado().validarModificacion();
 	}
 
+	/**
+	 * Agrega una Guarnicion al Pedido
+	 * @param _guarnicion1 Guarnicion
+	 * @param _cantidad1 Integer
+	 * @param _nota1 String
+	 * @param _guarnicion2 Guarnicion
+	 * @param _cantidad2 Integer
+	 * @param _nota2 String
+	 * @param _guarnicion3 Guarnicion
+	 * @param _cantidad3 Integer
+	 * @param _nota3 String
+	 * @param _guarnicion4 Guarnicion
+	 * @param _cantidad4 Integer
+	 * @param _nota4 String
+	 * @return this Pedido
+	 */
 	@MemberOrder(name = "productosComanda", sequence = "3")
 	@Named("Guarniciones")
 	public Pedido pedirGuarniciones(
@@ -436,22 +747,55 @@ public class Pedido {
 		return this;
 	}
 
+	/**
+	 * Obtiene  una lista de Guarniciones
+	 * @return List<Guarnicion>
+	 */
 	public List<Guarnicion> choices0PedirGuarniciones() {
 		return pedidoServicio.listarGuarniciones();
 	}
 
+	/**
+	 * Obtiene  una lista de Guarniciones
+	 * @return List<Guarnicion>
+	 */
 	public List<Guarnicion> choices3PedirGuarniciones() {
 		return pedidoServicio.listarGuarniciones();
 	}
 
+	/**
+	 * Obtiene  una lista de Guarniciones
+	 * @return List<Guarnicion>
+	 */
 	public List<Guarnicion> choices6PedirGuarniciones() {
 		return pedidoServicio.listarGuarniciones();
 	}
 
+	/**
+	 * Obtiene  una lista de Guarniciones
+	 * @return List<Guarnicion>
+	 */
 	public List<Guarnicion> choices9PedirGuarniciones() {
 		return pedidoServicio.listarGuarniciones();
 	}
 
+	/**
+	 * Deshabilita el metodo pedirGuarniciones
+	 * @param _guarnicion1
+	 * @param _cantidad1
+	 * @param _nota1
+	 * @param _guarnicion2
+	 * @param _cantidad2
+	 * @param _nota2
+	 * @param _guarnicion3
+	 * @param _cantidad3
+	 * @param _nota3
+	 * @param _guarnicion4
+	 * @param _cantidad4
+	 * @param _nota4
+	 * @see getComanda().getEstado().validarModificacion()
+	 * @return getComanda().getEstado().validarModificacion() String
+	 */
 	public String disablePedirGuarniciones(final Guarnicion _guarnicion1,
 			final Integer _cantidad1, final String _nota1,
 			final Guarnicion _guarnicion2, final Integer _cantidad2,
@@ -462,6 +806,16 @@ public class Pedido {
 		return getComanda().getEstado().validarModificacion();
 	}
 
+	/**
+	 * Agrega un menu al Pedido
+	 * @param _menu1 Menu
+	 * @param _cantidad1 Integer
+	 * @param _nota1 String
+	 * @param _menu2 Menu
+	 * @param _cantidad2 Integer
+	 * @param _nota2 String
+	 * @return this Pedido
+	 */
 	@MemberOrder(name = "menuesComanda", sequence = "1")
 	public Pedido tomarMenues(final Menu _menu1,
 			@Optional @Named("Cantidad") final Integer _cantidad1,
@@ -474,20 +828,49 @@ public class Pedido {
 		return this;
 	}
 
+	/**
+	 * Obtiene  una lista de menues
+	 * @return List<Menu>
+	 */
 	public List<Menu> choices0TomarMenues() {
 		return pedidoServicio.listarMenues();
 	}
 
+	/**
+	 * Obtiene  una lista de menues
+	 * @return List<Menu>
+	 */
 	public List<Menu> choices3TomarMenues() {
 		return pedidoServicio.listarMenues();
 	}
 
+	/**
+	 * Deshabilita el metodo tomarMenues()
+	 * @param _menu1
+	 * @param _cantidad1
+	 * @param _nota1
+	 * @param _menu2
+	 * @param _cantidad2
+	 * @param _nota2
+	 * @see getComanda().getEstado().validarModificacion()
+	 * @return getComanda().getEstado().validarModificacion() String
+	 */
 	public String disableTomarMenues(final Menu _menu1,
 			final Integer _cantidad1, final String _nota1, final Menu _menu2,
 			final Integer _cantidad2, final String _nota2) {
 		return getComanda().getEstado().validarModificacion();
 	}
 
+	/**
+	 * Agrega una Oferta al Pedido
+	 * @param _oferta1 Oferta
+	 * @param _cantidad1 Integer
+	 * @param _nota1 String
+	 * @param _oferta2 Oferta
+	 * @param _cantidad2 Integer
+	 * @param _nota2 String
+	 * @return this Pedido
+	 */
 	@MemberOrder(name = "ofertasComanda", sequence = "1")
 	public Pedido pedirOfertas(final Oferta _oferta1,
 			@Optional @Named("Cantidad") final Integer _cantidad1,
@@ -500,14 +883,33 @@ public class Pedido {
 		return this;
 	}
 
+	/**
+	 * Obtiene  una lista de Ofertas
+	 * @return List<Oferta>
+	 */
 	public List<Oferta> choices0PedirOfertas() {
 		return pedidoServicio.listarOfertas();
 	}
 
+	/**
+	 * Obtiene  una lista de Ofertas
+	 * @return List<Oferta>
+	 */
 	public List<Oferta> choices3PedirOfertas() {
 		return pedidoServicio.listarOfertas();
 	}
 
+	/**
+	 * Deshabilita el metodo pedirOfertas()
+	  * @param _oferta1 Oferta
+	 * @param _cantidad1 Integer
+	 * @param _nota1 String
+	 * @param _oferta2 Oferta
+	 * @param _cantidad2 Integer
+	 * @param _nota2 String
+	 * @see getComanda().getEstado().validarModificacion();
+	 * @return getComanda().getEstado().validarModificacion() String
+	 */
 	public String disablePedirOfertas(final Oferta _oferta1,
 			final Integer _cantidad1, final String _nota1,
 			final Oferta _oferta2, final Integer _cantidad2, final String _nota2) {
@@ -517,6 +919,10 @@ public class Pedido {
 	// {{ Mesa (property)
 	private Mesa mesa;
 
+	/**
+	 * Obtiene una Mesa para el Pedido
+	 * @return mesa Mesa
+	 */
 	@Hidden
 	@Disabled
 	@MemberOrder(sequence = "1")
@@ -525,34 +931,50 @@ public class Pedido {
 		return mesa;
 	}
 
+	/**
+	 * Setea una Mesa al Pedido
+	 * @param mesa Mesa
+	 */
 	public void setMesa(final Mesa mesa) {
 		this.mesa = mesa;
 	}
 
-	// }}
-
-	// /////////////////////////////////////////////////////--Acciones//Comanda--///////////////////////////////////////////////////////
-
+	/**
+	 * 
+	 * @return this Pedido
+	 */
 	@MemberOrder(name = "comanda", sequence = "4")
 	public Pedido enviar() {
 		cambiarEstado();
 		return this;
 	}
 
+	/**
+	 * Desahilita el metodo 
+	 * @see getComanda().getEstado().Enviar()
+	 * @return getComanda().getEstado().Enviar() String
+	 */
 	public String disableEnviar() {
 		return getComanda().getEstado().Enviar();
 	}
 
+	/**
+	 * Cambia el estado de la comanda
+	 */
 	@Programmatic
 	public void cambiarEstado() {
 		getComanda().getEstado().cambiarEstado();
 	}
 
-	// /////////////////////////////////////////////////////--Acciones//Comanda--///////////////////////////////////////////////////////
-
+	/**
+	 * Inyeccion de contenedor
+	 */
 	@Inject
 	private DomainObjectContainer contenedor;
 
+	/**
+	 * Inyeccion del servicio de Pedido
+	 */
 	@Inject
 	private PedidoServicio pedidoServicio;
 

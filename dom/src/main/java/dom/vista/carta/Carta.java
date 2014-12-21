@@ -35,15 +35,30 @@ import dom.producto.platoEntrada.PlatoEntrada;
 import dom.producto.platoPrincipal.PlatoPrincipal;
 import dom.producto.postre.Postre;
 
+/**
+ * Entidad en la cual representa la carta de local, donde se puede ver el conjunto de la totalidad 
+ * de los productos que ofrece el negocio a sus clientes   
+ * @author RestoTesis
+ * @since 10/08/2014
+ * @version 1.0.0
+ */
 @MemberGroupLayout(columnSpans = { 6, 0, 6 }, left = { "izquierda" }, right = { "derecha" })
 public class Carta extends AbstractViewModel {
 
+	/**
+	 * Obtiene el titulo para la carta
+	 * @return String
+	 */
 	public String title() {
 		return "Carta";
 	}
 
 	private String memento;
 
+	/**
+	 * Obtiene la lista de Bebidas para la carta
+	 * @return List<Bebida>
+	 */
 	@Disabled
 	@MemberOrder(name = "izquierda", sequence = "1")
 	@Render(Type.EAGERLY)
@@ -51,6 +66,10 @@ public class Carta extends AbstractViewModel {
 		return cartaServicio.listarBebidas();
 	}
 
+	/**
+	 * Obtiene la lista de Guarniciones para la carta
+	 * @return List<Guarnicion>
+	 */
 	@Disabled
 	@MemberOrder(name = "izquierda", sequence = "2")
 	@Render(Type.EAGERLY)
@@ -58,6 +77,10 @@ public class Carta extends AbstractViewModel {
 		return cartaServicio.listarGuarnicion();
 	}
 
+	/**
+	 * Obtiene la lista de Postres para la carta
+	 * @return List<Postre>
+	 */
 	@Render(Type.EAGERLY)
 	@MemberOrder(name = "izquierda", sequence = "3")
 	@Disabled
@@ -65,12 +88,20 @@ public class Carta extends AbstractViewModel {
 		return cartaServicio.listarPostres();
 	}
 
+	/**
+	 * Obtiene la lista de menues para la carta
+	 * @return List<Menu>
+	 */
 	@Render(Type.EAGERLY)
 	@MemberOrder(name = "derecha", sequence = "1")
 	public List<Menu> getMenu() {
 		return cartaServicio.listarMenu();
 	}
 
+	/**
+	 * Obtiene la lista de platos de entradas para la carta
+	 * @return List<PlatoEntrada>
+	 */
 	@Render(Type.EAGERLY)
 	@MemberOrder(name = "derecha", sequence = "2")
 	@Disabled
@@ -78,6 +109,10 @@ public class Carta extends AbstractViewModel {
 		return cartaServicio.listarPlatosEntradas();
 	}
 
+	/**
+	 * Obtiene la lista de platos principales para la carta
+	 * @return List<PlatoPrincipal>
+	 */
 	@Render(Type.EAGERLY)
 	@MemberOrder(name = "derecha", sequence = "3")
 	@Disabled

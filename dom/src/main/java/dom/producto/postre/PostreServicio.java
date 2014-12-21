@@ -37,14 +37,31 @@ import org.apache.isis.applib.query.QueryDefault;
 
 import com.google.common.base.Predicate;
 
+/**
+ * Clase que da la funcionalidad de crear, persistir y listar a la clase Postre
+ * @author RestoTesis
+ * @since 10/05/2014
+ * @version 1.0.0
+ */
 @DomainService
 @Named("Postre")
 public class PostreServicio extends AbstractFactoryAndRepository {
 
+	/**
+	 * Obtiene el nombre del icono de un Postre
+	 * @return String
+	 */
 	public String iconName(){
 		return "Postre";
 	}
 	
+	/**
+	 * Obtiene de la UI los datos validados de un postre a crear
+	 * @param nombrePostre String
+	 * @param descripcionPostre String
+	 * @param preciopostre BigDecimal
+	 * @return crearGPostreNuevo() Postre
+	 */
 	@Named("Postre")
 	@MemberOrder(name = "Crear", sequence = "1")
 	public Postre crearPostre(
@@ -54,6 +71,13 @@ public class PostreServicio extends AbstractFactoryAndRepository {
 		return crearPostreNuevo(nombrePostre, descripcionPostre, precioPostre);
 	}
 
+	/**
+	 * Toma los datos obtenidos en crearGPostreNuevo() y los persiste
+	 * @param nombrePostre String
+	 * @param descripcionPostre String
+	 * @param preciopostre BigDecimal
+	 * @return postre Postre
+	 */
 	@Programmatic
 	public Postre crearPostreNuevo(final String nombrePostre,
 			final String descripcionPostre, final BigDecimal precioPostre) {
@@ -70,12 +94,21 @@ public class PostreServicio extends AbstractFactoryAndRepository {
 		return postre;
 	}
 
+	/**
+	 * Obtiene una lista de Postres, que empiecen con un determinado parametro
+	 * @param nombre String
+	 * @return list<Postre>
+	 */
 	@Programmatic
 	public List<Postre> completarPostres(final String nombre) {
 		return allMatches(new QueryDefault<Postre>(Postre.class,
 				"postresQueEmpiezan", "nombre", "(?i).*" + nombre + ".*"));
 	}
 
+	/**
+	 * Lista todos los Postres de alta
+	 * @return List<Guarnicion>
+	 */
 	@Named("Postres")
 	@ActionSemantics(Of.SAFE)
 	@MemberOrder(name = "Listar", sequence = "2")
@@ -90,6 +123,10 @@ public class PostreServicio extends AbstractFactoryAndRepository {
 		});
 	}
 
+	/**
+	 * Lista todos los Postres
+	 * @return listapostres List<Postres>
+	 */
 	@Named("Postres")
 	@ActionSemantics(Of.SAFE)
 	@MemberOrder(name = "Listar", sequence = "2")

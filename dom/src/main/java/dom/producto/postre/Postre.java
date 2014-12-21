@@ -31,17 +31,30 @@ import dom.producto.ProductoElaborado;
 import dom.producto.postre.Postre;
 import dom.producto.postre.PostreServicio;
 
+/**
+ * Entidad que representa un alimento elaborado que se sirve de postre,   
+ * extiende de ProductoElaborado
+ * @author RestoTesis
+ * @since 10/05/2014
+ * @version 1.0.0
+ */
 @PersistenceCapable(identityType = IdentityType.DATASTORE)
 @Inheritance(strategy = InheritanceStrategy.NEW_TABLE)
 @Query(name = "postresQueEmpiezan", language = "JDOQL", value = "SELECT FROM dom.postre.Postre WHERE nombre.matches(:nombre)")
 @AutoComplete(repository = PostreServicio.class, action = "completarPostres")
 public class Postre extends ProductoElaborado {
 
+	/**
+	 * Obtiene el nombre del icono de un Postre
+	 * @return String
+	 */
 	public String iconName() {
 		return getBaja() ? "PostreDes" : "Postre";
 	}
 	
-	// {{ injected: DomainObjectContainer
+	/**
+	 * Inyeccion del contenedor
+	 */
 	@Inject
 	private DomainObjectContainer contenedor;
 

@@ -162,7 +162,6 @@ public class Oferta extends Observado {
 		this.descripcion = descripcion;
 	}
 
-	// {{ Menu (property)
 	private Menu menu;
 
 	/**
@@ -211,7 +210,6 @@ public class Oferta extends Observado {
 		this.fechaInicio = fechaInicio;
 	}
 
-	// {{ Caducidad (property)
 	private java.sql.Date caducidad;
 
 	/**
@@ -434,61 +432,8 @@ public class Oferta extends Observado {
 		return this;
 	}
 
-//	/**
-//	 * Agrega un Cliente a la lista de clientes registrados
-//	 * @param _cliente cliente
-//	 */
-//	@Hidden
-//	@Override
-//	public void registrarCliente(Cliente _cliente) {
-//		// TODO Auto-generated method stub
-//		listaClientes.add(_cliente);
-//	}
-//
-//	/**
-//	 * Remueve un Cliente de la lista de clientes registrados
-//	 * @param _cliente Cliente
-//	 */
-
-	// // {{ ListaClientes (Collection)
-	// private List<Cliente> listaClientes = new ArrayList<Cliente>();
-	//
-	// @Hidden
-	// public List<Cliente> getListaClientes() {
-	// return contenedor.allInstances(ofType, range)(Cliente.class);
-	// }
-	//
-	// public void setListaClientes(final List<Cliente> listaClientes) {
-	// this.listaClientes = listaClientes;
-	// }
-	//
-	// // }}
-	//
-	// @Hidden
-	// @MemberOrder(name = "listaClientes", sequence = "2")
-	// public Oferta quitarCliente(final Cliente cliente) {
-	// getListaClientes().remove(cliente);
-	// return this;
-	// }
-	//
-	// @Hidden
-	// @Override
-	// public void registrarCliente(Cliente _cliente) {
-	// // TODO Auto-generated method stub
-	// listaClientes.add(_cliente);
-	// }
-	//
-	// @Hidden
-	// @Override
-	// public void removerCliente(Cliente _cliente) {
-	// // TODO Auto-generated method stub
-	// int i = listaClientes.indexOf(_cliente);
-	// if (i >= 0) {
-	// listaClientes.remove(i);
-	// }
-	// }
 	/**
-	 * Notifica a los clientes registrados e informa que se ha realizado
+	 * Notifica a los clientes registrados e informa que se ha realizado cambios
 	 * @see dom.cliente.Cliente.actualizar()
 	 */
 	@Override
@@ -504,8 +449,6 @@ public class Oferta extends Observado {
 		}
 		return this;
 	}
-
-
 
 
 	/**

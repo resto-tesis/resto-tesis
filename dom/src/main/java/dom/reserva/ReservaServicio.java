@@ -20,32 +20,49 @@ package dom.reserva;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-
 import org.apache.isis.applib.AbstractFactoryAndRepository;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.Hidden;
 import org.apache.isis.applib.annotation.Named;
 import org.apache.isis.applib.annotation.Programmatic;
 import org.apache.isis.applib.annotation.Where;
-
 import com.google.common.base.Predicate;
-
 import dom.cliente.Cliente;
 import dom.mesa.Mesa;
-import dom.persona.Persona;
 
+/**
+ * Da la funcionalidad de cear, persistir y listar a la Clase Reserva 
+ * @author RestoTesis
+ * @since 10/05/2014
+ * @version 1.0.0
+ */
 @DomainService
 @Named("Reserva")
 public class ReservaServicio extends AbstractFactoryAndRepository {
 
+	/**
+	 * Asigna el nombre al icono de la Reserva
+	 * @return String 
+	 */
 	public String iconName() {
 		return "Reserva";
 	}
 
+	/**
+	 * Constructor de la clase
+	 */
 	public ReservaServicio() {
 		// TODO Auto-generated constructor stub
 	}
 
+	/**
+	 * Crea uan nueva Reserva
+	 * @param _comensales int
+	 * @param _mesa Mesa
+	 * @param _fecha Date
+	 * @param _hora String
+	 * @return nuevaReserva() Reserva
+	 */
 	@Named("Crear")
 	@Hidden(where = Where.OBJECT_FORMS)
 	public Reserva crearReserva(@Named("Comensales") final int _comensales,
@@ -63,12 +80,21 @@ public class ReservaServicio extends AbstractFactoryAndRepository {
 				}));
 	}
 
+	/**
+	 * Asigan distintos Horarios al combo, para su leccion
+	 * @return String
+	 */
 	public String[] choices3CrearReserva() {
 		return new String[] { "11:30", "12:00", "12:30", "13:00", "13:30",
 				"14:00", "14:30", "20:00", "20:30", "21:00", "21:30", "22:00",
 				"22:30", "23:00", "23:30" };
 	}
 
+	/**
+	 * Devuelve la lista de mesas para los combos
+	 * @param _comensales int
+	 * @return List<Mesa>
+	 */
 	public List<Mesa> choices1CrearReserva(final int _comensales) {
 		return allMatches(Mesa.class, new Predicate<Mesa>() {
 			@Override
@@ -80,6 +106,15 @@ public class ReservaServicio extends AbstractFactoryAndRepository {
 		});
 	}
 	
+	/**
+	 * Crea una reserva desde el usuario Encargado
+	 * @param _comensales int
+	 * @param _mesa Mesa
+	 * @param _fecha Date
+	 * @param _hora String 
+	 * @param unCliente Cliente
+	 * @return nuevaReserva()
+	 */
 	@Named("Crear")
 	@Hidden(where = Where.OBJECT_FORMS)
 	public Reserva crearReservaEncargado(@Named("Comensales") final int _comensales,
@@ -89,12 +124,21 @@ public class ReservaServicio extends AbstractFactoryAndRepository {
 		return nuevaReserva(_comensales, _mesa, _fecha, _hora,unCliente);
 	}
 
+	/**
+	 * Asigan distintos Horarios al combo, para su leccion
+	 * @return String
+	 */
 	public String[] choices3CrearReservaEncargado() {
 		return new String[] { "11:30", "12:00", "12:30", "13:00", "13:30",
 				"14:00", "14:30", "20:00", "20:30", "21:00", "21:30", "22:00",
 				"22:30", "23:00", "23:30" };
 	}
 
+	/**
+	 *  Devuelve la lista de mesas para los combos
+	 * @param _comensales int
+	 * @return List<Mesa>
+	 */
 	public List<Mesa> choices1CrearReservaEncargado(final int _comensales) {
 		return allMatches(Mesa.class, new Predicate<Mesa>() {
 			@Override
@@ -105,8 +149,17 @@ public class ReservaServicio extends AbstractFactoryAndRepository {
 			}
 		});
 	}
-	
-	@Programmatic
+
+	/**
+	 * Toam los datos obtenidos de la reserva y los persiste
+	 * @param _comensales int
+	 * @param _mesa Mesa
+	 * @param _fecha Date
+	 * @param _hora String 
+	 * @param unCliente Cliente
+	 * @return reserva Reserva
+	 */
+   @Programmatic
 	public Reserva nuevaReserva(final int _comensales, final Mesa _mesa,
 			final Date _fecha, final String _hora,
 			final Cliente unCliente) {
@@ -119,6 +172,12 @@ public class ReservaServicio extends AbstractFactoryAndRepository {
 		return reserva;
 	}
 
+   /**
+    * Toma los valores ingresados de la fecha y hora, los suma y convierte en un sola variable
+    * @param _fecha Date
+    * @param _hora String
+    * @return fechaHora Calendar
+    */
 	@Programmatic
 	public Calendar sumaFechaHora(Date _fecha, String _hora) {
 		Calendar fechaHora = Calendar.getInstance();
@@ -129,6 +188,15 @@ public class ReservaServicio extends AbstractFactoryAndRepository {
 		return fechaHora;
 	}
 
+	/**
+	 * Valida la fecha ingresa, obtiene las reservas de la fecha de la mesa seleccionada,
+	 * valida que el horario de reserva no interfiera con uno existente
+	 * @param _comensales int
+	 * @param _mesa Mesa
+	 * @param _fecha Date
+	 * @param _hora String 
+	 * @return String
+	 */
 	public String validateCrearReserva(final int _comensales, final Mesa _mesa,
 			final Date _fecha, final String _hora) {
 		// se valida que la fecha ingresada sea posterior a la fecha actual.
@@ -156,8 +224,6 @@ public class ReservaServicio extends AbstractFactoryAndRepository {
 						return false;
 					}
 				})) {
-			// Se valida que el horario de reserva no interfiera con uno
-			// existente.
 			Calendar calendarioReservado = Calendar.getInstance();
 			calendarioReservado.setTime(_reserva.getFechaHora());
 			Calendar calendarioSeteado = sumaFechaHora(_fecha, _hora);
@@ -180,11 +246,19 @@ public class ReservaServicio extends AbstractFactoryAndRepository {
 		return null;
 	}
 
+	/**
+	 * Permite listar todas las Resevas
+	 * @return List<Reserva>
+	 */
 	@Named("Listar")
 	public List<Reserva> listarReservasTodas() {
 		return allInstances(Reserva.class);
 	}
 
+	/**
+	 * Permite listar todas las reservas de un cliente
+	 * @returnList<Reserva>
+	 */
 	@Named("Listar")
 	public List<Reserva> listarReservas() {
 		return allMatches(Reserva.class, new Predicate<Reserva>() {
