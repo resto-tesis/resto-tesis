@@ -203,25 +203,25 @@ public class PedidoServicio extends AbstractFactoryAndRepository {
 		_pedido.getComanda().addToProductos(producto1);
 		if (_producto2 != null) {
 			final ValueProductoElaborado producto2 = newTransientInstance(ValueProductoElaborado.class);
-			producto2.setProducto(_producto1);
+			producto2.setProducto(_producto2);
 			producto2.setCantidad(_cantidad2 == null ? 1 : _cantidad2);
-			producto2.setNota(_nota1);
+			producto2.setNota(_nota2);
 			persist(producto2);
 			_pedido.getComanda().addToProductos(producto2);
 		}
 		if (_producto3 != null) {
 			final ValueProductoElaborado producto3 = newTransientInstance(ValueProductoElaborado.class);
-			producto3.setProducto(_producto1);
+			producto3.setProducto(_producto3);
 			producto3.setCantidad(_cantidad3 == null ? 1 : _cantidad3);
-			producto3.setNota(_nota1);
+			producto3.setNota(_nota3);
 			persist(producto3);
 			_pedido.getComanda().addToProductos(producto3);
 		}
 		if (_producto4 != null) {
 			final ValueProductoElaborado producto4 = newTransientInstance(ValueProductoElaborado.class);
-			producto4.setProducto(_producto1);
+			producto4.setProducto(_producto4);
 			producto4.setCantidad(_cantidad4 == null ? 1 : _cantidad4);
-			producto4.setNota(_nota1);
+			producto4.setNota(_nota4);
 			persist(producto4);
 			_pedido.getComanda().addToProductos(producto4);
 		}

@@ -171,10 +171,10 @@ public class Torta extends AbstractFactoryAndRepository {
 					.setDataLabels(
 							new DataLabels()
 									.setEnabled(Boolean.TRUE)
-									.setColor(new HexColor("#ffffff"))
+									.setColor(new HexColor("#000000"))
 									.setAlign(HorizontalAlignment.CENTER)
 									.setX(0)
-									.setY(20)
+									.setY(0)
 									.setFormatter(
 											new Function()
 													.setFunction(" return this.y;"))

@@ -38,7 +38,7 @@ public class EnPreparacion implements IEstadoComanda {
 	/**
 	 * Atributo Extra para implemtar el estado en particular
 	 */
-	private String mensajeEstadoActual = "Comanda en Preparación!!";
+	private String mensajeEstadoActual = "Comanda en Preparacion!!";
 
 	/**
 	 * Constructor donde se asigna el estado 

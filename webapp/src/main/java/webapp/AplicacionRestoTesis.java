@@ -84,7 +84,8 @@ public class AplicacionRestoTesis extends IsisWicketApplication {
 				bind(String.class).annotatedWith(Names.named("welcomeMessage"))
 						.toInstance(readLines("welcome.html"));
 				bind(String.class).annotatedWith(Names.named("aboutMessage"))
-						.toInstance("Resto Tesis");
+						.toInstance(readLines("ayuda.html"));
+				
 				bind(InputStream.class).annotatedWith(
 						Names.named("metaInfManifest")).toProvider(
 						Providers.of(getServletContext().getResourceAsStream(
