@@ -155,3 +155,13 @@ div.wicket-modal div.w_content_2{
 
   display:none;
 }
+
+.intro{
+  background: transparent url("../images/fondo.png") center no-repeat;
+  background-size:1000px 570px;
+  height:570px;
+  background-color:transparent;
+}
+.welcomePanel #message{
+  background-color:transparent;
+}
