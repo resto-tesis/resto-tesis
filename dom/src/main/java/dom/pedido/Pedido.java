@@ -969,6 +969,7 @@ public class Pedido {
 	/**
 	 * Inyeccion de contenedor
 	 */
+	@SuppressWarnings("unused")
 	@Inject
 	private DomainObjectContainer contenedor;
 

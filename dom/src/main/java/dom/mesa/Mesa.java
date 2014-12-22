@@ -272,11 +272,14 @@ public class Mesa {
 	public Mesa borrarPedido(@Named("Pedido") Pedido _pedido) {
 		if (!_pedido.getBebidas().isEmpty()
 				|| !_pedido.getComanda().getMenues().isEmpty()
-				|| !_pedido.getComanda().getProductos().isEmpty()) {
+				|| !_pedido.getComanda().getProductos().isEmpty()
+				|| !_pedido.getComanda().getOfertas().isEmpty()) {
 			contenedor.informUser("El Pedido seleccionado no está vacío!");
 		} else {
 			removeFromPedidos(_pedido);
 		}
+		if(getPedidos().isEmpty())
+			setEstadoHabilitacion(EstadoHabilitacionMesaEnum.Desocupada);
 		return this;
 	}
 

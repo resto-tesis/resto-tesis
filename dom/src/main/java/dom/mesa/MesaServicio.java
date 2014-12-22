@@ -232,7 +232,7 @@ public class MesaServicio extends AbstractFactoryAndRepository {
 		for (Pedido _pedido : _mesa.getPedidos()) {
 			if (_pedido.getBebidas().isEmpty()
 					&& (_pedido.getComanda().getMenues().isEmpty() && _pedido
-							.getComanda().getProductos().isEmpty()))
+							.getComanda().getProductos().isEmpty()&&_pedido.getComanda().getOfertas().isEmpty()))
 				return "Existe Pedido vacío!";
 			if (!_pedido.getProductosComanda().isEmpty()
 					|| !_pedido.getMenuesComanda().isEmpty())

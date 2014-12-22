@@ -97,7 +97,7 @@ public class EnPreparacion implements IEstadoComanda {
 	@Override
 	public String title() {
 		// TODO Auto-generated method stub
-		return "En Preparación";
+		return "En Preparacion";
 	}
 
 	/**

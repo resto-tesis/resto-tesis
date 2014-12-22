@@ -107,7 +107,7 @@ public class NoConfirmada implements IEstadoComanda {
 	public String Enviar() {
 		// TODO Auto-generated method stub
 		if (getComanda().getProductos().isEmpty()
-				&& getComanda().getMenues().isEmpty())
+				&& getComanda().getMenues().isEmpty()&&getComanda().getOfertas().isEmpty())
 			return "Comanda vacia";
 		return null;
 	}

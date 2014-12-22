@@ -19,6 +19,7 @@ package servicio.estadistica;
 
 
 import java.util.Date;
+
 import javax.inject.Inject;
 import javax.jdo.annotations.Column;
 import javax.jdo.annotations.IdGeneratorStrategy;
@@ -27,6 +28,7 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.Sequence;
 import javax.jdo.annotations.SequenceStrategy;
+
 import org.apache.isis.applib.DomainObjectContainer;
 import org.apache.isis.applib.annotation.MemberOrder;
 import org.apache.isis.applib.value.DateTime;
@@ -108,6 +110,7 @@ public class Log {
 		setFecha(new Date(new DateTime().getMillisSinceEpoch()));
 	}
 
+	@SuppressWarnings("unused")
 	@Inject
 	private static DomainObjectContainer contenedor;
 

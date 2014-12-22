@@ -186,6 +186,7 @@ public class Factura {
 
 	// }}
 
+	@SuppressWarnings("unused")
 	@Inject
 	private DomainObjectContainer contenedor;
 }

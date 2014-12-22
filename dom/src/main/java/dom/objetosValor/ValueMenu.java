@@ -129,6 +129,7 @@ public class ValueMenu {
 	/**
 	 * Inyeccion del contenedor
 	 */
+	@SuppressWarnings("unused")
 	@Inject
 	private DomainObjectContainer contenedor;
 }

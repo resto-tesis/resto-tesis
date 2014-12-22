@@ -17,14 +17,18 @@
 
 package servicio.ofertaPrint;
 
+import java.text.DecimalFormat;
+
 import org.apache.isis.applib.AbstractFactoryAndRepository;
 import org.apache.isis.applib.annotation.DomainService;
 import org.apache.isis.applib.annotation.NotInServiceMenu;
 
 import dom.oferta.Oferta;
+
 /**
- * Clase para crear el encabezado, cuerpo y datos del los productos que 
- * integran la oferta a enviar por mail.
+ * Clase para crear el encabezado, cuerpo y datos del los productos que integran
+ * la oferta a enviar por mail.
+ * 
  * @author RestoTesis
  * @since 10/11/2014
  * @version 1.0.0
@@ -34,7 +38,7 @@ public class OfertaPrinting extends AbstractFactoryAndRepository {
 
 	@NotInServiceMenu
 	public String ofertaToText(Oferta unaOferta) {
-		String encabezado = "##############################Ofertas##############################\n\nNombre: ";
+		String encabezado = "##############Ofertas##############\n\nNombre: ";
 		encabezado += unaOferta.getNombre() + "\n";
 		encabezado += "Oferta valida desde: "
 				+ unaOferta.getFechaInicio().toString() + " hasta: "
@@ -42,7 +46,9 @@ public class OfertaPrinting extends AbstractFactoryAndRepository {
 				+ "Cantidad de Comensales: "
 				+ String.valueOf(unaOferta.getCantidadPersonas()) + "\n"
 				+ "Descuento: " + String.valueOf(unaOferta.getDescuento())
-				+ "%\n" + "Menu: " + unaOferta.getMenu().getNombre() + "\n";
+				+ "%\n" + "Precio Final: $"
+				+ new DecimalFormat("#.00").format(unaOferta.getPrecioFinal())
+				+ "\n" + "Menu: " + unaOferta.getMenu().getNombre() + "\n";
 		String cuerpoMenu = "";
 		if (unaOferta.getMenu().getPlatoEntrada() != null) {
 			cuerpoMenu = "Plato de Entrada: "

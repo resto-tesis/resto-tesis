@@ -83,7 +83,7 @@ public class PedidoServicio extends AbstractFactoryAndRepository {
 	@Programmatic
 	public boolean soloBebidas(final Pedido _pedido) {
 		return (_pedido.getComanda().getProductos().isEmpty() && _pedido
-				.getComanda().getMenues().isEmpty()) ? true : false;
+				.getComanda().getMenues().isEmpty()&&_pedido.getComanda().getOfertas().isEmpty()) ? true : false;
 	}
 
 	/**

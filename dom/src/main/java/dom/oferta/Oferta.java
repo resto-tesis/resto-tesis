@@ -17,7 +17,6 @@
 
 package dom.oferta;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -397,39 +396,6 @@ public class Oferta extends Observado {
 		if (numero != other.numero)
 			return false;
 		return true;
-	}
-
-
-	// {{ ListaClientes (Collection)
-	private List<Cliente> listaClientes = new ArrayList<Cliente>();
-
-	/**
-	 * Permite obtener un lista de todos Clientes
-	 * @return List<Cliente>
-	 */
-	@Hidden
-	public List<Cliente> getListaClientes() {
-		return contenedor.allInstances(Cliente.class);
-	}
-
-	/**
-	 * setea una lista de Clientes 
-	 * @param listaClientes List<Cliente>
-	 */
-	public void setListaClientes(final List<Cliente> listaClientes) {
-		this.listaClientes = listaClientes;
-	}
-
-	/**
-	 * Remueve un cliente de la lista un Cliente
-	 * @param cliente Cliente
-	 * @return this Lis<Cliente>
-	 */
-	@Hidden
-	@MemberOrder(name = "listaClientes", sequence = "2")
-	public Oferta quitarCliente(final Cliente cliente) {
-		getListaClientes().remove(cliente);
-		return this;
 	}
 
 	/**

@@ -99,6 +99,7 @@ public class Bebida extends ProductoNoElaborado {
 	/**
 	 * Inyeccion del contenedor
 	 */
+	@SuppressWarnings("unused")
 	@Inject
 	private DomainObjectContainer contenedor;
 

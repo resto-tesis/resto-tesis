@@ -55,6 +55,7 @@ public class Postre extends ProductoElaborado {
 	/**
 	 * Inyeccion del contenedor
 	 */
+	@SuppressWarnings("unused")
 	@Inject
 	private DomainObjectContainer contenedor;
 

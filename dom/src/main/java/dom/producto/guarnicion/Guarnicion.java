@@ -52,6 +52,7 @@ public class Guarnicion extends ProductoElaborado {
 	/**
 	 * Inyeccion del contenedor
 	 */
+	@SuppressWarnings("unused")
 	@Inject
 	private DomainObjectContainer contenedor;
 
