@@ -287,7 +287,7 @@ public abstract class Persona {
 	public String disableBaja() {
 		return getBaja() ? "Ya dado de Baja!" : null;
 	}
-
+	@Named("Cambiar Contraseña")
 	public Persona cambiarContrasenia(
 			@Named("Nueva Contraseña") final Password _nuevaContraseña,
 			@Named("Repita Contraseña") final Password _repitaContraseña) {
